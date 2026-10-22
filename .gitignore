@@ -1,0 +1,15 @@
+node_modules/
+dist/
+storybook-static/
+**/src/generated/
+.turbo/
+*.tsbuildinfo
+*.tgz
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db
+
+# local copy of the Slurp design system artifact (reference only)
+.ds-source/

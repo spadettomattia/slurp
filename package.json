@@ -1,0 +1,33 @@
+{
+  "name": "slurp-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "docs": "turbo run dev --filter=@slurp/docs",
+    "lint": "eslint .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check:pkg": "turbo run check:pkg",
+    "size": "turbo run size",
+    "format": "prettier --write .",
+    "clean": "turbo run clean && rimraf .turbo",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build check:pkg size && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@slurp/eslint-config": "workspace:*",
+    "eslint": "^10.13.0",
+    "prettier": "^3.9.10",
+    "rimraf": "^6.1.3",
+    "turbo": "^2.11.10",
+    "typescript": "~6.0.3"
+  }
+}

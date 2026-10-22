@@ -1,0 +1,8 @@
+dist
+storybook-static
+**/src/generated
+.ds-source
+pnpm-lock.yaml
+.changeset/*.md
+packages/tokens/src/tokens.json
+packages/tokens/src/README.md
