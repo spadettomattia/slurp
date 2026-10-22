@@ -1,0 +1,20 @@
+{
+  "name": "@slurp/utils",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Internal helpers, bundled into @slurp/ui (never published).",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@slurp/tsconfig": "workspace:*",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

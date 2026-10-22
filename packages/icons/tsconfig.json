@@ -1,0 +1,4 @@
+{
+  "extends": "@slurp/tsconfig/react.json",
+  "include": ["src", "test", "tsdown.config.ts"]
+}

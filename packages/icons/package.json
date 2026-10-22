@@ -1,0 +1,43 @@
+{
+  "name": "@slurp/icons",
+  "version": "0.0.0",
+  "description": "Slurp icons: inline stroke SVG (2px, round caps), currentColor, tree-shakable.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spadettomattia/slurp.git",
+    "directory": "packages/icons"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc",
+    "test": "vitest run --passWithNoTests",
+    "check:pkg": "publint && attw --pack . --profile esm-only",
+    "clean": "rimraf dist .turbo"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@slurp/tsconfig": "workspace:*",
+    "@slurp/tsdown-config": "workspace:*",
+    "publint": "^0.3.25",
+    "rimraf": "^6.1.3",
+    "tsdown": "^0.23.1",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
+  }
+}
