@@ -7,6 +7,7 @@ import { formatValue, TokenPage, Usage, VarName } from './TokenPage';
 const meta = {
   title: 'Tokens/Colori',
   tags: ['autodocs'],
+  parameters: { slurp: { bare: true } },
 } satisfies Meta;
 
 export default meta;

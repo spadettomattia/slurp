@@ -12,17 +12,36 @@ npm i @slurp/ui
 
 ```tsx
 import '@slurp/ui/styles.css';
-import { cssVar, space, COMPACT_QUERY } from '@slurp/ui/tokens';
+import { createTheme, Ground, SlurpProvider, Text } from '@slurp/ui';
+
+const theme = createTheme({ accent: 'hue-teal', tokens: { radius: { card: 30 } } });
+
+export function App() {
+  return (
+    <SlurpProvider theme={theme}>
+      <Ground />
+      <Text font="display-xl">Di cosa hai bisogno?</Text>
+    </SlurpProvider>
+  );
+}
 ```
 
-## Stato
+## Contenuto
 
-I token del design system sono disponibili come CSS custom properties `--slurp-*` (tema chiaro e scuro) e come costanti TypeScript.
+- Token del design system come CSS custom properties `--slurp-*` (chiaro e scuro) e costanti TypeScript.
+- Sistema: `createTheme`, `SlurpProvider`, `useColorScheme`, `AccentScope` / `vivid()`, prop `css`.
+- Fondamenta: `Ground`, `Cell`, `Flow`, `Frame`, `Text`, `Surface`.
 
-- `@slurp/ui/styles.css` — font Poppins + token, dentro `@layer slurp.base`: gli override del consumer vincono senza `!important`.
-- `@slurp/ui/tokens.css` — solo i token.
-- `@slurp/ui/tokens` — `color`, `hue`, `space`, `radius`, `font`, `vars`, `cssVar()`, `COMPACT_QUERY`.
+## Personalizzare
 
-## Tema
+Tre livelli, dal più globale al più locale:
 
-`data-theme="light"` o `data-theme="dark"` su `<html>` (o su un sottoalbero) vince sempre su `prefers-color-scheme`. Senza attributo il tema segue il sistema. Prova dalla toolbar: Tema → Automatico / Chiaro / Scuro.
+1. **Tema** — `createTheme({ accent, tokens, components })`: accento, override dei token, default e `css` per componente.
+2. **Prop `css`** — token (`p: 4`, `bg: 'accent-soft'`, `radius: 'card'`, `font: 'title-l'`), selettori (`'&:hover'`), breakpoint (`{ base, compact, wide }`).
+3. **Variabili CSS** — `style={{ '--slurp-surface-radius': '12px' }}`, senza runtime.
+
+Gli stili stanno in `@layer slurp.reset, slurp.base, slurp.components, slurp.utilities`: i CSS del consumer vincono senza `!important`.
+
+## Tema chiaro e scuro
+
+`data-theme="light"` o `data-theme="dark"` su `<html>` (o su un sottoalbero) vince sempre su `prefers-color-scheme`. `useColorScheme()` restituisce `{ mode, setMode, resolved }` e ricorda la scelta. Con il rendering lato server, `<ColorSchemeScript />` in `<head>` applica la scelta prima del primo paint.

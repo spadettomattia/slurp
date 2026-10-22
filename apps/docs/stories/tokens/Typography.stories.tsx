@@ -8,6 +8,7 @@ import { TokenPage, Usage } from './TokenPage';
 const meta = {
   title: 'Tokens/Tipografia',
   tags: ['autodocs'],
+  parameters: { slurp: { bare: true } },
 } satisfies Meta;
 
 export default meta;

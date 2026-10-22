@@ -1,21 +1,40 @@
 import type { Decorator, Preview } from '@storybook/react-vite';
+import {
+  createTheme,
+  Ground,
+  SlurpProvider,
+  type AccentInput,
+  type ColorSchemeMode,
+} from '@slurp/ui';
+import { hue } from '@slurp/ui/tokens';
 
 import '@slurp/ui/styles.css';
 import './docs.css';
 
-type ThemeMode = 'system' | 'light' | 'dark';
-
-// Same contract as the design system: data-theme on the root wins over prefers-color-scheme; no attribute = system.
-const withTheme: Decorator = (Story, context) => {
-  const mode = context.globals.theme as ThemeMode;
-  const root = document.documentElement;
-  if (mode === 'system') root.removeAttribute('data-theme');
-  else root.setAttribute('data-theme', mode);
-  return <Story />;
+// Toolbar → theme. storageKey={null}: the toolbar decides, nothing is remembered between stories.
+// Stories with `parameters.slurp.bare` paint their own page (the token pages); the others sit on the Slurp ground.
+const withSlurp: Decorator = (Story, context) => {
+  const theme = createTheme({
+    colorScheme: context.globals.theme as ColorSchemeMode,
+    accent: context.globals.accent as AccentInput,
+  });
+  const bare = (context.parameters.slurp as { bare?: boolean } | undefined)?.bare;
+  return (
+    <SlurpProvider theme={theme} storageKey={null}>
+      <Ground />
+      {bare ? (
+        <Story />
+      ) : (
+        <div className="docs-canvas">
+          <Story />
+        </div>
+      )}
+    </SlurpProvider>
+  );
 };
 
 const preview: Preview = {
-  decorators: [withTheme],
+  decorators: [withSlurp],
   globalTypes: {
     theme: {
       description: 'Tema',
@@ -30,14 +49,23 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    accent: {
+      description: 'Accento',
+      toolbar: {
+        title: 'Accento',
+        icon: 'paintbrush',
+        items: Object.keys(hue).map((name) => ({ value: `hue-${name}`, title: `hue-${name}` })),
+        dynamicTitle: true,
+      },
+    },
   },
-  initialGlobals: { theme: 'system' },
+  initialGlobals: { theme: 'system', accent: 'hue-violet' },
   parameters: {
     layout: 'fullscreen',
     // axe must be green: violations fail the story in the test runner.
     a11y: { test: 'error' },
     options: {
-      storySort: { order: ['Introduzione', 'Tokens'] },
+      storySort: { order: ['Introduzione', 'Tokens', 'Sistema', 'Fondamenta'] },
     },
   },
 };

@@ -137,3 +137,36 @@
     height: 48px;
   }
 }
+
+/* Canvas of component stories: the Slurp ground (bg tinted 7% by the accent), also inside Docs pages. */
+.docs-canvas {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: var(--slurp-space-6);
+  background: color-mix(in oklab, var(--slurp-accent) 7%, var(--slurp-bg));
+  color: var(--slurp-fg);
+  font: var(--slurp-font-body);
+}
+
+/* Decorative backdrop that shows the translucency of surfaces. */
+.docs-backdrop {
+  padding: var(--slurp-space-8);
+  border-radius: var(--slurp-radius-panel);
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      color-mix(in oklab, var(--slurp-accent) 55%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      color-mix(in oklab, var(--slurp-hue-sky) 45%, transparent),
+      transparent 55%
+    );
+}
+
+.docs-box {
+  padding: var(--slurp-space-3) var(--slurp-space-4);
+  border-radius: var(--slurp-radius-md);
+  background: var(--slurp-accent-soft);
+}
