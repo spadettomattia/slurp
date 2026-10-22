@@ -36,6 +36,11 @@ export type {
 } from './lib/css';
 export { alpha, contrast, CONTRAST_MIN, meetsContrast, onColor, vivid } from './lib/color';
 
+// Motion (opt-in): components only register, useSlurp() starts the transitions. Engine: @slurp-ui/react/motion
+export { AnimationGroup, type AnimationGroupProps } from './motion/AnimationGroup';
+export { useAnimationTarget, type AnimationProps } from './motion/useAnimationTarget';
+export { useSlurp, type SlurpControls } from './motion/useSlurp';
+
 // Foundations
 export { AccentScope, type AccentScopeProps } from './AccentScope';
 export { Cell, type CellProps } from './Cell';

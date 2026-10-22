@@ -1,6 +1,7 @@
 import { cx } from '@slurp-ui/utils';
 import type { ElementType } from 'react';
 
+import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import type { PolymorphicProps } from '../lib/polymorphic';
 
@@ -28,6 +29,7 @@ export function Surface<E extends ElementType = 'div'>(props: SurfaceProps<E>) {
   } = useThemeProps('Surface', props as SurfaceProps);
   const Root: ElementType = as ?? 'div';
   const styled = useCss('Surface', 'root', css);
+  const root = useAnimationRoot(rest);
   return (
     <>
       {styled.style}
@@ -35,7 +37,7 @@ export function Surface<E extends ElementType = 'div'>(props: SurfaceProps<E>) {
         className={cx('slurp-surface', styled.className, className)}
         data-level={level}
         data-radius={radius}
-        {...rest}
+        {...root}
       />
     </>
   );

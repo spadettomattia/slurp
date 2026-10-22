@@ -1,9 +1,13 @@
 import type { ComponentPropsWithRef, ElementType } from 'react';
 
+import type { AnimationProps } from '../motion/useAnimationTarget';
 import type { SlurpCss } from './css';
 
-/** Props shared by every Slurp component: per-instance `css`, plus `className` / `style` forwarded to the root. */
-export interface BaseProps {
+/**
+ * Props shared by every Slurp component: per-instance `css`, the animation* registration props, plus `className` /
+ * `style` forwarded to the root.
+ */
+export interface BaseProps extends AnimationProps {
   /** Per-instance style with design tokens, pseudo selectors and breakpoints. */
   css?: SlurpCss;
 }

@@ -12,7 +12,18 @@ describe('createTheme', () => {
       accentColor: hue.violet,
       locale: 'it-IT',
       tokens: {},
-      motion: { duration: 650, reducedMotion: 'user' },
+      motion: {
+        duration: 650,
+        stagger: 0.35,
+        curve: 0.16,
+        swell: 1.08,
+        drop: 18,
+        goo: 'auto',
+        ghost: 'shape',
+        order: 'distance',
+        reducedMotion: 'user',
+        interrupt: 'reverse',
+      },
       components: {},
     });
   });
@@ -23,8 +34,10 @@ describe('createTheme', () => {
   });
 
   it('merges motion options', () => {
-    expect(createTheme({ motion: { duration: 400 } }).motion).toEqual({
+    expect(createTheme({ motion: { duration: 400, ghost: 'snapshot' } }).motion).toMatchObject({
       duration: 400,
+      ghost: 'snapshot',
+      stagger: 0.35,
       reducedMotion: 'user',
     });
   });

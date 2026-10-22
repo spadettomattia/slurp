@@ -1,5 +1,6 @@
 // createTheme() and the stylesheet that applies a theme. Server-safe: a theme is plain, serialisable data,
 // so it can be created in a server component and passed to <SlurpProvider>.
+import { MOTION_DEFAULTS, type GhostKind, type SlurpDefaults } from '@slurp-ui/motion';
 import type { blur, ColorToken, HueToken, RadiusToken, shadow, SpaceToken } from '@slurp-ui/tokens';
 
 import type { AccentScopeProps } from '../AccentScope/AccentScope';
@@ -27,12 +28,29 @@ export interface TokenOverrides {
   blur?: Partial<Record<keyof typeof blur, Length>>;
 }
 
-export interface MotionOptions {
-  /** Default duration of the collapse / expand transition, in ms. */
-  duration: number;
-  /** `user` follows prefers-reduced-motion; `always` / `never` force it. */
-  reducedMotion: 'user' | 'always' | 'never';
+/** Defaults of the collapse / expand transitions started with useSlurp() (serialisable values only). */
+export interface MotionOptions extends Pick<
+  SlurpDefaults,
+  'duration' | 'stagger' | 'curve' | 'swell' | 'drop' | 'reducedMotion' | 'interrupt'
+> {
+  goo: boolean | 'auto';
+  ghost: GhostKind;
+  order: 'distance' | 'dom';
 }
+
+const { duration, stagger, curve, swell, drop, reducedMotion, interrupt } = MOTION_DEFAULTS;
+const DEFAULT_MOTION: MotionOptions = {
+  duration,
+  stagger,
+  curve,
+  swell,
+  drop,
+  reducedMotion,
+  interrupt,
+  goo: 'auto',
+  ghost: 'shape',
+  order: 'distance',
+};
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
@@ -88,7 +106,7 @@ export function createTheme(options: ThemeOptions = {}): Theme {
     accentColor: resolveAccent(accent),
     locale: options.locale ?? 'it-IT',
     tokens: options.tokens ?? {},
-    motion: { duration: 650, reducedMotion: 'user', ...options.motion },
+    motion: { ...DEFAULT_MOTION, ...options.motion },
     components: options.components ?? {},
   };
 }

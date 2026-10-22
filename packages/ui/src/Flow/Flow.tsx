@@ -1,6 +1,7 @@
 import { cx } from '@slurp-ui/utils';
 import type { CSSProperties, ElementType } from 'react';
 
+import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import type { MaybeResponsive, SlurpCss, SpaceValue } from '../lib/css';
 import type { PolymorphicProps } from '../lib/polymorphic';
@@ -32,10 +33,11 @@ export function Flow<E extends ElementType = 'div'>(props: FlowProps<E>) {
     flexWrap: wrap ? 'wrap' : undefined,
   };
   const styled = useCss('Flow', 'root', layout, css);
+  const root = useAnimationRoot(rest);
   return (
     <>
       {styled.style}
-      <Root className={cx('slurp-flow', styled.className, className)} {...rest} />
+      <Root className={cx('slurp-flow', styled.className, className)} {...root} />
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { FontToken } from '@slurp-ui/tokens';
 import { cx } from '@slurp-ui/utils';
 import type { ElementType } from 'react';
 
+import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import type { PolymorphicProps } from '../lib/polymorphic';
 
@@ -42,6 +43,7 @@ export function Text<E extends ElementType = 'p'>(props: TextProps<E>) {
   } = useThemeProps('Text', props as TextProps);
   const Root: ElementType = as ?? ELEMENT[font] ?? 'p';
   const styled = useCss('Text', 'root', css);
+  const root = useAnimationRoot(rest);
   return (
     <>
       {styled.style}
@@ -50,7 +52,7 @@ export function Text<E extends ElementType = 'p'>(props: TextProps<E>) {
         data-font={font}
         data-tone={tone}
         data-muted={muted === undefined ? undefined : String(muted)}
-        {...rest}
+        {...root}
       />
     </>
   );

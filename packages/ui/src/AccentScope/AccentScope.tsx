@@ -1,6 +1,7 @@
 import { cx } from '@slurp-ui/utils';
 import { useMemo, type CSSProperties, type ElementType } from 'react';
 
+import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import { accentVars, resolveAccent } from '../lib/color';
 import type { PolymorphicProps } from '../lib/polymorphic';
@@ -28,13 +29,14 @@ export function AccentScope<E extends ElementType = 'div'>(props: AccentScopePro
   const Root: ElementType = as ?? 'div';
   const styled = useCss('AccentScope', 'root', css);
   const vars = useMemo(() => accentVars(resolveAccent(color)), [color]);
+  const root = useAnimationRoot(rest);
   return (
     <>
       {styled.style}
       <Root
         className={cx('slurp-accent-scope', styled.className, className)}
         style={{ ...vars, ...style } as CSSProperties}
-        {...rest}
+        {...root}
       />
     </>
   );

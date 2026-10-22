@@ -1,6 +1,7 @@
 import { cx } from '@slurp-ui/utils';
 import type { ElementType } from 'react';
 
+import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import type { PolymorphicProps } from '../lib/polymorphic';
 
@@ -11,10 +12,11 @@ export function Frame<E extends ElementType = 'div'>(props: FrameProps<E>) {
   const { as, css, className, ...rest } = useThemeProps('Frame', props as FrameProps);
   const Root: ElementType = as ?? 'div';
   const styled = useCss('Frame', 'root', css);
+  const root = useAnimationRoot(rest);
   return (
     <>
       {styled.style}
-      <Root className={cx('slurp-frame', styled.className, className)} {...rest} />
+      <Root className={cx('slurp-frame', styled.className, className)} {...root} />
     </>
   );
 }
