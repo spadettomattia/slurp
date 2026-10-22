@@ -31,6 +31,7 @@ export function App() {
 - Token del design system come CSS custom properties `--slurp-*` (chiaro e scuro) e costanti TypeScript.
 - Sistema: `createTheme`, `SlurpProvider`, `useColorScheme`, `AccentScope` / `vivid()`, prop `css`.
 - Fondamenta: `Ground`, `Cell`, `Flow`, `Frame`, `Text`, `Surface`.
+- Animazione (opzionale): `useSlurp`, `AnimationGroup` e le props `animation*` di ogni componente; il motore è in `@slurp-ui/react/motion`.
 
 ## Personalizzare
 
@@ -41,6 +42,27 @@ Tre livelli, dal più globale al più locale:
 3. **Variabili CSS** — `style={{ '--slurp-surface-radius': '12px' }}`, senza runtime.
 
 Gli stili stanno in `@layer slurp.reset, slurp.base, slurp.components, slurp.utilities`: i CSS del consumer vincono senza `!important`.
+
+## Animazione
+
+La transizione collapse / expand è opzionale: i componenti si limitano a registrarsi con `animationId` (e `animationGroup`), l'avvio è sempre di `useSlurp()`.
+
+```tsx
+const { collapse, expand } = useSlurp();
+
+<AnimationGroup id="tiles">
+  {sections.map((s) => (
+    <Cell key={s.id} animationId={`tile-${s.id}`} onClick={() => open(s)} />
+  ))}
+</AnimationGroup>;
+
+// n → 1 per andare avanti: le tile si fondono nel crumb, la scelta per ultima.
+await collapse({ items: { group: 'tiles' }, target: 'crumb', lead: `tile-${s.id}` }).finished;
+// 1 → n per tornare indietro.
+expand({ source: 'crumb', items: { group: 'tiles' } });
+```
+
+Con `prefers-reduced-motion` diventa una dissolvenza di 150 ms. I default (durata, sfalsamento, goo, ghost…) stanno in `createTheme({ motion })`.
 
 ## Tema chiaro e scuro
 
