@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc",
-    "clean": "rimraf dist .turbo"
+    "clean": "rimraf dist .turbo",
+    "test:visual": "playwright test"
   },
   "dependencies": {
     "@slurp-ui/react": "workspace:*",
@@ -16,7 +17,9 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
     "@slurp-ui/tsconfig": "workspace:*",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^5.2.0",
