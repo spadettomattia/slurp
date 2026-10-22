@@ -1,0 +1,10 @@
+/* @slurp/ui stylesheet: fonts, tokens and component styles. Bundled into dist/styles.css by scripts/build-css.ts. */
+@layer slurp.reset, slurp.base, slurp.components, slurp.utilities;
+
+@import '@slurp/tokens/fonts.css';
+@import '@slurp/tokens/tokens.css';
+@import './AccentScope/AccentScope.css';
+@import './Flow/Flow.css';
+@import './Frame/Frame.css';
+@import './Surface/Surface.css';
+@import './Text/Text.css';

@@ -1,0 +1,18 @@
+/* Registered so the accent can transition; derived colours reference it and follow along. */
+@property --slurp-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #8b6fff;
+}
+
+@layer slurp.components {
+  .slurp-accent-scope {
+    transition: --slurp-accent 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-accent-scope {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,100 @@
+@layer slurp.components {
+  .slurp-text {
+    margin: 0;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
+  }
+
+  .slurp-text[data-font='display-xl'] {
+    font: var(--slurp-font-display-xl);
+    letter-spacing: var(--slurp-font-display-xl-tracking);
+  }
+
+  .slurp-text[data-font='display-l'] {
+    font: var(--slurp-font-display-l);
+    letter-spacing: var(--slurp-font-display-l-tracking);
+  }
+
+  .slurp-text[data-font='title-xl'] {
+    font: var(--slurp-font-title-xl);
+    letter-spacing: var(--slurp-font-title-xl-tracking);
+  }
+
+  .slurp-text[data-font='figure'] {
+    font: var(--slurp-font-figure);
+    letter-spacing: var(--slurp-font-figure-tracking);
+  }
+
+  .slurp-text[data-font='tile-label'] {
+    font: var(--slurp-font-tile-label);
+    letter-spacing: var(--slurp-font-tile-label-tracking);
+  }
+
+  .slurp-text[data-font='title-l'] {
+    font: var(--slurp-font-title-l);
+    letter-spacing: var(--slurp-font-title-l-tracking);
+  }
+
+  .slurp-text[data-font='title-s'] {
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  .slurp-text[data-font='body-l'] {
+    font: var(--slurp-font-body-l);
+    letter-spacing: var(--slurp-font-body-l-tracking);
+  }
+
+  .slurp-text[data-font='body'] {
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
+  }
+
+  .slurp-text[data-font='body-s'] {
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-text[data-font='label'] {
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-text[data-font='caption'] {
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  .slurp-text[data-font='eyebrow'] {
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+  }
+
+  /* Design system: eyebrows are UPPERCASE; captions and eyebrows are muted. */
+  .slurp-text[data-font='eyebrow'] {
+    text-transform: uppercase;
+  }
+
+  .slurp-text:is([data-font='caption'], [data-font='eyebrow']):not([data-muted='false']),
+  .slurp-text[data-muted='true'] {
+    color: var(--slurp-muted);
+  }
+
+  /* Doubled class: an explicit tone wins over the default muted of captions and eyebrows. */
+  .slurp-text.slurp-text[data-tone='accent'] {
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-text.slurp-text[data-tone='success'] {
+    color: var(--slurp-success);
+  }
+
+  .slurp-text.slurp-text[data-tone='warning'] {
+    color: var(--slurp-warning);
+  }
+
+  .slurp-text.slurp-text[data-tone='danger'] {
+    color: var(--slurp-danger);
+  }
+}

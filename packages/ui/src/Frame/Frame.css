@@ -1,0 +1,16 @@
+@layer slurp.components {
+  /* Layout of the design system: max width 1280px, gutter 16–24px (no token for these two yet). */
+  .slurp-frame {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--slurp-frame-max, 1280px);
+    margin-inline: auto;
+    padding-inline: var(--slurp-frame-gutter, var(--slurp-space-6));
+  }
+
+  @media (max-width: 640px) {
+    .slurp-frame {
+      padding-inline: var(--slurp-frame-gutter, var(--slurp-space-4));
+    }
+  }
+}
