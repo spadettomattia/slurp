@@ -26,7 +26,7 @@
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "check:pkg": "publint && attw --pack . --profile esm-only",
     "size": "size-limit",
     "clean": "rimraf dist .turbo"
@@ -44,6 +44,7 @@
     "@size-limit/preset-small-lib": "^14.2.0",
     "@slurp-ui/tsconfig": "workspace:*",
     "@slurp-ui/tsdown-config": "workspace:*",
+    "jsdom": "^30.1.3",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",
     "size-limit": "^14.2.0",
