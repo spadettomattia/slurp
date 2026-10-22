@@ -1,0 +1,50 @@
+{
+  "name": "@slurp/tokens",
+  "version": "0.0.0",
+  "description": "Slurp design tokens: CSS custom properties (--slurp-*, light/dark) and typed TS constants.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spadettomattia/slurp.git",
+    "directory": "packages/tokens"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./fonts.css": "./dist/fonts.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate": "node --disable-warning=ExperimentalWarning scripts/generate.ts",
+    "build": "tsdown",
+    "typecheck": "tsc",
+    "test": "vitest run",
+    "check:pkg": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css ./fonts.css",
+    "clean": "rimraf dist src/generated .turbo"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@slurp/tsconfig": "workspace:*",
+    "@slurp/tsdown-config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "publint": "^0.3.25",
+    "rimraf": "^6.1.3",
+    "tsdown": "^0.23.1",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

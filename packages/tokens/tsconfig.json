@@ -1,0 +1,7 @@
+{
+  "extends": "@slurp/tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", "scripts", "test", "tsdown.config.ts"]
+}
