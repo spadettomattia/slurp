@@ -24,6 +24,8 @@ export default [
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+      // `import { type A } from 'x'` keeps a side-effect `import 'x'` under verbatimModuleSyntax.
+      '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
