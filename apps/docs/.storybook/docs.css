@@ -1,0 +1,139 @@
+/* Layout of the documentation pages only: not part of the library. Every value comes from @slurp/tokens. */
+.docs-page {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: var(--slurp-space-8) var(--slurp-space-6);
+  background: var(--slurp-bg);
+  color: var(--slurp-fg);
+  font: var(--slurp-font-body);
+}
+
+.docs-page h1 {
+  margin: 0 0 var(--slurp-space-2);
+  font: var(--slurp-font-title-xl);
+  letter-spacing: var(--slurp-font-title-xl-tracking);
+}
+
+.docs-page h2 {
+  margin: var(--slurp-space-8) 0 var(--slurp-space-4);
+  font: var(--slurp-font-title-l);
+  letter-spacing: var(--slurp-font-title-l-tracking);
+}
+
+.docs-lead {
+  max-width: 70ch;
+  margin: 0 0 var(--slurp-space-6);
+  color: var(--slurp-muted);
+  font: var(--slurp-font-body-l);
+}
+
+.docs-muted {
+  color: var(--slurp-muted);
+  font: var(--slurp-font-caption);
+}
+
+.docs-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+.docs-rows {
+  display: grid;
+  gap: var(--slurp-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.docs-row {
+  display: grid;
+  grid-template-columns: 64px minmax(160px, 1fr) minmax(0, 2fr);
+  gap: var(--slurp-space-4);
+  align-items: center;
+  padding: var(--slurp-space-3) var(--slurp-space-4);
+  border-radius: var(--slurp-radius-md);
+  background: var(--slurp-surface);
+  border: 1px solid var(--slurp-line);
+}
+
+.docs-row p {
+  margin: 0;
+}
+
+.docs-swatch {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--slurp-radius-sm);
+  border: 1px solid var(--slurp-line);
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--slurp-space-5);
+}
+
+.docs-hue {
+  display: grid;
+  justify-items: start;
+  gap: var(--slurp-space-2);
+}
+
+.docs-hue-fill {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--slurp-radius-full);
+  color: var(--slurp-on-accent);
+  font: var(--slurp-font-label);
+}
+
+.docs-type {
+  display: grid;
+  gap: var(--slurp-space-1);
+  padding: var(--slurp-space-4) 0;
+  border-bottom: 1px solid var(--slurp-line);
+}
+
+.docs-bar {
+  height: 24px;
+  border-radius: var(--slurp-radius-full);
+  background: var(--slurp-accent);
+}
+
+.docs-radius {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: var(--slurp-accent-soft);
+  border: 2px solid var(--slurp-accent-ink);
+}
+
+.docs-float {
+  padding: var(--slurp-space-6);
+  border-radius: var(--slurp-radius-card);
+  background: var(--slurp-surface);
+  border: 1px solid var(--slurp-line);
+  box-shadow: var(--slurp-shadow-float);
+  backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+}
+
+@media (max-width: 640px) {
+  .docs-page {
+    padding: var(--slurp-space-6) var(--slurp-space-4);
+  }
+
+  .docs-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .docs-row > :last-child {
+    grid-column: 1 / -1;
+  }
+
+  .docs-swatch {
+    width: 48px;
+    height: 48px;
+  }
+}

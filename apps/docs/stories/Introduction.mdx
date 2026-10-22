@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduzione" />
+
+# Slurp UI
+
+Libreria React del design system Slurp: componenti pronti, personalizzazione per istanza e, su richiesta, la transizione collapse / expand.
+
+```bash
+npm i @slurp/ui
+```
+
+```tsx
+import '@slurp/ui/styles.css';
+import { cssVar, space, COMPACT_QUERY } from '@slurp/ui/tokens';
+```
+
+## Stato
+
+I token del design system sono disponibili come CSS custom properties `--slurp-*` (tema chiaro e scuro) e come costanti TypeScript.
+
+- `@slurp/ui/styles.css` — font Poppins + token, dentro `@layer slurp.base`: gli override del consumer vincono senza `!important`.
+- `@slurp/ui/tokens.css` — solo i token.
+- `@slurp/ui/tokens` — `color`, `hue`, `space`, `radius`, `font`, `vars`, `cssVar()`, `COMPACT_QUERY`.
+
+## Tema
+
+`data-theme="light"` o `data-theme="dark"` su `<html>` (o su un sottoalbero) vince sempre su `prefers-color-scheme`. Senza attributo il tema segue il sistema. Prova dalla toolbar: Tema → Automatico / Chiaro / Scuro.
