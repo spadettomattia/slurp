@@ -208,29 +208,30 @@ export function buildCss(model: Model): string {
 @layer slurp.reset, slurp.base, slurp.components, slurp.utilities;
 
 @layer slurp.base {
-  :root {
+  :where(:root) {
 ${[...fixed.map((e) => decl(e.name, cssValue(model, e, 'light'))), ...fontVars(model).map(([n, v]) => decl(n, v))].join('\n')}
   }
 
-  /* Themed tokens. data-theme always wins over the system setting, on the root or on any subtree. */
-  :root,
-  [data-theme='light'] {
+  /* Themed tokens. data-theme always wins over the system setting, on the root or on any subtree.
+     Every selector is wrapped in :where() (zero specificity): theme overrides and AccentScope win whatever
+     the stylesheet order, and between these blocks only their order decides. */
+  :where(:root, [data-theme='light']) {
 ${themeBlock('light')}
   }
 
-  [data-theme='dark'] {
+  :where([data-theme='dark']) {
 ${themeBlock('dark')}
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) {
+    :where(:root:not([data-theme='light'])) {
 ${themeBlock('dark').replace(/^ {4}/gm, '      ')}
     }
   }
 
   /* Compact (phone) type scale. */
   @media ${model.compactQuery} {
-    :root {
+    :where(:root) {
 ${compact.join('\n').replace(/^ {4}/gm, '      ')}
     }
   }

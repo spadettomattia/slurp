@@ -43,9 +43,9 @@ describe('tokens.css', () => {
   });
 
   it('gives every themed token both a light and a dark value', () => {
-    const light = block(":root,\n  [data-theme='light']");
-    const dark = block("[data-theme='dark']");
-    const systemDark = block(":root:not([data-theme='light'])");
+    const light = block(":where(:root, [data-theme='light'])");
+    const dark = block(":where([data-theme='dark'])");
+    const systemDark = block(":where(:root:not([data-theme='light']))");
     for (const token of src.color.tokens) {
       if (typeof token.value === 'string' || token.value.light === token.value.dark) continue;
       expect(light).toContain(`${varName(token.name)}: ${token.value.light};`);
@@ -55,9 +55,19 @@ describe('tokens.css', () => {
   });
 
   it('emits aliases of themed tokens inside each theme block, so subtrees re-resolve them', () => {
-    expect(block("[data-theme='dark']")).toContain('--slurp-focus: var(--slurp-accent-ink);');
-    expect(block(':root')).not.toContain('--slurp-focus');
+    expect(block(":where([data-theme='dark'])")).toContain(
+      '--slurp-focus: var(--slurp-accent-ink);',
+    );
+    expect(block(':where(:root)')).not.toContain('--slurp-focus');
     expect(resolve(model, 'focus')).toEqual({ light: '#463b79', dark: '#c1baff' });
+  });
+
+  it('uses zero-specificity selectors only, so theme overrides win whatever the stylesheet order', () => {
+    const selectors = [...css.matchAll(/^ *([^@\s/*-][^{\n]*)\{$/gm)].map((m) =>
+      String(m[1]).trim(),
+    );
+    expect(selectors.length).toBeGreaterThan(0);
+    for (const selector of selectors) expect(selector).toMatch(/^:where\(.+\)$/);
   });
 
   it('wraps everything in the slurp.base layer, after the layer order statement', () => {
