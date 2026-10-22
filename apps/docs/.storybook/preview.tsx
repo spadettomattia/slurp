@@ -5,10 +5,10 @@ import {
   SlurpProvider,
   type AccentInput,
   type ColorSchemeMode,
-} from '@slurp/ui';
-import { hue } from '@slurp/ui/tokens';
+} from '@slurp-ui/react';
+import { hue } from '@slurp-ui/react/tokens';
 
-import '@slurp/ui/styles.css';
+import '@slurp-ui/react/styles.css';
 import './docs.css';
 
 // Toolbar → theme. storageKey={null}: the toolbar decides, nothing is remembered between stories.

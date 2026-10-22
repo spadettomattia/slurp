@@ -1,1 +1,1 @@
-export * from '@slurp/motion';
+export * from '@slurp-ui/motion';

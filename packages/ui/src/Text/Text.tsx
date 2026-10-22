@@ -1,5 +1,5 @@
-import type { FontToken } from '@slurp/tokens';
-import { cx } from '@slurp/utils';
+import type { FontToken } from '@slurp-ui/tokens';
+import { cx } from '@slurp-ui/utils';
 import type { ElementType } from 'react';
 
 import { useCss, useThemeProps } from '../internal/styled';

@@ -1,5 +1,5 @@
-// @slurp/ui — components, theme, provider and hooks of the Slurp design system.
-// Subpaths: @slurp/ui/<Component> · @slurp/ui/tokens · @slurp/ui/motion · @slurp/ui/icons · @slurp/ui/styles.css
+// @slurp-ui/react — components, theme, provider and hooks of the Slurp design system.
+// Subpaths: @slurp-ui/react/<Component> · @slurp-ui/react/tokens · @slurp-ui/react/motion · @slurp-ui/react/icons · @slurp-ui/react/styles.css
 
 // Theme and provider
 export {

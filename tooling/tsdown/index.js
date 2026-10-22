@@ -1,4 +1,4 @@
-// Shared tsdown config for the publishable @slurp/* packages.
+// Shared tsdown config for the publishable @slurp-ui/* packages.
 // ESM-only, one output file per source module (deep imports + tree-shaking), .d.ts next to each file.
 
 /**

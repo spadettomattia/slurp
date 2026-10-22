@@ -27,5 +27,5 @@ await Promise.all([
 ]);
 
 console.log(
-  `@slurp/tokens: ${model.entries.length} tokens, ${Object.keys(model.fonts).length} type styles → src/generated`,
+  `@slurp-ui/tokens: ${model.entries.length} tokens, ${Object.keys(model.fonts).length} type styles → src/generated`,
 );

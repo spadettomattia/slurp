@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { usage, vars, type TokenName } from '@slurp/ui/tokens';
+import { usage, vars, type TokenName } from '@slurp-ui/react/tokens';
 
 /** Paints the page on the Slurp ground, so stories read the same in the canvas and inside Docs pages. */
 export function TokenPage({

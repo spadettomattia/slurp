@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/tokens",
+  "name": "@slurp-ui/tokens",
   "version": "0.0.0",
   "description": "Slurp design tokens: CSS custom properties (--slurp-*, light/dark) and typed TS constants.",
   "license": "MIT",
@@ -38,8 +38,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@slurp/tsconfig": "workspace:*",
-    "@slurp/tsdown-config": "workspace:*",
+    "@slurp-ui/tsconfig": "workspace:*",
+    "@slurp-ui/tsdown-config": "workspace:*",
     "@types/node": "^24.0.0",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",

@@ -1,4 +1,4 @@
-import { hue } from '@slurp/tokens';
+import { hue } from '@slurp-ui/tokens';
 import { describe, expect, it } from 'vitest';
 
 import { alpha, contrast, meetsContrast, onColor, vivid } from '../src/lib/color';

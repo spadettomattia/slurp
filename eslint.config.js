@@ -1,3 +1,3 @@
-import slurp from '@slurp/eslint-config';
+import slurp from '@slurp-ui/eslint-config';
 
 export default slurp;

@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/icons",
+  "name": "@slurp-ui/icons",
   "version": "0.0.0",
   "description": "Slurp icons: inline stroke SVG (2px, round caps), currentColor, tree-shakable.",
   "license": "MIT",
@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@slurp/tsconfig": "workspace:*",
-    "@slurp/tsdown-config": "workspace:*",
+    "@slurp-ui/tsconfig": "workspace:*",
+    "@slurp-ui/tsdown-config": "workspace:*",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",
     "tsdown": "^0.23.1",

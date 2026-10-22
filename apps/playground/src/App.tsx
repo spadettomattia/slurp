@@ -1,4 +1,4 @@
-import { cssVar } from '@slurp/ui/tokens';
+import { cssVar } from '@slurp-ui/react/tokens';
 
 // Real-world test bed of the collapse/expand flow (entry grid → list → detail).
 export function App() {

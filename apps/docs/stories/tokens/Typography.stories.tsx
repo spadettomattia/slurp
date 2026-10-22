@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import source from '@slurp/tokens/tokens.json';
-import { cssVar, font, fontFamily, type TokenName } from '@slurp/ui/tokens';
+import source from '@slurp-ui/tokens/tokens.json';
+import { cssVar, font, fontFamily, type TokenName } from '@slurp-ui/react/tokens';
 
 import { TokenPage, Usage } from './TokenPage';
 

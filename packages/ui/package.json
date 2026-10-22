@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/ui",
+  "name": "@slurp-ui/react",
   "version": "0.0.0",
   "description": "Slurp UI: ready-made React components of the Slurp design system, with optional collapse/expand motion.",
   "license": "MIT",
@@ -49,7 +49,7 @@
   },
   "size-limit": [
     {
-      "name": "@slurp/ui entry",
+      "name": "@slurp-ui/react entry",
       "path": "dist/index.js",
       "limit": "15 kB",
       "gzip": true
@@ -60,16 +60,16 @@
     "react-dom": ">=19"
   },
   "dependencies": {
-    "@slurp/icons": "workspace:^",
-    "@slurp/motion": "workspace:^",
-    "@slurp/tokens": "workspace:^"
+    "@slurp-ui/icons": "workspace:^",
+    "@slurp-ui/motion": "workspace:^",
+    "@slurp-ui/tokens": "workspace:^"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@size-limit/preset-small-lib": "^14.2.0",
-    "@slurp/tsconfig": "workspace:*",
-    "@slurp/tsdown-config": "workspace:*",
-    "@slurp/utils": "workspace:*",
+    "@slurp-ui/tsconfig": "workspace:*",
+    "@slurp-ui/tsdown-config": "workspace:*",
+    "@slurp-ui/utils": "workspace:*",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^24.0.0",

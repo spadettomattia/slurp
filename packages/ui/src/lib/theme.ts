@@ -1,6 +1,6 @@
 // createTheme() and the stylesheet that applies a theme. Server-safe: a theme is plain, serialisable data,
 // so it can be created in a server component and passed to <SlurpProvider>.
-import type { blur, ColorToken, HueToken, RadiusToken, shadow, SpaceToken } from '@slurp/tokens';
+import type { blur, ColorToken, HueToken, RadiusToken, shadow, SpaceToken } from '@slurp-ui/tokens';
 
 import type { AccentScopeProps } from '../AccentScope/AccentScope';
 import type { CellProps } from '../Cell/Cell';

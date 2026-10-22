@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
 // pnpm keeps dependencies isolated: resolve addons and the framework from this package, not from the hoisted root.
 const abs = (pkg: string) => path.dirname(require.resolve(`${pkg}/package.json`));
 
-// Stories read @slurp/ui from its sources: edits show up with HMR, no rebuild needed.
+// Stories read @slurp-ui/react from its sources: edits show up with HMR, no rebuild needed.
 const uiSrc = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../../../packages/ui/src',
@@ -24,9 +24,12 @@ const config: StorybookConfig = {
     mergeConfig(config, {
       resolve: {
         alias: [
-          { find: /^@slurp\/ui$/, replacement: path.join(uiSrc, 'index.ts') },
-          { find: /^@slurp\/ui\/styles\.css$/, replacement: path.join(uiSrc, 'styles.css') },
-          { find: /^@slurp\/ui\/([A-Za-z]+)$/, replacement: path.join(uiSrc, '$1', 'index.ts') },
+          { find: /^@slurp-ui\/react$/, replacement: path.join(uiSrc, 'index.ts') },
+          { find: /^@slurp-ui\/react\/styles\.css$/, replacement: path.join(uiSrc, 'styles.css') },
+          {
+            find: /^@slurp-ui\/react\/([A-Za-z]+)$/,
+            replacement: path.join(uiSrc, '$1', 'index.ts'),
+          },
         ],
       },
     }),

@@ -1,1 +1,1 @@
-export * from '@slurp/tokens';
+export * from '@slurp-ui/tokens';

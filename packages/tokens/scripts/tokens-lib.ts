@@ -204,7 +204,7 @@ export function buildCss(model: Model): string {
     s.compactFontSize ? [decl(`font-${name}-size`, s.compactFontSize)] : [],
   );
 
-  return `/* @slurp/tokens — generated from src/tokens.json (${model.meta.name} v${model.meta.version}, synced ${model.meta.synced}). Do not edit. */
+  return `/* @slurp-ui/tokens — generated from src/tokens.json (${model.meta.name} v${model.meta.version}, synced ${model.meta.synced}). Do not edit. */
 @layer slurp.reset, slurp.base, slurp.components, slurp.utilities;
 
 @layer slurp.base {
@@ -249,7 +249,7 @@ export function buildFontsCss(model: Model): string {
   src: url('./${f.file}') format('woff2');
 }`,
   );
-  return `/* @slurp/tokens — generated from src/tokens.json. Do not edit. */\n${faces.join('\n\n')}\n`;
+  return `/* @slurp-ui/tokens — generated from src/tokens.json. Do not edit. */\n${faces.join('\n\n')}\n`;
 }
 
 const literal = (value: unknown): string => JSON.stringify(value, null, 2);
@@ -278,7 +278,7 @@ export function buildTs(model: Model, src: SlurpTokensSource): string {
   for (const group of src.type.groups)
     for (const s of group.styles) usage[`font-${s.name}`] = s.usage;
 
-  return `// @slurp/tokens — generated from src/tokens.json (${model.meta.name} v${model.meta.version}). Do not edit.
+  return `// @slurp-ui/tokens — generated from src/tokens.json (${model.meta.name} v${model.meta.version}). Do not edit.
 
 export const meta = ${literal(model.meta)} as const;
 

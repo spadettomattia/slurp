@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/motion",
+  "name": "@slurp-ui/motion",
   "version": "0.0.0",
   "description": "Slurp collapse/expand animation engine (vanilla TS) with optional React bindings.",
   "license": "MIT",
@@ -33,7 +33,7 @@
   },
   "size-limit": [
     {
-      "name": "@slurp/motion",
+      "name": "@slurp-ui/motion",
       "path": "dist/index.js",
       "limit": "8 kB",
       "gzip": true
@@ -42,8 +42,8 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@size-limit/preset-small-lib": "^14.2.0",
-    "@slurp/tsconfig": "workspace:*",
-    "@slurp/tsdown-config": "workspace:*",
+    "@slurp-ui/tsconfig": "workspace:*",
+    "@slurp-ui/tsdown-config": "workspace:*",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",
     "size-limit": "^14.2.0",

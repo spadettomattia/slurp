@@ -1,6 +1,6 @@
 # Changesets
 
-Every change to a published package (`@slurp/ui`, `@slurp/motion`, `@slurp/tokens`, `@slurp/icons`) comes with a changeset:
+Every change to a published package (`@slurp-ui/react`, `@slurp-ui/motion`, `@slurp-ui/tokens`, `@slurp-ui/icons`) comes with a changeset:
 
 ```bash
 pnpm changeset

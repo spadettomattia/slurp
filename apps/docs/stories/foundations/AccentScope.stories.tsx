@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { AccentScope, Cell, Flow, Surface, Text, vivid } from '@slurp/ui';
-import { hue } from '@slurp/ui/tokens';
+import { AccentScope, Cell, Flow, Surface, Text, vivid } from '@slurp-ui/react';
+import { hue } from '@slurp-ui/react/tokens';
 
 function Sample({ label }: { label: string }) {
   return (

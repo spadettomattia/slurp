@@ -1,8 +1,8 @@
-/* @slurp/ui stylesheet: fonts, tokens and component styles. Bundled into dist/styles.css by scripts/build-css.ts. */
+/* @slurp-ui/react stylesheet: fonts, tokens and component styles. Bundled into dist/styles.css by scripts/build-css.ts. */
 @layer slurp.reset, slurp.base, slurp.components, slurp.utilities;
 
-@import '@slurp/tokens/fonts.css';
-@import '@slurp/tokens/tokens.css';
+@import '@slurp-ui/tokens/fonts.css';
+@import '@slurp-ui/tokens/tokens.css';
 @import './AccentScope/AccentScope.css';
 @import './Flow/Flow.css';
 @import './Frame/Frame.css';

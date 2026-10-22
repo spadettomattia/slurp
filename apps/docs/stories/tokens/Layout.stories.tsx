@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { blur, cssVar, opacity, radius, shadow, space, type TokenName } from '@slurp/ui/tokens';
+import {
+  blur,
+  cssVar,
+  opacity,
+  radius,
+  shadow,
+  space,
+  type TokenName,
+} from '@slurp-ui/react/tokens';
 
 import { formatValue, TokenPage, Usage, VarName } from './TokenPage';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/docs",
+  "name": "@slurp-ui/docs",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,13 +10,13 @@
     "clean": "rimraf storybook-static .turbo"
   },
   "dependencies": {
-    "@slurp/tokens": "workspace:*",
-    "@slurp/ui": "workspace:*",
+    "@slurp-ui/tokens": "workspace:*",
+    "@slurp-ui/react": "workspace:*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@slurp/tsconfig": "workspace:*",
+    "@slurp-ui/tsconfig": "workspace:*",
     "@storybook/addon-a11y": "^9.1.21",
     "@storybook/addon-docs": "^9.1.21",
     "@storybook/react-vite": "^9.1.21",

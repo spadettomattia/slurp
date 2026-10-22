@@ -45,8 +45,8 @@ jobs:
       # Visual motion tests: run as soon as the playground has a Playwright config.
       - name: Playwright browsers
         if: hashFiles('apps/playground/playwright.config.ts') != ''
-        run: pnpm --filter @slurp/playground exec playwright install --with-deps chromium
+        run: pnpm --filter @slurp-ui/playground exec playwright install --with-deps chromium
 
       - name: Visual tests
         if: hashFiles('apps/playground/playwright.config.ts') != ''
-        run: pnpm --filter @slurp/playground test:visual
+        run: pnpm --filter @slurp-ui/playground test:visual

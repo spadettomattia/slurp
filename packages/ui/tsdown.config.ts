@@ -1,4 +1,4 @@
-import { libraryConfig } from '@slurp/tsdown-config';
+import { libraryConfig } from '@slurp-ui/tsdown-config';
 import { defineConfig } from 'tsdown';
 
 export default defineConfig(
@@ -10,6 +10,6 @@ export default defineConfig(
     // - lib/: server-safe code (createTheme, colour math, css compiler) that server components may call.
     useClient: (fileName) =>
       !/(^|[\\/])index\.js$/.test(fileName) && !/(^|[\\/])lib[\\/]/.test(fileName),
-    deps: { alwaysBundle: ['@slurp/utils'] },
+    deps: { alwaysBundle: ['@slurp-ui/utils'] },
   }),
 );

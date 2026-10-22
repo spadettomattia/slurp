@@ -1,5 +1,5 @@
 {
-  "extends": "@slurp/tsconfig/react.json",
+  "extends": "@slurp-ui/tsconfig/react.json",
   "compilerOptions": {
     "types": ["node", "vite/client"]
   },

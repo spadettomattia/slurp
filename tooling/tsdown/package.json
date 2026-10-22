@@ -1,5 +1,5 @@
 {
-  "name": "@slurp/tsdown-config",
+  "name": "@slurp-ui/tsdown-config",
   "version": "0.0.0",
   "private": true,
   "type": "module",

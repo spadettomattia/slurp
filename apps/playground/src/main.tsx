@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import '@slurp/ui/styles.css';
+import '@slurp-ui/react/styles.css';
 
 import { App } from './App';
 

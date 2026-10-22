@@ -1,4 +1,4 @@
-import { cx } from '@slurp/utils';
+import { cx } from '@slurp-ui/utils';
 import type { CSSProperties, ElementType } from 'react';
 
 import { useCss, useThemeProps } from '../internal/styled';

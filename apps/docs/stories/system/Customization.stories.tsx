@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { createTheme, Flow, SlurpProvider, Surface, Text, useColorScheme } from '@slurp/ui';
+import { createTheme, Flow, SlurpProvider, Surface, Text, useColorScheme } from '@slurp-ui/react';
 import type { CSSProperties } from 'react';
 
 const meta = {

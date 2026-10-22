@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Flow, Surface, Text } from '@slurp/ui';
+import { Flow, Surface, Text } from '@slurp-ui/react';
 
 const meta = {
   title: 'Fondamenta/Surface',

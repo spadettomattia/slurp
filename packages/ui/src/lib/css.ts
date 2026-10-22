@@ -13,7 +13,7 @@ import {
   type HueToken,
   type RadiusToken,
   type SpaceToken,
-} from '@slurp/tokens';
+} from '@slurp-ui/tokens';
 import type { CSSProperties } from 'react';
 
 export const LAYER_ORDER = '@layer slurp.reset, slurp.base, slurp.components, slurp.utilities;';

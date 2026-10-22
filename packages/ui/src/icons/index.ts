@@ -1,1 +1,1 @@
-export * from '@slurp/icons';
+export * from '@slurp-ui/icons';

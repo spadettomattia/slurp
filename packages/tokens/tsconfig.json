@@ -1,5 +1,5 @@
 {
-  "extends": "@slurp/tsconfig/base.json",
+  "extends": "@slurp-ui/tsconfig/base.json",
   "compilerOptions": {
     "types": ["node"]
   },

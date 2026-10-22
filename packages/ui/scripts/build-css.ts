@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const src = path.join(root, 'src');
 const dist = path.join(root, 'dist');
-const tokensDist = path.dirname(fileURLToPath(import.meta.resolve('@slurp/tokens/tokens.css')));
+const tokensDist = path.dirname(fileURLToPath(import.meta.resolve('@slurp-ui/tokens/tokens.css')));
 
 const IMPORT = /^@import\s+'([^']+)';\s*$/gm;
 
@@ -52,5 +52,5 @@ await Promise.all([
 ]);
 
 console.log(
-  `@slurp/ui: dist/styles.css (${componentCss.length} component stylesheets), dist/tokens.css, dist/fonts`,
+  `@slurp-ui/react: dist/styles.css (${componentCss.length} component stylesheets), dist/tokens.css, dist/fonts`,
 );

@@ -1,7 +1,7 @@
 // Automatic contrast checks of the design system rules (WCAG 2.2 AA), for every hue-* accent, in both themes.
 // Grounds are computed the way the browser paints them: the bg tinted 7% by the accent (oklab), translucent
 // surfaces composited over it, accent-soft (16%) over it.
-import { color, hue, type HueToken } from '@slurp/tokens';
+import { color, hue, type HueToken } from '@slurp-ui/tokens';
 import { describe, expect, it } from 'vitest';
 
 import { composite, contrast, mix, onColor, resolveAccent, vivid } from '../src/lib/color';

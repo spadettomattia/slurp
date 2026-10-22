@@ -1,6 +1,6 @@
 // Colour math of the Slurp design system: WCAG contrast, OKLCH, the vivid() accent rule and the runtime accent variables.
 // Server-safe (no React, no DOM).
-import { hue, type HueToken } from '@slurp/tokens';
+import { hue, type HueToken } from '@slurp-ui/tokens';
 
 /** Linear-light sRGB channel in 0–1 plus alpha. */
 interface Rgba {

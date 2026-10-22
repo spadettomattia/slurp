@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { color, cssVar, hue, type TokenName } from '@slurp/ui/tokens';
+import { color, cssVar, hue, type TokenName } from '@slurp-ui/react/tokens';
 
 import { formatValue, TokenPage, Usage, VarName } from './TokenPage';
 

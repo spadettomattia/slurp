@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "docs": "turbo run dev --filter=@slurp/docs",
+    "docs": "turbo run dev --filter=@slurp-ui/docs",
     "lint": "eslint .",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
-    "@slurp/eslint-config": "workspace:*",
+    "@slurp-ui/eslint-config": "workspace:*",
     "eslint": "^10.13.0",
     "prettier": "^3.9.10",
     "rimraf": "^6.1.3",

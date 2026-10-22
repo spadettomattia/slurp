@@ -1,4 +1,4 @@
-import { cx } from '@slurp/utils';
+import { cx } from '@slurp-ui/utils';
 import { useMemo, type CSSProperties, type ElementType } from 'react';
 
 import { useCss, useThemeProps } from '../internal/styled';
