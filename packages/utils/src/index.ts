@@ -1,2 +1,6 @@
 // Internal helpers shared by the @slurp/* packages; bundled into @slurp/ui, never published.
-export {};
+
+/** Joins truthy class names. */
+export function cx(...names: (string | false | null | undefined)[]): string {
+  return names.filter(Boolean).join(' ');
+}
