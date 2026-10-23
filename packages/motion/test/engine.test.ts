@@ -193,6 +193,19 @@ describe('collapse', () => {
     vi.useRealTimers();
   });
 
+  it('does not cut a transition short when its first frame came late', async () => {
+    vi.useFakeTimers();
+    scene(2);
+    const run = collapse({ items: { group: 'tiles' }, target: 'crumb', duration: 400 });
+    // The timer runs out (400 + 100ms) while the timeline, started late, is only half-way: it keeps playing.
+    waapi.advance(200);
+    vi.advanceTimersByTime(500);
+    expect(overlay()).not.toBeNull();
+    waapi.advance(200);
+    expect(await run.finished).toBe('finished');
+    vi.useRealTimers();
+  });
+
   it('lifts inert after duration + 100ms even if the run is held', () => {
     vi.useFakeTimers();
     const { grid } = scene(2);

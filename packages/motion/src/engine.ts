@@ -446,14 +446,19 @@ function start(plan: Plan, o: Resolved): Controller {
 
   const onAbort = () => settle(false, true);
 
-  // A hidden tab draws no frames, so `finish` never fires: settle when the time is up (unless paused on purpose).
+  // A hidden tab draws no frames, so `finish` never fires: settle when the time is up and the timeline has stopped.
+  // While it still moves (a late first frame, a busy device) or is paused on purpose, wait for the rest.
   const guard = () => {
     clearTimeout(watchdog);
     if (!master) return;
     const at = Number(master.currentTime ?? 0);
     const left = master.playbackRate >= 0 ? duration - at : at;
     watchdog = setTimeout(
-      () => (master?.playState === 'paused' ? guard() : settle(towardOne)),
+      () => {
+        const moving = master?.playState === 'running' && Number(master.currentTime ?? 0) !== at;
+        if (master?.playState === 'paused' || moving) guard();
+        else settle(towardOne);
+      },
       Math.max(0, left) + INERT_GRACE,
     );
   };
