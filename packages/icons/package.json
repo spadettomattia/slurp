@@ -1,6 +1,6 @@
 {
   "name": "@slurp-ui/icons",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Slurp icons: inline stroke SVG (2px, round caps), currentColor, tree-shakable.",
   "keywords": [
     "icons",

@@ -1,6 +1,6 @@
 {
   "name": "@slurp-ui/react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Slurp UI: ready-made React components of the Slurp design system, with optional collapse/expand motion.",
   "keywords": [
     "react",
