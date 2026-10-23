@@ -40,6 +40,14 @@ export { alpha, contrast, CONTRAST_MIN, meetsContrast, onColor, vivid } from './
 export { AnimationGroup, type AnimationGroupProps } from './motion/AnimationGroup';
 export { useAnimationTarget, type AnimationProps } from './motion/useAnimationTarget';
 export { useSlurp, type SlurpControls } from './motion/useSlurp';
+export {
+  useSlurpEnter,
+  useSlurpNavigate,
+  type ContentRef,
+  type SlurpEnterOptions,
+  type SlurpNavigate,
+  type SlurpNavigateOptions,
+} from './motion/navigation';
 
 // Foundations
 export { AccentScope, type AccentScopeProps } from './AccentScope';

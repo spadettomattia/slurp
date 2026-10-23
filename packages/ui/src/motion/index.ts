@@ -3,3 +3,11 @@ export * from '@slurp-ui/motion';
 export { AnimationGroup, type AnimationGroupProps } from './AnimationGroup';
 export { useAnimationTarget, type AnimationProps } from './useAnimationTarget';
 export { useSlurp, type SlurpControls } from './useSlurp';
+export {
+  useSlurpEnter,
+  useSlurpNavigate,
+  type ContentRef,
+  type SlurpEnterOptions,
+  type SlurpNavigate,
+  type SlurpNavigateOptions,
+} from './navigation';
