@@ -66,7 +66,15 @@ const preview: Preview = {
     a11y: { test: 'error' },
     options: {
       storySort: {
-        order: ['Introduzione', 'Tokens', 'Sistema', 'Fondamenta', 'Componenti', 'Animazione'],
+        order: [
+          'Introduzione',
+          'Tokens',
+          'Sistema',
+          'Fondamenta',
+          'Componenti',
+          'Firma',
+          'Animazione',
+        ],
       },
     },
   },
