@@ -1,12 +1,24 @@
 {
   "name": "@slurp-ui/motion",
   "version": "0.0.0",
-  "description": "Slurp collapse/expand animation engine (vanilla TS) with optional React bindings.",
+  "description": "Slurp collapse/expand animation engine: vanilla TypeScript on Web Animations, no dependencies.",
+  "keywords": [
+    "animation",
+    "transition",
+    "web-animations",
+    "flip",
+    "slurp",
+    "design-system"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spadettomattia/slurp.git",
     "directory": "packages/motion"
+  },
+  "homepage": "https://github.com/spadettomattia/slurp/tree/main/packages/motion#readme",
+  "bugs": {
+    "url": "https://github.com/spadettomattia/slurp/issues"
   },
   "type": "module",
   "sideEffects": false,

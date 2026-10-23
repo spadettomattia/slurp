@@ -2,11 +2,22 @@
   "name": "@slurp-ui/icons",
   "version": "0.0.0",
   "description": "Slurp icons: inline stroke SVG (2px, round caps), currentColor, tree-shakable.",
+  "keywords": [
+    "icons",
+    "svg",
+    "react",
+    "design-system",
+    "slurp"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spadettomattia/slurp.git",
     "directory": "packages/icons"
+  },
+  "homepage": "https://github.com/spadettomattia/slurp/tree/main/packages/icons#readme",
+  "bugs": {
+    "url": "https://github.com/spadettomattia/slurp/issues"
   },
   "type": "module",
   "sideEffects": false,

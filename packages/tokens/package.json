@@ -2,11 +2,22 @@
   "name": "@slurp-ui/tokens",
   "version": "0.0.0",
   "description": "Slurp design tokens: CSS custom properties (--slurp-*, light/dark) and typed TS constants.",
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "design-system",
+    "slurp",
+    "theme"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spadettomattia/slurp.git",
     "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/spadettomattia/slurp/tree/main/packages/tokens#readme",
+  "bugs": {
+    "url": "https://github.com/spadettomattia/slurp/issues"
   },
   "type": "module",
   "sideEffects": [

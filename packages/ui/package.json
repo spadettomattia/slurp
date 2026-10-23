@@ -2,11 +2,24 @@
   "name": "@slurp-ui/react",
   "version": "0.0.0",
   "description": "Slurp UI: ready-made React components of the Slurp design system, with optional collapse/expand motion.",
+  "keywords": [
+    "react",
+    "components",
+    "design-system",
+    "ui",
+    "slurp",
+    "accessibility",
+    "animation"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spadettomattia/slurp.git",
     "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/spadettomattia/slurp/tree/main/packages/ui#readme",
+  "bugs": {
+    "url": "https://github.com/spadettomattia/slurp/issues"
   },
   "type": "module",
   "sideEffects": [
