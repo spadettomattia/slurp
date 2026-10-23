@@ -7,7 +7,7 @@ import { AnimationGroupContext } from './context';
 export interface AnimationProps {
   /** Registers the element under this id (a `from` / `to` / `lead` of useSlurp). */
   animationId?: string;
-  /** Joins a group (`{ group }` refs). Inside <AnimationGroup>, elements with an animationId join it by themselves. */
+  /** Joins a group (`{ group }` refs). Inside `<AnimationGroup>`, elements with an animationId join it by themselves. */
   animationGroup?: string;
   /** The element the action is about: it merges last in a collapse and comes out first in an expand. */
   animationLead?: boolean;
