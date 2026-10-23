@@ -1,0 +1,35 @@
+@layer slurp.components {
+  .slurp-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    padding: var(--slurp-space-10) var(--slurp-space-4);
+    color: var(--slurp-fg);
+    text-align: center;
+  }
+
+  .slurp-empty-media {
+    display: grid;
+    place-items: center;
+    margin-bottom: var(--slurp-space-2);
+    color: var(--slurp-muted);
+  }
+
+  .slurp-empty-title {
+    margin: 0;
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  .slurp-empty-description {
+    max-width: 36em;
+    margin: 0;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body);
+  }
+
+  .slurp-empty-action {
+    margin-top: var(--slurp-space-3);
+  }
+}

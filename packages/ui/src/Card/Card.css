@@ -1,0 +1,154 @@
+@layer slurp.components {
+  .slurp-card {
+    --slurp-card-color: var(--slurp-accent);
+    --slurp-card-on: var(--slurp-on-accent);
+    --slurp-stage-color: var(--slurp-card-color);
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    align-self: start;
+    padding: clamp(10px, 4cqi, 14px);
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--slurp-radius-tile);
+    background: color-mix(in oklab, var(--slurp-card-color) 16%, var(--slurp-surface-2));
+    box-shadow: var(--slurp-shadow-float);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body);
+    text-align: left;
+    text-decoration: none;
+    container-type: inline-size;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  :is(a, button).slurp-card {
+    cursor: pointer;
+  }
+
+  :is(a, button).slurp-card:hover {
+    transform: translateY(-6px);
+  }
+
+  :is(a, button).slurp-card:active {
+    transform: scale(0.98);
+  }
+
+  .slurp-card:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-card-media {
+    position: relative;
+    display: grid;
+    flex: 1 1 auto;
+    place-items: center;
+    align-self: stretch;
+    min-height: 0;
+  }
+
+  .slurp-card-media > .slurp-stage-glow {
+    width: auto;
+    height: 96%;
+  }
+
+  .slurp-card-media > .slurp-stage-ring {
+    width: auto;
+    height: 76%;
+  }
+
+  .slurp-card-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 82%;
+    max-width: 80%;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-card-art > :is(svg, img) {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  :is(a, button).slurp-card:hover .slurp-card-art {
+    transform: scale(1.06) rotate(-3deg);
+  }
+
+  .slurp-card-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-card-color);
+    color: var(--slurp-card-on);
+    font: var(--slurp-font-caption);
+    font-weight: 700;
+  }
+
+  .slurp-card-title,
+  .slurp-card-description {
+    position: relative;
+    display: flex;
+    max-width: 100%;
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface-2);
+  }
+
+  .slurp-card-title {
+    padding: 8px 14px;
+    font: 600 clamp(14px, 6cqi, 17px) / 1.3 var(--slurp-font-family-display);
+    letter-spacing: -0.01em;
+  }
+
+  .slurp-card-description {
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    padding: 7px 14px;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+  }
+
+  .slurp-card-description strong {
+    color: var(--slurp-fg);
+    font-weight: 700;
+  }
+
+  .slurp-shelf {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: clamp(12px, 1.6vw, 20px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-shelf > li {
+    display: flex;
+    min-width: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-card,
+    .slurp-card-art {
+      transition: none;
+    }
+
+    :is(a, button).slurp-card:hover,
+    :is(a, button).slurp-card:hover .slurp-card-art {
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@layer slurp.components {
+  .slurp-link {
+    border-radius: 4px;
+    color: var(--slurp-accent-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .slurp-link:hover {
+    text-decoration-thickness: 2.5px;
+  }
+
+  .slurp-link:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+}

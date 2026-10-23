@@ -1,0 +1,180 @@
+@layer slurp.components {
+  .slurp-tile {
+    --slurp-tile-tint: 22%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: clamp(14px, 2vw, 26px);
+    overflow: hidden;
+    border: 0;
+    border-radius: clamp(26px, 3vw, 36px);
+    background: color-mix(
+      in oklab,
+      var(--slurp-tile-color) var(--slurp-tile-tint),
+      var(--slurp-surface-2)
+    );
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    container-type: size;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  :where([data-theme='dark']) .slurp-tile {
+    --slurp-tile-tint: 30%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(:root:not([data-theme='light'])) .slurp-tile {
+      --slurp-tile-tint: 30%;
+    }
+  }
+
+  :where([data-theme='light']) .slurp-tile {
+    --slurp-tile-tint: 22%;
+  }
+
+  .slurp-tile:hover {
+    transform: translateY(-6px) scale(1.015);
+  }
+
+  .slurp-tile:active {
+    transform: scale(0.97);
+  }
+
+  .slurp-tile:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  /* A radial gradient (no blur filter) moved only with transform: it never repaints. */
+  .slurp-tile-blob {
+    position: absolute;
+    right: -25%;
+    bottom: -30%;
+    width: 95%;
+    height: 95%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--slurp-tile-color) 70%, transparent),
+      transparent
+    );
+    opacity: 0.8;
+    pointer-events: none;
+    will-change: transform;
+    animation: slurp-drift 12s ease-in-out infinite;
+  }
+
+  @keyframes slurp-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    }
+
+    50% {
+      transform: translate3d(-6%, -4%, 0) scale(1.08) rotate(20deg);
+    }
+  }
+
+  .slurp-tile-text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 72%;
+  }
+
+  .slurp-tile-title {
+    font: 600 clamp(17px, 9cqi, 28px) / 1.2 var(--slurp-font-family-display);
+    letter-spacing: -0.015em;
+    overflow-wrap: anywhere;
+  }
+
+  .slurp-tile-subtitle {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+  }
+
+  .slurp-tile-badge {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-tile-color);
+    color: var(--slurp-tile-on);
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .slurp-tile-media {
+    position: absolute;
+    top: 50%;
+    right: 7cqi;
+    width: min(36cqi, 52cqh);
+    transform: translateY(-50%);
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-tile-media > :is(svg, img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .slurp-tile[data-size='large'] .slurp-tile-media {
+    width: min(46cqi, 46cqh);
+  }
+
+  .slurp-tile:hover .slurp-tile-media {
+    transform: translateY(-50%) scale(1.08) rotate(-5deg);
+  }
+
+  @container (max-width: 240px) {
+    .slurp-tile-subtitle {
+      display: none;
+    }
+  }
+
+  @container (max-height: 150px) {
+    .slurp-tile-subtitle {
+      display: none;
+    }
+
+    .slurp-tile-media {
+      width: min(30cqi, 44cqh);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-tile,
+    .slurp-tile-media {
+      transition: none;
+    }
+
+    .slurp-tile-blob {
+      animation: none;
+    }
+
+    .slurp-tile:hover,
+    .slurp-tile:hover .slurp-tile-media {
+      transform: none;
+    }
+
+    .slurp-tile:hover .slurp-tile-media {
+      transform: translateY(-50%);
+    }
+  }
+}

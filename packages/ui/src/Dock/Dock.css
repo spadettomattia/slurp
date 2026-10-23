@@ -1,0 +1,392 @@
+/* Dock — breadcrumb bar: [← back] [level] … [current] · search · actions. One boundary: the bar. */
+@layer slurp.components {
+  .slurp-dock-wrap {
+    position: fixed;
+    right: 0;
+    bottom: var(--slurp-space-6);
+    left: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 var(--slurp-space-6);
+    pointer-events: none;
+  }
+
+  .slurp-dock-wrap[data-inline] {
+    position: relative;
+    bottom: auto;
+    z-index: auto;
+    padding: var(--slurp-space-6);
+  }
+
+  .slurp-dock {
+    --slurp-crumb-mix: 3%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 720px;
+    padding: var(--slurp-space-2);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-dock);
+    background: color-mix(in oklab, var(--slurp-fg) 9%, var(--slurp-surface-dock));
+    box-shadow: var(--slurp-shadow-float);
+    color: var(--slurp-fg);
+    pointer-events: auto;
+    backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+  }
+
+  /* Crumbs are lighter than the bar in both themes. */
+  :where([data-theme='dark']) .slurp-dock {
+    --slurp-crumb-mix: 16%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(:root:not([data-theme='light'])) .slurp-dock {
+      --slurp-crumb-mix: 16%;
+    }
+  }
+
+  :where([data-theme='light']) .slurp-dock {
+    --slurp-crumb-mix: 3%;
+  }
+
+  /* Panels grow upward in height (grid rows 0fr → 1fr). */
+  .slurp-dock-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.4s,
+      visibility 0.6s;
+  }
+
+  .slurp-dock-panel[data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .slurp-dock-panel-inner {
+    min-height: 0;
+    max-height: min(60dvh, 520px);
+    overflow-y: auto;
+  }
+
+  .slurp-dock-panel[data-open] > .slurp-dock-panel-inner {
+    padding: var(--slurp-space-3) var(--slurp-space-3) var(--slurp-space-4);
+  }
+
+  .slurp-dock-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+  }
+
+  /* The cut between two pieces is space-2 wide measured across the 20° slant (space-2 / cos 20°). */
+  .slurp-dock-crumbs {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--slurp-space-2) / 0.9397);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-dock-crumbs > li {
+    display: flex;
+    min-width: 0;
+  }
+
+  /* The back button and icon crumbs never shrink (a shrinking item would eat the gap between crumbs). */
+  .slurp-dock-crumbs > li:first-child,
+  .slurp-dock-crumbs > li:has(> .slurp-crumb[data-icon]) {
+    flex-shrink: 0;
+  }
+
+  .slurp-crumb {
+    --slurp-crumb: color-mix(
+      in oklab,
+      var(--slurp-fg) var(--slurp-crumb-mix, 3%),
+      var(--slurp-surface-2)
+    );
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 var(--slurp-space-5);
+    border: 0;
+    border-radius: 14px;
+    background: var(--slurp-crumb);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .slurp-crumb[data-left='round'] {
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+  }
+
+  .slurp-crumb[data-right='round'] {
+    padding-right: var(--slurp-space-6);
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+  }
+
+  /* Drawn: the SVG path is the shape; the button itself is transparent. */
+  .slurp-crumb[data-drawn] {
+    background: none;
+  }
+
+  .slurp-crumb-shape {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .slurp-crumb-shape path {
+    fill: var(--slurp-crumb);
+    transition: fill 0.35s;
+  }
+
+  .slurp-crumb:hover {
+    --slurp-crumb: color-mix(in oklab, var(--slurp-accent) 22%, var(--slurp-surface-2));
+  }
+
+  .slurp-crumb[data-current] {
+    --slurp-crumb: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-crumb:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-crumb-back {
+    min-width: 64px;
+    padding: 0 var(--slurp-space-5) 0 var(--slurp-space-4);
+  }
+
+  .slurp-crumb[data-icon] {
+    min-width: 56px;
+    padding: 0 18px;
+  }
+
+  .slurp-crumb > svg:not(.slurp-crumb-shape),
+  .slurp-crumb-icon {
+    display: inline-grid;
+    flex-shrink: 0;
+  }
+
+  .slurp-crumb-label {
+    min-width: 0;
+    max-width: 14em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .slurp-crumb-arrow {
+    display: inline-flex;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-crumb-arrow[data-up] {
+    transform: rotate(180deg);
+  }
+
+  /* The field has no border of its own: the icon, the placeholder and the bar identify it; focus draws a ring. */
+  .slurp-dock-search {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-full);
+    color: var(--slurp-muted);
+  }
+
+  .slurp-dock-search:focus-within {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-dock-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+    text-overflow: ellipsis;
+    appearance: none;
+  }
+
+  .slurp-dock-search input::placeholder {
+    color: var(--slurp-muted);
+    opacity: 1;
+  }
+
+  .slurp-dock-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  /* Find-in-page counter ("2/5"): a tap goes to the next match. */
+  .slurp-dock-search-count {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .slurp-dock-search-count:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-dock-search-count[data-empty] {
+    background: none;
+    color: var(--slurp-muted);
+    font-weight: 500;
+    cursor: default;
+  }
+
+  /* Round 48px actions, always at the right end; accent-filled while their panel is open. */
+  .slurp-dock-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    margin-left: auto;
+  }
+
+  .slurp-dock-action {
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-fg);
+    cursor: pointer;
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+  }
+
+  .slurp-dock-action:hover {
+    background: var(--slurp-accent-soft);
+  }
+
+  .slurp-dock-action[data-active] {
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-dock-action:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-dock-action-icon {
+    display: grid;
+  }
+
+  .slurp-dock-action-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-fg);
+    color: var(--slurp-bg);
+    font: 700 11px / 1 var(--slurp-font-family-sans);
+  }
+
+  /* A query is active while the phone search panel is closed: an accent dot ringed by surface-2. */
+  .slurp-dock-action-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent);
+    box-shadow: 0 0 0 2px var(--slurp-surface-2);
+  }
+
+  @media (max-width: 640px) {
+    .slurp-dock-wrap {
+      bottom: var(--slurp-space-4);
+      padding: 0 var(--slurp-space-3);
+    }
+
+    .slurp-crumb {
+      padding: 0 var(--slurp-space-4);
+    }
+
+    .slurp-crumb[data-right='round'] {
+      padding-right: var(--slurp-space-5);
+    }
+
+    .slurp-crumb-back {
+      min-width: 52px;
+      padding: 0 var(--slurp-space-4) 0 var(--slurp-space-3);
+    }
+
+    .slurp-crumb[data-icon] {
+      min-width: 52px;
+      padding: 0 var(--slurp-space-4);
+    }
+
+    /* The current crumb takes the room left (earlier crumbs are icons); beyond it, an ellipsis. */
+    .slurp-dock-crumbs {
+      flex: 1 1 auto;
+    }
+
+    .slurp-crumb-label {
+      max-width: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-dock-panel,
+    .slurp-crumb-shape path,
+    .slurp-crumb-arrow,
+    .slurp-dock-action {
+      transition: none;
+    }
+  }
+}

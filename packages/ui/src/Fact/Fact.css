@@ -1,0 +1,22 @@
+@layer slurp.components {
+  .slurp-fact {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 20px;
+    border-radius: var(--slurp-radius-lg);
+    background: var(--slurp-surface);
+  }
+
+  .slurp-fact-label {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .slurp-fact-value {
+    color: var(--slurp-fg);
+    font: 600 18px / 1.3 var(--slurp-font-family-display);
+  }
+}

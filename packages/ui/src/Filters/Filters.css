@@ -1,0 +1,76 @@
+@layer slurp.components {
+  .slurp-filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-4);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-filters-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-3);
+  }
+
+  .slurp-filters-title {
+    margin: 0;
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  /* "Azzera filtri": clearly an action (accent-soft, accent-ink border); off without active filters. */
+  .slurp-filters-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px 0 12px;
+    border: 1px solid var(--slurp-accent-ink);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-label);
+    cursor: pointer;
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+  }
+
+  .slurp-filters-reset:hover:not(:disabled) {
+    border-color: var(--slurp-accent);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-filters-reset:disabled {
+    border-color: var(--slurp-border-control);
+    background: none;
+    color: var(--slurp-muted);
+    cursor: default;
+  }
+
+  .slurp-filters-reset:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-filters-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+  }
+
+  .slurp-filters-legend {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .slurp-filters-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-2);
+  }
+}

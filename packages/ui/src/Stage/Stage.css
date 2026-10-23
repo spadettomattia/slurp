@@ -1,0 +1,56 @@
+@layer slurp.components {
+  .slurp-stage {
+    --slurp-stage-color: var(--slurp-accent);
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 208px;
+    overflow: hidden;
+    border-radius: var(--slurp-radius-tile);
+    background: color-mix(in oklab, var(--slurp-stage-color) 14%, var(--slurp-surface-2));
+  }
+
+  .slurp-stage > :not(.slurp-stage-glow, .slurp-stage-ring) {
+    position: relative;
+  }
+
+  .slurp-stage-glow,
+  .slurp-card-media > .slurp-stage-glow {
+    position: absolute;
+    width: 78%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--slurp-stage-color) 55%, transparent) 0%,
+      color-mix(in oklab, var(--slurp-stage-color) 18%, transparent) 55%,
+      transparent 72%
+    );
+    animation: slurp-breathe 9s ease-in-out infinite;
+  }
+
+  .slurp-stage-ring {
+    position: absolute;
+    width: 62%;
+    aspect-ratio: 1;
+    border: 1.5px solid color-mix(in oklab, var(--slurp-stage-color) 35%, transparent);
+    border-radius: 50%;
+  }
+
+  @keyframes slurp-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.06);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-stage-glow {
+      animation: none;
+    }
+  }
+}

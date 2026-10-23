@@ -4,6 +4,20 @@ import { MOTION_DEFAULTS, type GhostKind, type SlurpDefaults } from '@slurp-ui/m
 import type { blur, ColorToken, HueToken, RadiusToken, shadow, SpaceToken } from '@slurp-ui/tokens';
 
 import type { AccentScopeProps } from '../AccentScope/AccentScope';
+import type { BentoProps } from '../Bento/Bento';
+import type { CardProps } from '../Card/Card';
+import type { DockProps } from '../Dock/Dock';
+import type { EmptyProps } from '../Empty/Empty';
+import type { FactProps } from '../Fact/Fact';
+import type { FiltersProps } from '../Filters/Filters';
+import type { LinkProps } from '../Link/Link';
+import type { ListProps, ListRowProps } from '../ListRow/ListRow';
+import type { ResultRowProps } from '../ResultRow/ResultRow';
+import type { ScoreProps } from '../Score/Score';
+import type { SettingsProps } from '../Settings/Settings';
+import type { ShelfProps } from '../Shelf/Shelf';
+import type { StageProps } from '../Stage/Stage';
+import type { TileProps } from '../Tile/Tile';
 import type { AvatarProps } from '../Avatar/Avatar';
 import type { BloomProps } from '../Bloom/Bloom';
 import type { BubbleProps } from '../Bubble/Bubble';
@@ -79,6 +93,27 @@ const DEFAULT_MOTION: MotionOptions = {
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
   AccentScope: { props: AccentScopeProps; parts: 'root' };
+  Bento: { props: BentoProps; parts: 'root' };
+  Card: { props: CardProps; parts: 'root' | 'media' | 'badge' | 'title' | 'description' };
+  Dock: { props: DockProps; parts: 'root' };
+  Empty: { props: EmptyProps; parts: 'root' };
+  Fact: { props: FactProps; parts: 'root' };
+  Filters: { props: FiltersProps; parts: 'root' };
+  Link: { props: LinkProps; parts: 'root' };
+  List: { props: ListProps; parts: 'root' };
+  ListRow: {
+    props: ListRowProps;
+    parts: 'root' | 'mark' | 'title' | 'tag' | 'meta' | 'value' | 'action';
+  };
+  ResultRow: { props: ResultRowProps; parts: 'root' };
+  Score: { props: ScoreProps; parts: 'root' };
+  Settings: { props: SettingsProps; parts: 'root' };
+  Shelf: { props: ShelfProps; parts: 'root' };
+  Stage: { props: StageProps; parts: 'root' };
+  Tile: {
+    props: TileProps;
+    parts: 'root' | 'blob' | 'text' | 'title' | 'subtitle' | 'badge' | 'media';
+  };
   Avatar: { props: AvatarProps; parts: 'root' };
   Bloom: { props: BloomProps; parts: 'root' | 'surface' | 'trigger' | 'panel' };
   Bubble: { props: BubbleProps; parts: 'root' };

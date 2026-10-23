@@ -1,0 +1,27 @@
+@layer slurp.components {
+  .slurp-score {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .slurp-score svg {
+    fill: none;
+    stroke-width: 8;
+  }
+
+  .slurp-score-track {
+    stroke: var(--slurp-border-control);
+    stroke-opacity: 0.35;
+  }
+
+  .slurp-score-arc {
+    stroke: var(--slurp-accent-ink);
+    stroke-linecap: round;
+  }
+
+  .slurp-score-label {
+    fill: var(--slurp-fg);
+    stroke: none;
+    font: 700 22px var(--slurp-font-family-display);
+  }
+}

@@ -1,0 +1,36 @@
+@layer slurp.components {
+  .slurp-bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: clamp(150px, 24vh, 250px);
+    grid-auto-flow: dense;
+    gap: clamp(12px, 1.6vw, 20px);
+  }
+
+  .slurp-bento > * {
+    grid-column: span var(--slurp-bento-cols, 4);
+    grid-row: span var(--slurp-bento-rows, 1);
+    min-width: 0;
+  }
+
+  /* The design system switches the grid to two columns below 860px (wider than the 640px compact breakpoint). */
+  @media (max-width: 860px) {
+    .slurp-bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: clamp(118px, 32vw, 190px);
+    }
+
+    .slurp-bento > * {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .slurp-bento > :first-child {
+      grid-row: span 2;
+    }
+
+    .slurp-bento > :last-child:nth-child(even) {
+      grid-column: span 2;
+    }
+  }
+}

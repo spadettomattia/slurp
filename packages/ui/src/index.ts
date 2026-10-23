@@ -114,19 +114,66 @@ export {
   type ToastProviderProps,
 } from './Toast';
 
+// Signature components: entry grid, lists, detail pages, navigation
+export { Tile, type TileProps } from './Tile';
+export { Bento, type BentoProps } from './Bento';
+export { Card, type CardProps } from './Card';
+export { Shelf, type ShelfProps } from './Shelf';
+export { Stage, type StageProps } from './Stage';
+export { Fact, type FactProps } from './Fact';
+export { Score, type ScoreProps } from './Score';
+export { List, ListRow, type ListProps, type ListRowProps } from './ListRow';
+export { ResultRow, type ResultRowProps } from './ResultRow';
+export { Mark, type MarkProps } from './Mark';
+export { Empty, type EmptyProps } from './Empty';
+export { Link, type LinkProps } from './Link';
+export {
+  Dock,
+  DOCK_LABELS,
+  type DockActionProps,
+  type DockBackProps,
+  type DockCrumbProps,
+  type DockCrumbsProps,
+  type DockLabels,
+  type DockProps,
+  type DockSearchProps,
+} from './Dock';
+export {
+  Settings,
+  SETTINGS_LABELS,
+  type SettingsLabels,
+  type SettingsLanguage,
+  type SettingsProps,
+} from './Settings';
+export {
+  Filters,
+  FILTERS_LABELS,
+  type FiltersGroupProps,
+  type FiltersLabels,
+  type FiltersProps,
+} from './Filters';
+export { bentoLayout, type BentoItem, type BentoSpan } from './lib/layout';
+export { crumbPath, type CrumbEnd } from './lib/crumb';
+
 // Behaviour shared by the components (also at @slurp-ui/react/utils)
 export {
   COMPACT_QUERY,
   FOCUSABLE,
   focusFirst,
+  focusHit,
+  matchesAll,
+  matchRanges,
   moveFocus,
+  normalizeText,
   useControlled,
   useDismiss,
+  useFindInPage,
   useForkRef,
   useMediaQuery,
   useRovingFocus,
   type ControlledOptions,
   type DismissOptions,
+  type FindInPage,
   type MoveFocusOptions,
   type RovingFocusOptions,
 } from './utils';

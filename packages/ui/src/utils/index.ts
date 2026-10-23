@@ -5,3 +5,5 @@ export { useDismiss, type DismissOptions } from './useDismiss';
 export { useForkRef } from './useForkRef';
 export { COMPACT_QUERY, useMediaQuery } from './useMediaQuery';
 export { useRovingFocus, type RovingFocusOptions } from './useRovingFocus';
+export { focusHit, useFindInPage, type FindInPage } from './useFindInPage';
+export { matchesAll, matchRanges, normalizeText } from '../lib/layout';

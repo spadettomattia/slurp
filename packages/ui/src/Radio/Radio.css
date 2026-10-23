@@ -64,3 +64,74 @@
     }
   }
 }
+
+/* Rows (the settings' choices): hidden real radios, the row is the control. Chosen = accent-soft + check. */
+@layer slurp.components {
+  .slurp-radio-group[data-appearance='rows'] {
+    gap: 2px;
+  }
+
+  .slurp-radio-group[data-appearance='rows'] > .slurp-radio-group-legend {
+    margin-bottom: 6px;
+    padding: 0 4px;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .slurp-radio[data-appearance='rows'] {
+    display: flex;
+    gap: 10px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-sm);
+    font: var(--slurp-font-body-s);
+    transition: background-color 0.25s;
+  }
+
+  .slurp-radio[data-appearance='rows'] .slurp-toggle-input {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .slurp-radio[data-appearance='rows']:hover {
+    background: color-mix(in oklab, var(--slurp-fg) 6%, transparent);
+  }
+
+  .slurp-radio[data-appearance='rows'][data-state='on'] {
+    background: var(--slurp-accent-soft);
+    font-weight: 600;
+  }
+
+  .slurp-radio[data-appearance='rows']:has(.slurp-toggle-input:focus-visible) {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-radio[data-appearance='rows'] .slurp-toggle-label {
+    flex: 1;
+  }
+
+  .slurp-radio-icon {
+    display: grid;
+    place-items: center;
+    color: var(--slurp-muted);
+  }
+
+  .slurp-radio[data-state='on'] .slurp-radio-icon {
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-radio-check {
+    display: grid;
+    flex-shrink: 0;
+    color: var(--slurp-accent-ink);
+    opacity: 0;
+  }
+
+  .slurp-radio[data-state='on'] .slurp-radio-check {
+    opacity: 1;
+  }
+}

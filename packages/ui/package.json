@@ -58,7 +58,7 @@
     {
       "name": "@slurp-ui/react (everything)",
       "path": "dist/index.js",
-      "limit": "30 kB",
+      "limit": "40 kB",
       "gzip": true
     }
   ],
