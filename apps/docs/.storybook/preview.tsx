@@ -9,6 +9,7 @@ import {
 import { hue } from '@slurp-ui/react/tokens';
 
 import '@slurp-ui/react/styles.css';
+import { ComponentPage } from './blocks';
 import './docs.css';
 
 // Toolbar → theme. storageKey={null}: the toolbar decides, nothing is remembered between stories.
@@ -64,6 +65,8 @@ const preview: Preview = {
     layout: 'fullscreen',
     // axe must be green: violations fail the story in the test runner.
     a11y: { test: 'error' },
+    // Every autodocs page: demo, props, accessibility, anatomy from the CSS, other stories.
+    docs: { page: ComponentPage },
     options: {
       storySort: {
         order: [

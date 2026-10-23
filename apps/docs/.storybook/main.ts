@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import { mergeConfig } from 'vite';
 
+import { anatomyPlugin } from './anatomy.ts';
+
 const require = createRequire(import.meta.url);
 // pnpm keeps dependencies isolated: resolve addons and the framework from this package, not from the hoisted root.
 const abs = (pkg: string) => path.dirname(require.resolve(`${pkg}/package.json`));
@@ -22,6 +24,7 @@ const config: StorybookConfig = {
   core: { disableTelemetry: true },
   viteFinal: (config) =>
     mergeConfig(config, {
+      plugins: [anatomyPlugin(uiSrc, path.join(uiSrc, '../../tokens/src/generated/tokens.css'))],
       resolve: {
         alias: [
           { find: /^@slurp-ui\/react$/, replacement: path.join(uiSrc, 'index.ts') },

@@ -170,3 +170,35 @@
   border-radius: var(--slurp-radius-md);
   background: var(--slurp-accent-soft);
 }
+
+/* Anatomy table of the component pages (classes, variables, states). */
+.docs-anatomy {
+  width: 100%;
+  margin: var(--slurp-space-4) 0;
+  border-collapse: collapse;
+  font: var(--slurp-font-body);
+}
+
+.docs-anatomy caption {
+  padding-bottom: var(--slurp-space-2);
+  font: var(--slurp-font-title-s);
+  text-align: start;
+}
+
+.docs-anatomy th,
+.docs-anatomy td {
+  padding: var(--slurp-space-3) var(--slurp-space-4);
+  border-top: 1px solid var(--slurp-line);
+  text-align: start;
+  vertical-align: top;
+}
+
+.docs-anatomy th {
+  width: 8rem;
+  font-weight: 600;
+}
+
+.docs-anatomy td code {
+  line-height: 2;
+  white-space: nowrap;
+}
