@@ -39,6 +39,15 @@ const meta = {
       <Sample label={args.color} />
     </AccentScope>
   ),
+  parameters: {
+    slurp: {
+      a11y: [
+        'Un colore qualsiasi passa da `vivid()`: `on-accent`, `accent-ink` e `focus` sono ricavati per restare leggibili (4.5:1 per il testo, 3:1 per i bordi).',
+        'Il cambio di accento sfuma in 0,9 s, ma non con `prefers-reduced-motion`.',
+        'Metti i sottoalberi con `data-theme` fuori dallo scope: i colori derivati si calcolano sul `fg` dello scope.',
+      ],
+    },
+  },
 } satisfies Meta<typeof AccentScope>;
 
 export default meta;

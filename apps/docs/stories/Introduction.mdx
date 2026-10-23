@@ -44,6 +44,8 @@ Tre livelli, dal più globale al più locale:
 2. **Prop `css`** — token (`p: 4`, `bg: 'accent-soft'`, `radius: 'card'`, `font: 'title-l'`), selettori (`'&:hover'`), breakpoint (`{ base, compact, wide }`).
 3. **Variabili CSS** — `style={{ '--slurp-surface-radius': '12px' }}`, senza runtime.
 
+Ogni pagina di componente mostra la demo, le props, le note di accessibilità e l’anatomia letta dal suo CSS: classi `.slurp-*`, variabili `--slurp-*` con il valore predefinito e attributi di stato (`data-*`, `aria-*`).
+
 Gli stili stanno in `@layer slurp.reset, slurp.base, slurp.components, slurp.utilities`: i CSS del consumer vincono senza `!important`.
 
 ## Animazione

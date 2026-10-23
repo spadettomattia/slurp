@@ -15,6 +15,14 @@ const meta = {
     },
     muted: { control: 'boolean' },
   },
+  parameters: {
+    slurp: {
+      a11y: [
+        'L’elemento segue lo stile (`display-*` → `h1`, `title-*` → titoli, `body` → `p`): con `as` tieni corretta la gerarchia dei titoli.',
+        '`muted` è per il testo secondario su `bg` e sulle superfici: non usarlo per informazioni essenziali.',
+      ],
+    },
+  },
 } satisfies Meta<typeof Text>;
 
 export default meta;

@@ -20,6 +20,14 @@ const meta = {
       </Surface>
     </div>
   ),
+  parameters: {
+    slurp: {
+      a11y: [
+        'Solo aspetto: nessun ruolo. Se la superficie è una regione con un significato, dalle un elemento (`as="section"`) e un nome.',
+        'Il testo sopra usa `fg` e `muted`: il contrasto viene dai colori del testo, non dal bordo della superficie.',
+      ],
+    },
+  },
 } satisfies Meta<typeof Surface>;
 
 export default meta;

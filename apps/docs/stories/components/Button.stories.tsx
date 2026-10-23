@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Bubble, Button, Flow, Hint, Text } from '@slurp-ui/react';
-import { ArrowLeftIcon, GearIcon, SearchIcon } from '@slurp-ui/react/icons';
+import { Button, Flow } from '@slurp-ui/react';
+import { ArrowLeftIcon, SearchIcon } from '@slurp-ui/react/icons';
 
 const APPEARANCES = ['fill', 'soft', 'outline', 'plain'] as const;
 
@@ -13,6 +13,16 @@ const meta = {
     appearance: { control: 'inline-radio', options: APPEARANCES },
     tone: { control: 'inline-radio', options: ['accent', 'neutral'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
+  },
+  parameters: {
+    slurp: {
+      a11y: [
+        'Un `<button type="button">`; con `href` diventa un link (`<a>`), con `as` un link del router.',
+        'Bersagli di 44 / 48 / 56px (`sm` / `md` / `lg`) e un anello di focus visibile da 2px.',
+        'Le icone (`icon`, `endIcon`) sono decorative: il testo del bottone resta il nome. Per un bottone con solo l’icona usa `Bubble`.',
+        'Al posto di `disabled` puoi passare `aria-disabled="true"`: stesso aspetto, ma resta nell’ordine di Tab (utile accanto a una spiegazione). Il click arriva comunque: ignoralo nel tuo handler.',
+      ],
+    },
   },
 } satisfies Meta<typeof Button>;
 
@@ -51,26 +61,6 @@ export const ConIcona: Story = {
       <Button href="#catalogo" appearance="soft">
         Vai al catalogo
       </Button>
-    </Flow>
-  ),
-};
-
-export const BubbleRotondo: Story = {
-  name: 'Bubble (solo icona)',
-  render: () => (
-    <Flow gap={3}>
-      <Flow direction="row" gap={3} align="center">
-        {APPEARANCES.map((a) => (
-          <Hint key={a} content={`Impostazioni (${a})`}>
-            <Bubble label="Impostazioni" appearance={a} tone={a === 'fill' ? 'accent' : 'neutral'}>
-              <GearIcon />
-            </Bubble>
-          </Hint>
-        ))}
-      </Flow>
-      <Text font="caption" muted>
-        Il nome accessibile è obbligatorio (label); il suggerimento compare al passaggio o al focus.
-      </Text>
     </Flow>
   ),
 };
