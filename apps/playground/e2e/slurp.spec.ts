@@ -102,47 +102,113 @@ test('expand 1 → n: the crumb bursts back into the tiles, all visible at the e
   await expectClean(page);
 });
 
-// Headless Chromium rasterises in software, where the SVG goo filter is the cost: frame rate is checked with the
-// bridges off (the engine itself), the main thread with them on. With a GPU the playground shows the live figure.
+// Performance is checked as work, not as time: a shared CI machine (software rendering, other jobs) changes the
+// frame rate, not how much the engine does. After measuring at the start the transition belongs to Web Animations,
+// so while the droplets fly there is no layout and at most one style recalculation per frame (radius and colour run
+// on the main thread). Frame rate and script time grow with the machine's load: they are reported, not asserted;
+// the playground shows the frame rate live.
+
+/** Properties a transition may animate: none of them changes layout. */
+const ANIMATED = new Set(['transform', 'opacity', 'borderRadius', 'backgroundColor', 'fill']);
+const FRAME_MS = 1000 / 60;
+
+/**
+ * Resolves once the transition has played `share` of its duration (read on a droplet: the page's own CSS transitions
+ * and animations keep other clocks), checked in the page every frame. With `pause`, every animation stops right
+ * there: what is measured next cannot include the cleanup.
+ */
+const reach = (page: Page, share: number, pause = false) =>
+  page.evaluate(
+    ({ share, pause }) =>
+      new Promise<void>((done, fail) => {
+        let seen = false;
+        const check = () => {
+          const layer = document.querySelector('[data-slurp-overlay]');
+          if (!layer && seen) return fail(new Error(`the transition ended before ${share * 100}%`));
+          seen ||= !!layer;
+          const a = layer?.getAnimations({ subtree: true })[0];
+          const total = Number(a?.effect?.getComputedTiming().duration ?? 0);
+          if (a && total > 0 && Number(a.currentTime ?? 0) >= total * share) {
+            if (pause) for (const x of document.getAnimations()) x.pause();
+            done();
+          } else requestAnimationFrame(check);
+        };
+        check();
+      }),
+    { share, pause },
+  );
+
 for (const goo of ['false', 'true']) {
-  test(`runs without long tasks${goo === 'false' ? ' at about 60 fps' : ', liquid bridges on'}`, async ({
+  test(`does no layout while the droplets fly${goo === 'true' ? ', liquid bridges on' : ''}`, async ({
     page,
   }) => {
     await page.getByLabel('Ponti liquidi (goo)').selectOption(goo);
-    // Long tasks are counted only while a transition runs (overlay on screen): rendering the next view after it is
-    // the app's work, not the engine's.
-    await page.evaluate(() => {
-      const w = window as unknown as { longTasks: number[]; running: boolean };
-      w.longTasks = [];
-      w.running = false;
-      new MutationObserver(() => {
-        w.running = !!document.querySelector('[data-slurp-overlay]');
-      }).observe(document.body, { childList: true });
-      new PerformanceObserver((list) => {
-        for (const e of list.getEntries()) if (w.running) w.longTasks.push(e.duration);
-      }).observe({ type: 'longtask' });
-    });
-    // Best of three round trips: a busy test machine can drop frames that the engine does not cause.
-    const runs: { fps: number; slow: number }[] = [];
-    for (let i = 0; i < 3; i++) {
-      for (const go of [() => tile(page, 'Casa'), () => back(page)]) {
-        await go().click();
-        await expect(stats(page)).toContainText('completata');
-        const [, fps, slow] =
-          (await stats(page).textContent())?.match(/(\d+) fps, (\d+) frame/) ?? [];
-        runs.push({ fps: Number(fps), slow: Number(slow) });
-        await expect(overlay(page)).toHaveCount(0);
-      }
+    // Longer than the default: more frames to measure on a slow machine; the work per frame is the same.
+    await page.getByLabel(/Durata/).fill('1500');
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Performance.enable');
+    const metrics = async () => {
+      const { metrics: list } = await cdp.send('Performance.getMetrics');
+      return Object.fromEntries(list.map((m) => [m.name, m.value]));
+    };
+
+    for (const [name, control] of [
+      ['collapse', () => tile(page, 'Casa')],
+      ['expand', () => back(page)],
+    ] as const) {
+      // From the keyboard: a mouse leaves the tile hovered and pressed, and its own CSS transition (a lift) ends
+      // mid-flight with a layout that is not the engine's.
+      await control().focus();
+      await page.keyboard.press('Enter');
+      // The app's own work at the start (the Controls re-render) settles first; the flight is measured from 10% to
+      // 70%, where the timeline is paused.
+      await expect(stats(page)).toHaveText('In corso…');
+      await reach(page, 0.1);
+      const from = await metrics();
+      await reach(page, 0.7, true);
+      const to = await metrics();
+      const elapsed = ((to.Timestamp ?? 0) - (from.Timestamp ?? 0)) * 1000;
+      const frames = Math.ceil(elapsed / FRAME_MS) + 2;
+      const layouts = (to.LayoutCount ?? 0) - (from.LayoutCount ?? 0);
+      const styles = (to.RecalcStyleCount ?? 0) - (from.RecalcStyleCount ?? 0);
+      const script = ((to.ScriptDuration ?? 0) - (from.ScriptDuration ?? 0)) * 1000;
+
+      const { properties, layer } = await page.evaluate(() => {
+        const skip = new Set(['offset', 'easing', 'composite', 'computedOffset']);
+        // The engine's Web Animations only: the tiles' own CSS (hover, drifting blob) is not the transition.
+        const keys = document
+          .getAnimations()
+          .filter((a) => !(a instanceof CSSAnimation || a instanceof CSSTransition))
+          .flatMap((a) => (a.effect as KeyframeEffect).getKeyframes())
+          .flatMap((k) => Object.keys(k).filter((key) => !skip.has(key)));
+        const r = document.querySelector('[data-slurp-overlay]')?.getBoundingClientRect();
+        return {
+          properties: [...new Set(keys)],
+          layer: r && { width: r.width, height: r.height },
+        };
+      });
+      const viewport = page.viewportSize();
+      await resume(page);
+
+      expect(layouts, `${name}: layouts while flying`).toBe(0);
+      expect(styles, `${name}: style recalculations in ${frames} frames`).toBeLessThanOrEqual(
+        frames,
+      );
+      expect(
+        properties.filter((p) => !ANIMATED.has(p)),
+        `${name}: animated properties`,
+      ).toEqual([]);
+      expect(layer, `${name}: overlay`).toBeTruthy();
+      expect(layer?.width ?? Infinity).toBeLessThanOrEqual(viewport?.width ?? 0);
+      expect(layer?.height ?? Infinity).toBeLessThanOrEqual(viewport?.height ?? 0);
+
+      await expect(stats(page)).toContainText('completata');
+      test.info().annotations.push({
+        type: 'performance',
+        description: `${name}: ${(await stats(page).textContent()) ?? ''}; while flying ${styles} style recalculations, ${script.toFixed(1)} ms of script in ${Math.round(elapsed)} ms`,
+      });
+      await expect(overlay(page)).toHaveCount(0);
     }
-    if (goo === 'false') {
-      const best = runs.reduce((a, b) => (b.fps > a.fps ? b : a));
-      expect(best.fps).toBeGreaterThanOrEqual(50);
-      expect(best.slow).toBeLessThanOrEqual(4);
-    }
-    const longTasks = await page.evaluate(
-      () => (window as unknown as { longTasks: number[] }).longTasks,
-    );
-    expect(longTasks.filter((d) => d > 50)).toEqual([]);
   });
 }
 
