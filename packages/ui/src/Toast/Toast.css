@@ -1,0 +1,95 @@
+@layer slurp.components {
+  .slurp-toasts {
+    --slurp-toast-offset: 112px;
+    position: fixed;
+    right: 0;
+    bottom: var(--slurp-toast-offset);
+    left: 0;
+    z-index: 70;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--slurp-space-4);
+    pointer-events: none;
+  }
+
+  .slurp-toasts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    width: min(480px, 100%);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-toast {
+    --slurp-toast-tone: var(--slurp-accent-ink);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-3);
+    padding: var(--slurp-space-2) var(--slurp-space-2) var(--slurp-space-2) var(--slurp-space-4);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-lg);
+    background: var(--slurp-surface-dock);
+    color: var(--slurp-fg);
+    box-shadow: var(--slurp-shadow-float);
+    pointer-events: auto;
+    backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    animation: slurp-toast-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-toast[data-tone='success'] {
+    --slurp-toast-tone: var(--slurp-success);
+  }
+
+  .slurp-toast[data-tone='warning'] {
+    --slurp-toast-tone: var(--slurp-warning);
+  }
+
+  .slurp-toast[data-tone='danger'] {
+    --slurp-toast-tone: var(--slurp-danger);
+  }
+
+  .slurp-toast-icon {
+    display: grid;
+    flex-shrink: 0;
+    color: var(--slurp-toast-tone);
+  }
+
+  .slurp-toast-text {
+    flex: 1;
+    min-width: 0;
+    padding: var(--slurp-space-1) 0;
+  }
+
+  .slurp-toast-title,
+  .slurp-toast-description {
+    margin: 0;
+  }
+
+  .slurp-toast-title {
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-toast-description {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  @keyframes slurp-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-toast {
+      animation: none;
+    }
+  }
+}

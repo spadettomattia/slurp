@@ -24,7 +24,7 @@ export function Flow<E extends ElementType = 'div'>(props: FlowProps<E>) {
     'Flow',
     props as FlowProps,
   );
-  const Root: ElementType = as ?? 'div';
+  const Root = (as ?? 'div') as ElementType;
   const layout: SlurpCss = {
     flexDirection: direction,
     gap,

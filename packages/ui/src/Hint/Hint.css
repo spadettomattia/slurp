@@ -1,0 +1,46 @@
+@layer slurp.components {
+  .slurp-hint {
+    position: fixed;
+    inset: auto;
+    max-width: min(280px, calc(100vw - 16px));
+    margin: 0;
+    padding: var(--slurp-space-2) var(--slurp-space-3);
+    overflow: visible;
+    border: 0;
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-fg);
+    color: var(--slurp-surface-2);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    box-shadow: var(--slurp-shadow-float);
+    animation: slurp-hint-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-hint:not([data-open]) {
+    display: none;
+  }
+
+  @keyframes slurp-hint-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+
+  .slurp-hint[data-side='bottom'] {
+    animation-name: slurp-hint-in-below;
+  }
+
+  @keyframes slurp-hint-in-below {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-hint {
+      animation: none;
+    }
+  }
+}

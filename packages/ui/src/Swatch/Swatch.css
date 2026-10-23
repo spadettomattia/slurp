@@ -1,0 +1,41 @@
+@layer slurp.components {
+  .slurp-swatch {
+    position: relative;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+  }
+
+  .slurp-swatch-fill {
+    position: absolute;
+    inset: 0;
+    border: 3px solid var(--slurp-surface-2);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--slurp-border-control);
+  }
+
+  .slurp-swatch[data-selected]::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 2px solid var(--slurp-accent-ink);
+    border-radius: 50%;
+  }
+
+  .slurp-swatch:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 6px;
+  }
+
+  .slurp-swatch-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-3);
+    padding: 6px;
+  }
+}

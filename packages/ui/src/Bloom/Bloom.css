@@ -1,0 +1,259 @@
+/*
+ * Bloom: one surface that is first the trigger, then the panel. Closed it sits in the flow; open (and while closing) it
+ * floats from the trigger's corner, the root keeping the trigger's box so nothing around moves.
+ * Width and radius are animated from inline styles; height through grid rows 0fr → 1fr. The Dock's curve, 0.6s.
+ */
+@layer slurp.components {
+  .slurp-bloom {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .slurp-bloom:not([data-phase='closed']) {
+    z-index: 40;
+  }
+
+  .slurp-bloom-surface {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 0fr;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-dock);
+    color: var(--slurp-fg);
+    box-shadow: var(--slurp-shadow-float);
+    backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    transition:
+      width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-radius 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-bloom:not([data-phase='closed']) .slurp-bloom-surface {
+    position: absolute;
+  }
+
+  .slurp-bloom[data-side='bottom'] .slurp-bloom-surface {
+    top: 0;
+  }
+
+  .slurp-bloom[data-side='top'] .slurp-bloom-surface {
+    bottom: 0;
+  }
+
+  .slurp-bloom[data-align='start'] .slurp-bloom-surface {
+    left: 0;
+  }
+
+  .slurp-bloom[data-align='end'] .slurp-bloom-surface {
+    right: 0;
+  }
+
+  .slurp-bloom[data-phase='open'] .slurp-bloom-surface {
+    grid-template-rows: auto 1fr;
+    border-radius: var(--slurp-radius-lg);
+  }
+
+  /* Growing upward: the panel sits above the trigger. */
+  .slurp-bloom[data-side='top'] .slurp-bloom-surface {
+    grid-template-rows: 0fr auto;
+  }
+
+  .slurp-bloom[data-side='top'][data-phase='open'] .slurp-bloom-surface {
+    grid-template-rows: 1fr auto;
+  }
+
+  .slurp-bloom[data-side='top'] .slurp-bloom-clip {
+    grid-row: 1;
+  }
+
+  .slurp-bloom-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--slurp-space-2);
+    min-height: 46px;
+    padding: 0 var(--slurp-space-4);
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    color: inherit;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.25s;
+  }
+
+  .slurp-bloom[data-align='end'] .slurp-bloom-trigger {
+    justify-self: end;
+  }
+
+  .slurp-bloom[data-align='start'] .slurp-bloom-trigger {
+    justify-self: start;
+  }
+
+  .slurp-bloom[data-icon] .slurp-bloom-trigger {
+    width: 46px;
+    padding: 0;
+  }
+
+  /*
+   * Icon trigger growing downward (the SettingsMenu): it stays in its corner over the panel, which fills the surface.
+   * Open, it moves in by space-2 and becomes 44px, like the actions inside the Dock; the panel's first row (the title)
+   * sits beside it.
+   */
+  .slurp-bloom[data-icon][data-side='bottom'] .slurp-bloom-trigger {
+    z-index: 1;
+    grid-area: 1 / 1;
+    align-self: start;
+    transition:
+      background-color 0.25s,
+      margin 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      min-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-bloom[data-icon][data-side='bottom'] .slurp-bloom-clip {
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  .slurp-bloom[data-icon][data-side='bottom'][data-phase='open'] .slurp-bloom-trigger {
+    width: 44px;
+    min-height: 44px;
+    margin: var(--slurp-space-2);
+  }
+
+  .slurp-bloom[data-icon][data-phase='open'] .slurp-bloom-trigger:focus-visible {
+    outline-offset: 2px;
+  }
+
+  .slurp-bloom[data-icon][data-side='bottom'] .slurp-bloom-panel > :first-child {
+    min-height: 44px;
+    margin-inline-end: 52px;
+  }
+
+  .slurp-bloom-trigger:hover:not(:disabled) {
+    background: var(--slurp-accent-soft);
+  }
+
+  /* Closed, the surface clips what sticks out: the ring goes inside. */
+  .slurp-bloom-trigger:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -4px;
+  }
+
+  .slurp-bloom-trigger:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* The hidden panel must not widen the closed surface: the clip has no intrinsic width of its own. */
+  .slurp-bloom-clip {
+    min-height: 0;
+    overflow: hidden;
+    contain: inline-size;
+  }
+
+  /* Fixed width (the open one): text never rewraps while the surface uncovers it. */
+  .slurp-bloom-panel {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-1);
+    max-height: min(420px, calc(100dvh - 120px));
+    padding: var(--slurp-space-2);
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.1s,
+      visibility 0s 0.6s;
+  }
+
+  .slurp-bloom[data-phase='open'] .slurp-bloom-panel {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      opacity 0.3s 0.12s,
+      visibility 0s;
+  }
+
+  /* Items of menus and listboxes built on Bloom. */
+  .slurp-bloom-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-3);
+    border: 0;
+    border-radius: var(--slurp-radius-sm);
+    background: transparent;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.25s;
+  }
+
+  .slurp-bloom-item:hover:not([aria-disabled='true']),
+  .slurp-bloom-item:focus-visible {
+    background: color-mix(in oklab, var(--slurp-fg) 6%, transparent);
+  }
+
+  .slurp-bloom-item:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-bloom-item[aria-selected='true'] {
+    background: var(--slurp-accent-soft);
+    font-weight: 600;
+  }
+
+  .slurp-bloom-item[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-bloom-item-icon {
+    display: grid;
+    flex-shrink: 0;
+    color: var(--slurp-muted);
+  }
+
+  .slurp-bloom-item[aria-selected='true'] .slurp-bloom-item-icon {
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-bloom-item-label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .slurp-bloom-item-check {
+    display: grid;
+    flex-shrink: 0;
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-bloom-item[data-tone='danger'] {
+    color: var(--slurp-danger);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-bloom-surface,
+    .slurp-bloom-panel,
+    .slurp-bloom[data-phase='open'] .slurp-bloom-panel,
+    .slurp-bloom-trigger,
+    .slurp-bloom-item {
+      transition: none;
+    }
+  }
+}

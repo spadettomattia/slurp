@@ -1,0 +1,81 @@
+@layer slurp.components {
+  .slurp-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-4);
+    min-width: 0;
+  }
+
+  .slurp-tabs-list {
+    position: relative;
+    display: flex;
+    gap: var(--slurp-space-1);
+    max-width: 100%;
+    padding: var(--slurp-space-1);
+    overflow-x: auto;
+    border-radius: var(--slurp-radius-full);
+    background: color-mix(in oklab, var(--slurp-fg) 6%, transparent);
+    scrollbar-width: none;
+  }
+
+  /* The selected tab is marked by the pill shape behind it, not only by its colour. */
+  .slurp-tabs-indicator {
+    position: absolute;
+    top: var(--slurp-space-1);
+    bottom: var(--slurp-space-1);
+    left: 0;
+    width: var(--slurp-tabs-w, 0);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent);
+    transform: translateX(var(--slurp-tabs-x, 0));
+  }
+
+  .slurp-tabs-list[data-ready] > .slurp-tabs-indicator {
+    transition:
+      transform var(--slurp-tabs-duration, 0.5s) var(--slurp-tabs-easing, ease),
+      width var(--slurp-tabs-duration, 0.5s) var(--slurp-tabs-easing, ease);
+  }
+
+  .slurp-tabs-tab {
+    position: relative;
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-5);
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.25s;
+  }
+
+  .slurp-tabs-tab[aria-selected='true'] {
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-tabs-tab:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-tabs-tab:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-tabs-panel:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+    border-radius: var(--slurp-radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-tabs-list[data-ready] > .slurp-tabs-indicator,
+    .slurp-tabs-tab {
+      transition: none;
+    }
+  }
+}

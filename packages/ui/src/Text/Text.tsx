@@ -41,7 +41,7 @@ export function Text<E extends ElementType = 'p'>(props: TextProps<E>) {
     muted,
     ...rest
   } = useThemeProps('Text', props as TextProps);
-  const Root: ElementType = as ?? ELEMENT[font] ?? 'p';
+  const Root = (as ?? ELEMENT[font] ?? 'p') as ElementType;
   const styled = useCss('Text', 'root', css);
   const root = useAnimationRoot(rest);
   return (

@@ -1,7 +1,7 @@
 import type { Ref } from 'react';
 
 import { useAnimationTarget, type AnimationProps } from '../motion/useAnimationTarget';
-import { useForkRef } from './forkRef';
+import { useForkRef } from '../utils/useForkRef';
 
 /**
  * Root props of a component without its animation* props, with the element registered for motion when asked.

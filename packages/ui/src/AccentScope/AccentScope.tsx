@@ -26,7 +26,7 @@ export function AccentScope<E extends ElementType = 'div'>(props: AccentScopePro
     'AccentScope',
     props as AccentScopeProps,
   );
-  const Root: ElementType = as ?? 'div';
+  const Root = (as ?? 'div') as ElementType;
   const styled = useCss('AccentScope', 'root', css);
   const vars = useMemo(() => accentVars(resolveAccent(color)), [color]);
   const root = useAnimationRoot(rest);

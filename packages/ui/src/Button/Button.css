@@ -1,0 +1,129 @@
+/* Button and Bubble share these rules: a pill (or a circle) with four appearances. */
+@layer slurp.components {
+  .slurp-button {
+    --slurp-button-height: 48px;
+    --slurp-button-pad: var(--slurp-space-6);
+    --slurp-button-bg: var(--slurp-accent);
+    --slurp-button-fg: var(--slurp-on-accent);
+    --slurp-button-border: transparent;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--slurp-space-2);
+    min-height: var(--slurp-button-height);
+    padding: 0 var(--slurp-button-pad);
+    border: 1px solid var(--slurp-button-border);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-button-bg);
+    color: var(--slurp-button-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.4s,
+      background-color 0.25s,
+      color 0.25s;
+  }
+
+  .slurp-button:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-button:hover:not(:disabled, [aria-disabled='true']) {
+    transform: translateY(-2px);
+  }
+
+  .slurp-button:active:not(:disabled, [aria-disabled='true']) {
+    transform: scale(0.97);
+  }
+
+  .slurp-button:disabled,
+  .slurp-button[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-button[data-size='sm'] {
+    --slurp-button-height: 44px;
+    --slurp-button-pad: var(--slurp-space-4);
+  }
+
+  .slurp-button[data-size='lg'] {
+    --slurp-button-height: 56px;
+    --slurp-button-pad: var(--slurp-space-8);
+  }
+
+  .slurp-button[data-appearance='fill'][data-tone='accent']:hover:not(:disabled) {
+    box-shadow: 0 14px 30px -12px var(--slurp-accent);
+  }
+
+  .slurp-button[data-appearance='fill'][data-tone='neutral'] {
+    --slurp-button-bg: var(--slurp-surface-2);
+    --slurp-button-fg: var(--slurp-fg);
+    --slurp-button-border: var(--slurp-border-control);
+  }
+
+  .slurp-button[data-appearance='soft'] {
+    --slurp-button-bg: var(--slurp-accent-soft);
+    --slurp-button-fg: var(--slurp-accent-ink);
+  }
+
+  .slurp-button[data-appearance='soft'][data-tone='neutral'] {
+    --slurp-button-bg: color-mix(in oklab, var(--slurp-fg) 8%, transparent);
+    --slurp-button-fg: var(--slurp-fg);
+  }
+
+  .slurp-button[data-appearance='outline'] {
+    --slurp-button-bg: transparent;
+    --slurp-button-fg: var(--slurp-accent-ink);
+    --slurp-button-border: var(--slurp-accent-ink);
+  }
+
+  .slurp-button[data-appearance='outline'][data-tone='neutral'] {
+    --slurp-button-fg: var(--slurp-fg);
+    --slurp-button-border: var(--slurp-border-control);
+  }
+
+  .slurp-button[data-appearance='plain'] {
+    --slurp-button-bg: transparent;
+    --slurp-button-fg: var(--slurp-accent-ink);
+  }
+
+  .slurp-button[data-appearance='plain'][data-tone='neutral'] {
+    --slurp-button-fg: var(--slurp-fg);
+  }
+
+  .slurp-button:is([data-appearance='outline'], [data-appearance='plain']):hover:not(:disabled) {
+    --slurp-button-bg: var(--slurp-accent-soft);
+  }
+
+  .slurp-button-icon {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  /* Bubble: round, icon only. */
+  .slurp-button.slurp-bubble {
+    width: var(--slurp-button-height);
+    height: var(--slurp-button-height);
+    padding: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-button {
+      transition: none;
+    }
+
+    .slurp-button:hover:not(:disabled),
+    .slurp-button:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}

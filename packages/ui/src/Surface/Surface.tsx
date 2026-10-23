@@ -27,7 +27,7 @@ export function Surface<E extends ElementType = 'div'>(props: SurfaceProps<E>) {
     radius = 'card',
     ...rest
   } = useThemeProps('Surface', props as SurfaceProps);
-  const Root: ElementType = as ?? 'div';
+  const Root = (as ?? 'div') as ElementType;
   const styled = useCss('Surface', 'root', css);
   const root = useAnimationRoot(rest);
   return (

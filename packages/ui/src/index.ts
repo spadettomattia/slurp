@@ -49,3 +49,84 @@ export { Frame, type FrameProps } from './Frame';
 export { Ground } from './Ground';
 export { Surface, type SurfaceProps } from './Surface';
 export { Text, type TextProps, type TextTone } from './Text';
+export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden';
+export { Portal, type PortalProps } from './Portal';
+
+// Actions and display
+export {
+  Button,
+  type Appearance,
+  type ButtonProps,
+  type ButtonTone,
+  type ControlSize,
+} from './Button';
+export { Bubble, type BubbleProps } from './Bubble';
+export { Chip, type ChipProps } from './Chip';
+export { Segmented, type SegmentedOption, type SegmentedProps } from './Segmented';
+export { Count, type CountProps } from './Count';
+export { Avatar, type AvatarProps } from './Avatar';
+export {
+  Swatch,
+  SwatchGroup,
+  type SwatchGroupProps,
+  type SwatchOption,
+  type SwatchProps,
+} from './Swatch';
+export { Progress, type ProgressProps } from './Progress';
+export { Placeholder, type PlaceholderProps } from './Placeholder';
+export {
+  Notice,
+  NOTICE_LABELS,
+  type NoticeLabels,
+  type NoticeProps,
+  type StatusTone,
+} from './Notice';
+
+// Form controls
+export { Field, type FieldProps } from './Field';
+export { Search, SEARCH_LABELS, type SearchLabels, type SearchProps } from './Search';
+export { Checkbox, type CheckboxProps } from './Checkbox';
+export { Radio, RadioGroup, type RadioGroupProps, type RadioProps } from './Radio';
+export { Switch, type SwitchProps } from './Switch';
+export { Range, type RangeProps } from './Range';
+export {
+  Choice,
+  CHOICE_LABELS,
+  type ChoiceLabels,
+  type ChoiceOption,
+  type ChoiceProps,
+} from './Choice';
+
+// Disclosure and overlays: the trigger becomes the panel (Bloom)
+export { Tabs, type TabItem, type TabsProps } from './Tabs';
+export { Fold, type FoldProps } from './Fold';
+export { Hint, type HintProps } from './Hint';
+export { Bloom, type BloomPlacement, type BloomProps } from './Bloom';
+export { Menu, MenuItem, type MenuItemProps, type MenuProps } from './Menu';
+export { Dialog, DIALOG_LABELS, type DialogLabels, type DialogProps } from './Dialog';
+export { Sheet, type SheetProps } from './Sheet';
+export {
+  TOAST_LABELS,
+  ToastProvider,
+  useToast,
+  type ToastLabels,
+  type ToastOptions,
+  type ToastProviderProps,
+} from './Toast';
+
+// Behaviour shared by the components (also at @slurp-ui/react/utils)
+export {
+  COMPACT_QUERY,
+  FOCUSABLE,
+  focusFirst,
+  moveFocus,
+  useControlled,
+  useDismiss,
+  useForkRef,
+  useMediaQuery,
+  useRovingFocus,
+  type ControlledOptions,
+  type DismissOptions,
+  type MoveFocusOptions,
+  type RovingFocusOptions,
+} from './utils';

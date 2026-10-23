@@ -1,0 +1,7 @@
+@layer slurp.components {
+  .slurp-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}

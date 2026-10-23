@@ -1,0 +1,58 @@
+@layer slurp.components {
+  .slurp-notice {
+    --slurp-notice-tone: var(--slurp-accent-ink);
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--slurp-space-3);
+    padding: var(--slurp-space-4) var(--slurp-space-5);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-notice[data-tone='success'] {
+    --slurp-notice-tone: var(--slurp-success);
+  }
+
+  .slurp-notice[data-tone='warning'] {
+    --slurp-notice-tone: var(--slurp-warning);
+  }
+
+  .slurp-notice[data-tone='danger'] {
+    --slurp-notice-tone: var(--slurp-danger);
+  }
+
+  .slurp-notice-icon {
+    display: grid;
+    flex-shrink: 0;
+    padding-top: 1px;
+    color: var(--slurp-notice-tone);
+  }
+
+  .slurp-notice-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .slurp-notice-title {
+    margin: 0;
+    color: var(--slurp-notice-tone);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-notice-body {
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-notice-dismiss {
+    flex-shrink: 0;
+    margin: calc(-1 * var(--slurp-space-2)) calc(-1 * var(--slurp-space-3)) 0 0;
+  }
+}

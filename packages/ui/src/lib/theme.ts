@@ -4,10 +4,34 @@ import { MOTION_DEFAULTS, type GhostKind, type SlurpDefaults } from '@slurp-ui/m
 import type { blur, ColorToken, HueToken, RadiusToken, shadow, SpaceToken } from '@slurp-ui/tokens';
 
 import type { AccentScopeProps } from '../AccentScope/AccentScope';
+import type { AvatarProps } from '../Avatar/Avatar';
+import type { BloomProps } from '../Bloom/Bloom';
+import type { BubbleProps } from '../Bubble/Bubble';
+import type { ButtonProps } from '../Button/Button';
 import type { CellProps } from '../Cell/Cell';
+import type { CheckboxProps } from '../Checkbox/Checkbox';
+import type { ChipProps } from '../Chip/Chip';
+import type { ChoiceProps } from '../Choice/Choice';
+import type { CountProps } from '../Count/Count';
+import type { DialogProps } from '../Dialog/Dialog';
+import type { FieldProps } from '../Field/Field';
 import type { FlowProps } from '../Flow/Flow';
+import type { FoldProps } from '../Fold/Fold';
 import type { FrameProps } from '../Frame/Frame';
+import type { HintProps } from '../Hint/Hint';
+import type { MenuProps } from '../Menu/Menu';
+import type { NoticeProps } from '../Notice/Notice';
+import type { PlaceholderProps } from '../Placeholder/Placeholder';
+import type { ProgressProps } from '../Progress/Progress';
+import type { RadioGroupProps, RadioProps } from '../Radio/Radio';
+import type { RangeProps } from '../Range/Range';
+import type { SearchProps } from '../Search/Search';
+import type { SegmentedProps } from '../Segmented/Segmented';
+import type { SheetProps } from '../Sheet/Sheet';
 import type { SurfaceProps } from '../Surface/Surface';
+import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
+import type { SwitchProps } from '../Switch/Switch';
+import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
 import { accentVars, resolveAccent } from './color';
 import { hash, LAYER_ORDER, type SlurpCss } from './css';
@@ -55,10 +79,42 @@ const DEFAULT_MOTION: MotionOptions = {
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
   AccentScope: { props: AccentScopeProps; parts: 'root' };
+  Avatar: { props: AvatarProps; parts: 'root' };
+  Bloom: { props: BloomProps; parts: 'root' | 'surface' | 'trigger' | 'panel' };
+  Bubble: { props: BubbleProps; parts: 'root' };
+  Button: { props: ButtonProps; parts: 'root' | 'icon' | 'label' | 'endIcon' };
   Cell: { props: CellProps; parts: 'root' };
+  Checkbox: { props: CheckboxProps; parts: 'root' | 'input' | 'box' | 'label' };
+  Chip: { props: ChipProps; parts: 'root' };
+  Choice: { props: ChoiceProps; parts: 'root' };
+  Count: { props: CountProps; parts: 'root' };
+  Dialog: {
+    props: DialogProps;
+    parts: 'root' | 'header' | 'title' | 'description' | 'body' | 'footer' | 'close';
+  };
+  Field: { props: FieldProps; parts: 'root' | 'label' | 'control' | 'hint' | 'error' };
   Flow: { props: FlowProps; parts: 'root' };
+  Fold: { props: FoldProps; parts: 'root' | 'heading' | 'trigger' | 'region' };
   Frame: { props: FrameProps; parts: 'root' };
+  Hint: { props: HintProps; parts: 'root' };
+  Menu: { props: MenuProps; parts: 'root' };
+  Notice: { props: NoticeProps; parts: 'root' | 'icon' | 'title' | 'body' | 'dismiss' };
+  Placeholder: { props: PlaceholderProps; parts: 'root' };
+  Progress: { props: ProgressProps; parts: 'root' };
+  Radio: { props: RadioProps; parts: 'root' | 'input' | 'dot' | 'label' };
+  RadioGroup: { props: RadioGroupProps; parts: 'root' | 'legend' };
+  Range: { props: RangeProps; parts: 'root' | 'label' | 'value' | 'control' };
+  Search: { props: SearchProps; parts: 'root' | 'icon' | 'control' | 'clear' | 'status' };
+  Segmented: { props: SegmentedProps; parts: 'root' | 'item' };
+  Sheet: {
+    props: SheetProps;
+    parts: 'root' | 'header' | 'title' | 'description' | 'body' | 'footer' | 'close';
+  };
   Surface: { props: SurfaceProps; parts: 'root' };
+  Swatch: { props: SwatchProps; parts: 'root' };
+  SwatchGroup: { props: SwatchGroupProps; parts: 'root' };
+  Switch: { props: SwitchProps; parts: 'root' | 'input' | 'track' | 'thumb' | 'label' };
+  Tabs: { props: TabsProps; parts: 'root' | 'list' | 'tab' | 'indicator' | 'panel' };
   Text: { props: TextProps; parts: 'root' };
 }
 export type ComponentName = keyof ThemeComponents;

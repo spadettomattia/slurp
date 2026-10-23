@@ -1,0 +1,66 @@
+@layer slurp.components {
+  .slurp-radio-dot {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--slurp-border-control);
+    border-radius: 50%;
+    background: var(--slurp-surface-2);
+    transition: border-color 0.2s;
+  }
+
+  .slurp-radio-dot::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--slurp-accent-ink);
+    transform: scale(0);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-radio[data-state='on'] .slurp-radio-dot {
+    border-color: var(--slurp-accent-ink);
+  }
+
+  .slurp-radio[data-state='on'] .slurp-radio-dot::after {
+    transform: scale(1);
+  }
+
+  .slurp-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-1);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .slurp-radio-group[data-orientation='horizontal'] {
+    flex-flow: row wrap;
+    column-gap: var(--slurp-space-5);
+  }
+
+  .slurp-radio-group-legend {
+    margin-bottom: var(--slurp-space-1);
+    padding: 0;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-radio-group[data-orientation='horizontal'] > .slurp-radio-group-legend {
+    flex-basis: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-radio-dot,
+    .slurp-radio-dot::after {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@layer slurp.components {
+  .slurp-avatar {
+    --slurp-avatar-size: 44px;
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--slurp-avatar-size);
+    height: var(--slurp-avatar-size);
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    user-select: none;
+  }
+
+  .slurp-avatar[data-size='sm'] {
+    --slurp-avatar-size: 32px;
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+  }
+
+  .slurp-avatar[data-size='lg'] {
+    --slurp-avatar-size: 64px;
+    font: var(--slurp-font-title-s);
+  }
+
+  .slurp-avatar > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

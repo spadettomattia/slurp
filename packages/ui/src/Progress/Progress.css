@@ -1,0 +1,92 @@
+@layer slurp.components {
+  .slurp-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-3);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-progress[data-shape='ring'] {
+    display: inline-flex;
+  }
+
+  .slurp-progress-bar {
+    position: relative;
+    flex: 1;
+    height: 8px;
+    overflow: hidden;
+    border-radius: var(--slurp-radius-full);
+    background: color-mix(in oklab, var(--slurp-border-control) 35%, transparent);
+  }
+
+  .slurp-progress-bar > .slurp-progress-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--slurp-accent-ink);
+    transform: scaleX(var(--slurp-progress-ratio));
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-progress[data-indeterminate] .slurp-progress-bar > .slurp-progress-fill {
+    width: 35%;
+    transform: none;
+    animation: slurp-progress-slide 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+
+  .slurp-progress svg {
+    flex-shrink: 0;
+    fill: none;
+    stroke-width: 8;
+  }
+
+  .slurp-progress-track {
+    stroke: var(--slurp-border-control);
+    stroke-opacity: 0.35;
+  }
+
+  svg .slurp-progress-fill {
+    stroke: var(--slurp-accent-ink);
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-progress[data-indeterminate] svg {
+    animation: slurp-progress-spin 1.2s linear infinite;
+  }
+
+  .slurp-progress-value {
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @keyframes slurp-progress-slide {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(290%);
+    }
+  }
+
+  @keyframes slurp-progress-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-progress-bar > .slurp-progress-fill,
+    svg .slurp-progress-fill {
+      transition: none;
+    }
+
+    .slurp-progress[data-indeterminate] .slurp-progress-bar > .slurp-progress-fill,
+    .slurp-progress[data-indeterminate] svg {
+      animation: none;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@layer slurp.components {
+  .slurp-choice {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--slurp-space-2);
+  }
+
+  .slurp-choice-label {
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  /* The trigger is a standalone control: it needs a 3:1 boundary while closed. */
+  .slurp-choice .slurp-bloom[data-phase='closed'] .slurp-bloom-surface {
+    border-color: var(--slurp-border-control);
+  }
+
+  .slurp-choice-placeholder {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-choice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}

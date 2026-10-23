@@ -1,0 +1,58 @@
+@layer slurp.components {
+  .slurp-chip {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-4);
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    cursor: pointer;
+    transition:
+      background-color 0.35s,
+      color 0.35s,
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-chip:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--slurp-accent-soft);
+  }
+
+  .slurp-chip:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-chip[data-selected] {
+    padding-left: var(--slurp-space-3);
+    border-color: var(--slurp-accent-ink);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-chip:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-chip-icon {
+    display: inline-grid;
+    place-items: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-chip {
+      transition: none;
+    }
+
+    .slurp-chip:hover:not(:disabled) {
+      transform: none;
+    }
+  }
+}

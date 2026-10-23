@@ -17,3 +17,13 @@ export interface BaseProps extends AnimationProps {
  */
 export type PolymorphicProps<E extends ElementType, Own extends object = object> = Own &
   BaseProps & { as?: E } & Omit<ComponentPropsWithRef<E>, keyof Own | keyof BaseProps | 'as'>;
+
+/** Inner parts of a composed component (`root` is styled through `className` / `css`). */
+export interface PartsProps<P extends string> {
+  /** Replaces an inner element with another tag or component. */
+  parts?: Partial<Record<P, ElementType>>;
+  /** Extra props for an inner element. */
+  partProps?: Partial<Record<P, Record<string, unknown>>>;
+  /** Extra class names for an inner element. */
+  classNames?: Partial<Record<P, string>>;
+}

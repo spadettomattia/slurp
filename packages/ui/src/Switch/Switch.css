@@ -1,0 +1,54 @@
+@layer slurp.components {
+  .slurp-switch-input {
+    width: 60px;
+    transform: translate(-4px, -50%);
+  }
+
+  .slurp-switch-track {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: 52px;
+    height: 32px;
+    border: 2px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+    transition:
+      background-color 0.3s,
+      border-color 0.3s;
+  }
+
+  .slurp-switch-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--slurp-border-control);
+    color: var(--slurp-accent-ink);
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 0.3s;
+  }
+
+  .slurp-switch[data-state='on'] .slurp-switch-track {
+    border-color: var(--slurp-accent-ink);
+    background: var(--slurp-accent);
+  }
+
+  .slurp-switch[data-state='on'] .slurp-switch-thumb {
+    background: var(--slurp-surface-2);
+    transform: translateX(20px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-switch-track,
+    .slurp-switch-thumb {
+      transition: none;
+    }
+  }
+}

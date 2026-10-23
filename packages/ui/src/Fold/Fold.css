@@ -1,0 +1,77 @@
+@layer slurp.components {
+  .slurp-fold {
+    border-bottom: 1px solid var(--slurp-line);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-fold-heading {
+    margin: 0;
+    font: inherit;
+  }
+
+  .slurp-fold-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-3);
+    width: 100%;
+    min-height: 56px;
+    padding: var(--slurp-space-3) var(--slurp-space-1);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .slurp-fold-trigger:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+    border-radius: var(--slurp-radius-sm);
+  }
+
+  .slurp-fold-chevron {
+    flex-shrink: 0;
+    color: var(--slurp-muted);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-fold[data-state='open'] .slurp-fold-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Grows in height through grid rows (0fr → 1fr), like the Dock's panels. */
+  .slurp-fold-region {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition:
+      grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 0s 0.6s;
+    visibility: hidden;
+  }
+
+  .slurp-fold[data-state='open'] .slurp-fold-region {
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    visibility: visible;
+  }
+
+  .slurp-fold-content {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .slurp-fold-content > :last-child {
+    margin-bottom: var(--slurp-space-4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-fold-chevron,
+    .slurp-fold-region,
+    .slurp-fold[data-state='open'] .slurp-fold-region {
+      transition: none;
+    }
+  }
+}

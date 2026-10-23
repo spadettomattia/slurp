@@ -1,0 +1,80 @@
+@layer slurp.components {
+  .slurp-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-field-label {
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-field-control {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 48px;
+    margin: 0;
+    padding: 0 var(--slurp-space-4);
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
+    transition: border-color 0.2s;
+  }
+
+  textarea.slurp-field-control {
+    padding: var(--slurp-space-3) var(--slurp-space-4);
+    resize: vertical;
+  }
+
+  .slurp-field-control::placeholder {
+    color: var(--slurp-muted);
+    opacity: 1;
+  }
+
+  .slurp-field-control:hover:not(:disabled) {
+    border-color: var(--slurp-fg);
+  }
+
+  .slurp-field-control:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-field-control:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-field[data-invalid] .slurp-field-control {
+    border-color: var(--slurp-danger);
+  }
+
+  .slurp-field-hint,
+  .slurp-field-error {
+    margin: 0;
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-field-hint {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: var(--slurp-danger);
+  }
+
+  .slurp-field-error > svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+}
