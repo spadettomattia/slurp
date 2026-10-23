@@ -1,0 +1,94 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './Navigation.stories';
+
+<Meta of={Stories} />
+
+# Navigazione tra route
+
+Quando la destinazione è un'altra pagina, la sorgente non esiste più nel momento in cui la nuova route si monta. Due hook risolvono il passaggio, senza importare nessun router:
+
+- **`useSlurpNavigate(navigate)`** avvolge la funzione di navigazione del tuo router. Con le opzioni slurp misura `from` **prima** di navigare e lascia un passaggio di consegne; senza opzioni naviga e basta.
+- **`useSlurpEnter(to?)`** nella route d'arrivo aspetta che `to` sia montato e fa partire la transizione dalle misure salvate. Il bersaglio può arrivare anche dal passaggio (`go(url, { to })`).
+
+<Canvas of={Stories.Demo} />
+
+Il resto della pagina d'arrivo è già montato quando le gocce partono: con `content` resta nascosto e compare in dissolvenza mentre atterrano (l'ultimo 40% della transizione). Non passare un contenitore dei bersagli: le gocce atterrerebbero su qualcosa di invisibile, e quell'elemento viene saltato.
+
+```tsx
+const intro = useRef<HTMLDivElement>(null);
+useSlurpEnter({ group: 'tiles' }, { content: intro }); // titolo e testo, non la griglia delle tile
+```
+
+Comportamento:
+
+- passaggio più vecchio di 1 s (`maxAge`) o bersagli assenti → dissolvenza breve, mai un blocco;
+- visita diretta, ricarica, avanti / indietro del browser → nessun passaggio, la route si mostra e basta;
+- StrictMode: il passaggio è preso una volta sola e il secondo montaggio lo riproduce;
+- route riusata con altri parametri (`/sezione/a` → `/sezione/b`) → passa `key` (per esempio il pathname) a `useSlurpEnter`.
+
+## React Router
+
+```tsx
+import { useNavigate } from 'react-router';
+import { useSlurpEnter, useSlurpNavigate } from '@slurp-ui/react';
+
+function Grid() {
+  const go = useSlurpNavigate(useNavigate());
+  useSlurpEnter({ group: 'tiles' }); // al ritorno: il crumb esplode nelle tile
+
+  return (
+    <AnimationGroup id="tiles">
+      {sections.map((s) => (
+        <Tile
+          key={s.id}
+          animationId={`tile-${s.id}`}
+          onClick={() =>
+            go(`/${s.id}`, { from: { group: 'tiles' }, lead: `tile-${s.id}`, to: `crumb-${s.id}` })
+          }
+        />
+      ))}
+    </AnimationGroup>
+  );
+}
+
+function Section() {
+  const { id } = useParams();
+  const page = useRef<HTMLElement>(null);
+  useSlurpEnter(undefined, { key: id, content: page }); // il bersaglio (il crumb) arriva con il passaggio
+  // …
+}
+
+// Nel Dock, sempre montato nel layout:
+<Dock.Back onClick={() => go('/', { from: `crumb-${id}`, lead: `tile-${id}` })} />;
+```
+
+Gli argomenti dopo le opzioni passano al router: `go('/x', options, { replace: true })`, `go(-1, options)`.
+
+## Next.js (App Router)
+
+Gli hook usano effetti e ref: vanno in un Client Component. Il Dock nel `layout.tsx` resta montato fra le pagine.
+
+```tsx
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useSlurpEnter, useSlurpNavigate } from '@slurp-ui/react';
+
+export function SectionGrid({ sections }: { sections: Section[] }) {
+  const router = useRouter();
+  const go = useSlurpNavigate((href: string) => router.push(href));
+  useSlurpEnter({ group: 'tiles' });
+  // … come sopra
+}
+```
+
+```tsx
+// app/[section]/page.tsx — un Server Component che rende un Client Component
+export default async function Page({ params }: { params: Promise<{ section: string }> }) {
+  const { section } = await params;
+  return <SectionView id={section} />; // 'use client' + useSlurpEnter(undefined, { key: section })
+}
+```
+
+Se la pagina d'arrivo carica dati lentamente, il passaggio scade dopo `maxAge` e la transizione diventa una dissolvenza: alza `maxAge` o mostra subito uno scheletro con i bersagli (`loading.tsx`).

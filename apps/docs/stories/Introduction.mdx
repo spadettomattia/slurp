@@ -34,7 +34,7 @@ export function App() {
 - Componenti: `Button`, `Bubble`, `Chip`, `Segmented`, `Count`, `Avatar`, `Swatch`, `Field`, `Search`, `Choice`, `Checkbox`, `Radio`, `Switch`, `Range`, `Tabs`, `Fold`, `Notice`, `Hint`, `Bloom`, `Menu`, `Dialog`, `Sheet`, `Toast`, `Progress`, `Placeholder`.
 - Firma Slurp: `Tile`, `Bento`, `Card`, `Shelf`, `Stage`, `Fact`, `Score`, `List` / `ListRow`, `ResultRow`, `Mark`, `Empty`, `Dock`, `Settings`, `Filters`.
 - Comportamenti condivisi (`@slurp-ui/react/utils`): `useDismiss`, `focusFirst`, `moveFocus`, `useRovingFocus`, `useControlled`, `useMediaQuery`, `useFindInPage`, `matchesAll`.
-- Animazione (opzionale): `useSlurp`, `AnimationGroup` e le props `animation*` di ogni componente; il motore è in `@slurp-ui/react/motion`.
+- Animazione (opzionale): `useSlurp`, `AnimationGroup` e le props `animation*` di ogni componente; fra route `useSlurpNavigate` / `useSlurpEnter`; il motore è in `@slurp-ui/react/motion`.
 
 ## Personalizzare
 
@@ -64,6 +64,8 @@ await collapse({ items: { group: 'tiles' }, target: 'crumb', lead: `tile-${s.id}
 // 1 → n per tornare indietro.
 expand({ source: 'crumb', items: { group: 'tiles' } });
 ```
+
+Fra pagine diverse (Next.js, React Router…) `useSlurpNavigate` misura la sorgente prima di navigare e `useSlurpEnter` fa partire la transizione nella route d'arrivo: vedi _Animazione / Navigazione tra route_.
 
 Con `prefers-reduced-motion` diventa una dissolvenza di 150 ms. I default (durata, sfalsamento, goo, ghost…) stanno in `createTheme({ motion })`.
 
