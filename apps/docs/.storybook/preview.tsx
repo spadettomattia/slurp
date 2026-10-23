@@ -65,7 +65,9 @@ const preview: Preview = {
     // axe must be green: violations fail the story in the test runner.
     a11y: { test: 'error' },
     options: {
-      storySort: { order: ['Introduzione', 'Tokens', 'Sistema', 'Fondamenta'] },
+      storySort: {
+        order: ['Introduzione', 'Tokens', 'Sistema', 'Fondamenta', 'Componenti', 'Animazione'],
+      },
     },
   },
 };

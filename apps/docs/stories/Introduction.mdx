@@ -31,6 +31,8 @@ export function App() {
 - Token del design system come CSS custom properties `--slurp-*` (chiaro e scuro) e costanti TypeScript.
 - Sistema: `createTheme`, `SlurpProvider`, `useColorScheme`, `AccentScope` / `vivid()`, prop `css`.
 - Fondamenta: `Ground`, `Cell`, `Flow`, `Frame`, `Text`, `Surface`.
+- Componenti: `Button`, `Bubble`, `Chip`, `Segmented`, `Count`, `Avatar`, `Swatch`, `Field`, `Search`, `Choice`, `Checkbox`, `Radio`, `Switch`, `Range`, `Tabs`, `Fold`, `Notice`, `Hint`, `Bloom`, `Menu`, `Dialog`, `Sheet`, `Toast`, `Progress`, `Placeholder`.
+- Comportamenti condivisi (`@slurp-ui/react/utils`): `useDismiss`, `focusFirst`, `moveFocus`, `useRovingFocus`, `useControlled`, `useMediaQuery`.
 - Animazione (opzionale): `useSlurp`, `AnimationGroup` e le props `animation*` di ogni componente; il motore è in `@slurp-ui/react/motion`.
 
 ## Personalizzare
@@ -63,6 +65,10 @@ expand({ source: 'crumb', items: { group: 'tiles' } });
 ```
 
 Con `prefers-reduced-motion` diventa una dissolvenza di 150 ms. I default (durata, sfalsamento, goo, ghost…) stanno in `createTheme({ motion })`.
+
+## Pannelli: il bottone diventa il pannello
+
+Nessun popover compare accanto al bottone: con `Bloom` (e `Choice`, `Menu` che ci sono costruiti sopra) la superficie del bottone cresce in larghezza, altezza e raggio fino a diventare il pannello, e torna bottone quando si chiude. Click fuori, Escape o Tab chiudono; Escape riporta il focus sul bottone.
 
 ## Tema chiaro e scuro
 
