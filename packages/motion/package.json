@@ -1,6 +1,6 @@
 {
   "name": "@slurp-ui/motion",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Slurp collapse/expand animation engine: vanilla TypeScript on Web Animations, no dependencies.",
   "keywords": [
     "animation",

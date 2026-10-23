@@ -1,6 +1,6 @@
 {
   "name": "@slurp-ui/tokens",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Slurp design tokens: CSS custom properties (--slurp-*, light/dark) and typed TS constants.",
   "keywords": [
     "design-tokens",

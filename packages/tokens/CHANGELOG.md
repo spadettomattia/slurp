@@ -1,5 +1,11 @@
 # @slurp-ui/tokens
 
+## 1.0.1
+
+### Patch Changes
+
+- 9aec3d3: The package now includes its CHANGELOG.md.
+
 ## 1.0.0
 
 ### Major Changes
