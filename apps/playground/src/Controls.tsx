@@ -2,7 +2,7 @@ import { Cell, Flow, Surface, Text } from '@slurp-ui/react';
 import type { SlurpAnimation, SlurpResult } from '@slurp-ui/react/motion';
 import type { ReactNode } from 'react';
 
-import type { Settings } from './App';
+import type { MotionSettings as Settings } from './App';
 
 export interface Stats {
   result: SlurpResult;

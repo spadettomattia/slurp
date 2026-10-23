@@ -1,31 +1,48 @@
 import {
-  AccentScope,
   AnimationGroup,
-  Cell,
+  Bento,
+  Button,
+  Card,
+  Chip,
+  Dock,
+  Empty,
+  Fact,
+  Filters,
   Flow,
   Frame,
   Ground,
+  List,
+  ListRow,
+  Mark,
+  matchesAll,
+  ResultRow,
+  Score,
+  Settings,
+  Shelf,
   SlurpProvider,
-  Surface,
+  Stage,
   Text,
+  Tile,
+  useFindInPage,
   useSlurp,
   type MotionOptions,
 } from '@slurp-ui/react';
+import { FiltersIcon } from '@slurp-ui/react/icons';
 import type { SlurpAnimation, SlurpResult } from '@slurp-ui/react/motion';
 import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { Controls, type Stats } from './Controls';
-import { SECTIONS, type Section } from './data';
+import { SECTIONS, type Item, type Section } from './data';
 
-// Real-world test bed of the collapse / expand flow: entry grid → list, and back.
+// Real-world test bed of the collapse / expand flow: entry grid → list → detail, and back.
 
-export type Settings = Pick<
+export type MotionSettings = Pick<
   MotionOptions,
   'duration' | 'stagger' | 'goo' | 'ghost' | 'reducedMotion'
 >;
 
-const INITIAL: Settings = {
+const INITIAL: MotionSettings = {
   duration: 650,
   stagger: 0.35,
   goo: 'auto',
@@ -55,6 +72,13 @@ function watchFrames(run: SlurpAnimation): Promise<Stats> {
   });
 }
 
+interface Place {
+  section?: Section;
+  item?: Item;
+}
+
+const price = (n: number) => `${n.toLocaleString('it-IT')} €`;
+
 export function App() {
   return (
     <SlurpProvider>
@@ -67,23 +91,28 @@ export function App() {
 function Playground() {
   const { collapse, expand } = useSlurp();
   const [settings, setSettings] = useState(INITIAL);
-  /** The section shown as the current crumb of the Dock (also while it is being collapsed into). */
-  const [crumb, setCrumb] = useState<Section | null>(null);
-  /** null = entry grid. */
-  const [view, setView] = useState<Section | null>(null);
+  /** What the Dock shows (it leads the view while a collapse runs into its new crumb). */
+  const [path, setPath] = useState<Place>({});
+  /** What the page shows. */
+  const [view, setView] = useState<Place>({});
   const [run, setRun] = useState<SlurpAnimation | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [query, setQuery] = useState('');
+  const [panel, setPanel] = useState(false);
+  const [onlyUsed, setOnlyUsed] = useState(false);
+  const [cheap, setCheap] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
-  const first = useRef(true);
+  const page = useRef<HTMLElement>(null);
+  const shownKey = `${view.section?.id ?? ''}/${view.item?.id ?? ''}`;
+  const lastKey = useRef(shownKey);
+  const find = useFindInPage(page, view.item ? query : '');
 
-  // After a navigation, focus goes to the title of the view.
+  // After a navigation, focus goes to the title of the view; the search starts empty.
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
+    if (lastKey.current === shownKey) return;
+    lastKey.current = shownKey;
     heading.current?.focus();
-  }, [view]);
+  }, [shownKey]);
 
   const track = (r: SlurpAnimation, onEnd: (result: SlurpResult) => void) => {
     setRun(r);
@@ -95,9 +124,12 @@ function Playground() {
     });
   };
 
-  const open = (s: Section) => {
+  const openSection = (s: Section) => {
     // The crumb is the target: it has to be on screen before the tiles collapse into it.
-    flushSync(() => setCrumb(s));
+    flushSync(() => {
+      setPath({ section: s });
+      setQuery('');
+    });
     track(
       collapse({
         items: { group: 'tiles' },
@@ -106,154 +138,281 @@ function Playground() {
         ...settings,
       }),
       (result) => {
-        if (result === 'finished') setView(s);
-        else setCrumb(null);
+        if (result === 'finished') setView({ section: s });
+        else setPath({});
       },
     );
   };
 
-  const back = () => {
-    const s = crumb;
-    if (!s) return;
-    // The grid comes back first: its tiles are where the crumb bursts to.
-    flushSync(() => setView(null));
+  const openItem = (s: Section, it: Item) => {
+    flushSync(() => setPath({ section: s, item: it }));
     track(
-      expand({
-        source: `crumb-${s.id}`,
-        items: { group: 'tiles' },
-        lead: `tile-${s.id}`,
+      collapse({
+        items: { group: 'cards' },
+        target: `crumb-${it.id}`,
+        lead: `card-${it.id}`,
         ...settings,
       }),
       (result) => {
-        if (result !== 'reversed') setCrumb(null);
+        if (result === 'finished') {
+          setView({ section: s, item: it });
+          setQuery('');
+        } else setPath({ section: s });
       },
     );
   };
 
+  /** One level up: the crumb being left bursts into the items of the level you return to. */
+  const back = () => {
+    setPanel(false);
+    const { section, item } = path;
+    if (section && item) {
+      flushSync(() => {
+        setView({ section });
+        setQuery('');
+      });
+      track(
+        expand({
+          source: `crumb-${item.id}`,
+          items: { group: 'cards' },
+          lead: `card-${item.id}`,
+          ...settings,
+        }),
+        (result) => {
+          if (result !== 'reversed') setPath({ section });
+        },
+      );
+    } else if (section) {
+      flushSync(() => {
+        setView({});
+        setQuery('');
+      });
+      track(
+        expand({
+          source: `crumb-${section.id}`,
+          items: { group: 'tiles' },
+          lead: `tile-${section.id}`,
+          ...settings,
+        }),
+        (result) => {
+          if (result !== 'reversed') setPath({});
+        },
+      );
+    }
+  };
+
+  const section = view.section;
+  const shown = section
+    ? section.items.filter(
+        (it) =>
+          matchesAll(`${it.name} ${it.brand} ${it.description}`, query) &&
+          (!onlyUsed || it.used) &&
+          (!cheap || it.price < 500),
+      )
+    : [];
+  const results = !section
+    ? SECTIONS.flatMap((s) => s.items.map((it) => ({ s, it }))).filter(
+        ({ it }) => query.trim() && matchesAll(`${it.name} ${it.brand}`, query),
+      )
+    : [];
+  const active = Number(onlyUsed) + Number(cheap);
+
   return (
     <>
-      <Frame as="main" css={{ pt: 8, pb: 48 }}>
+      <Settings />
+      <Frame as="main" ref={page} css={{ pt: 8, pb: 48 }}>
         <Flow gap={6}>
           <Controls settings={settings} onSettings={setSettings} run={run} stats={stats} />
-          {view ? (
-            <AccentScope color={`hue-${view.hue}`} as="section" aria-labelledby="view-title">
-              <Flow gap={5}>
-                <Text font="display-l" id="view-title" ref={heading} tabIndex={-1}>
-                  {view.label}
-                </Text>
-                <AnimationGroup id="cards">
-                  <Cell
-                    css={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-                      gap: 4,
-                    }}
-                  >
-                    {Array.from({ length: view.items }, (_, i) => (
-                      <Surface key={i} animationId={`card-${i}`} css={{ p: 5, minHeight: 180 }}>
-                        <Flow gap={2}>
-                          <Text font="eyebrow">{view.label}</Text>
-                          <Text font="title-s">Modello {i + 1}</Text>
-                        </Flow>
-                      </Surface>
-                    ))}
-                  </Cell>
-                </AnimationGroup>
-              </Flow>
-            </AccentScope>
-          ) : (
+
+          {!section && (
             <Flow as="section" gap={5} aria-labelledby="view-title">
               <Text font="display-xl" id="view-title" ref={heading} tabIndex={-1}>
                 Di cosa hai bisogno?
               </Text>
               <AnimationGroup id="tiles">
-                <Cell
-                  css={{
-                    display: 'grid',
-                    gridTemplateColumns: { base: 'repeat(3, 1fr)', compact: 'repeat(2, 1fr)' },
-                    gap: 4,
-                  }}
-                >
+                <Bento>
                   {SECTIONS.map((s) => (
-                    <AccentScope
+                    <Tile
                       key={s.id}
-                      as="button"
-                      type="button"
-                      color={`hue-${s.hue}`}
+                      title={s.label}
+                      color={s.color}
+                      weight={s.items.length}
                       animationId={`tile-${s.id}`}
-                      onClick={() => open(s)}
-                      css={{
-                        bg: 'accent',
-                        color: 'on-accent',
-                        radius: 'tile',
-                        border: 0,
-                        p: 6,
-                        minHeight: 160,
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        textAlign: 'left',
-                        font: 'tile-label',
-                        cursor: 'pointer',
+                      onClick={() => openSection(s)}
+                    />
+                  ))}
+                </Bento>
+              </AnimationGroup>
+            </Flow>
+          )}
+
+          {section && !view.item && (
+            <Flow as="section" gap={5} aria-labelledby="view-title">
+              <Text font="display-l" id="view-title" ref={heading} tabIndex={-1}>
+                {section.label}
+              </Text>
+              <Text muted role="status">
+                {shown.length === 1 ? '1 elemento' : `${shown.length} elementi`}
+              </Text>
+              {shown.length ? (
+                <AnimationGroup id="cards">
+                  <Shelf>
+                    {shown.map((it) => (
+                      <Card
+                        key={it.id}
+                        title={it.name}
+                        description={it.brand}
+                        value={price(it.price)}
+                        valuePrefix="da"
+                        badge={it.used ? 'Usato' : undefined}
+                        color={section.color}
+                        animationId={`card-${it.id}`}
+                        onClick={() => openItem(section, it)}
+                      />
+                    ))}
+                  </Shelf>
+                </AnimationGroup>
+              ) : (
+                <Empty
+                  title="Nessun risultato"
+                  description="Prova con meno filtri o un’altra ricerca."
+                  action={
+                    <Button
+                      onClick={() => {
+                        setOnlyUsed(false);
+                        setCheap(false);
+                        setQuery('');
                       }}
                     >
-                      {s.label}
-                    </AccentScope>
-                  ))}
-                </Cell>
-              </AnimationGroup>
+                      Azzera filtri
+                    </Button>
+                  }
+                />
+              )}
+            </Flow>
+          )}
+
+          {section && view.item && (
+            <Flow as="article" gap={6} aria-labelledby="view-title">
+              <Flow direction={{ base: 'row', compact: 'column' }} gap={6} align="center">
+                <Stage color={section.color} css={{ flex: '1 1 0', width: '100%', height: 280 }}>
+                  <Score score={view.item.score} />
+                </Stage>
+                <Flow gap={4} css={{ flex: '1 1 0' }}>
+                  <Text font="display-l" id="view-title" ref={heading} tabIndex={-1}>
+                    <Mark text={view.item.name} query={query} />
+                  </Text>
+                  <Flow direction="row" gap={3} wrap>
+                    {view.item.facts.map((f) => (
+                      <Fact
+                        key={f.label}
+                        label={f.label}
+                        value={<Mark text={f.value} query={query} />}
+                      />
+                    ))}
+                  </Flow>
+                </Flow>
+              </Flow>
+              <Text font="body-l">
+                <Mark text={view.item.description} query={query} />
+              </Text>
+              <List>
+                <ListRow
+                  title="Spedizione gratuita"
+                  meta="Consegna in 24 ore"
+                  tag="Consigliato"
+                  highlighted
+                  actionLabel="Dettagli"
+                />
+                <ListRow title="Ritiro in negozio" meta="Pronto in 2 ore" actionLabel="Dettagli" />
+              </List>
             </Flow>
           )}
         </Flow>
       </Frame>
 
-      <Surface
-        as="nav"
-        level="dock"
-        radius="full"
-        aria-label="Navigazione"
-        css={{
-          position: 'fixed',
-          bottom: 24,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: 2,
-          p: 2,
-          zIndex: 50,
+      <Dock
+        panel={
+          panel && section && !view.item ? (
+            <Filters onReset={() => (setOnlyUsed(false), setCheap(false))} active={active}>
+              <Filters.Group label="Condizione">
+                <Chip selected={onlyUsed} onSelectedChange={setOnlyUsed}>
+                  Solo usato
+                </Chip>
+              </Filters.Group>
+              <Filters.Group label="Prezzo">
+                <Chip selected={cheap} onSelectedChange={setCheap}>
+                  Sotto i 500 €
+                </Chip>
+              </Filters.Group>
+            </Filters>
+          ) : !section && results.length ? (
+            <Flow gap={1}>
+              {results.slice(0, 5).map(({ s, it }) => (
+                <ResultRow
+                  key={it.id}
+                  title={it.name}
+                  meta={s.label}
+                  value={price(it.price)}
+                  onClick={() => {
+                    setPath({ section: s, item: it });
+                    setView({ section: s, item: it });
+                    setQuery('');
+                  }}
+                />
+              ))}
+            </Flow>
+          ) : null
+        }
+        panelLabel={section ? 'Filtri' : 'Risultati della ricerca'}
+        focusPanel={!!section}
+        onDismiss={() => {
+          setPanel(false);
+          if (!section) setQuery('');
         }}
       >
-        <Cell
-          as="button"
-          type="button"
-          onClick={back}
-          disabled={!crumb}
-          css={{ ...pill, bg: 'surface-2', color: 'fg' }}
-        >
-          Home
-        </Cell>
-        {crumb ? (
-          <AccentScope
-            as="button"
-            type="button"
-            color={`hue-${crumb.hue}`}
-            animationId={`crumb-${crumb.id}`}
-            aria-current="page"
-            onClick={back}
-            css={{ ...pill, bg: 'accent', color: 'on-accent' }}
-          >
-            {crumb.label}
-          </AccentScope>
-        ) : null}
-      </Surface>
+        {path.section && (
+          <Dock.Crumbs>
+            <Dock.Back onClick={back} />
+            <Dock.Crumb
+              current={!path.item}
+              animationId={`crumb-${path.section.id}`}
+              onClick={() => (path.item ? back() : undefined)}
+            >
+              {path.section.label}
+            </Dock.Crumb>
+            {path.item && (
+              <Dock.Crumb current animationId={`crumb-${path.item.id}`}>
+                {path.item.name}
+              </Dock.Crumb>
+            )}
+          </Dock.Crumbs>
+        )}
+        <Dock.Search
+          value={query}
+          onValueChange={setQuery}
+          placeholder={
+            view.item
+              ? `Cerca in ${view.item.name}…`
+              : section
+                ? `Cerca in ${section.label}…`
+                : 'Cerca prodotti, marche, caratteristiche…'
+          }
+          {...(view.item ? { count: find.count, index: find.index, onStep: find.step } : null)}
+        />
+        {section && !view.item && (
+          <Dock.Actions>
+            <Dock.Action
+              label="Filtri"
+              count={active}
+              expanded={panel}
+              onClick={() => setPanel(!panel)}
+            >
+              <FiltersIcon />
+            </Dock.Action>
+          </Dock.Actions>
+        )}
+      </Dock>
     </>
   );
 }
-
-const pill = {
-  border: 0,
-  radius: 'full',
-  minHeight: 44,
-  px: 5,
-  font: 'label',
-  cursor: 'pointer',
-} as const;

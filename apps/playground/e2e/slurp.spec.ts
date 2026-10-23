@@ -7,6 +7,7 @@ const tile = (page: Page, name: string) =>
   page.getByRole('main').getByRole('button', { name, exact: true });
 const crumb = (page: Page, name: string) =>
   page.getByRole('navigation').getByRole('button', { name, exact: true });
+const back = (page: Page) => page.getByRole('navigation').getByRole('button', { name: 'Indietro' });
 const overlay = (page: Page) => page.locator('[data-slurp-overlay]');
 const stats = (page: Page) => page.getByTestId('stats');
 
@@ -44,11 +45,13 @@ const spread = (page: Page, target: string) =>
     return d.reduce((a, b) => a + b, 0) / d.length;
   }, target);
 
-/** Nothing left behind: no overlay, no hidden element, no blocked region. */
+/** Nothing left behind: no overlay, no hidden element, no blocked region (closed panels are inert by design). */
 async function expectClean(page: Page) {
   await expect(overlay(page)).toHaveCount(0);
   await expect(page.locator('[data-animation-state]')).toHaveCount(0);
-  await expect(page.locator('[inert], [aria-busy]')).toHaveCount(0);
+  await expect(
+    page.locator('[aria-busy], [inert]:not(.slurp-bloom-panel, .slurp-dock-panel)'),
+  ).toHaveCount(0);
 }
 
 test.beforeEach(async ({ page }) => {
@@ -84,7 +87,7 @@ test('expand 1 → n: the crumb bursts back into the tiles, all visible at the e
   await expect(page.getByRole('heading', { name: 'Laptop' })).toBeVisible();
   await expectClean(page);
 
-  await crumb(page, 'Laptop').click();
+  await back(page).click();
   await expect(overlay(page)).toHaveCount(1);
   for (const pct of [25, 50, 75]) {
     await seek(page, pct / 100);
@@ -122,7 +125,7 @@ for (const goo of ['false', 'true']) {
     // Best of three round trips: a busy test machine can drop frames that the engine does not cause.
     const runs: { fps: number; slow: number }[] = [];
     for (let i = 0; i < 3; i++) {
-      for (const go of [() => tile(page, 'Casa'), () => crumb(page, 'Casa')]) {
+      for (const go of [() => tile(page, 'Casa'), () => back(page)]) {
         await go().click();
         await expect(stats(page)).toContainText('completata');
         const [, fps, slow] =
@@ -164,13 +167,11 @@ test('cancel stops at once and restores everything', async ({ page }) => {
   await expectClean(page);
 });
 
-test('the crumb pressed during the collapse plays it back (interrupt: reverse)', async ({
-  page,
-}) => {
+test('back pressed during the collapse plays it back (interrupt: reverse)', async ({ page }) => {
   await page.getByLabel(/Durata/).fill('1500');
   await tile(page, 'Smartphone').click();
   await page.waitForTimeout(400);
-  await crumb(page, 'Smartphone').click();
+  await back(page).click();
   await expect(crumb(page, 'Smartphone')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Di cosa hai bisogno?' })).toBeVisible();
   await expectClean(page);
@@ -182,4 +183,47 @@ test('reduced motion: a short fade, no droplets', async ({ page }) => {
   await expect(overlay(page)).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Audio' })).toBeVisible({ timeout: 1000 });
   await expectClean(page);
+});
+
+test('list → detail → back: cards collapse into the item crumb, find in page, the crumb bursts back', async ({
+  page,
+}) => {
+  await tile(page, 'Audio').click();
+  await expect(page.getByRole('heading', { name: 'Audio' })).toBeFocused();
+  const cards = page.getByRole('main').getByRole('button', { name: /Cuffie/ });
+  await expect(cards).toHaveCount(7);
+  await cards.first().click();
+  await expect(page.getByRole('heading', { name: 'Lumen Cuffie 1' })).toBeFocused();
+  await expect(crumb(page, 'Lumen Cuffie 1')).toHaveAttribute('aria-current', 'page');
+  await expectClean(page);
+
+  const search = page.getByRole('searchbox', { name: 'Cerca' });
+  await search.fill('più');
+  const counter = page.getByRole('button', { name: /Vai alla prossima corrispondenza/ });
+  await expect(counter).toHaveText('1/2');
+  await expect(page.locator('mark[data-active]')).toHaveCount(1);
+  await search.press('Enter');
+  await expect(counter).toHaveText('2/2');
+
+  await back(page).click();
+  await expect(page.getByRole('heading', { name: 'Audio' })).toBeFocused();
+  await expect(cards).toHaveCount(7);
+  await expect(crumb(page, 'Lumen Cuffie 1')).toHaveCount(0);
+  await expectClean(page);
+});
+
+test('filters in the Dock panel narrow the list; nothing found offers one way out', async ({
+  page,
+}) => {
+  await tile(page, 'Laptop').click();
+  await expect(page.getByRole('heading', { name: 'Laptop' })).toBeVisible();
+  await page.getByRole('button', { name: 'Filtri' }).click();
+  const panel = page.getByRole('region', { name: 'Filtri' });
+  await panel.getByRole('button', { name: 'Sotto i 500 €' }).click();
+  await expect(page.getByRole('button', { name: 'Filtri, 1 attivo' })).toBeVisible();
+  await expect(page.getByText('Nessun risultato')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(panel).toHaveCount(0);
+  await page.getByRole('main').getByRole('button', { name: 'Azzera filtri' }).click();
+  await expect(page.getByRole('main').getByRole('button', { name: /Laptop/ })).toHaveCount(6);
 });
