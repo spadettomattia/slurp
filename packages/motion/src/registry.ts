@@ -12,7 +12,8 @@ export interface Handoff {
   kind: 'collapse' | 'expand' | 'morph' | 'run';
   /** Nodes measured before the navigation: they stay animatable after their elements unmount. */
   from: SlurpNode[];
-  to: SlurpRef | SlurpRef[];
+  /** Where it lands; when omitted, the arriving route says it (`useSlurpEnter(to)`). */
+  to?: SlurpRef | SlurpRef[];
   /** Timestamp (ms, Date.now()) of set(); take() ignores stale handoffs. */
   at: number;
   options?: Record<string, unknown>;
