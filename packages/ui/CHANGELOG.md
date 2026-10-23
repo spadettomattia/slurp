@@ -1,5 +1,15 @@
 # @slurp-ui/react
 
+## 1.0.1
+
+### Patch Changes
+
+- 9aec3d3: The package now includes its CHANGELOG.md.
+- Updated dependencies [9aec3d3]
+  - @slurp-ui/motion@1.0.1
+  - @slurp-ui/tokens@1.0.1
+  - @slurp-ui/icons@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
