@@ -5,8 +5,22 @@ export const CheckIcon = createIcon('CheckIcon', ['M5 12.5l4.5 4.5L19 7.5']);
 export const CloseIcon = createIcon('CloseIcon', ['M6 6l12 12', 'M18 6L6 18']);
 export const MinusIcon = createIcon('MinusIcon', ['M6 12h12']);
 export const ChevronDownIcon = createIcon('ChevronDownIcon', ['M6 9l6 6 6-6']);
+export const ChevronLeftIcon = createIcon('ChevronLeftIcon', ['M15 6l-6 6 6 6']);
+export const ChevronRightIcon = createIcon('ChevronRightIcon', ['M9 6l6 6-6 6']);
 export const ArrowLeftIcon = createIcon('ArrowLeftIcon', ['M19 12H5', 'M11 18l-6-6 6-6']);
+export const ArrowUpIcon = createIcon('ArrowUpIcon', ['M12 19V5', 'M6 11l6-6 6 6']);
 export const ArrowDownIcon = createIcon('ArrowDownIcon', ['M12 5v14', 'M6 13l6 6 6-6']);
+// Two arrows: a column that can be sorted either way.
+export const SortIcon = createIcon('SortIcon', [
+  'M8 19V5',
+  'M4 9l4-4 4 4',
+  'M16 5v14',
+  'M12 15l4 4 4-4',
+]);
+// Outline by default; `fill="currentColor"` gives the filled star (a rating's chosen stars).
+export const StarIcon = createIcon('StarIcon', [
+  'M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z',
+]);
 export const SearchIcon = createIcon('SearchIcon', [[11, 11, 7], 'M20 20l-3.5-3.5']);
 export const FiltersIcon = createIcon('FiltersIcon', [
   'M4 7h10',

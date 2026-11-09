@@ -26,4 +26,9 @@ describe('icons', () => {
     expect(svg?.getAttribute('width')).toBe('16');
     expect(svg?.classList.contains('x')).toBe(true);
   });
+
+  it('lets a stroke icon be filled (a chosen star)', () => {
+    const { container } = render(<icons.StarIcon fill="currentColor" />);
+    expect(container.querySelector('svg')?.getAttribute('fill')).toBe('currentColor');
+  });
 });
