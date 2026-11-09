@@ -1,5 +1,11 @@
 # @slurp-ui/icons
 
+## 1.1.0
+
+### Minor Changes
+
+- 9e6f907: Add `ChevronLeftIcon`, `ChevronRightIcon`, `ArrowUpIcon`, `SortIcon` and `StarIcon` (outlined; `fill="currentColor"` fills it).
+
 ## 1.0.1
 
 ### Patch Changes
