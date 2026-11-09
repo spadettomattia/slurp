@@ -161,6 +161,34 @@ export {
   type FiltersProps,
 } from './Filters';
 export { bentoLayout, type BentoItem, type BentoSpan } from './lib/layout';
+
+// Extended components: suggestions, pagination, steps of a flow, ratings, tables, media carousels
+export {
+  Suggest,
+  SUGGEST_LABELS,
+  type SuggestLabels,
+  type SuggestOption,
+  type SuggestProps,
+} from './Suggest';
+export {
+  pageItems,
+  Pages,
+  PAGES_LABELS,
+  type PageItem,
+  type PagesLabels,
+  type PagesProps,
+} from './Pages';
+export { Steps, STEPS_LABELS, type StepItem, type StepsLabels, type StepsProps } from './Steps';
+export { Rating, RATING_LABELS, type RatingLabels, type RatingProps } from './Rating';
+export {
+  Table,
+  TABLE_LABELS,
+  type TableColumn,
+  type TableLabels,
+  type TableProps,
+  type TableSort,
+} from './Table';
+export { Carousel, CAROUSEL_LABELS, type CarouselLabels, type CarouselProps } from './Carousel';
 export { crumbPath, type CrumbEnd } from './lib/crumb';
 
 // Behaviour shared by the components (also at @slurp-ui/react/utils)

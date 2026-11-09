@@ -1,0 +1,187 @@
+/*
+ * Steps: a marker per step (done = filled with a check, current = ring, upcoming = number in a thin boundary) joined by
+ * hairlines; the part already walked is accent-ink.
+ */
+@layer slurp.components {
+  .slurp-steps {
+    --slurp-steps-marker: 36px;
+    min-width: 0;
+    color: var(--slurp-fg);
+  }
+
+  .slurp-steps-list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-steps-step {
+    position: relative;
+    display: flex;
+    min-width: 0;
+  }
+
+  .slurp-steps-control {
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+    min-height: 44px;
+    margin: 0;
+    padding: var(--slurp-space-1);
+    border: 0;
+    border-radius: var(--slurp-radius-sm);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+  }
+
+  button.slurp-steps-control {
+    cursor: pointer;
+  }
+
+  button.slurp-steps-control:hover .slurp-steps-label {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  button.slurp-steps-control:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-steps-marker {
+    box-sizing: border-box;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--slurp-steps-marker);
+    height: var(--slurp-steps-marker);
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-label);
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-steps-step[data-state='current'] .slurp-steps-marker {
+    border: 2px solid var(--slurp-accent-ink);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-steps-step[data-state='done'] .slurp-steps-marker {
+    border-color: var(--slurp-accent);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+  }
+
+  .slurp-steps-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .slurp-steps-label {
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-steps-step[data-state='current'] .slurp-steps-label {
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-steps-step[data-state='upcoming'] .slurp-steps-label {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-steps-description {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  /* Horizontal: equal columns, marker above the text, a hairline from the previous marker to this one. */
+  .slurp-steps[data-orientation='horizontal'] .slurp-steps-step {
+    flex: 1 1 0;
+    justify-content: center;
+  }
+
+  .slurp-steps[data-orientation='horizontal'] .slurp-steps-control {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .slurp-steps[data-orientation='horizontal'] .slurp-steps-step + .slurp-steps-step::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--slurp-space-1) + var(--slurp-steps-marker) / 2 - 1px);
+    right: calc(50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
+    left: calc(-50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
+    height: 2px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-line);
+  }
+
+  /* Vertical: marker beside the text, a hairline down to the next marker. */
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-list {
+    flex-direction: column;
+  }
+
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-step {
+    padding-bottom: var(--slurp-space-4);
+  }
+
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-control {
+    align-items: flex-start;
+  }
+
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-text {
+    padding-top: calc((var(--slurp-steps-marker) - 1.5em) / 2);
+  }
+
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--slurp-space-1) + var(--slurp-steps-marker) + var(--slurp-space-1));
+    bottom: var(--slurp-space-1);
+    left: calc(var(--slurp-space-1) + var(--slurp-steps-marker) / 2 - 1px);
+    width: 2px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-line);
+  }
+
+  .slurp-steps[data-orientation='horizontal']
+    .slurp-steps-step:is([data-state='done'], [data-state='current'])
+    + .slurp-steps-step:is([data-state='done'], [data-state='current'])::before,
+  .slurp-steps[data-orientation='vertical'] .slurp-steps-step[data-state='done']::after {
+    background: var(--slurp-accent-ink);
+  }
+
+  /* Phones: the other steps keep only their marker. */
+  @media (max-width: 640px) {
+    .slurp-steps[data-orientation='horizontal']
+      .slurp-steps-step:not([data-state='current'])
+      .slurp-steps-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-steps-marker {
+      transition: none;
+    }
+  }
+}

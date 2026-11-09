@@ -1,0 +1,204 @@
+/*
+ * Suggest: the field is the top row of one surface; open, the surface floats and grows downward into the list (grid
+ * rows 0fr → 1fr) while the box keeps the field's height in the flow, so nothing around moves.
+ */
+@layer slurp.components {
+  .slurp-suggest {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-suggest-label {
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-suggest-box {
+    position: relative;
+    height: 48px;
+  }
+
+  .slurp-suggest-surface {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 0fr;
+    overflow: hidden;
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-fg);
+    transition:
+      grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-radius 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.45s,
+      border-color 0.2s;
+  }
+
+  .slurp-suggest-surface:hover:not(:has(:disabled)) {
+    border-color: var(--slurp-fg);
+  }
+
+  .slurp-suggest-surface:has(.slurp-suggest-control:focus-visible) {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-suggest[data-open] .slurp-suggest-surface {
+    z-index: 40;
+    grid-template-rows: auto 1fr;
+    border-radius: var(--slurp-radius-lg);
+    background: var(--slurp-surface-dock);
+    box-shadow: var(--slurp-shadow-float);
+    backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
+  }
+
+  .slurp-suggest[data-invalid] .slurp-suggest-surface {
+    border-color: var(--slurp-danger);
+  }
+
+  .slurp-suggest-control {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 46px;
+    margin: 0;
+    padding: 0 var(--slurp-space-4);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
+  }
+
+  .slurp-suggest-control:focus-visible {
+    outline: none;
+  }
+
+  .slurp-suggest-control::placeholder {
+    color: var(--slurp-muted);
+    opacity: 1;
+  }
+
+  .slurp-suggest-control:disabled {
+    cursor: not-allowed;
+  }
+
+  .slurp-suggest[data-disabled] .slurp-suggest-surface {
+    opacity: 0.45;
+  }
+
+  /* Closed, the list is out of sight and out of the accessibility tree once it has shrunk away. */
+  .slurp-suggest-clip {
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s 0.45s;
+  }
+
+  .slurp-suggest[data-open] .slurp-suggest-clip {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .slurp-suggest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 320px;
+    margin: 0;
+    padding: var(--slurp-space-1) var(--slurp-space-2) var(--slurp-space-2);
+    overflow-y: auto;
+    list-style: none;
+    overscroll-behavior: contain;
+  }
+
+  .slurp-suggest-option {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    min-height: 44px;
+    padding: var(--slurp-space-1) var(--slurp-space-3);
+    border-radius: var(--slurp-radius-sm);
+    cursor: pointer;
+  }
+
+  .slurp-suggest-option[aria-selected='true'] {
+    background: var(--slurp-accent-soft);
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-suggest-option[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-suggest-option-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .slurp-suggest-option-label {
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-suggest-option-description {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  .slurp-suggest-option-check {
+    display: inline-grid;
+    flex-shrink: 0;
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-suggest-empty {
+    margin: 0;
+    padding: var(--slurp-space-3) var(--slurp-space-4) var(--slurp-space-4);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-suggest-hint,
+  .slurp-suggest-error {
+    margin: 0;
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-suggest-hint {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-suggest-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: var(--slurp-danger);
+  }
+
+  .slurp-suggest-error > svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-suggest-surface,
+    .slurp-suggest-clip {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,129 @@
+/*
+ * Rating: chosen stars filled with accent-ink, the others outlined with border-control (both ≥ 3:1). Hovering previews
+ * the value: every star up to the pointer fills.
+ */
+@layer slurp.components {
+  .slurp-rating {
+    --slurp-rating-on: var(--slurp-accent-ink);
+    --slurp-rating-off: var(--slurp-border-control);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--slurp-fg);
+  }
+
+  .slurp-rating-label {
+    float: left;
+    width: 100%;
+    margin-bottom: var(--slurp-space-1);
+    padding: 0;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-rating-label + * {
+    clear: both;
+  }
+
+  .slurp-rating-stars {
+    display: flex;
+  }
+
+  .slurp-rating-star {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: var(--slurp-radius-full);
+    color: var(--slurp-rating-off);
+    cursor: pointer;
+  }
+
+  .slurp-rating-star[data-on] {
+    color: var(--slurp-rating-on);
+  }
+
+  /* The native radio covers its star: the whole 44px target takes the press. */
+  .slurp-rating-input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .slurp-rating-star:has(.slurp-rating-input:focus-visible) {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-rating-icon {
+    transition:
+      color 0.2s,
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .slurp-rating:not([data-disabled]) .slurp-rating-stars:hover .slurp-rating-star {
+    color: var(--slurp-rating-on);
+  }
+
+  .slurp-rating:not([data-disabled]) .slurp-rating-stars:hover .slurp-rating-icon {
+    fill: currentColor;
+  }
+
+  .slurp-rating:not([data-disabled]) .slurp-rating-star:hover ~ .slurp-rating-star {
+    color: var(--slurp-rating-off);
+  }
+
+  .slurp-rating:not([data-disabled])
+    .slurp-rating-star:hover
+    ~ .slurp-rating-star
+    .slurp-rating-icon {
+    fill: none;
+  }
+
+  .slurp-rating:not([data-disabled]) .slurp-rating-star:hover .slurp-rating-icon {
+    transform: scale(1.12);
+  }
+
+  .slurp-rating[data-disabled] .slurp-rating-stars {
+    opacity: 0.45;
+  }
+
+  .slurp-rating[data-disabled] .slurp-rating-star {
+    cursor: not-allowed;
+  }
+
+  /* Read-only: an outlined row with a filled row clipped on top at value / max (no gap, so the clip is exact). */
+  .slurp-rating[data-readonly] {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .slurp-rating-track {
+    position: relative;
+    display: inline-flex;
+    color: var(--slurp-rating-off);
+  }
+
+  .slurp-rating-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: inline-flex;
+    width: calc(var(--slurp-rating-ratio, 0) * 100%);
+    overflow: hidden;
+    color: var(--slurp-rating-on);
+  }
+
+  .slurp-rating-fill > .slurp-rating-icon {
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-rating-icon {
+      transition: none;
+    }
+  }
+}

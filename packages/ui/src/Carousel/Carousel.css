@@ -1,0 +1,100 @@
+/* Carousel: a scroll-snap track of full-width slides (native swipe), then previous, dots and next under it. */
+@layer slurp.components {
+  .slurp-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-3);
+    min-width: 0;
+  }
+
+  .slurp-carousel-track {
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    border-radius: var(--slurp-radius-tile);
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .slurp-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slurp-carousel-track:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .slurp-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--slurp-space-2);
+  }
+
+  .slurp-carousel-dots {
+    display: flex;
+  }
+
+  /* 44px target, a small dot inside; the current slide's dot is a longer pill (shape, not only colour). */
+  .slurp-carousel-dot {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .slurp-carousel-dot::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-border-control);
+    transition:
+      width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 0.35s;
+  }
+
+  .slurp-carousel-dot:hover::before {
+    background: var(--slurp-muted);
+  }
+
+  .slurp-carousel-dot[aria-current]::before {
+    width: 24px;
+    background: var(--slurp-accent-ink);
+  }
+
+  .slurp-carousel-dot:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-carousel-status {
+    min-width: 64px;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-carousel-dot::before {
+      transition: none;
+    }
+  }
+}

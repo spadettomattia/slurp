@@ -18,6 +18,12 @@ import type { SettingsProps } from '../Settings/Settings';
 import type { ShelfProps } from '../Shelf/Shelf';
 import type { StageProps } from '../Stage/Stage';
 import type { TileProps } from '../Tile/Tile';
+import type { CarouselProps } from '../Carousel/Carousel';
+import type { PagesProps } from '../Pages/Pages';
+import type { RatingProps } from '../Rating/Rating';
+import type { StepsProps } from '../Steps/Steps';
+import type { SuggestProps } from '../Suggest/Suggest';
+import type { TableProps } from '../Table/Table';
 import type { AvatarProps } from '../Avatar/Avatar';
 import type { BloomProps } from '../Bloom/Bloom';
 import type { BubbleProps } from '../Bubble/Bubble';
@@ -151,6 +157,18 @@ export interface ThemeComponents {
   Switch: { props: SwitchProps; parts: 'root' | 'input' | 'track' | 'thumb' | 'label' };
   Tabs: { props: TabsProps; parts: 'root' | 'list' | 'tab' | 'indicator' | 'panel' };
   Text: { props: TextProps; parts: 'root' };
+  Suggest: {
+    props: SuggestProps;
+    parts: 'root' | 'label' | 'control' | 'list' | 'option' | 'hint' | 'error';
+  };
+  Pages: { props: PagesProps; parts: 'root' | 'list' | 'item' | 'previous' | 'next' | 'status' };
+  Steps: { props: StepsProps; parts: 'root' | 'list' | 'step' };
+  Rating: { props: RatingProps; parts: 'root' };
+  Table: { props: TableProps; parts: 'root' | 'table' | 'caption' };
+  Carousel: {
+    props: CarouselProps;
+    parts: 'root' | 'track' | 'slide' | 'controls' | 'previous' | 'next' | 'dot';
+  };
 }
 export type ComponentName = keyof ThemeComponents;
 

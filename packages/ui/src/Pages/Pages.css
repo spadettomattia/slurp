@@ -1,0 +1,108 @@
+@layer slurp.components {
+  .slurp-pages {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-1);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-pages-list {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-pages-item,
+  .slurp-pages-step {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-2);
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    color: inherit;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.25s;
+  }
+
+  .slurp-pages-step {
+    padding: 0;
+  }
+
+  .slurp-pages-item:hover:not(:disabled, [aria-disabled='true'], [aria-current]),
+  .slurp-pages-step:hover:not(:disabled, [aria-disabled='true']) {
+    background: var(--slurp-accent-soft);
+  }
+
+  /* The current page is a filled disc (shape and colour) and is named by aria-current. */
+  .slurp-pages-item[aria-current] {
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    cursor: default;
+  }
+
+  .slurp-pages-item:focus-visible,
+  .slurp-pages-step:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-pages-item:disabled,
+  .slurp-pages-item[aria-disabled='true'],
+  .slurp-pages-step:disabled,
+  .slurp-pages-step[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .slurp-pages[data-disabled] .slurp-pages-item[aria-current] {
+    opacity: 1;
+  }
+
+  .slurp-pages-gap {
+    display: inline-grid;
+    place-items: center;
+    min-width: 32px;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-label);
+  }
+
+  .slurp-pages-status {
+    display: none;
+    padding: 0 var(--slurp-space-2);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Phones: previous, "3 di 12", next. */
+  @media (max-width: 640px) {
+    .slurp-pages-list {
+      display: none;
+    }
+
+    .slurp-pages-status {
+      display: inline;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-pages-item,
+    .slurp-pages-step {
+      transition: none;
+    }
+  }
+}
