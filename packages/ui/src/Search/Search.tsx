@@ -18,7 +18,7 @@ import { useControlled } from '../utils/useControlled';
 export interface SearchLabels {
   /** Name of the field (read by screen readers; hidden). */
   label: string;
-  /** Says where it looks: "Cerca in Smartphone…". */
+  /** Says where it looks: "Cerca in Archivio…". */
   placeholder: string;
   /** Name of the clear button. */
   clear: string;

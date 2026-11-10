@@ -9,7 +9,7 @@ import type { PartsProps, PolymorphicProps } from '../lib/polymorphic';
 export interface CardOwnProps extends PartsProps<'media' | 'badge' | 'title' | 'description'> {
   title: ReactNode;
   description?: ReactNode;
-  /** A value shown strong in the description pill ("1.239 €"). */
+  /** A value shown strong in the description pill ("9.1", "24"). */
   value?: ReactNode;
   /** Before the value ("da"). */
   valuePrefix?: ReactNode;

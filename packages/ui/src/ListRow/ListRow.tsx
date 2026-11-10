@@ -33,7 +33,7 @@ export interface ListRowOwnProps extends PartsProps<
   /** Leading mark (an icon, a logo); default the first letter of the title. */
   mark?: ReactNode;
   meta?: ReactNode;
-  /** Trailing value ("9.1", "1.239 €"). */
+  /** Trailing value ("9.1", "24"). */
   value?: ReactNode;
   /** Highlight tag next to the title ("Consigliato"): with a check, never colour alone. */
   tag?: ReactNode;

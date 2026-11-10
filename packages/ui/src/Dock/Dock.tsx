@@ -38,7 +38,7 @@ export interface DockLabels {
   back: string;
   /** Name of the search field and of the phone search action. */
   search: string;
-  /** Placeholder: say where it looks ("Cerca in Smartphone…"). */
+  /** Placeholder: say where it looks ("Cerca in Archivio…"). */
   searchPlaceholder: string;
   /** Find in page with no match. */
   noResults: string;

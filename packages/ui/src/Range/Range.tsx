@@ -24,7 +24,7 @@ export interface RangeOwnProps extends PartsProps<'label' | 'value' | 'control'>
   max?: number;
   /** Default 1. */
   step?: number;
-  /** Text of the value, shown next to the label and read by screen readers ("1.200 €"). */
+  /** Text of the value, shown next to the label and read by screen readers ("75%", "3 di 5"). */
   formatValue?: (value: number) => string;
   /** Shows the value next to the label. Default true. */
   showValue?: boolean;
