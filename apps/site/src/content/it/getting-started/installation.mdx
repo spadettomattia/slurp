@@ -1,0 +1,65 @@
+# Installazione
+
+Installa Slurp UI e collega il suo foglio di stile: è tutto ciò che serve per iniziare.
+
+## Pacchetto
+
+```bash
+npm install @slurp-ui/react
+```
+
+Con altri package manager:
+
+```bash
+pnpm add @slurp-ui/react
+yarn add @slurp-ui/react
+```
+
+`@slurp-ui/react` include i token (`@slurp-ui/tokens`), le icone (`@slurp-ui/icons`) e il motore dell'animazione (`@slurp-ui/motion`): non serve installarli a parte.
+
+## Requisiti
+
+- **React 19** o successivo (`react` e `react-dom` sono peer dependency).
+- **Solo ESM**: funziona con Vite, Next.js, React Router, Remix e ogni bundler moderno.
+- Browser: le ultime due versioni dei browser evergreen e Safari 17+.
+
+## Foglio di stile
+
+Importa una volta, alla radice dell'app, il CSS della libreria. Contiene i token `--slurp-*`, il font Poppins e gli stili di tutti i componenti, dentro `@layer slurp.*`: i tuoi CSS vincono senza `!important`.
+
+```tsx
+import '@slurp-ui/react/styles.css';
+```
+
+## Provider
+
+`SlurpProvider` porta il tema, il tema chiaro / scuro scelto e il registro dell'animazione. `Ground` applica lo sfondo e la tipografia di base.
+
+```tsx
+import '@slurp-ui/react/styles.css';
+import { createTheme, Ground, SlurpProvider } from '@slurp-ui/react';
+
+const theme = createTheme({ accent: 'hue-violet' });
+
+export function App() {
+  return (
+    <SlurpProvider theme={theme}>
+      <Ground />
+      {/* la tua app */}
+    </SlurpProvider>
+  );
+}
+```
+
+## Import per componente
+
+Ogni componente ha anche il suo subpath, utile per caricare solo ciò che serve:
+
+```tsx
+import { Button } from '@slurp-ui/react/Button';
+import { useSlurp } from '@slurp-ui/react/motion';
+```
+
+<Callout title="Rendering lato server">
+  Con Next.js o un altro rendering lato server aggiungi `<ColorSchemeScript />` nel `<head>`, così il tema scelto è applicato prima del primo paint. Vedi [Vite, Next.js e router](/getting-started/frameworks).
+</Callout>

@@ -1,0 +1,822 @@
+/*
+ * The documentation site, built only from the design system: its components (Dock, Settings, Bento, Tile, Card,
+ * Surface, Table…), its tokens and its rules. Navigation lives in the Dock at the bottom, Settings at the top right;
+ * the site adds typography for long text, code blocks and the demo stage, in a layer after the library's.
+ */
+@layer slurp.reset, slurp.base, slurp.components, slurp.utilities, site;
+
+@layer site {
+  body {
+    margin: 0;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
+  }
+
+  .site-skip {
+    position: fixed;
+    top: var(--slurp-space-2);
+    left: var(--slurp-space-2);
+    z-index: 100;
+    padding: var(--slurp-space-3) var(--slurp-space-4);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    font: var(--slurp-font-label);
+    transform: translateY(-200%);
+  }
+
+  .site-skip:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+    transform: none;
+  }
+
+  /*
+   * The shell: the documentation index floating on the left, the content, the page's index floating on the right
+   * (mui.com's skeleton). Max width 1280 with the design system's gutters; room at the bottom for the Dock
+   * (space-48, as wherever the Dock shows).
+   */
+  .site-shell {
+    --site-side-left: 272px;
+    --site-side-right: 232px;
+    display: grid;
+    grid-template-columns: var(--site-side-left) minmax(0, 1fr);
+    gap: var(--slurp-space-8);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--slurp-space-6);
+  }
+
+  .site-shell[data-toc] {
+    grid-template-columns: var(--site-side-left) minmax(0, 1fr) var(--site-side-right);
+  }
+
+  .site-content {
+    min-width: 0;
+    padding-top: calc(var(--slurp-space-10) * 2);
+    padding-bottom: var(--slurp-space-48);
+  }
+
+  .site-side {
+    position: sticky;
+    top: var(--slurp-space-6);
+    align-self: start;
+    margin-top: calc(var(--slurp-space-10) * 2);
+  }
+
+  /* A floating Surface (translucent, rounded, one shadow) that scrolls inside, clear of the Dock. */
+  .site-float {
+    max-height: calc(100vh - var(--slurp-space-6) * 2 - 104px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding: var(--slurp-space-3);
+  }
+
+  /* Documentation index. */
+  .site-nav .slurp-fold + .slurp-fold {
+    margin-top: var(--slurp-space-1);
+  }
+
+  .site-nav ul {
+    margin: 0;
+    padding: 0 0 var(--slurp-space-2);
+    list-style: none;
+  }
+
+  .site-nav-group-title {
+    margin: var(--slurp-space-3) 0 var(--slurp-space-1);
+    padding: 0 var(--slurp-space-3);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .site-nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-full);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    text-decoration: none;
+    transition: background-color 0.25s;
+  }
+
+  .site-nav-link:hover {
+    background: var(--slurp-accent-soft);
+  }
+
+  /* The current page: highlighted like a ListRow — accent-soft with an accent-ink outline — and aria-current. */
+  .site-nav-link[aria-current='page'] {
+    background: var(--slurp-accent-soft);
+    box-shadow: inset 0 0 0 1px var(--slurp-accent-ink);
+    font-weight: 600;
+  }
+
+  .site-nav-link:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  /* Page index. */
+  .site-toc-title {
+    margin: var(--slurp-space-1) var(--slurp-space-2) var(--slurp-space-2);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .site-toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-toc a {
+    display: block;
+    padding: var(--slurp-space-1) var(--slurp-space-2);
+    border-radius: var(--slurp-radius-sm);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+  }
+
+  .site-toc li[data-level='3'] a {
+    padding-left: var(--slurp-space-5);
+  }
+
+  .site-toc a:hover {
+    color: var(--slurp-fg);
+  }
+
+  .site-toc a[aria-current] {
+    background: var(--slurp-accent-soft);
+    box-shadow: inset 0 0 0 1px var(--slurp-accent-ink);
+    color: var(--slurp-fg);
+    font-weight: 600;
+  }
+
+  .site-toc a:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  @media (max-width: 1100px) {
+    .site-shell,
+    .site-shell[data-toc] {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 0 var(--slurp-space-4);
+    }
+  }
+
+  .site-content:focus,
+  .site-content h1:focus {
+    outline: none;
+  }
+
+  .site-hero {
+    max-width: 760px;
+    margin-bottom: var(--slurp-space-8);
+  }
+
+  .site-group + .site-group {
+    margin-top: var(--slurp-space-10);
+  }
+
+  .site-group > h2 {
+    margin: 0 0 var(--slurp-space-4);
+  }
+
+  /* Article: one readable column. */
+  .site-article {
+    max-width: 820px;
+  }
+
+  .site-article h1 {
+    margin: 0 0 var(--slurp-space-3);
+    font: var(--slurp-font-display-l);
+    letter-spacing: var(--slurp-font-display-l-tracking);
+  }
+
+  .site-article h1 + p,
+  .site-lead {
+    margin-top: 0;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-l);
+    letter-spacing: var(--slurp-font-body-l-tracking);
+  }
+
+  .site-article h2 {
+    margin: var(--slurp-space-10) 0 var(--slurp-space-3);
+    font: var(--slurp-font-title-l);
+    letter-spacing: var(--slurp-font-title-l-tracking);
+  }
+
+  .site-article h3 {
+    margin: var(--slurp-space-8) 0 var(--slurp-space-2);
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  .site-anchor {
+    display: inline-grid;
+    place-items: center;
+    margin-left: var(--slurp-space-2);
+    color: var(--slurp-muted);
+    vertical-align: middle;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .site-heading:hover .site-anchor {
+    opacity: 1;
+  }
+
+  .site-article p,
+  .site-article li {
+    max-width: 70ch;
+  }
+
+  .site-article ul,
+  .site-article ol {
+    padding-left: var(--slurp-space-6);
+  }
+
+  .site-article li + li {
+    margin-top: var(--slurp-space-1);
+  }
+
+  .site-article :not(pre) > code,
+  .site-note code,
+  .site-props code,
+  .site-anatomy code {
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--slurp-fg) 7%, transparent);
+    font-family: var(--slurp-font-family-mono);
+    font-size: 0.875em;
+  }
+
+  .site-note {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .site-note code + code {
+    margin-left: var(--slurp-space-1);
+  }
+
+  .site-callout {
+    margin: var(--slurp-space-6) 0;
+  }
+
+  .site-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-2);
+    margin: var(--slurp-space-4) 0 var(--slurp-space-6);
+  }
+
+  /* Code: shiki emits CSS variables, mapped to design-system colours (each ≥ 4.5:1 on surface-2). */
+  .site-code,
+  .site-demo-code {
+    --shiki-foreground: var(--slurp-fg);
+    --shiki-background: transparent;
+    --shiki-token-keyword: var(--slurp-accent-ink);
+    --shiki-token-constant: var(--slurp-accent-ink);
+    --shiki-token-string: var(--slurp-success);
+    --shiki-token-string-expression: var(--slurp-success);
+    --shiki-token-comment: var(--slurp-muted);
+    --shiki-token-function: var(--slurp-fg);
+    --shiki-token-parameter: var(--slurp-fg);
+    --shiki-token-punctuation: var(--slurp-muted);
+    --shiki-token-link: var(--slurp-accent-ink);
+  }
+
+  .site-code {
+    position: relative;
+    margin: var(--slurp-space-4) 0;
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface-2);
+  }
+
+  .site-code pre,
+  .site-demo-code pre {
+    margin: 0;
+    padding: var(--slurp-space-4) var(--slurp-space-5);
+    overflow-x: auto;
+    border-radius: inherit;
+    font-family: var(--slurp-font-family-mono);
+    font-size: 14px;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  .site-code pre:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .site-code .site-copy {
+    position: absolute;
+    top: var(--slurp-space-1);
+    right: var(--slurp-space-1);
+  }
+
+  /* Demo: one Surface — the example on a stage tinted by the accent, the controls, the code on surface-2. */
+  .site-demo {
+    margin: var(--slurp-space-6) 0;
+    overflow: hidden;
+  }
+
+  .site-demo-stage {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--slurp-space-3);
+    min-height: 120px;
+    padding: var(--slurp-space-8) var(--slurp-space-6);
+    border-radius: inherit;
+    background: color-mix(in oklab, var(--slurp-accent) 8%, transparent);
+  }
+
+  .site-demo[data-align='stretch'] .site-demo-stage {
+    display: block;
+  }
+
+  .site-demo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--slurp-space-1);
+    padding: var(--slurp-space-1) var(--slurp-space-2);
+  }
+
+  .site-demo-code {
+    margin: 0 var(--slurp-space-2) var(--slurp-space-2);
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface-2);
+  }
+
+  /* API pages. */
+  .site-props {
+    margin: var(--slurp-space-4) 0;
+  }
+
+  .site-props .slurp-table-table {
+    min-width: 720px;
+  }
+
+  .site-props .slurp-table-head:nth-child(2),
+  .site-props .slurp-table-cell:nth-child(2) {
+    width: 30%;
+  }
+
+  .site-prop-name {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--slurp-space-1);
+  }
+
+  .site-prop-required {
+    color: var(--slurp-danger);
+    font: var(--slurp-font-caption);
+  }
+
+  .site-prop-type {
+    white-space: normal;
+    overflow-wrap: normal;
+  }
+
+  .site-anatomy {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--slurp-space-2) var(--slurp-space-4);
+  }
+
+  .site-anatomy dt {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-label);
+  }
+
+  .site-anatomy dd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-1);
+    margin: 0;
+  }
+
+  /* Tables written in the pages (Markdown): like Table, hairlines between rows, no frame. */
+  .site-table {
+    max-width: 100%;
+    margin: var(--slurp-space-4) 0;
+    overflow-x: auto;
+  }
+
+  .site-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font: var(--slurp-font-body-s);
+  }
+
+  .site-table th,
+  .site-table td {
+    padding: var(--slurp-space-2) var(--slurp-space-3);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .site-table th {
+    border-bottom: 1px solid var(--slurp-border-control);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-label);
+  }
+
+  .site-table tr + tr > td {
+    border-top: 1px solid var(--slurp-line);
+  }
+
+  .site-table:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  /* Previous / next at the end of the article: two soft pills. */
+  .site-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--slurp-space-3);
+    margin-top: var(--slurp-space-10);
+  }
+
+  .site-step[data-dir='next'] {
+    margin-left: auto;
+  }
+
+  .site-step .slurp-button-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.25;
+  }
+
+  .site-step[data-dir='next'] .slurp-button-label {
+    align-items: flex-end;
+  }
+
+  .site-step-label {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+  }
+
+  /* In the Dock's "page contents" panel, h3 rows sit under their h2. */
+  .site-toc-row[data-level='3'] {
+    padding-left: var(--slurp-space-6);
+  }
+
+  .site-empty,
+  .site-more {
+    padding: var(--slurp-space-3) var(--slurp-space-4);
+  }
+
+  .site-error {
+    padding: var(--slurp-space-10) var(--slurp-space-6);
+  }
+
+  @media (max-width: 640px) {
+    .site-content {
+      padding-top: var(--slurp-space-8);
+    }
+
+    .site-article h1 {
+      font: var(--slurp-font-title-xl);
+      letter-spacing: var(--slurp-font-title-xl-tracking);
+    }
+
+    .site-demo-stage {
+      padding: var(--slurp-space-6) var(--slurp-space-4);
+    }
+
+    .site-step {
+      flex: 1 1 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-anchor,
+    .site-nav-link,
+    .site-toc a {
+      transition: none;
+    }
+  }
+}
+
+/* Home: hero and live showcase, the signature transition, the entry grid. */
+@layer site {
+  .site-home {
+    display: block;
+  }
+
+  .site-home:focus {
+    outline: none;
+  }
+
+  .site-landing {
+    box-sizing: border-box;
+    max-width: 1280px;
+    margin: 0 auto;
+    /* Clear of the Settings button, fixed at the top right. */
+    padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-6) var(--slurp-space-48);
+  }
+
+  .site-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--slurp-space-10);
+    align-items: center;
+  }
+
+  .site-hero-text h1:focus {
+    outline: none;
+  }
+
+  .site-install {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    align-self: flex-start;
+    padding: var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-5);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+    font-family: var(--slurp-font-family-mono);
+    font-size: 14px;
+  }
+
+  .site-showcase {
+    columns: 2;
+    column-gap: var(--slurp-space-4);
+  }
+
+  .site-showcase > * {
+    break-inside: avoid;
+    margin-bottom: var(--slurp-space-4);
+  }
+
+  .site-showcase-card {
+    display: flex;
+    width: 100%;
+  }
+
+  .site-showcase-piece {
+    padding: var(--slurp-space-5);
+  }
+
+  .site-showcase-avatar {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .site-showcase-avatar .slurp-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+  }
+
+  .site-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--slurp-space-10);
+    align-items: center;
+    margin-top: var(--slurp-space-10);
+    padding-top: var(--slurp-space-10);
+  }
+
+  .site-explore-title {
+    margin: var(--slurp-space-10) 0 var(--slurp-space-6);
+    padding-top: var(--slurp-space-10);
+  }
+
+  @media (max-width: 1000px) {
+    .site-hero-grid,
+    .site-feature {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-landing {
+      padding: var(--slurp-space-8) var(--slurp-space-4) var(--slurp-space-48);
+    }
+
+    .site-showcase {
+      columns: 1;
+    }
+  }
+}
+
+/* Identity: the brand pill at the top left (aligned with the content's edge), the repository beside Settings. */
+@layer site {
+  .site-brand {
+    position: fixed;
+    top: var(--slurp-space-4);
+    left: max(var(--slurp-space-4), calc((100vw - 1280px) / 2 + var(--slurp-space-6)));
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-1);
+    padding: var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-2);
+  }
+
+  .site-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    min-height: 40px;
+    padding: 0 var(--slurp-space-2) 0 var(--slurp-space-1);
+    border-radius: var(--slurp-radius-full);
+    color: var(--slurp-fg);
+    text-decoration: none;
+  }
+
+  .site-logo {
+    color: var(--slurp-accent);
+  }
+
+  .site-brand-name {
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+    white-space: nowrap;
+  }
+
+  .site-brand-version {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 var(--slurp-space-3);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+  }
+
+  .site-brand-link:focus-visible,
+  .site-brand-version:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .site-brand-version:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Beside Settings (48px at space-4 from the corner). */
+  .site-github {
+    position: fixed;
+    top: var(--slurp-space-4);
+    right: calc(var(--slurp-space-4) + 48px + var(--slurp-space-2));
+    z-index: 45;
+  }
+
+  .site-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    margin-top: var(--slurp-space-10);
+    font: var(--slurp-font-body-s);
+  }
+
+  @media (max-width: 640px) {
+    .site-brand-version {
+      display: none;
+    }
+  }
+}
+
+/* Home hero: a small Slurp interface (tiles and a Dock) where the signature transition plays by itself. */
+@layer site {
+  .site-hero-motion {
+    position: relative;
+    margin: 0;
+    padding: var(--slurp-space-5);
+  }
+
+  .site-hero-stage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-5);
+  }
+
+  .site-hero-tiles {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(104px, auto));
+    gap: var(--slurp-space-3);
+  }
+
+  .site-hero-tile {
+    display: flex;
+    align-items: flex-end;
+    padding: var(--slurp-space-4);
+    border-radius: var(--slurp-radius-tile);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  .site-hero-tile:first-child {
+    grid-row: span 2;
+  }
+
+  .site-hero-tile[data-hidden] {
+    visibility: hidden;
+  }
+
+  /* The Dock in miniature: back, the crumb the sections land on, the search. */
+  .site-hero-dock {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    padding: var(--slurp-space-2);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-dock);
+  }
+
+  .site-hero-back {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-fg);
+  }
+
+  .site-hero-crumb {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 var(--slurp-space-5);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    white-space: nowrap;
+  }
+
+  .site-hero-crumb[data-empty] {
+    background: var(--slurp-surface-2);
+    color: var(--slurp-muted);
+  }
+
+  .site-hero-search {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+    padding: 0 var(--slurp-space-3);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+  }
+
+  .site-hero-pause {
+    position: absolute;
+    top: var(--slurp-space-2);
+    right: var(--slurp-space-2);
+  }
+
+  @media (max-width: 640px) {
+    .site-hero-tiles {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: none;
+      grid-auto-rows: 88px;
+    }
+
+    .site-hero-tile:first-child {
+      grid-row: auto;
+      grid-column: span 2;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+import Appearances from '@demos/button/Appearances.tsx?demo';
+import Sizes from '@demos/button/Sizes.tsx?demo';
+import Icons from '@demos/button/Icons.tsx?demo';
+import Tones from '@demos/button/Tones.tsx?demo';
+import LinkButton from '@demos/button/Link.tsx?demo';
+
+# Button
+
+The primary action: a pill with a `fill`, `soft`, `outline` or `plain` appearance.
+
+<ApiLinks modules={['Button', 'Bubble']} />
+
+## Appearance
+
+`appearance` picks the visual weight: `fill` (solid accent) for the main action of the view, only one; `soft` and `outline` for secondary ones; `plain` for quiet ones.
+
+<Appearances />
+
+## Tone
+
+`tone="neutral"` drops the accent: for actions that should not draw the eye.
+
+<Tones />
+
+## Sizes
+
+`sm`, `md` (default) and `lg`. Even `sm` stays a target of at least 44px.
+
+<Sizes />
+
+## With icons
+
+`icon` goes before the text, `endIcon` after it: they are decorative, the text is the name. For an icon-only button use [Bubble](/api/bubble), which asks for a `label`.
+
+<Icons />
+
+## As a link
+
+With `href` it becomes a real `<a>`: it opens in a new tab and search engines follow it. With a router, pass its link to `as`: `<Button as={Link} to="/profile">`.
+
+<LinkButton />
+
+## Accessibility
+
+- It is a native `<button type="button">` (or an `<a>` with `href`): Enter and Space activate it.
+- Focus is a 2px `focus` ring with a 2px offset, on every appearance.
+- Icons are `aria-hidden`: the name is the button's text.

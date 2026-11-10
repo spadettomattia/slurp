@@ -1,0 +1,33 @@
+import Basic from '@demos/suggest/Basic.tsx?demo';
+import Controlled from '@demos/suggest/Controlled.tsx?demo';
+import Remote from '@demos/suggest/Remote.tsx?demo';
+
+# Suggest
+
+Un campo di testo con suggerimenti (autocomplete): il campo **diventa** la lista, crescendo verso il basso su un'unica superficie.
+
+<ApiLinks modules={['Suggest']} />
+
+## Uso di base
+
+Scrivi: ogni parola del testo, in qualsiasi ordine e senza badare a maiuscole o accenti, viene cercata nell'etichetta e nella descrizione delle opzioni. Le corrispondenze sono evidenziate.
+
+<Basic />
+
+## Controllato
+
+`value` / `onValueChange` per l'opzione scelta (`null` finché il testo non corrisponde a nessuna), `inputValue` / `onInputValueChange` per il testo. Con `openOnFocus` la lista si apre appena il campo prende il focus.
+
+<Controlled />
+
+## Risultati da un server
+
+Con `filter={false}` Suggest mostra le `options` così come sono: filtra la tua app, per esempio chiedendo a un server a ogni carattere.
+
+<Remote />
+
+## Accessibilità
+
+- È un `combobox` con l'etichetta visibile, collegato al suo `listbox` con `aria-controls`; il numero di suggerimenti è annunciato in una regione `status`.
+- Il focus resta sempre nel campo: frecce su / giù muovono l'opzione attiva (`aria-activedescendant`, le opzioni disattivate si saltano), Invio sceglie, Escape chiude e la seconda volta svuota.
+- Click fuori o Tab chiudono la lista; l'opzione scelta ha la spunta, non solo il colore.

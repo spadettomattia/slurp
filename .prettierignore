@@ -6,3 +6,5 @@ pnpm-lock.yaml
 .changeset/*.md
 packages/tokens/src/tokens.json
 packages/tokens/src/README.md
+apps/site/build
+.react-router

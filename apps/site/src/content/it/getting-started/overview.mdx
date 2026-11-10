@@ -1,0 +1,29 @@
+# Slurp UI
+
+Componenti React del design system Slurp: pronti all'uso, accessibili per costruzione e personalizzabili per istanza, con la transizione _collapse / expand_ come funzione opzionale.
+
+Slurp è pensato per interfacce che guidano attraverso una serie di scelte: una griglia d'ingresso di tile, liste di card, pagine di dettaglio e un unico Dock flottante che porta tutta la navigazione.
+
+## Cosa contiene
+
+- **Componenti**: più di 60 componenti React 19, dai controlli di base (`Button`, `Field`, `Choice`, `Tabs`…) a quelli tipici di Slurp (`Tile`, `Bento`, `Card`, `Dock`…) fino agli estesi (`Suggest`, `Table`, `Carousel`…).
+- **Token**: colori, tipografia, spazi e raggi come variabili CSS `--slurp-*`, in tema chiaro e scuro.
+- **Personalizzazione** su tre livelli: il tema (`createTheme`), la prop `css` e le variabili CSS di ogni componente.
+- **Animazione** collapse / expand: n elementi si fondono in uno per andare avanti, uno esplode in n per tornare indietro.
+- **Comportamenti condivisi**: chiusura dei pannelli, focus, navigazione con le frecce, ricerca nel testo.
+
+## Principi
+
+- **Il colore viene dal contenuto.** L'interfaccia non ha un colore di marca fisso: qualsiasi colore diventa l'accento con `vivid()`.
+- **Accessibile per costruzione.** Testo ≥ 4.5:1, bordi dei controlli e focus ≥ 3:1 in entrambi i temi; lo stato non è mai solo colore; bersagli di almeno 44px.
+- **Il bottone diventa il pannello.** Nessun popover compare accanto al bottone: la sua superficie cresce fino a diventare il pannello.
+- **Flottante e fluido.** Superfici traslucide, angoli arrotondati, movimento morbido; con `prefers-reduced-motion` diventa una dissolvenza.
+
+## Come leggere questa documentazione
+
+Come su mui.com, ogni componente ha due pagine: la **pagina del componente**, con esempi dal vivo e il loro codice, e la **pagina API**, con import, props, classi e variabili CSS. Le guide di _Personalizzazione_ spiegano tema, prop `css` e variabili; _Animazione_ spiega la transizione collapse / expand.
+
+<Callout title="Storybook">
+  Ogni componente ha anche le sue storie interattive su
+  [Storybook](https://spadettomattia.github.io/slurp/storybook/), utili per provare tutte le props.
+</Callout>

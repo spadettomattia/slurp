@@ -1,0 +1,35 @@
+# Slurp UI
+
+React components of the Slurp design system: ready to use, accessible by construction and customisable per instance, with the _collapse / expand_ transition as an opt-in feature.
+
+Slurp is made for interfaces that guide people through a set of choices: an entry grid of tiles, lists of cards, detail pages and one floating Dock that carries all navigation.
+
+## What's inside
+
+- **Components**: more than 60 React 19 components, from the basic controls (`Button`, `Field`, `Choice`, `Tabs`…) to the ones typical of Slurp (`Tile`, `Bento`, `Card`, `Dock`…) and the extended ones (`Suggest`, `Table`, `Carousel`…).
+- **Tokens**: colours, type, space and radii as `--slurp-*` CSS variables, in light and dark.
+- **Customization** on three levels: the theme (`createTheme`), the `css` prop and each component's CSS variables.
+- **Collapse / expand motion**: n elements merge into one to go forward, one bursts into n to go back.
+- **Shared behaviour**: closing panels, focus, arrow-key navigation, text search.
+
+## Principles
+
+- **Colour comes from content.** The interface has no fixed brand hue: any colour becomes the accent through `vivid()`.
+- **Accessible by construction.** Text ≥ 4.5:1, control boundaries and focus ≥ 3:1 in both themes; state is never colour alone; targets of at least 44px.
+- **The button becomes the panel.** No popover appears beside its button: its surface grows into the panel.
+- **Floating and fluid.** Translucent surfaces, rounded corners, soft motion; with `prefers-reduced-motion` it becomes a fade.
+
+## How to read these docs
+
+As on mui.com, every component has two pages: the **component page**, with live examples and their code, and the **API page**, with the import, props, CSS classes and variables. The _Customization_ guides explain the theme, the `css` prop and the variables; _Motion_ explains the collapse / expand transition.
+
+<Callout title="Default copy is Italian">
+  Italian is the design system's source language, so the components' built-in texts (`labels`) and
+  the examples are in Italian. Every text can be replaced: see [Copy and
+  languages](/customization/labels).
+</Callout>
+
+<Callout title="Storybook">
+  Every component also has interactive stories on
+  [Storybook](https://spadettomattia.github.io/slurp/storybook/), handy to try every prop.
+</Callout>

@@ -1,0 +1,33 @@
+import Basic from '@demos/suggest/Basic.tsx?demo';
+import Controlled from '@demos/suggest/Controlled.tsx?demo';
+import Remote from '@demos/suggest/Remote.tsx?demo';
+
+# Suggest
+
+A text field with suggestions (autocomplete): the field **becomes** the list, growing downward on one surface.
+
+<ApiLinks modules={['Suggest']} />
+
+## Basic use
+
+Type: every word of the text, in any order and regardless of case or accents, is looked for in the options' label and description. Matches are highlighted.
+
+<Basic />
+
+## Controlled
+
+`value` / `onValueChange` for the chosen option (`null` while the text matches none), `inputValue` / `onInputValueChange` for the text. With `openOnFocus` the list opens as soon as the field takes focus.
+
+<Controlled />
+
+## Results from a server
+
+With `filter={false}` Suggest shows `options` as they are: your app filters, for example asking a server at every keystroke.
+
+<Remote />
+
+## Accessibility
+
+- It is a `combobox` with a visible label, tied to its `listbox` with `aria-controls`; the number of suggestions is announced in a `status` region.
+- Focus always stays in the field: up / down arrows move the active option (`aria-activedescendant`, disabled options are skipped), Enter chooses, Escape closes and, the second time, clears.
+- A press outside or Tab closes the list; the chosen option carries a check, not only a colour.

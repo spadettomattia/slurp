@@ -1,0 +1,9 @@
+{
+  "extends": "@slurp-ui/tsconfig/react.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node", "mdx"],
+    "rootDirs": [".", "./.react-router/types"],
+    "paths": { "~/*": ["./src/*"], "@demos/*": ["./src/demos/*"] }
+  },
+  "include": ["src", "plugins", "*.ts", ".react-router/types/**/*"]
+}

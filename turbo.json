@@ -7,7 +7,7 @@
     },
     "build": {
       "dependsOn": ["^build", "generate"],
-      "outputs": ["dist/**", "storybook-static/**"]
+      "outputs": ["dist/**", "storybook-static/**", "build/**"]
     },
     "typecheck": {
       "dependsOn": ["^build", "generate"]

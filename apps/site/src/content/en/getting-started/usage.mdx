@@ -1,0 +1,52 @@
+# Usage
+
+Slurp components all follow the same rules: learn them for one, and they hold for all.
+
+## A first component
+
+```tsx
+import { Button } from '@slurp-ui/react';
+
+export function Continue() {
+  return <Button onClick={() => console.log('next')}>Continua</Button>;
+}
+```
+
+## The shared conventions
+
+Every component:
+
+- takes `className`, `style` and `ref` (React 19, on its root element) and forwards the props it does not know to the root (`id`, `data-*`, `aria-*`, events);
+- takes `as` to change the rendered element, for example `<Button as={Link} to="/profile">`;
+- takes `css` for a per-instance style with tokens: `css={{ p: 4, bg: 'accent-soft' }}`;
+- exposes its inner **parts** with `parts`, `partProps` and `classNames`;
+- uses `appearance` (`fill`, `soft`, `outline`, `plain`), `tone` and `size` (`sm`, `md`, `lg`) when it has variants;
+- follows `value` / `defaultValue` / `onValueChange` for its state (controlled or not);
+- takes its own texts from `labels`, with Italian defaults.
+
+| Concept                        | Prop                                 |
+| ------------------------------ | ------------------------------------ |
+| Per-instance style with tokens | `css`                                |
+| Replaceable inner parts        | `parts`                              |
+| Props per part                 | `partProps`                          |
+| className per part             | `classNames`                         |
+| Rendered element               | `as`                                 |
+| Visual style                   | `appearance`                         |
+| Semantic colour                | `tone`                               |
+| Size                           | `size` (44px minimum, `sm` included) |
+| Texts                          | `labels`                             |
+
+## Controlled or not
+
+```tsx
+// Uncontrolled: the component keeps the state, you read the changes.
+<Segmented label="View" options={views} defaultValue="grid" onValueChange={console.log} />;
+
+// Controlled: the state is yours.
+const [view, setView] = useState('grid');
+<Segmented label="View" options={views} value={view} onValueChange={setView} />;
+```
+
+## Accessibility
+
+Components already have the right roles, names, focus handling and keyboard. What is left to you is **names**: props like `label` are required by the types where they matter (an icon-only `Bubble` does not compile without `label`). Every component page has an _Accessibility_ section.

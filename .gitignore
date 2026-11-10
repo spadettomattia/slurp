@@ -1,6 +1,8 @@
 node_modules/
 dist/
 storybook-static/
+apps/site/build/
+.react-router/
 **/src/generated/
 .turbo/
 *.tsbuildinfo

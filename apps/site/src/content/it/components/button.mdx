@@ -1,0 +1,47 @@
+import Appearances from '@demos/button/Appearances.tsx?demo';
+import Sizes from '@demos/button/Sizes.tsx?demo';
+import Icons from '@demos/button/Icons.tsx?demo';
+import Tones from '@demos/button/Tones.tsx?demo';
+import LinkButton from '@demos/button/Link.tsx?demo';
+
+# Button
+
+L'azione principale: una pillola con aspetto `fill`, `soft`, `outline` o `plain`.
+
+<ApiLinks modules={['Button', 'Bubble']} />
+
+## Aspetto
+
+`appearance` sceglie il peso visivo: `fill` (accento pieno) per l'azione principale della vista, una sola; `soft` e `outline` per le secondarie; `plain` per quelle discrete.
+
+<Appearances />
+
+## Tono
+
+`tone="neutral"` toglie l'accento: per azioni che non devono attirare lo sguardo.
+
+<Tones />
+
+## Dimensioni
+
+`sm`, `md` (predefinita) e `lg`. Anche `sm` resta un bersaglio di almeno 44px.
+
+<Sizes />
+
+## Con icone
+
+`icon` va prima del testo, `endIcon` dopo: sono decorative, il nome è il testo. Per un bottone di sola icona usa [Bubble](/api/bubble), che chiede un `label`.
+
+<Icons />
+
+## Come link
+
+Con `href` diventa un vero `<a>`: si apre in una nuova scheda, i motori di ricerca lo seguono. Con un router passa il suo link a `as`: `<Button as={Link} to="/profilo">`.
+
+<LinkButton />
+
+## Accessibilità
+
+- È un `<button type="button">` nativo (o un `<a>` con `href`): Invio e Spazio lo attivano.
+- Il focus è un anello di 2px `focus` con 2px di distanza, su ogni aspetto.
+- Le icone sono `aria-hidden`: il nome è il testo del bottone.

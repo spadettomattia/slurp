@@ -12,6 +12,8 @@ export default [
       '**/storybook-static/**',
       '**/src/generated/**',
       '**/.turbo/**',
+      '**/.react-router/**',
+      'apps/site/build/**',
       '.ds-source/**',
     ],
   },

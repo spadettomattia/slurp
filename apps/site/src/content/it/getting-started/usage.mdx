@@ -1,0 +1,52 @@
+# Uso
+
+I componenti Slurp seguono tutti le stesse regole: una volta imparate per uno, valgono per tutti.
+
+## Un primo componente
+
+```tsx
+import { Button } from '@slurp-ui/react';
+
+export function Continue() {
+  return <Button onClick={() => console.log('avanti')}>Continua</Button>;
+}
+```
+
+## Le convenzioni comuni
+
+Ogni componente:
+
+- accetta `className`, `style` e `ref` (React 19, sul suo elemento radice) e inoltra alla radice le props che non conosce (`id`, `data-*`, `aria-*`, eventi);
+- accetta `as` per cambiare l'elemento renderizzato, per esempio `<Button as={Link} to="/profilo">`;
+- accetta `css` per uno stile per istanza con i token: `css={{ p: 4, bg: 'accent-soft' }}`;
+- espone le sue **parti** interne con `parts`, `partProps` e `classNames`;
+- usa `appearance` (`fill`, `soft`, `outline`, `plain`), `tone` e `size` (`sm`, `md`, `lg`) quando ha varianti;
+- per lo stato segue il modello `value` / `defaultValue` / `onValueChange` (controllato o no);
+- riceve i propri testi da `labels`, con i default in italiano.
+
+| Concetto                      | Prop                         |
+| ----------------------------- | ---------------------------- |
+| Stile per istanza con i token | `css`                        |
+| Parti interne sostituibili    | `parts`                      |
+| Props per parte               | `partProps`                  |
+| className per parte           | `classNames`                 |
+| Elemento renderizzato         | `as`                         |
+| Stile visivo                  | `appearance`                 |
+| Colore semantico              | `tone`                       |
+| Dimensione                    | `size` (min 44px anche `sm`) |
+| Testi                         | `labels`                     |
+
+## Controllato o no
+
+```tsx
+// Non controllato: il componente tiene lo stato, tu leggi i cambi.
+<Segmented label="Vista" options={views} defaultValue="grid" onValueChange={console.log} />;
+
+// Controllato: lo stato è tuo.
+const [view, setView] = useState('grid');
+<Segmented label="Vista" options={views} value={view} onValueChange={setView} />;
+```
+
+## Accessibilità
+
+I componenti hanno già ruoli, nomi, gestione del focus e tastiera giusti. Ti resta da dare i **nomi**: le props come `label` sono obbligatorie a livello di tipi dove servono (per esempio un `Bubble`, solo icona, non compila senza `label`). Ogni pagina di componente ha una sezione _Accessibilità_.
