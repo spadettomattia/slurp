@@ -56,6 +56,7 @@ Slurp is a content-agnostic design system for interfaces that guide people throu
 ## Type
 
 - **Poppins** 400–700 for everything; display styles 600–700 with negative tracking.
+- Code (snippets, inline code in documentation) uses `font-family-mono`, the system monospace stack; no extra font file.
 - Display: `display-xl` 52, `display-l` 48, `title-xl` 40, `figure` 40, `tile-label` 28, `title-l` 24, `title-s` 20.
 - Text: `body-l` 18/1.6, `body` 16/1.6, `body-s` 15/1.5, `label` 15, `caption` 13/1.5, `eyebrow` 12 UPPERCASE.
 - Phones: `display-xl` 34, `display-l` 36, `title-xl` 32, `tile-label` 22.
