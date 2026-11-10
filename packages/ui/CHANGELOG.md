@@ -1,5 +1,16 @@
 # @slurp-ui/react
 
+## 1.1.0
+
+### Minor Changes
+
+- 1bdb695: Add the extended components: `Suggest` (text field with suggestions, the field grows into the list), `Pages` (pagination, buttons or links), `Steps` (the steps of a flow of choices), `Rating` (stars, as an input or read-only), `Table` (sortable data table) and `Carousel` (media carousel on a scroll-snap track).
+
+### Patch Changes
+
+- Updated dependencies [9e6f907]
+  - @slurp-ui/icons@1.1.0
+
 ## 1.0.1
 
 ### Patch Changes
