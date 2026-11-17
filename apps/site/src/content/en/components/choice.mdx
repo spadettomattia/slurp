@@ -1,0 +1,26 @@
+import Basic from '@demos/choice/Basic.tsx?demo';
+import Form from '@demos/choice/Form.tsx?demo';
+
+# Choice
+
+One choice from a list (a select): the button **becomes** the list, growing on one surface like every `Bloom`.
+
+<ApiLinks modules={['Choice', 'Bloom']} />
+
+## Basic use
+
+`label` is visible above the button; `options` have `value`, `label` and, when needed, `icon` or `disabled`.
+
+<Basic />
+
+## In a form
+
+With `name`, a hidden input carries the value in the form. `value` / `onValueChange` to control it.
+
+<Form />
+
+## Accessibility
+
+- The button opens into a `listbox`; options are `option`s with `aria-selected`.
+- Arrow down or up open the list on the chosen option; arrows move, Enter or Space choose; Escape closes and gives focus back to the button.
+- The chosen option carries a check, not only a colour.

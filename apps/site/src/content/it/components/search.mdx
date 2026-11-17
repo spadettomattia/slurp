@@ -1,0 +1,32 @@
+import Basic from '@demos/search/Basic.tsx?demo';
+import Count from '@demos/search/Count.tsx?demo';
+
+# Search
+
+Il campo di ricerca: icona, un placeholder che dice dove cerca, il numero di risultati e il bottone per svuotare.
+
+<ApiLinks modules={['Search']} />
+
+## Uso di base
+
+Il placeholder dice **dove** cerca (`labels.placeholder`): “Cerca nell'archivio…”, “Cerca in Impostazioni…”.
+
+<Basic />
+
+## Con il numero di risultati
+
+`count` compare in fondo al campo mentre si scrive ed è annunciato. Per filtrare, `matchesAll` della libreria cerca ogni parola, in qualsiasi ordine, senza badare a maiuscole e accenti.
+
+<Count />
+
+<Callout title="La ricerca nel Dock">
+  In un'interfaccia Slurp c'è un solo campo di ricerca, nel Dock: vedi `Dock.Search`. `Search` serve
+  dove una ricerca vive dentro il contenuto.
+</Callout>
+
+## Accessibilità
+
+- Sta in un landmark `search`; il campo ha un nome (`labels.label`, “Cerca”) oltre al placeholder.
+- `count` è annunciato con garbo (`labels.results`) mentre si scrive.
+- Con più ricerche nella stessa pagina dai a ciascuna un nome (`aria-label` sulla radice), così i landmark si distinguono.
+- Il bottone per svuotare ha un nome (`labels.clear`) e riporta il focus nel campo; Invio chiama `onSearch`.

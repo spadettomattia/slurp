@@ -1,0 +1,32 @@
+import Basic from '@demos/search/Basic.tsx?demo';
+import Count from '@demos/search/Count.tsx?demo';
+
+# Search
+
+The search field: an icon, a placeholder that says where it looks, the number of results and a clear button.
+
+<ApiLinks modules={['Search']} />
+
+## Basic use
+
+The placeholder says **where** it looks (`labels.placeholder`): “Search the archive…”, “Search in Settings…”.
+
+<Basic />
+
+## With the number of results
+
+`count` shows at the end of the field while typing and is announced. To filter, the library's `matchesAll` looks for every word, in any order, regardless of case and accents.
+
+<Count />
+
+<Callout title="Search in the Dock">
+  A Slurp interface has one search field, in the Dock: see `Dock.Search`. `Search` is for a search
+  that lives inside the content.
+</Callout>
+
+## Accessibility
+
+- It sits in a `search` landmark; the field has a name (`labels.label`, “Cerca”) besides the placeholder.
+- `count` is announced politely (`labels.results`) while typing.
+- With several searches on one page give each one a name (`aria-label` on the root), so the landmarks can be told apart.
+- The clear button has a name (`labels.clear`) and puts focus back in the field; Enter calls `onSearch`.

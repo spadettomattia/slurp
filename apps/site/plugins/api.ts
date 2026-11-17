@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { withCustomConfig, type ComponentDoc } from 'react-docgen-typescript';
 import type { Plugin } from 'vite';
 
-import { highlight } from './highlight';
+import { highlight } from './highlight.ts';
 
 const ui = fileURLToPath(new URL('../../../packages/ui', import.meta.url));
 const src = path.join(ui, 'src');

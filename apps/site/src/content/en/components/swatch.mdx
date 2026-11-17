@@ -1,0 +1,19 @@
+import Group from '@demos/swatch/Group.tsx?demo';
+
+# Swatch
+
+Choosing a colour: one circle per colour, the chosen one with a ring.
+
+<ApiLinks modules={['Swatch']} />
+
+## Group
+
+`SwatchGroup` takes the `options` (`value`, `color` as a hex, `label`) and works like a radio group. A single `Swatch` is for building a group by hand.
+
+<Group />
+
+## Accessibility
+
+- `SwatchGroup` is a `radiogroup` named by `label`; each `Swatch` is a `radio` named by its colour (“Salvia”).
+- One Tab stop, the arrows move and select.
+- The chosen colour has an `accent-ink` ring, not only the circle's colour. A 44px target.

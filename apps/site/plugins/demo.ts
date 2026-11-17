@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 import type { Plugin } from 'vite';
 
-import { highlight } from './highlight';
+import { highlight } from './highlight.ts';
 
 const SUFFIX = '?demo';
 

@@ -1,0 +1,24 @@
+import Basic from '@demos/range/Basic.tsx?demo';
+import Steps from '@demos/range/Steps.tsx?demo';
+
+# Range
+
+A slider for a value in a range, with its label and value in sight.
+
+<ApiLinks modules={['Range']} />
+
+## Basic use
+
+`min` (0), `max` (100) and `step` (1) are the defaults. `formatValue` gives the value's text: the one shown next to the label and the one read out.
+
+<Basic />
+
+## Steps
+
+<Steps />
+
+## Accessibility
+
+- It is a native `<input type="range">` with a visible label: arrows, Page up / down, Home and End.
+- `formatValue` becomes `aria-valuetext`: you hear “60%”, not “60”.
+- The thumb is a 44px target; the filled part is `accent-ink` (3:1 contrast).

@@ -1,0 +1,26 @@
+import Filters from '@demos/chip/Filters.tsx?demo';
+import Icon from '@demos/chip/Icon.tsx?demo';
+
+# Chip
+
+Un interruttore compatto per filtri e opzioni: selezionato è pieno di accento **e** ha la spunta.
+
+<ApiLinks modules={['Chip']} />
+
+## Filtri
+
+`selected` / `onSelectedChange` lo controllano; `defaultSelected` lo lascia libero. Più chip insieme formano un gruppo di filtri: dai un nome al gruppo.
+
+<Filters />
+
+## Con un'icona
+
+`icon` va prima del testo e lascia il posto alla spunta finché il chip è selezionato.
+
+<Icon />
+
+## Accessibilità
+
+- È un `<button>` con `aria-pressed`: i lettori di schermo annunciano “premuto” o “non premuto”.
+- Lo stato non è affidato al colore: il chip selezionato ha anche la spunta.
+- In un gruppo di filtri dai un nome al gruppo, per esempio con `Filters.Group` o `role="group"` e `aria-label`.

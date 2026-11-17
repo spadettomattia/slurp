@@ -1,0 +1,29 @@
+import Basic from '@demos/link/Basic.tsx?demo';
+
+# Link
+
+The text link: `accent-ink` and underlined, so it is recognisable without colour too.
+
+<ApiLinks modules={['Link']} />
+
+## Basic use
+
+<Basic />
+
+## With a router
+
+`as` renders your router's link with Slurp's style:
+
+```tsx
+import { Link as RouterLink } from 'react-router';
+import { Link } from '@slurp-ui/react';
+
+<Link as={RouterLink} to="/profile">
+  Go to your profile
+</Link>;
+```
+
+## Accessibility
+
+- It is a real `<a>` (or your router's link): Enter follows it and the context menu opens it in another tab.
+- The text must say where it leads: “Read the terms”, not “click here”.

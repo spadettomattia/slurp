@@ -1,0 +1,26 @@
+import Appearances from '@demos/bubble/Appearances.tsx?demo';
+import Sizes from '@demos/bubble/Sizes.tsx?demo';
+
+# Bubble
+
+The round, icon-only button. It is also the button that, inside a `Bloom`, grows into the panel.
+
+<ApiLinks modules={['Bubble']} />
+
+## Appearance and tone
+
+The same `appearance` and `tone` as `Button`. The default is `plain` with the `neutral` tone: a quiet action, like the Dock's.
+
+<Appearances />
+
+## Sizes
+
+`sm`, `md` (48px, default) and `lg`. Even `sm` stays a target of at least 44px.
+
+<Sizes />
+
+## Accessibility
+
+- `label` is required, in the types too: it is the accessible name of a button that only shows an icon.
+- The icon is decorative. For a visible tip, wrap the Bubble in a `Hint` with the same text.
+- Focus is the system's 2px ring, on every appearance.

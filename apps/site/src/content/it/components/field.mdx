@@ -1,0 +1,33 @@
+import Basic from '@demos/field/Basic.tsx?demo';
+import Validation from '@demos/field/Validation.tsx?demo';
+import Multiline from '@demos/field/Multiline.tsx?demo';
+
+# Field
+
+Il campo di testo: etichetta visibile, input, suggerimento ed errore, già collegati per le tecnologie assistive.
+
+<ApiLinks modules={['Field']} />
+
+## Uso di base
+
+`label` è obbligatoria: il placeholder non sostituisce l'etichetta. `hint` aggiunge una riga di aiuto sotto il campo. Gli attributi dell'input nativo (`type`, `name`, `autoComplete`, `required`…) passano all'input.
+
+<Basic />
+
+## Errore
+
+`error` segna il campo come non valido e mostra il messaggio con un'icona.
+
+<Validation />
+
+## Più righe
+
+`multiline` usa una `textarea`; `rows` ne dà l'altezza iniziale.
+
+<Multiline />
+
+## Accessibilità
+
+- L'etichetta è un `<label>` collegato all'input.
+- `hint` ed `error` sono collegati con `aria-describedby`; con `error` il campo ha `aria-invalid` e il messaggio ha un'icona, non solo il rosso.
+- Il bordo usa `border-control`, con contrasto 3:1 sullo sfondo.

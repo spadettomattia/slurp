@@ -1,0 +1,26 @@
+import Filters from '@demos/chip/Filters.tsx?demo';
+import Icon from '@demos/chip/Icon.tsx?demo';
+
+# Chip
+
+A compact toggle for filters and options: when selected it is filled with the accent **and** carries a check.
+
+<ApiLinks modules={['Chip']} />
+
+## Filters
+
+`selected` / `onSelectedChange` control it; `defaultSelected` leaves it free. Several chips together make a filter group: give the group a name.
+
+<Filters />
+
+## With an icon
+
+`icon` goes before the text and gives way to the check while the chip is selected.
+
+<Icon />
+
+## Accessibility
+
+- It is a `<button>` with `aria-pressed`: screen readers announce “pressed” or “not pressed”.
+- State does not rely on colour: a selected chip also carries the check.
+- In a filter group give the group a name, for example with `Filters.Group` or `role="group"` and `aria-label`.

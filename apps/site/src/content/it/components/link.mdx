@@ -1,0 +1,29 @@
+import Basic from '@demos/link/Basic.tsx?demo';
+
+# Link
+
+Il link di testo: colore `accent-ink` e sottolineato, così si riconosce anche senza colori.
+
+<ApiLinks modules={['Link']} />
+
+## Uso di base
+
+<Basic />
+
+## Con un router
+
+`as` rende il link del tuo router con lo stile di Slurp:
+
+```tsx
+import { Link as RouterLink } from 'react-router';
+import { Link } from '@slurp-ui/react';
+
+<Link as={RouterLink} to="/profilo">
+  Vai al profilo
+</Link>;
+```
+
+## Accessibilità
+
+- È un vero `<a>` (o il link del tuo router): Invio lo segue e il menu contestuale lo apre in un'altra scheda.
+- Il testo deve dire dove porta: “Leggi le condizioni”, non “clicca qui”.

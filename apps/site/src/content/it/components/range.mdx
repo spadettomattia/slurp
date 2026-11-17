@@ -1,0 +1,24 @@
+import Basic from '@demos/range/Basic.tsx?demo';
+import Steps from '@demos/range/Steps.tsx?demo';
+
+# Range
+
+Un cursore per un valore in un intervallo, con l'etichetta e il valore in vista.
+
+<ApiLinks modules={['Range']} />
+
+## Uso di base
+
+`min` (0), `max` (100) e `step` (1) sono i predefiniti. `formatValue` dà il testo del valore: quello mostrato accanto all'etichetta e quello letto.
+
+<Basic />
+
+## Passi
+
+<Steps />
+
+## Accessibilità
+
+- È un `<input type="range">` nativo con l'etichetta visibile: frecce, Pagina su / giù, Home e Fine.
+- `formatValue` diventa `aria-valuetext`: si sente “60%”, non “60”.
+- Il cursore ha un bersaglio di 44px; la parte piena è `accent-ink` (contrasto 3:1).

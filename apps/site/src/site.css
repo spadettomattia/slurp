@@ -58,16 +58,17 @@
     padding-bottom: var(--slurp-space-48);
   }
 
+  /* Sticky just below the brand pill (fixed at the top), clear of the Dock at the bottom. */
   .site-side {
     position: sticky;
-    top: var(--slurp-space-6);
+    top: calc(var(--slurp-space-10) * 2);
     align-self: start;
     margin-top: calc(var(--slurp-space-10) * 2);
   }
 
   /* A floating Surface (translucent, rounded, one shadow) that scrolls inside, clear of the Dock. */
   .site-float {
-    max-height: calc(100vh - var(--slurp-space-6) * 2 - 104px);
+    max-height: calc(100vh - var(--slurp-space-10) * 2 - 112px);
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;

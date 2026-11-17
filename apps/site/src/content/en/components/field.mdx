@@ -1,0 +1,33 @@
+import Basic from '@demos/field/Basic.tsx?demo';
+import Validation from '@demos/field/Validation.tsx?demo';
+import Multiline from '@demos/field/Multiline.tsx?demo';
+
+# Field
+
+The text field: visible label, input, hint and error, already wired for assistive tech.
+
+<ApiLinks modules={['Field']} />
+
+## Basic use
+
+`label` is required: a placeholder is not a label. `hint` adds a help line under the field. The native input's attributes (`type`, `name`, `autoComplete`, `required`…) go to the input.
+
+<Basic />
+
+## Error
+
+`error` marks the field invalid and shows the message with an icon.
+
+<Validation />
+
+## Multiline
+
+`multiline` uses a `textarea`; `rows` sets its initial height.
+
+<Multiline />
+
+## Accessibility
+
+- The label is a `<label>` tied to the input.
+- `hint` and `error` are tied with `aria-describedby`; with `error` the field has `aria-invalid` and the message an icon, not only red.
+- The boundary uses `border-control`, 3:1 against the background.

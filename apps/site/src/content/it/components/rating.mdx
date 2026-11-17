@@ -1,0 +1,26 @@
+import Input from '@demos/rating/Input.tsx?demo';
+import ReadOnly from '@demos/rating/ReadOnly.tsx?demo';
+
+# Rating
+
+Le stelle: per chiedere un voto o per mostrarne uno, anche con i decimali.
+
+<ApiLinks modules={['Rating']} />
+
+## Per votare
+
+Un radio nativo per stella. `value` / `onValueChange`, `max` (5), `name` per il form.
+
+<Input />
+
+## In sola lettura
+
+Con `readOnly` diventa un'unica immagine che dice il valore a parole; i decimali riempiono la stella in parte. `size`: `sm`, `md`, `lg`.
+
+<ReadOnly />
+
+## Accessibilità
+
+- Come input è un `fieldset` con la legenda visibile e un radio per stella (“3 stelle”): frecce per muoversi e scegliere.
+- Le stelle scelte sono piene (`accent-ink`), le altre solo contorno (`border-control`, 3:1): forma, non solo colore. Ogni stella è un bersaglio di 44px.
+- In sola lettura è un'immagine con il valore a parole (“Media: 4.5 su 5”); i testi sono in `labels`.

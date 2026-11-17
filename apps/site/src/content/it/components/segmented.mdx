@@ -1,0 +1,26 @@
+import Basic from '@demos/segmented/Basic.tsx?demo';
+import Controlled from '@demos/segmented/Controlled.tsx?demo';
+
+# Segmented
+
+Una scelta fra poche opzioni, tutte visibili: il segmento scelto è pieno di accento e ha la spunta.
+
+<ApiLinks modules={['Segmented']} />
+
+## Uso di base
+
+`label` dà il nome al gruppo; `options` sono le scelte, con `icon` e `disabled` facoltativi.
+
+<Basic />
+
+## Controllato
+
+`value` / `onValueChange`, come ogni controllo Slurp. `size` vale `sm`, `md` o `lg`.
+
+<Controlled />
+
+## Accessibilità
+
+- È un `radiogroup` con il nome da `label`; ogni segmento è un `radio` con `aria-checked`.
+- Una sola fermata di Tab: le frecce spostano e selezionano, e dall'ultimo si torna al primo.
+- Il segmento scelto ha il riempimento e la spunta, non solo il colore.

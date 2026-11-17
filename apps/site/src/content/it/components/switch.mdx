@@ -1,0 +1,19 @@
+import Basic from '@demos/switch/Basic.tsx?demo';
+
+# Switch
+
+Un interruttore per le impostazioni che valgono subito, senza un “Salva”.
+
+<ApiLinks modules={['Switch']} />
+
+## Uso di base
+
+Come `Checkbox`: il testo è il figlio, `checked` / `onCheckedChange` lo controllano, `name` e `value` vanno nel form.
+
+<Basic />
+
+## Accessibilità
+
+- È un checkbox nativo con `role="switch"`: annunciato come “attivato” o “disattivato”, Spazio lo cambia.
+- Acceso = cursore in fondo con la spunta e traccia piena, non solo il colore.
+- In un form da inviare preferisci `Checkbox`.

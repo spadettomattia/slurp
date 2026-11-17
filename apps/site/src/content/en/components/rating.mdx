@@ -1,0 +1,26 @@
+import Input from '@demos/rating/Input.tsx?demo';
+import ReadOnly from '@demos/rating/ReadOnly.tsx?demo';
+
+# Rating
+
+Stars: to ask for a rating or to show one, decimals included.
+
+<ApiLinks modules={['Rating']} />
+
+## To rate
+
+A native radio per star. `value` / `onValueChange`, `max` (5), `name` for the form.
+
+<Input />
+
+## Read-only
+
+With `readOnly` it becomes one image that says the value in words; decimals fill a star in part. `size`: `sm`, `md`, `lg`.
+
+<ReadOnly />
+
+## Accessibility
+
+- As an input it is a `fieldset` with a visible legend and a radio per star (“3 stelle”): arrows move and choose.
+- Chosen stars are filled (`accent-ink`), the others only outlined (`border-control`, 3:1): shape, not only colour. Each star is a 44px target.
+- Read-only it is an image with the value in words (“Media: 4.5 su 5”); the texts are in `labels`.

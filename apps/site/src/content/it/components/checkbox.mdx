@@ -1,0 +1,26 @@
+import Basic from '@demos/checkbox/Basic.tsx?demo';
+import Indeterminate from '@demos/checkbox/Indeterminate.tsx?demo';
+
+# Checkbox
+
+Una casella da spuntare, per scelte indipendenti o da confermare in un form.
+
+<ApiLinks modules={['Checkbox']} />
+
+## Uso di base
+
+Il testo è il figlio: diventa l'etichetta. `checked` / `onCheckedChange` lo controllano; `name` e `value` vanno nel form.
+
+<Basic />
+
+## Stato misto
+
+`indeterminate` mostra un trattino: per una casella che riassume un gruppo selezionato solo in parte.
+
+<Indeterminate />
+
+## Accessibilità
+
+- È un `<input type="checkbox">` nativo dentro la sua etichetta: Spazio lo cambia, il form lo invia.
+- Selezionata = riempimento accento con la spunta; `indeterminate` mostra un trattino ed è annunciata come “mista”.
+- Per un'impostazione che vale subito usa `Switch`.

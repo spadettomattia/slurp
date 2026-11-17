@@ -1,0 +1,26 @@
+import Appearances from '@demos/bubble/Appearances.tsx?demo';
+import Sizes from '@demos/bubble/Sizes.tsx?demo';
+
+# Bubble
+
+Il bottone tondo di sola icona. È anche il bottone che, dentro un `Bloom`, cresce fino a diventare il pannello.
+
+<ApiLinks modules={['Bubble']} />
+
+## Aspetto e tono
+
+Gli stessi `appearance` e `tone` di `Button`. Il predefinito è `plain` con tono `neutral`: un'azione discreta, come quelle del Dock.
+
+<Appearances />
+
+## Dimensioni
+
+`sm`, `md` (48px, predefinita) e `lg`. Anche `sm` resta un bersaglio di almeno 44px.
+
+<Sizes />
+
+## Accessibilità
+
+- `label` è obbligatorio, anche nei tipi: è il nome accessibile di un bottone che mostra solo un'icona.
+- L'icona è decorativa. Se serve un suggerimento visibile, avvolgi il Bubble in un `Hint` con lo stesso testo.
+- Il focus è l'anello di 2px del sistema, su ogni aspetto.

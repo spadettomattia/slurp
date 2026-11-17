@@ -1,0 +1,26 @@
+import Basic from '@demos/checkbox/Basic.tsx?demo';
+import Indeterminate from '@demos/checkbox/Indeterminate.tsx?demo';
+
+# Checkbox
+
+A box to tick, for independent choices or to confirm in a form.
+
+<ApiLinks modules={['Checkbox']} />
+
+## Basic use
+
+The text is the child: it becomes the label. `checked` / `onCheckedChange` control it; `name` and `value` go into the form.
+
+<Basic />
+
+## Mixed state
+
+`indeterminate` shows a dash: for a box that sums up a group that is only partly selected.
+
+<Indeterminate />
+
+## Accessibility
+
+- It is a native `<input type="checkbox">` inside its label: Space toggles it, the form submits it.
+- Checked = accent fill with a check; `indeterminate` shows a dash and is announced as “mixed”.
+- For a setting that applies at once use `Switch`.

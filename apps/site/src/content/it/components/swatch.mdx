@@ -1,0 +1,19 @@
+import Group from '@demos/swatch/Group.tsx?demo';
+
+# Swatch
+
+La scelta di un colore: un cerchio per colore, quello scelto con un anello.
+
+<ApiLinks modules={['Swatch']} />
+
+## Gruppo
+
+`SwatchGroup` riceve le `options` (`value`, `color` in esadecimale, `label`) e funziona come un gruppo di radio. Il singolo `Swatch` serve per comporre un gruppo a mano.
+
+<Group />
+
+## Accessibilità
+
+- `SwatchGroup` è un `radiogroup` con il nome da `label`; ogni `Swatch` è un `radio` che ha come nome il colore (“Salvia”).
+- Una sola fermata di Tab, le frecce spostano e selezionano.
+- Il colore scelto ha un anello `accent-ink`, non solo il colore del cerchio. Bersaglio di 44px.

@@ -1,0 +1,29 @@
+import Basic from '@demos/radio/Basic.tsx?demo';
+import Rows from '@demos/radio/Rows.tsx?demo';
+import Horizontal from '@demos/radio/Horizontal.tsx?demo';
+
+# Radio
+
+Una scelta tra opzioni che si escludono: `RadioGroup` dà il nome al gruppo, ogni `Radio` è un'opzione.
+
+<ApiLinks modules={['Radio']} />
+
+## Uso di base
+
+<Basic />
+
+## Righe
+
+`appearance="rows"`: ogni opzione è una riga a tutta larghezza con la sua icona, come nelle impostazioni. La scelta è `accent-soft` con la spunta.
+
+<Rows />
+
+## In orizzontale
+
+<Horizontal />
+
+## Accessibilità
+
+- `RadioGroup` è un `<fieldset>` con `label` come `<legend>`: il gruppo ha un nome.
+- Radio nativi: una fermata di Tab per gruppo, le frecce spostano e selezionano.
+- Il radio scelto è un anello con un punto (una forma, non solo il colore); nelle righe la scelta ha anche la spunta.

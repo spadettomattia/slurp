@@ -1,0 +1,19 @@
+import Basic from '@demos/switch/Basic.tsx?demo';
+
+# Switch
+
+A toggle for settings that apply at once, without a “Save”.
+
+<ApiLinks modules={['Switch']} />
+
+## Basic use
+
+Like `Checkbox`: the text is the child, `checked` / `onCheckedChange` control it, `name` and `value` go into the form.
+
+<Basic />
+
+## Accessibility
+
+- It is a native checkbox with `role="switch"`: announced as “on” or “off”, Space toggles it.
+- On = thumb at the end with a check and a filled track, not only the colour.
+- In a form to submit, prefer `Checkbox`.
