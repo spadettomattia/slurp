@@ -14,7 +14,7 @@ export interface CodeLabels {
   copy: string;
   /** Its name for two seconds after a copy. */
   copied: string;
-  /** Name of the scrollable code region when there is no filename. */
+  /** Name of the scrollable code block when there is no filename. */
   region: string;
 }
 
@@ -115,7 +115,8 @@ export function Code<E extends ElementType = 'figure'>(props: CodeProps<E>) {
           id: bodyId,
           className: 'slurp-code-pre',
           tabIndex: 0,
-          role: 'region',
+          // A named group, not a region: a page has many code blocks, and landmarks must be unique.
+          role: 'group',
           'aria-label': regionName,
           children: content,
         })}

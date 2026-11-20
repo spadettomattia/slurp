@@ -66,7 +66,7 @@ describe('Code', () => {
     const writeText = vi.fn(() => Promise.resolve());
     Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
     render(<Code filename="main.tsx" code="const a = 1;" />);
-    expect(screen.getByRole('region', { name: 'main.tsx' }).textContent).toBe('const a = 1;');
+    expect(screen.getByRole('group', { name: 'main.tsx' }).textContent).toBe('const a = 1;');
     await act(async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Copia il codice' }));
     });
@@ -83,7 +83,7 @@ describe('Code', () => {
         <Code language="tsx" html='<span style="color:var(--shiki-token-keyword)">let</span> b' />
       </main>,
     );
-    expect(screen.getByRole('region', { name: 'tsx' }).querySelector('span')).not.toBeNull();
+    expect(screen.getByRole('group', { name: 'tsx' }).querySelector('span')).not.toBeNull();
     await act(async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Copia il codice' }));
     });

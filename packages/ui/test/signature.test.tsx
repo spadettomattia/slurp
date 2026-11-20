@@ -326,9 +326,25 @@ describe('Dock', () => {
     const catalog = screen.getByRole('button', { name: 'Catalogo' });
     expect(catalog.dataset.icon).toBe('true');
     expect(screen.queryByRole('searchbox')).toBeNull();
-    await userEvent.click(screen.getByRole('button', { name: 'Cerca' }));
+    // The phone search action is named with its visible placeholder (WCAG 2.5.3).
+    await userEvent.click(screen.getByRole('button', { name: /^Cerca/ }));
     const panel = screen.getByRole('region', { name: 'Cerca' });
     expect(within(panel).getByRole('searchbox')).toBe(document.activeElement);
+  });
+
+  it('on phones, a bar with only the search names its pill with the visible placeholder', () => {
+    vi.stubGlobal('matchMedia', (q: string) => ({
+      matches: q.includes('max-width: 640px'),
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    }));
+    render(
+      <Dock>
+        <Dock.Search placeholder="Cerca nelle guide…" />
+      </Dock>,
+    );
+    const pill = screen.getByRole('button', { name: 'Cerca nelle guide' });
+    expect(pill.textContent).toContain('Cerca nelle guide…');
   });
 
   it('has no axe violations with the panel open', async () => {

@@ -550,13 +550,16 @@ function DockAction<E extends ElementType = 'button'>(props: DockActionProps<E>)
   } = props as DockActionProps;
   const { panelId } = useDock('Dock.Action');
   const root = useAnimationRoot(rest);
+  // The visible text is part of the name (WCAG 2.5.3): the placeholder when it already says it, else "label: text".
+  const shown = text?.replace(/…$/, '').trim();
+  const name = !shown ? label : shown.startsWith(label) ? shown : `${label}: ${shown}`;
   return (
     <button
       type="button"
       className={cx('slurp-dock-action', className)}
       data-active={expanded || undefined}
       data-text={text ? '' : undefined}
-      aria-label={count ? `${label}, ${countLabel(count)}` : label}
+      aria-label={count ? `${name}, ${countLabel(count)}` : name}
       aria-expanded={expanded}
       aria-controls={expanded !== undefined ? panelId : undefined}
       onClick={onClick as ((e: MouseEvent<HTMLButtonElement>) => void) | undefined}

@@ -27,7 +27,7 @@ export function List<E extends ElementType = 'ul'>(props: ListProps<E>) {
 }
 
 export interface ListRowOwnProps extends PartsProps<
-  'mark' | 'title' | 'tag' | 'meta' | 'value' | 'action'
+  'mark' | 'title' | 'link' | 'tag' | 'meta' | 'value' | 'action'
 > {
   title: ReactNode;
   /** Leading mark (an icon, a logo); default the first letter of the title. */
@@ -41,6 +41,10 @@ export interface ListRowOwnProps extends PartsProps<
   highlighted?: boolean;
   /** Text of the trailing link; the row's title is added for assistive tech. */
   actionLabel?: ReactNode;
+  /**
+   * Where the row leads. With `actionLabel`, the trailing link goes there; without it the title becomes the link and
+   * the whole row is its target (one link per row, no extra "Open" button). Router: `parts={{ link: RouterLink }}`.
+   */
   href?: string;
 }
 
@@ -90,7 +94,9 @@ export function ListRow<E extends ElementType = 'div'>(props: ListRowProps<E>) {
             className: 'slurp-list-row-title',
             children: (
               <>
-                {title}
+                {href != null && actionLabel == null
+                  ? part('link', 'a', { className: 'slurp-list-row-link', href, children: title })
+                  : title}
                 {tag != null &&
                   part('tag', 'span', {
                     className: 'slurp-list-row-tag',

@@ -123,7 +123,7 @@ export interface ThemeComponents {
   List: { props: ListProps; parts: 'root' };
   ListRow: {
     props: ListRowProps;
-    parts: 'root' | 'mark' | 'title' | 'tag' | 'meta' | 'value' | 'action';
+    parts: 'root' | 'mark' | 'title' | 'link' | 'tag' | 'meta' | 'value' | 'action';
   };
   ResultRow: { props: ResultRowProps; parts: 'root' };
   Score: { props: ScoreProps; parts: 'root' };

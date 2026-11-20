@@ -9,6 +9,7 @@
   }
 
   .slurp-list-row {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -97,6 +98,37 @@
   }
 
   .slurp-list-row-action:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  /* A row that is a link: the title's link covers the whole row (one target, one focus stop). */
+  .slurp-list-row-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .slurp-list-row-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  .slurp-list-row:has(.slurp-list-row-link) {
+    cursor: pointer;
+  }
+
+  .slurp-list-row:has(.slurp-list-row-link:hover) {
+    background: var(--slurp-accent-soft);
+  }
+
+  .slurp-list-row-link:focus-visible {
+    outline: none;
+  }
+
+  .slurp-list-row:has(.slurp-list-row-link:focus-visible) {
     outline: 2px solid var(--slurp-focus);
     outline-offset: 2px;
   }
