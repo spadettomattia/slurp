@@ -166,7 +166,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-tile,
     .slurp-tile-media {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
 
     .slurp-tile-blob {

@@ -198,7 +198,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-suggest-surface,
     .slurp-suggest-clip {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

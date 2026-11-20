@@ -375,6 +375,40 @@ describe('Disclosure', () => {
   });
 });
 
+it('Hint: after one hint closes, the next opens at once and without its entrance', async () => {
+  vi.useFakeTimers({ shouldAdvanceTime: true });
+  render(
+    <>
+      <Hint content="Primo">
+        <button type="button">A</button>
+      </Hint>
+      <Hint content="Secondo">
+        <button type="button">B</button>
+      </Hint>
+    </>,
+  );
+  const a = screen.getByRole('button', { name: 'A' });
+  const b = screen.getByRole('button', { name: 'B' });
+  const [first, second] = screen.getAllByRole('tooltip', { hidden: true }) as [
+    HTMLElement,
+    HTMLElement,
+  ];
+  // Let any warmth left by earlier tests run out.
+  await act(() => vi.advanceTimersByTimeAsync(400));
+  fireEvent.pointerEnter(a, { pointerType: 'mouse' });
+  await act(() => vi.advanceTimersByTimeAsync(200));
+  expect(first.dataset.open).toBeUndefined();
+  await act(() => vi.advanceTimersByTimeAsync(250));
+  expect(first.dataset.open).toBe('true');
+  expect(first.dataset.instant).toBeUndefined();
+  fireEvent.pointerLeave(a, { pointerType: 'mouse' });
+  fireEvent.pointerEnter(b, { pointerType: 'mouse' });
+  await act(() => vi.advanceTimersByTimeAsync(150));
+  expect(second.dataset.open).toBe('true');
+  expect(second.dataset.instant).toBe('true');
+  vi.useRealTimers();
+});
+
 describe('Bloom, Choice and Menu', () => {
   it('Bloom: the trigger opens the panel and moves focus in; Escape closes and gives focus back', async () => {
     render(
@@ -518,6 +552,47 @@ describe('Dialog and Sheet', () => {
     },
   );
 
+  it('plays its way out before closing, and a reopen during the exit keeps it open', async () => {
+    let finish: () => void = () => undefined;
+    const cancel = vi.fn();
+    const animate = vi.fn(() => {
+      const finished = new Promise<void>((resolve, reject) => {
+        finish = resolve;
+        cancel.mockImplementation(() => reject(new Error('cancelled')));
+      });
+      finished.catch(() => undefined);
+      return { finished, cancel } as unknown as Animation;
+    });
+    // jsdom has no Web Animations: give dialogs a controllable one.
+    const proto = HTMLElement.prototype as { animate?: unknown };
+    const had = proto.animate;
+    proto.animate = animate;
+    function Controlled() {
+      const [open, setOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={() => setOpen((o) => !o)}>Alterna</Button>
+          <Dialog open={open} onOpenChange={setOpen} title="Titolo" />
+        </>
+      );
+    }
+    render(<Controlled />);
+    const dialog = screen.getByRole('dialog', { name: 'Titolo' });
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Chiudi' }));
+    // Leaving: still open until the exit finishes.
+    expect(dialog.hasAttribute('open')).toBe(true);
+    await act(async () => finish());
+    expect(dialog.hasAttribute('open')).toBe(false);
+
+    // Open again, close, and reopen before the exit ends: the exit is cancelled, it stays open.
+    fireEvent.click(screen.getByRole('button', { name: 'Alterna', hidden: true }));
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Chiudi' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Alterna', hidden: true }));
+    expect(cancel).toHaveBeenCalled();
+    expect(dialog.hasAttribute('open')).toBe(true);
+    proto.animate = had;
+  });
+
   it('Escape (cancel) closes through the state', async () => {
     const onOpenChange = vi.fn();
     render(<Dialog open title="Titolo" onOpenChange={onOpenChange} />);
@@ -559,9 +634,9 @@ describe('Feedback', () => {
       return (
         <button
           type="button"
-          onClick={() => toast({ title: 'Aggiunto al carrello', tone: 'success', duration: 3000 })}
+          onClick={() => toast({ title: 'Salvato', tone: 'success', duration: 3000 })}
         >
-          Aggiungi
+          Salva
         </button>
       );
     }
@@ -572,14 +647,41 @@ describe('Feedback', () => {
     );
     const region = screen.getByRole('region', { name: 'Notifiche' });
     expect(region.querySelector('[aria-live="polite"]')).not.toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'Aggiungi' }));
-    const toast = screen.getByText('Aggiunto al carrello').closest('li') as HTMLElement;
+    fireEvent.click(screen.getByRole('button', { name: 'Salva' }));
+    const toast = screen.getByText('Salvato').closest('li') as HTMLElement;
     fireEvent.pointerEnter(toast);
     await act(() => vi.advanceTimersByTimeAsync(5000));
-    expect(screen.queryByText('Aggiunto al carrello')).not.toBeNull();
+    expect(screen.queryByText('Salvato')).not.toBeNull();
     fireEvent.pointerLeave(toast);
     await act(() => vi.advanceTimersByTimeAsync(3100));
-    expect(screen.queryByText('Aggiunto al carrello')).toBeNull();
+    // Its way out first (inert, data-leaving), then it leaves the list.
+    expect(toast.hasAttribute('data-leaving')).toBe(true);
+    expect(toast.hasAttribute('inert')).toBe(true);
+    await act(() => vi.advanceTimersByTimeAsync(400));
+    expect(screen.queryByText('Salvato')).toBeNull();
+  });
+
+  it('Toast: a dismissed toast plays its exit before it is removed', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    function Trigger() {
+      const { toast } = useToast();
+      return (
+        <button type="button" onClick={() => toast({ title: 'Copiato', duration: Infinity })}>
+          Copia
+        </button>
+      );
+    }
+    render(
+      <ToastProvider>
+        <Trigger />
+      </ToastProvider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Copia' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Chiudi notifica' }));
+    const toast = screen.getByText('Copiato').closest('li') as HTMLElement;
+    expect(toast.hasAttribute('data-leaving')).toBe(true);
+    await act(() => vi.advanceTimersByTimeAsync(400));
+    expect(screen.queryByText('Copiato')).toBeNull();
   });
 
   it('useToast needs a provider', () => {

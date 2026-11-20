@@ -37,7 +37,32 @@
     pointer-events: auto;
     backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
     -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
-    animation: slurp-toast-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Transitions, not keyframes: a toast dismissed while it enters turns back from where it is. */
+    transition:
+      opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      height 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s,
+      padding 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s,
+      margin 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+  }
+
+  @starting-style {
+    .slurp-toast {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+  }
+
+  /* The way out (200ms), then the stack closes the gap: the height is fixed from script before this applies. */
+  .slurp-toast[data-leaving] {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(24px) scale(0.98);
+    transition-duration: 0.2s;
+    height: 0;
+    margin-bottom: calc(-1 * var(--slurp-space-2));
+    padding-block: 0;
+    border-width: 0;
   }
 
   .slurp-toast[data-tone='success'] {
@@ -80,16 +105,21 @@
     letter-spacing: var(--slurp-font-body-s-tracking);
   }
 
-  @keyframes slurp-toast-in {
-    from {
-      opacity: 0;
-      transform: translateY(16px) scale(0.98);
-    }
-  }
-
+  /* Reduced motion: no movement and no closing gap, only a short fade in and out. */
   @media (prefers-reduced-motion: reduce) {
     .slurp-toast {
-      animation: none;
+      transition: opacity 0.15s;
+    }
+
+    .slurp-toast,
+    .slurp-toast[data-leaving] {
+      transform: none;
+    }
+
+    @starting-style {
+      .slurp-toast {
+        transform: none;
+      }
     }
   }
 }

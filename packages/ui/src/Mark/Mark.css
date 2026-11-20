@@ -21,7 +21,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .slurp-mark {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

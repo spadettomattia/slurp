@@ -38,6 +38,11 @@
     }
   }
 
+  /* Warm: a neighbour's hint was just showing, so this one appears without its entrance. */
+  .slurp-hint[data-instant] {
+    animation: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .slurp-hint {
       animation: none;

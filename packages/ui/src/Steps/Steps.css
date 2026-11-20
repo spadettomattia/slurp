@@ -181,7 +181,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .slurp-steps-marker {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

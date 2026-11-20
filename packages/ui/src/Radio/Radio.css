@@ -60,7 +60,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-radio-dot,
     .slurp-radio-dot::after {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

@@ -48,7 +48,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-switch-track,
     .slurp-switch-thumb {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

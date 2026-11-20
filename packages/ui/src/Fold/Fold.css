@@ -71,7 +71,7 @@
     .slurp-fold-chevron,
     .slurp-fold-region,
     .slurp-fold[data-state='open'] .slurp-fold-region {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

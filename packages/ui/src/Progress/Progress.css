@@ -81,7 +81,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-progress-bar > .slurp-progress-fill,
     svg .slurp-progress-fill {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
 
     .slurp-progress[data-indeterminate] .slurp-progress-bar > .slurp-progress-fill,

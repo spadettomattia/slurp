@@ -148,7 +148,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-card,
     .slurp-card-art {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
 
     :is(a, button).slurp-card:hover,

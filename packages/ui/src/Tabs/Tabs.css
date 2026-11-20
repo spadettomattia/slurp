@@ -75,7 +75,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-tabs-list[data-ready] > .slurp-tabs-indicator,
     .slurp-tabs-tab {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

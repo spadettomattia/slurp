@@ -43,6 +43,12 @@ type TriggerProps = {
 
 const GAP = 8;
 const EDGE = 8;
+/** After a hint closes, the next one within this window (ms) shows at once and without its entrance. */
+const WARM_MS = 300;
+
+/** Shared by every Hint: moving along a row of icons, only the first hint waits. */
+const warm = { open: 0, until: 0 };
+const isWarm = () => warm.open > 0 || Date.now() < warm.until;
 
 /**
  * Tooltip: shows on hover (after `delay`) and on focus, hides on Escape, blur or leave; it stays while the pointer is
@@ -59,6 +65,7 @@ export function Hint(props: HintProps) {
   } = useThemeProps('Hint', props);
   const id = useId();
   const [open, setOpen] = useState(false);
+  const [instant, setInstant] = useState(false);
   const [side, setSide] = useState(placement);
   const trigger = useRef<HTMLElement>(null);
   const tip = useRef<HTMLSpanElement>(null);
@@ -73,7 +80,16 @@ export function Hint(props: HintProps) {
     clearTimeout(timer.current);
     timer.current = setTimeout(fn, ms);
   };
-  const show = (now: boolean) => later(() => setOpen(true), now ? 0 : delay);
+  const show = (now: boolean) => {
+    const skip = isWarm();
+    later(
+      () => {
+        setInstant(skip);
+        setOpen(true);
+      },
+      now || skip ? 0 : delay,
+    );
+  };
   const hide = () => later(() => setOpen(false), 100);
 
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -82,6 +98,7 @@ export function Hint(props: HintProps) {
     const el = tip.current;
     const anchor = trigger.current;
     if (!open || !el || !anchor) return;
+    warm.open++;
     el.showPopover?.();
     const place = () => {
       const a = anchor.getBoundingClientRect();
@@ -118,6 +135,8 @@ export function Hint(props: HintProps) {
       removeEventListener('scroll', place, true);
       removeEventListener('resize', place);
       el.hidePopover?.();
+      warm.open--;
+      warm.until = Date.now() + WARM_MS;
     };
   }, [open, placement]);
 
@@ -156,6 +175,7 @@ export function Hint(props: HintProps) {
         popover="manual"
         className={cx('slurp-hint', styled.className, className)}
         data-open={open || undefined}
+        data-instant={(open && instant) || undefined}
         data-side={side}
         onPointerEnter={() => clearTimeout(timer.current)}
         onPointerLeave={hide}

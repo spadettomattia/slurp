@@ -408,7 +408,7 @@
     .slurp-crumb-shape path,
     .slurp-crumb-arrow,
     .slurp-dock-action {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

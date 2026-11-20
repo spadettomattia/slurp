@@ -126,7 +126,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .slurp-rating-icon {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

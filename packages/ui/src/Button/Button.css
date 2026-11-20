@@ -128,7 +128,7 @@
   @media (prefers-reduced-motion: reduce) {
     .slurp-button,
     .slurp-button:active:not(:disabled, [aria-disabled='true']) {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
 
     .slurp-button:hover:not(:disabled),

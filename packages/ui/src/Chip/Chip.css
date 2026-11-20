@@ -54,7 +54,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .slurp-chip {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
 
     .slurp-chip:hover:not(:disabled) {

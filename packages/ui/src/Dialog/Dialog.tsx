@@ -85,20 +85,45 @@ export function useModal(props: DialogProps, variant: Variant) {
   const { part, style } = useParts(name, { parts, partProps, classNames });
   const root = useAnimationRoot({ ...rest, ref: useForkRef(ref as never, dialog) });
 
+  const leaving = useRef<Animation | null>(null);
+
   useLayoutEffect(() => {
     const el = dialog.current;
     if (!el) return;
+    if (open && leaving.current) {
+      // Reopened while it was leaving: stop the exit, it is still open.
+      leaving.current.cancel();
+      leaving.current = null;
+      return;
+    }
     if (open && !el.open) {
       opener.current =
         document.activeElement instanceof HTMLElement ? document.activeElement : null;
       if (typeof el.showModal === 'function') el.showModal();
       else el.setAttribute('open', '');
       grow(el, opener.current, variant);
-    } else if (!open && el.open) {
-      if (typeof el.close === 'function') el.close();
-      else el.removeAttribute('open');
-      opener.current?.focus();
-      opener.current = null;
+    } else if (!open && el.open && !leaving.current) {
+      const close = () => {
+        leaving.current = null;
+        if (typeof el.close === 'function') el.close();
+        else el.removeAttribute('open');
+        opener.current?.focus();
+        opener.current = null;
+      };
+      const exit = shrink(el, opener.current, variant);
+      if (!exit) return close();
+      leaving.current = exit;
+      exit.finished.then(
+        () => {
+          if (leaving.current === exit) {
+            close();
+            exit.cancel();
+          }
+        },
+        () => {
+          /* cancelled: reopened */
+        },
+      );
     }
   }, [open, variant]);
 
@@ -163,38 +188,61 @@ export function useModal(props: DialogProps, variant: Variant) {
   return element;
 }
 
+/** Offset and uniform scale that put `el` on its opener's box (uniform, so the text never stretches). */
+function fromOpener(el: HTMLElement, from: HTMLElement | null) {
+  const to = el.getBoundingClientRect();
+  const at = from?.isConnected ? from.getBoundingClientRect() : undefined;
+  if (!at || !to.width || !to.height || !at.width) return undefined;
+  const dx = at.left + at.width / 2 - (to.left + to.width / 2);
+  const dy = at.top + at.height / 2 - (to.top + to.height / 2);
+  const s = Math.min(1, Math.max(0.5, Math.min(at.width / to.width, at.height / to.height)));
+  return `translate(${dx}px, ${dy}px) scale(${s})`;
+}
+
+const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+
 /**
  * The dialog grows out of the control that opened it (the Bloom rule applied to a modal): it starts at the opener's
- * box and settles in the centre. A sheet rises from the bottom edge.
+ * place and settles in the centre. A sheet rises from the bottom edge. Reduced motion: a 150ms fade, as the engine.
  */
 function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant) {
-  if (reduced() || typeof el.animate !== 'function') return;
-  const timing = { duration: 450, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' };
+  if (typeof el.animate !== 'function') return;
+  if (reduced()) {
+    el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150 });
+    return;
+  }
+  const timing = { duration: 450, easing: EASE };
   if (variant === 'sheet') {
     el.animate([{ transform: 'translateY(100%)' }, { transform: 'none' }], timing);
     return;
   }
-  const to = el.getBoundingClientRect();
-  const at = from?.getBoundingClientRect();
-  if (!at || !to.width || !to.height) {
-    el.animate(
-      [
-        { opacity: 0, transform: 'scale(0.96)' },
-        { opacity: 1, transform: 'none' },
-      ],
-      timing,
-    );
-    return;
-  }
-  const dx = at.left + at.width / 2 - (to.left + to.width / 2);
-  const dy = at.top + at.height / 2 - (to.top + to.height / 2);
+  const start = fromOpener(el, from) ?? 'scale(0.96)';
   el.animate(
     [
-      {
-        transform: `translate(${dx}px, ${dy}px) scale(${at.width / to.width}, ${at.height / to.height})`,
-        opacity: 0.4,
-      },
+      { transform: start, opacity: 0 },
       { transform: 'none', opacity: 1 },
+    ],
+    timing,
+  );
+}
+
+/**
+ * The way out, quicker than the way in (200ms): back toward the opener, a sheet back down. Returns the animation to
+ * wait for before closing, or nothing when there is nothing to play.
+ */
+function shrink(el: HTMLElement, to: HTMLElement | null, variant: Variant): Animation | undefined {
+  if (typeof el.animate !== 'function') return undefined;
+  const fill = 'forwards' as const;
+  if (reduced()) return el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill });
+  const timing = { duration: 200, easing: EASE, fill };
+  if (variant === 'sheet') {
+    return el.animate([{ transform: 'none' }, { transform: 'translateY(100%)' }], timing);
+  }
+  const end = fromOpener(el, to) ?? 'scale(0.96)';
+  return el.animate(
+    [
+      { transform: 'none', opacity: 1 },
+      { transform: end, opacity: 0 },
     ],
     timing,
   );

@@ -253,7 +253,7 @@
     .slurp-bloom[data-phase='open'] .slurp-bloom-panel,
     .slurp-bloom-trigger,
     .slurp-bloom-item {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }

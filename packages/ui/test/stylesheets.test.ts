@@ -104,6 +104,16 @@ describe('component stylesheets', () => {
     }
   });
 
+  it('with reduced motion, drops movement but keeps colour feedback (never transition: none)', () => {
+    const offenders = sheets.flatMap(({ name, css }) =>
+      parse(css)
+        .filter((r) => r.context.some((c) => REDUCED.test(c)))
+        .filter((r) => /(?:^|;)\s*transition\s*:\s*none/.test(r.body))
+        .map((r) => `${name}: ${r.selector.replace(/\s+/g, ' ')}`),
+    );
+    expect(offenders).toEqual([]);
+  });
+
   it('on phones, the Dock shrinks earlier crumbs before the current one', () => {
     const dock = parse(sheets.find((s) => s.name === 'Dock.css')?.css ?? '');
     const giveWay = dock.find(

@@ -94,7 +94,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .slurp-carousel-dot::before {
-      transition: none;
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
     }
   }
 }
