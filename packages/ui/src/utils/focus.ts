@@ -8,10 +8,13 @@ export const FOCUSABLE =
 const ACTIVE_CHOICE =
   '[aria-pressed="true"], [aria-selected="true"], [aria-checked="true"], input[type="radio"]:checked';
 
-/** Focuses the active choice inside root, else its first enabled control (when a panel opens). */
+/** Focuses `[data-autofocus]` inside root, else the active choice, else its first enabled control (a panel opens). */
 export function focusFirst(root: HTMLElement | null): HTMLElement | null {
+  // An element can claim first focus (a calendar's current day); else the active choice, else the first control.
   const el =
-    root?.querySelector<HTMLElement>(ACTIVE_CHOICE) ?? root?.querySelector<HTMLElement>(FOCUSABLE);
+    root?.querySelector<HTMLElement>('[data-autofocus]') ??
+    root?.querySelector<HTMLElement>(ACTIVE_CHOICE) ??
+    root?.querySelector<HTMLElement>(FOCUSABLE);
   el?.focus({ preventScroll: true });
   return el ?? null;
 }

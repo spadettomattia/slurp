@@ -1,0 +1,48 @@
+/* Quote: the words in body-l on an accent-soft surface; avatar, name and role underneath. */
+@layer slurp.components {
+  .slurp-quote {
+    display: grid;
+    gap: var(--slurp-space-4);
+    margin: 0;
+    padding: var(--slurp-space-6);
+    border-radius: var(--slurp-radius-card);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-quote-text {
+    margin: 0;
+    font: var(--slurp-font-body-l);
+    letter-spacing: var(--slurp-font-body-l-tracking);
+    text-wrap: pretty;
+  }
+
+  .slurp-quote-text > :first-child {
+    margin-top: 0;
+  }
+
+  .slurp-quote-text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .slurp-quote-caption {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-3);
+  }
+
+  .slurp-quote-who {
+    display: grid;
+  }
+
+  .slurp-quote-author {
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-quote-role {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+}

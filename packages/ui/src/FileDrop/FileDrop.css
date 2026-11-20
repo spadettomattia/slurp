@@ -1,0 +1,91 @@
+/* FileDrop: a dashed area on surface-2 that lights up while files hover it; then the files as rows. */
+@layer slurp.components {
+  .slurp-file-drop {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-file-drop-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--slurp-space-2) var(--slurp-space-3);
+    padding: var(--slurp-space-6) var(--slurp-space-4);
+    border: 1.5px dashed var(--slurp-border-control);
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-muted);
+    text-align: center;
+    transition:
+      border-color var(--slurp-duration-quick),
+      background-color var(--slurp-duration-quick);
+  }
+
+  .slurp-file-drop-area[data-over] {
+    border-color: var(--slurp-accent);
+    background: var(--slurp-accent-soft);
+  }
+
+  .slurp-file-drop-browse {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-4);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-label);
+    cursor: pointer;
+  }
+
+  .slurp-file-drop-area:has(input:focus-visible) .slurp-file-drop-browse {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-file-drop-hint {
+    font: var(--slurp-font-body-s);
+  }
+
+  .slurp-file-drop-list {
+    display: grid;
+    gap: var(--slurp-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-file-drop-file {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: var(--slurp-space-1) var(--slurp-space-3);
+    padding: var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-4);
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-surface-2);
+    font: var(--slurp-font-body-s);
+  }
+
+  .slurp-file-drop-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .slurp-file-drop-size {
+    color: var(--slurp-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .slurp-file-drop-progress {
+    grid-column: 1 / -1;
+    margin-right: var(--slurp-space-3);
+  }
+
+  .slurp-file-drop[data-disabled] {
+    opacity: 0.45;
+  }
+}

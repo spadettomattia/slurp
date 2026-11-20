@@ -1,0 +1,76 @@
+/* Media: a frame with fixed proportions on surface-2 (the placeholder), the picture fading in once loaded. */
+@layer slurp.components {
+  .slurp-media {
+    display: grid;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+    margin: 0;
+  }
+
+  .slurp-media-frame {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: var(--slurp-radius-lg);
+    background: var(--slurp-surface-2);
+  }
+
+  /* Until loaded: the placeholder's shimmer. */
+  .slurp-media-frame:not([data-loaded])::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      color-mix(in oklab, var(--slurp-fg) 6%, transparent) 50%,
+      transparent 70%
+    );
+    background-size: 200% 100%;
+    animation: slurp-media-shimmer 1.6s ease-in-out infinite;
+  }
+
+  .slurp-media-el {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--slurp-duration-move) var(--slurp-ease-settle);
+  }
+
+  .slurp-media-el[data-fit='contain'] {
+    object-fit: contain;
+  }
+
+  .slurp-media-frame[data-loaded] .slurp-media-el,
+  video.slurp-media-el {
+    opacity: 1;
+  }
+
+  .slurp-media-caption {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  @keyframes slurp-media-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+
+    to {
+      background-position: -100% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-media-frame::before {
+      animation: none;
+    }
+
+    .slurp-media-el {
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
+    }
+  }
+}

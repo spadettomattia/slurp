@@ -1,0 +1,62 @@
+/* Footer: link columns that wrap, then a hairline and the bottom line; room below for the Dock. */
+@layer slurp.components {
+  .slurp-footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--slurp-space-8) var(--slurp-space-6);
+    padding: var(--slurp-space-10) 0;
+    color: var(--slurp-fg);
+  }
+
+  .slurp-footer-title {
+    margin: 0 0 var(--slurp-space-2);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .slurp-footer-list {
+    display: grid;
+    gap: var(--slurp-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    border-radius: 4px;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    text-decoration: none;
+  }
+
+  .slurp-footer-link:hover {
+    color: var(--slurp-accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .slurp-footer-link:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-3);
+    padding-top: var(--slurp-space-6);
+    border-top: 1px solid var(--slurp-line);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+}

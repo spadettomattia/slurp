@@ -138,6 +138,54 @@ export { ResultRow, type ResultRowProps } from './ResultRow';
 export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
+export {
+  DATEFIELD_LABELS,
+  DateField,
+  type DateFieldLabels,
+  type DateFieldProps,
+} from './DateField';
+export {
+  CALENDAR_LABELS,
+  Calendar,
+  type CalendarLabels,
+  type CalendarProps,
+  type CalendarValue,
+  type DateRange,
+} from './Calendar';
+export { FILEDROP_LABELS, FileDrop, type FileDropLabels, type FileDropProps } from './FileDrop';
+export {
+  ERRORSUMMARY_LABELS,
+  ErrorSummary,
+  type ErrorSummaryItem,
+  type ErrorSummaryLabels,
+  type ErrorSummaryProps,
+} from './ErrorSummary';
+export { PinField, type PinFieldProps } from './PinField';
+export {
+  NUMBERFIELD_LABELS,
+  NumberField,
+  type NumberFieldLabels,
+  type NumberFieldProps,
+} from './NumberField';
+export {
+  SECRETFIELD_LABELS,
+  SecretField,
+  type SecretFieldLabels,
+  type SecretFieldProps,
+} from './SecretField';
+export {
+  Footer,
+  FooterBottom,
+  FooterGroup,
+  FooterLink,
+  type FooterGroupProps,
+  type FooterLinkProps,
+  type FooterProps,
+} from './Footer';
+export { Media, type MediaProps } from './Media';
+export { Quote, type QuoteProps } from './Quote';
+export { Kbd, type KbdProps } from './Kbd';
+export { Tag, type TagProps } from './Tag';
 export { Hairline, type HairlineProps } from './Hairline';
 export { SKIPLINK_LABELS, SkipLink, type SkipLinkLabels, type SkipLinkProps } from './SkipLink';
 export { Prose, type ProseProps } from './Prose';

@@ -53,6 +53,18 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { DateFieldProps } from '../DateField/DateField';
+import type { CalendarProps } from '../Calendar/Calendar';
+import type { FileDropProps } from '../FileDrop/FileDrop';
+import type { ErrorSummaryProps } from '../ErrorSummary/ErrorSummary';
+import type { PinFieldProps } from '../PinField/PinField';
+import type { NumberFieldProps } from '../NumberField/NumberField';
+import type { SecretFieldProps } from '../SecretField/SecretField';
+import type { FooterProps } from '../Footer/Footer';
+import type { MediaProps } from '../Media/Media';
+import type { QuoteProps } from '../Quote/Quote';
+import type { KbdProps } from '../Kbd/Kbd';
+import type { TagProps } from '../Tag/Tag';
 import type { CodeProps } from '../Code/Code';
 import type { ContentsProps } from '../Contents/Contents';
 import type { HairlineProps } from '../Hairline/Hairline';
@@ -105,6 +117,18 @@ const DEFAULT_MOTION: MotionOptions = {
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
+  DateField: { props: DateFieldProps; parts: 'root' };
+  Calendar: { props: CalendarProps; parts: 'root' };
+  FileDrop: { props: FileDropProps; parts: 'root' };
+  ErrorSummary: { props: ErrorSummaryProps; parts: 'root' };
+  PinField: { props: PinFieldProps; parts: 'root' };
+  NumberField: { props: NumberFieldProps; parts: 'root' };
+  SecretField: { props: SecretFieldProps; parts: 'root' };
+  Footer: { props: FooterProps; parts: 'root' };
+  Media: { props: MediaProps; parts: 'root' | 'frame' | 'media' | 'caption' };
+  Quote: { props: QuoteProps; parts: 'root' | 'quote' | 'caption' };
+  Kbd: { props: KbdProps; parts: 'root' };
+  Tag: { props: TagProps; parts: 'root' };
   AccentScope: { props: AccentScopeProps; parts: 'root' };
   Code: { props: CodeProps; parts: 'root' | 'bar' | 'filename' | 'copy' | 'pre' };
   Contents: { props: ContentsProps; parts: 'root' | 'title' | 'list' | 'item' | 'link' };

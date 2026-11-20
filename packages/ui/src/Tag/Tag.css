@@ -1,0 +1,58 @@
+/* Tag: a small pill; accent tones on accent-soft, status tones on a tint of their colour with a dot. Text stays fg. */
+@layer slurp.components {
+  .slurp-tag {
+    --slurp-tag-tone: var(--slurp-accent-ink);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-1);
+    min-height: 24px;
+    padding: 0 10px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+    letter-spacing: var(--slurp-font-caption-tracking);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  .slurp-tag[data-tone='neutral'] {
+    background: color-mix(in oklab, var(--slurp-fg) 8%, transparent);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-tag:is([data-tone='success'], [data-tone='warning'], [data-tone='danger']) {
+    background: color-mix(in oklab, var(--slurp-tag-tone) 16%, transparent);
+    color: var(--slurp-fg);
+  }
+
+  .slurp-tag[data-tone='success'] {
+    --slurp-tag-tone: var(--slurp-success);
+  }
+
+  .slurp-tag[data-tone='warning'] {
+    --slurp-tag-tone: var(--slurp-warning);
+  }
+
+  .slurp-tag[data-tone='danger'] {
+    --slurp-tag-tone: var(--slurp-danger);
+  }
+
+  .slurp-tag:is([data-tone='success'], [data-tone='warning'], [data-tone='danger'])::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-tag-tone);
+  }
+
+  .slurp-tag-icon {
+    display: inline-grid;
+  }
+
+  .slurp-tag-icon > svg {
+    width: 14px;
+    height: 14px;
+  }
+}

@@ -1,6 +1,12 @@
 // Texts of the components, per language. Not an i18n system: every component keeps its Italian defaults and its
 // `labels` prop; a SlurpProvider can swap them all at once with a preset ('en') or an object.
 import type { CarouselLabels } from '../Carousel/Carousel';
+import type { SecretFieldLabels } from '../SecretField/SecretField';
+import type { NumberFieldLabels } from '../NumberField/NumberField';
+import type { FileDropLabels } from '../FileDrop/FileDrop';
+import type { ErrorSummaryLabels } from '../ErrorSummary/ErrorSummary';
+import type { DateFieldLabels } from '../DateField/DateField';
+import type { CalendarLabels } from '../Calendar/Calendar';
 import type { CodeLabels } from '../Code/Code';
 import type { ContentsLabels } from '../Contents/Contents';
 import type { PageNavLabels } from '../PageNav/PageNav';
@@ -21,6 +27,12 @@ import type { ToastLabels } from '../Toast/Toast';
 
 /** The texts of every component that has some, by component. Dialog's also apply to Sheet. */
 export interface SlurpLabels {
+  SecretField?: Partial<SecretFieldLabels>;
+  NumberField?: Partial<NumberFieldLabels>;
+  FileDrop?: Partial<FileDropLabels>;
+  ErrorSummary?: Partial<ErrorSummaryLabels>;
+  DateField?: Partial<DateFieldLabels>;
+  Calendar?: Partial<CalendarLabels>;
   Carousel?: Partial<CarouselLabels>;
   Choice?: Partial<ChoiceLabels>;
   Code?: Partial<CodeLabels>;
@@ -46,6 +58,18 @@ export type LabelsInput = 'it' | 'en' | SlurpLabels;
 
 /** English texts for every component. Italian is the components' own default. */
 export const labelsEn = {
+  Calendar: { previous: 'Previous month', next: 'Next month' },
+  DateField: { placeholder: 'Pick a date' },
+  ErrorSummary: {
+    title: (n) => (n === 1 ? 'There is 1 error to fix' : `There are ${n} errors to fix`),
+  },
+  FileDrop: {
+    browse: 'Choose files',
+    drop: 'or drop them here',
+    remove: (name) => `Remove ${name}`,
+  },
+  NumberField: { decrement: 'Decrease', increment: 'Increase' },
+  SecretField: { show: 'Show the password' },
   Carousel: {
     previous: 'Previous',
     next: 'Next',

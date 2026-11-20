@@ -1,0 +1,42 @@
+/* NumberField: label, then − value + inside one pill with the control boundary. */
+@layer slurp.components {
+  .slurp-number-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-number-field-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    padding: 2px;
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-surface-2);
+  }
+
+  .slurp-number-field-input {
+    flex: 1;
+    min-width: 3ch;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-figure);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--slurp-font-figure-tracking);
+    text-align: center;
+  }
+
+  .slurp-number-field-input:focus-visible {
+    border-radius: var(--slurp-radius-sm);
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-number-field[data-disabled] {
+    opacity: 0.45;
+  }
+}

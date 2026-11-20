@@ -1,0 +1,63 @@
+/* PinField: boxes drawn from the value; the real input lies over them, transparent, taking every key and paste. */
+@layer slurp.components {
+  .slurp-pin-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-pin-field-boxes {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--slurp-pin-length), 48px);
+    gap: var(--slurp-space-2);
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .slurp-pin-field-box {
+    display: grid;
+    place-items: center;
+    height: 56px;
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-title-l);
+    font-variant-numeric: tabular-nums;
+    transition: border-color var(--slurp-duration-quick);
+  }
+
+  .slurp-pin-field-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    caret-color: transparent;
+    font-size: 16px;
+    opacity: 0.01;
+  }
+
+  .slurp-pin-field-input:focus-visible {
+    outline: none;
+  }
+
+  .slurp-pin-field-boxes:has(.slurp-pin-field-input:focus-visible)
+    .slurp-pin-field-box[data-active] {
+    border-color: var(--slurp-accent);
+    box-shadow: 0 0 0 2px var(--slurp-focus);
+  }
+
+  .slurp-pin-field:has(.slurp-pin-field-input:disabled) {
+    opacity: 0.45;
+  }
+
+  @media (max-width: 640px) {
+    .slurp-pin-field-boxes {
+      grid-template-columns: repeat(var(--slurp-pin-length), minmax(36px, 48px));
+    }
+  }
+}

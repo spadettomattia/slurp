@@ -1,0 +1,103 @@
+/* Calendar: month and arrows, then 44px round days; the chosen day is accent, a period a soft band between its ends. */
+@layer slurp.components {
+  .slurp-calendar {
+    display: grid;
+    gap: var(--slurp-space-2);
+    width: max-content;
+    max-width: 100%;
+    color: var(--slurp-fg);
+  }
+
+  .slurp-calendar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-2);
+  }
+
+  .slurp-calendar-month {
+    margin: 0;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+    text-transform: capitalize;
+  }
+
+  .slurp-calendar-grid {
+    border-collapse: separate;
+    border-spacing: 0 2px;
+  }
+
+  .slurp-calendar-grid th {
+    height: 28px;
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .slurp-calendar-grid td {
+    padding: 0;
+  }
+
+  .slurp-calendar-day {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--slurp-radius-full);
+    background: transparent;
+    color: inherit;
+    font: var(--slurp-font-body-s);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition:
+      background-color var(--slurp-duration-base),
+      color var(--slurp-duration-base);
+  }
+
+  .slurp-calendar-day:hover:not([aria-disabled]) {
+    background: var(--slurp-accent-soft);
+  }
+
+  .slurp-calendar-day:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-calendar-day[aria-current='date'] {
+    box-shadow: inset 0 0 0 1px var(--slurp-accent-ink);
+  }
+
+  [data-outside] > .slurp-calendar-day {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-calendar-day[aria-disabled] {
+    opacity: 0.35;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+
+  .slurp-calendar-day[data-selected] {
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    font-weight: 600;
+  }
+
+  [data-in-range] {
+    background: var(--slurp-accent-soft);
+  }
+
+  /* The band runs from the start's centre to the end's. */
+  .slurp-calendar[data-range] td[data-edge]:has(~ td[data-in-range], ~ td[data-edge]) {
+    background: linear-gradient(to right, transparent 50%, var(--slurp-accent-soft) 50%);
+  }
+
+  .slurp-calendar[data-range] td[data-in-range] + td[data-edge],
+  .slurp-calendar[data-range] td[data-edge] + td[data-edge] {
+    background: linear-gradient(to left, transparent 50%, var(--slurp-accent-soft) 50%);
+  }
+}

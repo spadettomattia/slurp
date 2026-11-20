@@ -1,0 +1,28 @@
+/* DateField: the label, then a Bloom trigger shaped like a field (icon + the date); the panel holds a Calendar. */
+@layer slurp.components {
+  .slurp-date-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    min-width: 0;
+  }
+
+  .slurp-date-field-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .slurp-date-field-placeholder {
+    color: var(--slurp-muted);
+  }
+
+  .slurp-date-field-calendar {
+    margin: 0 auto;
+    padding: var(--slurp-space-1);
+  }
+
+  .slurp-date-field[data-disabled] {
+    opacity: 0.45;
+  }
+}

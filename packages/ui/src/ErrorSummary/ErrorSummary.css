@@ -1,0 +1,52 @@
+/* ErrorSummary: a danger-tinted surface, icon + title, then the links (underlined, not colour alone). */
+@layer slurp.components {
+  .slurp-error-summary {
+    display: grid;
+    gap: var(--slurp-space-2);
+    padding: var(--slurp-space-4) var(--slurp-space-5);
+    border: 1px solid var(--slurp-danger);
+    border-radius: var(--slurp-radius-md);
+    background: color-mix(in oklab, var(--slurp-danger) 8%, var(--slurp-surface));
+    color: var(--slurp-fg);
+  }
+
+  .slurp-error-summary:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-error-summary-title {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    margin: 0;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .slurp-error-summary-title > svg {
+    flex-shrink: 0;
+    color: var(--slurp-danger);
+  }
+
+  .slurp-error-summary-list {
+    display: grid;
+    gap: var(--slurp-space-1);
+    margin: 0;
+    padding-left: calc(20px + var(--slurp-space-2));
+    font: var(--slurp-font-body-s);
+  }
+
+  .slurp-error-summary-link {
+    color: var(--slurp-fg);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+
+  .slurp-error-summary-link:focus-visible {
+    border-radius: 4px;
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+}
