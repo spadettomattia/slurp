@@ -71,14 +71,10 @@ export function ToastProvider({ children, labels: labelsProp, limit = 3 }: Toast
   const labels = { ...TOAST_LABELS, ...useLabels('Toast'), ...labelsProp };
   const [items, setItems] = useState<ToastEntry[]>([]);
   const next = useRef(1);
-  const remove = useCallback(
-    (id: number) => setItems((all) => all.filter((t) => t.id !== id)),
-    [],
-  );
+  const remove = useCallback((id: number) => setItems((all) => all.filter((t) => t.id !== id)), []);
   // Dismissing marks the toast as leaving; it removes itself once its exit has played.
   const dismiss = useCallback(
-    (id: number) =>
-      setItems((all) => all.map((t) => (t.id === id ? { ...t, leaving: true } : t))),
+    (id: number) => setItems((all) => all.map((t) => (t.id === id ? { ...t, leaving: true } : t))),
     [],
   );
   const toast = useCallback(

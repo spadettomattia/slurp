@@ -138,6 +138,32 @@ export { ResultRow, type ResultRowProps } from './ResultRow';
 export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
+export { Hairline, type HairlineProps } from './Hairline';
+export { SKIPLINK_LABELS, SkipLink, type SkipLinkLabels, type SkipLinkProps } from './SkipLink';
+export { Prose, type ProseProps } from './Prose';
+export { CODE_LABELS, Code, type CodeLabels, type CodeProps } from './Code';
+export {
+  CONTENTS_LABELS,
+  Contents,
+  type ContentsItem,
+  type ContentsLabels,
+  type ContentsProps,
+} from './Contents';
+export {
+  Rail,
+  RailGroup,
+  RailLink,
+  type RailGroupProps,
+  type RailLinkProps,
+  type RailProps,
+} from './Rail';
+export {
+  PAGENAV_LABELS,
+  PageNav,
+  type PageNavLabels,
+  type PageNavProps,
+  type PageNavTarget,
+} from './PageNav';
 export {
   Dock,
   DOCK_LABELS,
@@ -205,8 +231,10 @@ export {
   moveFocus,
   normalizeText,
   useControlled,
+  useClipboard,
   useDismiss,
   useFindInPage,
+  useScrollSpy,
   useForkRef,
   useMediaQuery,
   useRovingFocus,

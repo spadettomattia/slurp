@@ -1,0 +1,88 @@
+/*
+ * Code: one surface-2 block; the bar (file name, copy) sits on top of the same surface. Token colours of
+ * highlighters map to the design system (each at least 4.5:1 on surface-2).
+ */
+@layer slurp.components {
+  .slurp-code {
+    --slurp-code-text: var(--slurp-fg);
+    --slurp-code-keyword: var(--slurp-accent-ink);
+    --slurp-code-string: var(--slurp-success);
+    --slurp-code-comment: var(--slurp-muted);
+    --slurp-code-punctuation: var(--slurp-muted);
+    /* shiki's css-variables theme */
+    --shiki-foreground: var(--slurp-code-text);
+    --shiki-background: transparent;
+    --shiki-token-keyword: var(--slurp-code-keyword);
+    --shiki-token-constant: var(--slurp-code-keyword);
+    --shiki-token-string: var(--slurp-code-string);
+    --shiki-token-string-expression: var(--slurp-code-string);
+    --shiki-token-comment: var(--slurp-code-comment);
+    --shiki-token-function: var(--slurp-code-text);
+    --shiki-token-parameter: var(--slurp-code-text);
+    --shiki-token-punctuation: var(--slurp-code-punctuation);
+    --shiki-token-link: var(--slurp-code-keyword);
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    border-radius: var(--slurp-radius-md);
+    background: var(--slurp-surface-2);
+    color: var(--slurp-code-text);
+  }
+
+  .slurp-code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-2);
+    min-height: 44px;
+    padding: var(--slurp-space-1) var(--slurp-space-1) 0 var(--slurp-space-5);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  .slurp-code-filename:empty {
+    display: none;
+  }
+
+  /* Without a name the copy button floats at the top right, over the first line's end. */
+  .slurp-code-bar:has(.slurp-code-filename:empty) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--slurp-space-1);
+  }
+
+  .slurp-code-copy[data-copied] {
+    color: var(--slurp-success);
+  }
+
+  .slurp-code-pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--slurp-space-3) var(--slurp-space-5) var(--slurp-space-4);
+    border-radius: inherit;
+    font: 14px / 1.65 var(--slurp-font-family-mono);
+    tab-size: 2;
+    overscroll-behavior-x: contain;
+  }
+
+  .slurp-code-bar:has(.slurp-code-filename:empty) + .slurp-code-pre {
+    padding-top: var(--slurp-space-4);
+    padding-right: 56px;
+  }
+
+  .slurp-code-pre:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-code-pre :where(pre) {
+    margin: 0;
+    background: none !important;
+  }
+
+  .slurp-code-pre code {
+    font: inherit;
+  }
+}

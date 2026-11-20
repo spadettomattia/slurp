@@ -32,7 +32,8 @@
 
   .slurp-tabs-list[data-ready] > .slurp-tabs-indicator {
     transition:
-      transform var(--slurp-tabs-duration, var(--slurp-duration-panel)) var(--slurp-tabs-easing, ease),
+      transform var(--slurp-tabs-duration, var(--slurp-duration-panel))
+        var(--slurp-tabs-easing, ease),
       width var(--slurp-tabs-duration, var(--slurp-duration-panel)) var(--slurp-tabs-easing, ease);
   }
 

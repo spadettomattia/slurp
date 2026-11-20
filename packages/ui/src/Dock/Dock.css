@@ -323,7 +323,9 @@
     font: var(--slurp-font-body-s);
   }
 
-  .slurp-dock-row:not(:has(.slurp-dock-crumbs)) > .slurp-dock-action[data-text] .slurp-dock-action-text {
+  .slurp-dock-row:not(:has(.slurp-dock-crumbs))
+    > .slurp-dock-action[data-text]
+    .slurp-dock-action-text {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;

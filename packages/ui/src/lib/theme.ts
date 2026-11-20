@@ -53,6 +53,13 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { CodeProps } from '../Code/Code';
+import type { ContentsProps } from '../Contents/Contents';
+import type { HairlineProps } from '../Hairline/Hairline';
+import type { PageNavProps } from '../PageNav/PageNav';
+import type { ProseProps } from '../Prose/Prose';
+import type { RailProps } from '../Rail/Rail';
+import type { SkipLinkProps } from '../SkipLink/SkipLink';
 import { accentVars, resolveAccent } from './color';
 import { hash, LAYER_ORDER, type SlurpCss } from './css';
 
@@ -99,6 +106,13 @@ const DEFAULT_MOTION: MotionOptions = {
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
   AccentScope: { props: AccentScopeProps; parts: 'root' };
+  Code: { props: CodeProps; parts: 'root' | 'bar' | 'filename' | 'copy' | 'pre' };
+  Contents: { props: ContentsProps; parts: 'root' | 'title' | 'list' | 'item' | 'link' };
+  Hairline: { props: HairlineProps; parts: 'root' };
+  PageNav: { props: PageNavProps; parts: 'root' };
+  Prose: { props: ProseProps; parts: 'root' };
+  Rail: { props: RailProps; parts: 'root' };
+  SkipLink: { props: SkipLinkProps; parts: 'root' };
   Bento: { props: BentoProps; parts: 'root' };
   Card: { props: CardProps; parts: 'root' | 'media' | 'badge' | 'title' | 'description' };
   Dock: { props: DockProps; parts: 'root' };

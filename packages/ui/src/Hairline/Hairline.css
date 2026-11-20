@@ -1,0 +1,21 @@
+/* Hairline: one 1px line in the design system's line colour (the separator of rows, cards and toolbars). */
+@layer slurp.components {
+  .slurp-hairline {
+    flex-shrink: 0;
+    margin: 0;
+    border: 0;
+    background: var(--slurp-line);
+  }
+
+  .slurp-hairline[data-orientation='horizontal'] {
+    width: 100%;
+    height: 1px;
+  }
+
+  .slurp-hairline[data-orientation='vertical'] {
+    align-self: stretch;
+    width: 1px;
+    height: auto;
+    min-height: 1em;
+  }
+}

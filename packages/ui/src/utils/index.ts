@@ -7,3 +7,5 @@ export { COMPACT_QUERY, useMediaQuery } from './useMediaQuery';
 export { useRovingFocus, type RovingFocusOptions } from './useRovingFocus';
 export { focusHit, useFindInPage, type FindInPage } from './useFindInPage';
 export { matchesAll, matchRanges, normalizeText } from '../lib/layout';
+export { useClipboard, type UseClipboardOptions } from './useClipboard';
+export { useScrollSpy, type UseScrollSpyOptions } from './useScrollSpy';

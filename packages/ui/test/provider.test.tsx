@@ -165,7 +165,9 @@ describe('ColorSchemeScript', () => {
 
 describe('SlurpProvider labels', () => {
   const closeName = () =>
-    screen.getByRole('dialog', { name: 'Titolo' }).querySelector('.slurp-dialog-close')
+    screen
+      .getByRole('dialog', { name: 'Titolo' })
+      .querySelector('.slurp-dialog-close')
       ?.getAttribute('aria-label');
 
   it('keeps the Italian defaults without labels', () => {

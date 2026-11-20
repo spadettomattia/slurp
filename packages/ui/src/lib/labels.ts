@@ -1,6 +1,10 @@
 // Texts of the components, per language. Not an i18n system: every component keeps its Italian defaults and its
 // `labels` prop; a SlurpProvider can swap them all at once with a preset ('en') or an object.
 import type { CarouselLabels } from '../Carousel/Carousel';
+import type { CodeLabels } from '../Code/Code';
+import type { ContentsLabels } from '../Contents/Contents';
+import type { PageNavLabels } from '../PageNav/PageNav';
+import type { SkipLinkLabels } from '../SkipLink/SkipLink';
 import type { ChoiceLabels } from '../Choice/Choice';
 import type { DialogLabels } from '../Dialog/Dialog';
 import type { DockLabels } from '../Dock/Dock';
@@ -19,14 +23,18 @@ import type { ToastLabels } from '../Toast/Toast';
 export interface SlurpLabels {
   Carousel?: Partial<CarouselLabels>;
   Choice?: Partial<ChoiceLabels>;
+  Code?: Partial<CodeLabels>;
+  Contents?: Partial<ContentsLabels>;
   Dialog?: Partial<DialogLabels>;
   Dock?: Partial<DockLabels>;
   Filters?: Partial<FiltersLabels>;
   Notice?: Partial<NoticeLabels>;
+  PageNav?: Partial<PageNavLabels>;
   Pages?: Partial<PagesLabels>;
   Rating?: Partial<RatingLabels>;
   Search?: Partial<SearchLabels>;
   Settings?: Partial<SettingsLabels>;
+  SkipLink?: Partial<SkipLinkLabels>;
   Steps?: Partial<StepsLabels>;
   Suggest?: Partial<SuggestLabels>;
   Table?: Partial<TableLabels>;
@@ -46,6 +54,8 @@ export const labelsEn = {
     picker: 'Choose what to show',
   },
   Choice: { placeholder: 'Choose…' },
+  Code: { copy: 'Copy the code', copied: 'Copied', region: 'Code' },
+  Contents: { title: 'On this page' },
   Dialog: { close: 'Close' },
   Dock: {
     navigation: 'Navigation',
@@ -66,6 +76,7 @@ export const labelsEn = {
     danger: 'Error',
     dismiss: 'Dismiss notice',
   },
+  PageNav: { label: 'Previous and next page', previous: 'Previous', next: 'Next' },
   Pages: {
     label: 'Pages',
     previous: 'Previous page',
@@ -93,6 +104,7 @@ export const labelsEn = {
     dark: 'Dark',
     language: 'Language',
   },
+  SkipLink: { label: 'Skip to content' },
   Steps: { label: 'Steps', done: 'completed' },
   Suggest: {
     results: (n) => (n === 1 ? '1 suggestion' : `${n} suggestions`),

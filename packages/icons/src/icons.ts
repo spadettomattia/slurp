@@ -57,3 +57,83 @@ export const WarningIcon = createIcon('WarningIcon', [
   'M12 17h.01',
 ]);
 export const ErrorIcon = createIcon('ErrorIcon', [[12, 12, 9], 'M15 9l-6 6', 'M9 9l6 6']);
+
+// Everyday actions and objects, for any site (menu, edit, files, people, time, media).
+export const MenuIcon = createIcon('MenuIcon', ['M4 7h16', 'M4 12h16', 'M4 17h10']);
+export const PlusIcon = createIcon('PlusIcon', ['M12 5v14', 'M5 12h14']);
+export const EditIcon = createIcon('EditIcon', [
+  'M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z',
+  'M13.5 6.5l4 4',
+]);
+export const TrashIcon = createIcon('TrashIcon', [
+  'M4 7h16',
+  'M10 11v6',
+  'M14 11v6',
+  'M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12',
+  'M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2',
+]);
+// Two rounded sheets.
+export const CopyIcon = createIcon('CopyIcon', [
+  'M12 9h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3v-6a3 3 0 0 1 3-3z',
+  'M5 15a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2',
+]);
+export const LinkIcon = createIcon('LinkIcon', [
+  'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1',
+  'M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
+]);
+export const ExternalIcon = createIcon('ExternalIcon', [
+  'M14 4h6v6',
+  'M20 4l-9 9',
+  'M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4',
+]);
+export const DownloadIcon = createIcon('DownloadIcon', ['M12 4v11', 'M7 10l5 5 5-5', 'M5 20h14']);
+export const UploadIcon = createIcon('UploadIcon', ['M12 15V4', 'M7 9l5-5 5 5', 'M5 20h14']);
+export const CodeIcon = createIcon('CodeIcon', ['M9 8l-4 4 4 4', 'M15 8l4 4-4 4']);
+// The repository: a branch (two commits and a merge), not a brand logo.
+export const BranchIcon = createIcon('BranchIcon', [
+  [6, 5, 2],
+  [6, 19, 2],
+  [18, 7, 2],
+  'M6 7v10',
+  'M18 9a6 6 0 0 1-6 6H8',
+]);
+export const CalendarIcon = createIcon('CalendarIcon', [
+  'M7 4h10a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z',
+  'M4 10h16',
+  'M8 2v4',
+  'M16 2v4',
+]);
+export const ClockIcon = createIcon('ClockIcon', [[12, 12, 9], 'M12 7v5l3 2']);
+export const UserIcon = createIcon('UserIcon', [[12, 8, 4], 'M4 21a8 8 0 0 1 16 0']);
+export const MailIcon = createIcon('MailIcon', [
+  'M6 5h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z',
+  'M4 7l8 6 8-6',
+]);
+// Show / hide a secret (a password).
+export const EyeIcon = createIcon('EyeIcon', [
+  'M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z',
+  [12, 12, 3],
+]);
+export const EyeOffIcon = createIcon('EyeOffIcon', [
+  'M10.6 5.1A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-2.6 3.5',
+  'M6.6 6.6A17.4 17.4 0 0 0 2 12s3.6 7 10 7a9.9 9.9 0 0 0 5.4-1.6',
+  'M9.9 9.9a3 3 0 0 0 4.2 4.2',
+  'M3 3l18 18',
+]);
+export const LockIcon = createIcon('LockIcon', [
+  'M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z',
+  'M8 11V8a4 4 0 0 1 8 0v3',
+]);
+export const GlobeIcon = createIcon('GlobeIcon', [
+  [12, 12, 9],
+  'M3 12h18',
+  'M12 3a14 14 0 0 1 0 18',
+  'M12 3a14 14 0 0 0 0 18',
+]);
+export const HomeIcon = createIcon('HomeIcon', [
+  'M4 11l8-7 8 7',
+  'M6 9.5V19a1 1 0 0 0 1 1h3.5v-5h3v5H17a1 1 0 0 0 1-1V9.5',
+]);
+export const BellIcon = createIcon('BellIcon', ['M6 16V11a6 6 0 0 1 12 0v5l2 2H4z', 'M10 21h4']);
+export const PlayIcon = createIcon('PlayIcon', ['M8 5.5v13l10-6.5z']);
+export const PauseIcon = createIcon('PauseIcon', ['M9 6v12', 'M15 6v12']);

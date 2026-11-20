@@ -1,0 +1,42 @@
+/* PageNav: previous on the left, next on the right; each a soft button with a caption and the page title. */
+@layer slurp.components {
+  .slurp-page-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--slurp-space-3);
+  }
+
+  .slurp-page-nav-step {
+    --slurp-button-height: auto;
+    min-height: 64px;
+    padding-block: var(--slurp-space-2);
+  }
+
+  .slurp-page-nav-step .slurp-button-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    white-space: normal;
+  }
+
+  .slurp-page-nav-step[data-dir='next'] {
+    margin-left: auto;
+  }
+
+  .slurp-page-nav-step[data-dir='next'] .slurp-button-label {
+    align-items: flex-end;
+    text-align: end;
+  }
+
+  .slurp-page-nav-label {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+  }
+
+  @media (max-width: 640px) {
+    .slurp-page-nav-step {
+      flex: 1 1 100%;
+    }
+  }
+}
