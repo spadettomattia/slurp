@@ -1,5 +1,19 @@
 # @slurp-ui/react
 
+## 1.1.1
+
+### Patch Changes
+
+- 75167a1: Use context-neutral examples in the props documentation (no prices or product names).
+- 239f077: Fix motion on touch screens and on narrow Docks:
+
+  - Button, Chip, Tile, Card and Rating lift, grow or tilt on hover only with a fine pointer (`(hover: hover) and (pointer: fine)`), so they no longer stay raised after a tap. Colour changes on hover are unchanged.
+  - Button, Tile and Card press in 120ms and release more softly (240ms for Button and Chip, 300ms for Tile and Card) instead of using one slow transition both ways.
+  - On phones, Dock crumbs before the current one shrink first (to a 44px target), so the current page keeps its name instead of collapsing to a letter.
+
+- Updated dependencies [f3d9909]
+  - @slurp-ui/tokens@1.1.0
+
 ## 1.1.0
 
 ### Minor Changes
