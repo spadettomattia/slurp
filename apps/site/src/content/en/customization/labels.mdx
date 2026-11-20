@@ -1,0 +1,40 @@
+# Copy and languages
+
+Every component has its own texts (accessible names, counts, messages) in Italian. The provider switches them all at once; each component can still change its own.
+
+## In English
+
+```tsx title="App.tsx"
+<SlurpProvider labels="en">{/* … */}</SlurpProvider>
+```
+
+`'en'` and `'it'` are strings: they can be passed from a server component too (Next.js).
+
+## Your own texts
+
+Pass the texts by component, starting from a language with `labelsEn` or `labelsIt`. Functions take numbers and return the text, for plurals and positions.
+
+```tsx title="App.tsx"
+import { labelsEn, SlurpProvider } from '@slurp-ui/react';
+
+const labels = {
+  ...labelsEn,
+  Dialog: { close: 'Dismiss' },
+  Pages: { ...labelsEn.Pages, page: (n: number) => `Go to page ${n}` },
+};
+
+<SlurpProvider labels={labels}>{/* … */}</SlurpProvider>;
+```
+
+## On one component
+
+The component's own `labels` prop wins over the provider's:
+
+```tsx title="Results.tsx"
+<Pages count={12} labels={{ label: 'Results pages' }} />
+```
+
+<Callout title="Not a translation system">
+  The library translates only its own texts. Yours (titles, buttons, content) stay with your app and
+  its own language system.
+</Callout>

@@ -8,23 +8,33 @@ The text field: visible label, input, hint and error, already wired for assistiv
 
 <ApiLinks modules={['Field']} />
 
-## Basic use
+## Quick reference
+
+<QuickRef module="Field" />
+
+## Examples
+
+### Basic use
 
 `label` is required: a placeholder is not a label. `hint` adds a help line under the field. The native input's attributes (`type`, `name`, `autoComplete`, `required`…) go to the input.
 
 <Basic />
 
-## Error
+### Error
 
 `error` marks the field invalid and shows the message with an icon.
 
 <Validation />
 
-## Multiline
+### Multiline
 
 `multiline` uses a `textarea`; `rows` sets its initial height.
 
 <Multiline />
+
+## Customizing the theme
+
+<ThemeSnippet module="Field" />
 
 ## Accessibility
 

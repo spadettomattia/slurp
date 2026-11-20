@@ -17,12 +17,12 @@ export function TileLink({
   return <Tile {...props} as="a" {...useLinkProps(to, slurp)} />;
 }
 
-/** A row of a section's list; its trailing link ("Apri") opens the page. */
+/** A row of a section's list: the whole row opens the page (its title is the link). */
 export function RowLink({
   to,
   slurp,
   ...props
 }: Omit<ListRowProps, 'href' | 'partProps'> & { to: string; slurp?: SlurpNavigateOptions }) {
   const { href, onClick } = useLinkProps(to, slurp);
-  return <ListRow {...props} href={href} partProps={{ action: { onClick } }} />;
+  return <ListRow {...props} href={href} partProps={{ link: { onClick } }} />;
 }

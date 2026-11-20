@@ -13,25 +13,6 @@
     letter-spacing: var(--slurp-font-body-tracking);
   }
 
-  .site-skip {
-    position: fixed;
-    top: var(--slurp-space-2);
-    left: var(--slurp-space-2);
-    z-index: 100;
-    padding: var(--slurp-space-3) var(--slurp-space-4);
-    border-radius: var(--slurp-radius-full);
-    background: var(--slurp-accent);
-    color: var(--slurp-on-accent);
-    font: var(--slurp-font-label);
-    transform: translateY(-200%);
-  }
-
-  .site-skip:focus-visible {
-    outline: 2px solid var(--slurp-focus);
-    outline-offset: 2px;
-    transform: none;
-  }
-
   /*
    * The shell: the documentation index floating on the left, the content, the page's index floating on the right
    * (mui.com's skeleton). Max width 1280 with the design system's gutters; room at the bottom for the Dock
@@ -86,92 +67,8 @@
     list-style: none;
   }
 
-  .site-nav-group-title {
-    margin: var(--slurp-space-3) 0 var(--slurp-space-1);
-    padding: 0 var(--slurp-space-3);
-    color: var(--slurp-muted);
-    font: var(--slurp-font-eyebrow);
-    letter-spacing: var(--slurp-font-eyebrow-tracking);
-    text-transform: uppercase;
-  }
-
-  .site-nav-link {
-    display: flex;
-    align-items: center;
-    min-height: 40px;
-    padding: 0 var(--slurp-space-3);
-    border-radius: var(--slurp-radius-full);
-    color: var(--slurp-fg);
-    font: var(--slurp-font-body-s);
-    letter-spacing: var(--slurp-font-body-s-tracking);
-    text-decoration: none;
-    transition: background-color var(--slurp-duration-base);
-  }
-
-  .site-nav-link:hover {
-    background: var(--slurp-accent-soft);
-  }
-
   /* The current page: highlighted like a ListRow — accent-soft with an accent-ink outline — and aria-current. */
-  .site-nav-link[aria-current='page'] {
-    background: var(--slurp-accent-soft);
-    box-shadow: inset 0 0 0 1px var(--slurp-accent-ink);
-    font-weight: 600;
-  }
-
-  .site-nav-link:focus-visible {
-    outline: 2px solid var(--slurp-focus);
-    outline-offset: -2px;
-  }
-
   /* Page index. */
-  .site-toc-title {
-    margin: var(--slurp-space-1) var(--slurp-space-2) var(--slurp-space-2);
-    color: var(--slurp-muted);
-    font: var(--slurp-font-eyebrow);
-    letter-spacing: var(--slurp-font-eyebrow-tracking);
-    text-transform: uppercase;
-  }
-
-  .site-toc ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .site-toc a {
-    display: block;
-    padding: var(--slurp-space-1) var(--slurp-space-2);
-    border-radius: var(--slurp-radius-sm);
-    color: var(--slurp-muted);
-    font: var(--slurp-font-caption);
-    letter-spacing: var(--slurp-font-caption-tracking);
-    text-decoration: none;
-    transition:
-      color var(--slurp-duration-quick),
-      background-color var(--slurp-duration-quick);
-  }
-
-  .site-toc li[data-level='3'] a {
-    padding-left: var(--slurp-space-5);
-  }
-
-  .site-toc a:hover {
-    color: var(--slurp-fg);
-  }
-
-  .site-toc a[aria-current] {
-    background: var(--slurp-accent-soft);
-    box-shadow: inset 0 0 0 1px var(--slurp-accent-ink);
-    color: var(--slurp-fg);
-    font-weight: 600;
-  }
-
-  .site-toc a:focus-visible {
-    outline: 2px solid var(--slurp-focus);
-    outline-offset: -2px;
-  }
-
   @media (max-width: 1100px) {
     .site-shell,
     .site-shell[data-toc] {
@@ -198,18 +95,25 @@
     margin: 0 0 var(--slurp-space-4);
   }
 
+  /* Where the page sits, above its title. */
+  .site-eyebrow {
+    margin: 0 0 var(--slurp-space-2);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-eyebrow);
+    letter-spacing: var(--slurp-font-eyebrow-tracking);
+    text-transform: uppercase;
+  }
+
+  .site-quickref .site-note {
+    margin-top: var(--slurp-space-2);
+  }
+
   /* Article: one readable column. */
   .site-article {
     max-width: 820px;
   }
 
-  .site-article h1 {
-    margin: 0 0 var(--slurp-space-3);
-    font: var(--slurp-font-display-l);
-    letter-spacing: var(--slurp-font-display-l-tracking);
-  }
-
-  .site-article h1 + p,
+  /* Headings, paragraphs and lists come from the library's Prose; the lead outside an article too. */
   .site-lead {
     margin-top: 0;
     color: var(--slurp-muted);
@@ -217,21 +121,13 @@
     letter-spacing: var(--slurp-font-body-l-tracking);
   }
 
-  .site-article h2 {
-    margin: var(--slurp-space-10) 0 var(--slurp-space-3);
-    font: var(--slurp-font-title-l);
-    letter-spacing: var(--slurp-font-title-l-tracking);
-  }
-
-  .site-article h3 {
-    margin: var(--slurp-space-8) 0 var(--slurp-space-2);
-    font: var(--slurp-font-title-s);
-    letter-spacing: var(--slurp-font-title-s-tracking);
-  }
-
+  /* The heading's own link: a 24px target (WCAG 2.5.8), shown on hover, always faintly on touch screens. */
   .site-anchor {
     display: inline-grid;
     place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--slurp-radius-full);
     margin-left: var(--slurp-space-2);
     color: var(--slurp-muted);
     vertical-align: middle;
@@ -243,21 +139,12 @@
     opacity: 1;
   }
 
-  .site-article p,
-  .site-article li {
-    max-width: 70ch;
+  @media (hover: none) {
+    .site-anchor {
+      opacity: 0.5;
+    }
   }
 
-  .site-article ul,
-  .site-article ol {
-    padding-left: var(--slurp-space-6);
-  }
-
-  .site-article li + li {
-    margin-top: var(--slurp-space-1);
-  }
-
-  .site-article :not(pre) > code,
   .site-note code,
   .site-props code,
   .site-anatomy code {
@@ -329,12 +216,6 @@
     outline-offset: 2px;
   }
 
-  .site-code .site-copy {
-    position: absolute;
-    top: var(--slurp-space-1);
-    right: var(--slurp-space-1);
-  }
-
   /* Demo: one Surface — the example on a stage tinted by the accent, the controls, the code on surface-2. */
   .site-demo {
     margin: var(--slurp-space-6) 0;
@@ -355,14 +236,6 @@
 
   .site-demo[data-align='stretch'] .site-demo-stage {
     display: block;
-  }
-
-  .site-demo-bar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: var(--slurp-space-1);
-    padding: var(--slurp-space-1) var(--slurp-space-2);
   }
 
   .site-demo-code {
@@ -474,26 +347,6 @@
     margin-top: var(--slurp-space-10);
   }
 
-  .site-step[data-dir='next'] {
-    margin-left: auto;
-  }
-
-  .site-step .slurp-button-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1.25;
-  }
-
-  .site-step[data-dir='next'] .slurp-button-label {
-    align-items: flex-end;
-  }
-
-  .site-step-label {
-    color: var(--slurp-muted);
-    font: var(--slurp-font-caption);
-  }
-
   /* In the Dock's "page contents" panel, h3 rows sit under their h2. */
   .site-toc-row[data-level='3'] {
     padding-left: var(--slurp-space-6);
@@ -517,16 +370,10 @@
     .site-demo-stage {
       padding: var(--slurp-space-6) var(--slurp-space-4);
     }
-
-    .site-step {
-      flex: 1 1 100%;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .site-anchor,
-    .site-nav-link,
-    .site-toc a {
+    .site-anchor {
       transition: none;
     }
   }
@@ -555,6 +402,13 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     gap: var(--slurp-space-10);
     align-items: center;
+  }
+
+  /* Wide screens: the hero has the first screen to itself (the next section starts below the fold). */
+  @media (min-width: 1001px) {
+    .site-hero-grid {
+      min-height: calc(100svh - var(--slurp-space-10) * 3);
+    }
   }
 
   .site-hero-text h1:focus {
@@ -826,5 +680,107 @@
       grid-row: auto;
       grid-column: span 2;
     }
+  }
+}
+
+/* Section lists: a live preview of each component in place of the initial. */
+@layer site {
+  .slurp-list-row-mark.site-row-preview {
+    display: grid;
+    place-items: center;
+    width: 132px;
+    height: 72px;
+    overflow: hidden;
+    border-radius: var(--slurp-radius-sm);
+    background: var(--slurp-surface-2);
+  }
+
+  .site-preview {
+    display: inline-grid;
+    place-items: center;
+    transform: scale(0.72);
+    pointer-events: none;
+  }
+
+  .site-preview-field {
+    display: inline-flex;
+    align-items: center;
+    min-width: 120px;
+    min-height: 44px;
+    padding: 0 var(--slurp-space-4);
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-sm);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+  }
+
+  .site-preview-skip {
+    padding: var(--slurp-space-2) var(--slurp-space-4);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent);
+    color: var(--slurp-on-accent);
+    font: var(--slurp-font-label);
+  }
+
+  .site-preview-prose {
+    display: grid;
+    gap: 2px;
+    font: var(--slurp-font-body-s);
+  }
+
+  .site-preview-toast {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    padding: var(--slurp-space-2) var(--slurp-space-4);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-lg);
+    background: var(--slurp-surface-dock);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+  }
+
+  .site-preview-toast svg {
+    color: var(--slurp-success);
+  }
+
+  .site-preview-choice {
+    border-radius: var(--slurp-radius-full);
+    color: var(--slurp-fg);
+  }
+
+  @media (max-width: 640px) {
+    .slurp-list-row-mark.site-row-preview {
+      width: 96px;
+      height: 56px;
+    }
+  }
+}
+
+/* Hero facts: one line of plain facts under the lead. */
+@layer site {
+  .site-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-2) var(--slurp-space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: var(--slurp-font-label);
+    letter-spacing: var(--slurp-font-label-tracking);
+  }
+
+  .site-facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+  }
+
+  .site-facts li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-ink);
   }
 }

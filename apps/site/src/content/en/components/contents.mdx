@@ -1,0 +1,28 @@
+import Basic from '@demos/contents/Basic.tsx?demo';
+
+# Contents
+
+A page's index: links to its sections, with the one you are reading highlighted.
+
+<ApiLinks modules={['Contents']} />
+
+## Quick reference
+
+<QuickRef module="Contents" />
+
+## Examples
+
+### Basic use
+
+Pass the sections with `id`, text and level. Without `active` it follows the scroll by itself (`useScrollSpy`); with `active` you drive it. With fewer than two sections it shows nothing.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Contents" />
+
+## Accessibility
+
+- It is a named `nav`; the section being read has `aria-current="location"` besides the highlight.
+- Links go to the section's anchor, so they work without JavaScript too.

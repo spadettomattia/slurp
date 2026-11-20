@@ -1,0 +1,40 @@
+import Basic from '@demos/code/Basic.tsx?demo';
+import Command from '@demos/code/Command.tsx?demo';
+
+# Code
+
+Un blocco di codice con il nome del file e un bottone per copiarlo, che dice quando ha funzionato.
+
+<ApiLinks modules={['Code']} />
+
+## Riferimento rapido
+
+<QuickRef module="Code" />
+
+## Esempi
+
+### Con il nome del file
+
+`filename` dà un nome al blocco e alla sua regione scorrevole. `code` è il testo mostrato e copiato.
+
+<Basic />
+
+### Un comando
+
+Senza nome, il bottone di copia sta in alto a destra sulla prima riga.
+
+<Command />
+
+### Con un evidenziatore
+
+Passa a `html` l'HTML di qualsiasi evidenziatore (shiki, Prism…): i colori passano per `--slurp-code-*`, e le variabili di shiki sono già collegate. `code` resta il testo copiato.
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Code" />
+
+## Accessibilità
+
+- La regione del codice si raggiunge con Tab e scorre con le frecce; il suo nome è il file, o la lingua.
+- Copia cambia icona e nome per due secondi e lo annuncia in una regione di stato.
+- I colori dell'evidenziazione vengono dai token e restano ad almeno 4.5:1 su `surface-2`.

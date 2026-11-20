@@ -10,35 +10,45 @@ The primary action: a pill with a `fill`, `soft`, `outline` or `plain` appearanc
 
 <ApiLinks modules={['Button', 'Bubble']} />
 
-## Appearance
+## Quick reference
+
+<QuickRef module="Button" />
+
+## Examples
+
+### Appearance
 
 `appearance` picks the visual weight: `fill` (solid accent) for the main action of the view, only one; `soft` and `outline` for secondary ones; `plain` for quiet ones.
 
 <Appearances />
 
-## Tone
+### Tone
 
 `tone="neutral"` drops the accent: for actions that should not draw the eye.
 
 <Tones />
 
-## Sizes
+### Sizes
 
 `sm`, `md` (default) and `lg`. Even `sm` stays a target of at least 44px.
 
 <Sizes />
 
-## With icons
+### With icons
 
 `icon` goes before the text, `endIcon` after it: they are decorative, the text is the name. For an icon-only button use [Bubble](/api/bubble), which asks for a `label`.
 
 <Icons />
 
-## As a link
+### As a link
 
 With `href` it becomes a real `<a>`: it opens in a new tab and search engines follow it. With a router, pass its link to `as`: `<Button as={Link} to="/profile">`.
 
 <LinkButton />
+
+## Customizing the theme
+
+<ThemeSnippet module="Button" />
 
 ## Accessibility
 

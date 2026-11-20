@@ -1,0 +1,53 @@
+# Vite, Next.js e router
+
+La libreria non dipende da nessun router né framework: qui come collegarla ai più usati.
+
+## Vite
+
+Nessuna configurazione: segui l'[installazione](/getting-started/installation).
+
+## Next.js (App Router)
+
+I moduli dei componenti sono già client component (`'use client'`), quindi il layout può restare un server component. `createTheme` è codice server-safe e i testi si scelgono con una stringa (`labels="it"`), che passa dal server al client.
+
+```tsx title="app/layout.tsx"
+import '@slurp-ui/react/styles.css';
+import { ColorSchemeScript, createTheme, Ground, SlurpProvider } from '@slurp-ui/react';
+
+const theme = createTheme({ accent: 'hue-teal' });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="it" suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <SlurpProvider theme={theme} labels="it">
+          <Ground />
+          {children}
+        </SlurpProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+- `ColorSchemeScript` applica il tema scelto prima del primo paint: niente lampo chiaro su scuro.
+- `suppressHydrationWarning` su `<html>`: lo script scrive `data-theme` prima che React idrati.
+
+## React Router
+
+I componenti con `as` accettano il link del router: `<Button as={Link} to="/profilo">`, `<Rail.Link as={NavLink} to="/profilo">`. Per la transizione collapse / expand tra le route, `useSlurpNavigate` avvolge il `navigate` del router:
+
+```tsx title="Lista.tsx"
+import { useSlurpNavigate } from '@slurp-ui/react';
+import { useNavigate } from 'react-router';
+
+export function Lista() {
+  const go = useSlurpNavigate(useNavigate());
+  return <button onClick={() => go('/dettaglio', { from: { group: 'righe' } })}>Apri</button>;
+}
+```
+
+Nella pagina d'arrivo, `useSlurpEnter()` fa atterrare la transizione sull'elemento con lo stesso `animationId`.

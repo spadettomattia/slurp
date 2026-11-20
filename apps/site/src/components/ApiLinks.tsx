@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import { REPO } from '../../site.config';
 import { href, useLang } from '~/lib/lang';
-import { CodeIcon } from './icons';
+import { CodeIcon } from '@slurp-ui/react/icons';
 
 /** The row under a component's title (like mui.com's chips): its API pages and its source. */
 export function ApiLinks({ modules }: { modules: string[] }) {

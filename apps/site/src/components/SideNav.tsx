@@ -1,4 +1,4 @@
-import { Fold } from '@slurp-ui/react';
+import { Fold, Rail } from '@slurp-ui/react';
 import apiIndex from 'virtual:slurp-api-index';
 import { NavLink } from 'react-router';
 
@@ -14,15 +14,13 @@ export function SideNav({ onNavigate }: { onNavigate?: () => void }) {
   const { lang, copy, slug } = useLang();
   const here = slug.split('/')[0];
   const link = (to: string, label: string) => (
-    <li key={to}>
-      <NavLink to={href(lang, to)} end className="site-nav-link" onClick={onNavigate}>
-        {label}
-      </NavLink>
-    </li>
+    <Rail.Link key={to} as={NavLink} to={href(lang, to)} end onClick={onNavigate}>
+      {label}
+    </Rail.Link>
   );
   const modules = [...new Set(apiIndex.map((c) => c.module))];
   return (
-    <nav className="site-nav" aria-label={copy.docsIndex}>
+    <Rail className="site-nav" label={copy.docsIndex}>
       {NAV.map((s) => {
         const groups = s.groups
           .map((g) => ({ ...g, pages: g.pages.filter((p) => AVAILABLE.has(`${lang}/${p.slug}`)) }))
@@ -37,10 +35,9 @@ export function SideNav({ onNavigate }: { onNavigate?: () => void }) {
             className="site-nav-fold"
           >
             {groups.map((g) => (
-              <div key={g.title.en} className="site-nav-group">
-                {groups.length > 1 && <p className="site-nav-group-title">{g.title[lang]}</p>}
-                <ul>{g.pages.map((p) => link(p.slug, p.title?.[lang] ?? p.slug))}</ul>
-              </div>
+              <Rail.Group key={g.title.en} title={groups.length > 1 ? g.title[lang] : undefined}>
+                {g.pages.map((p) => link(p.slug, p.title?.[lang] ?? p.slug))}
+              </Rail.Group>
             ))}
           </Fold>
         );
@@ -51,8 +48,8 @@ export function SideNav({ onNavigate }: { onNavigate?: () => void }) {
         headingLevel={2}
         className="site-nav-fold"
       >
-        <ul>{modules.map((m) => link(`api/${m.toLowerCase()}`, m))}</ul>
+        <Rail.Group>{modules.map((m) => link(`api/${m.toLowerCase()}`, m))}</Rail.Group>
       </Fold>
-    </nav>
+    </Rail>
   );
 }

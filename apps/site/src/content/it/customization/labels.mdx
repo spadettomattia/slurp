@@ -1,0 +1,40 @@
+# Testi e lingue
+
+Ogni componente ha i suoi testi (nomi accessibili, conteggi, messaggi) in italiano. Il provider li cambia tutti insieme; ogni componente può ancora cambiare i suoi.
+
+## In inglese
+
+```tsx title="App.tsx"
+<SlurpProvider labels="en">{/* … */}</SlurpProvider>
+```
+
+`'en'` e `'it'` sono stringhe: si possono passare anche da un server component (Next.js).
+
+## I tuoi testi
+
+Passa i testi per componente, partendo da una lingua con `labelsEn` o `labelsIt`. Le funzioni ricevono numeri e restituiscono il testo, per i plurali e gli indici.
+
+```tsx title="App.tsx"
+import { labelsEn, SlurpProvider } from '@slurp-ui/react';
+
+const labels = {
+  ...labelsEn,
+  Dialog: { close: 'Dismiss' },
+  Pages: { ...labelsEn.Pages, page: (n: number) => `Go to page ${n}` },
+};
+
+<SlurpProvider labels={labels}>{/* … */}</SlurpProvider>;
+```
+
+## Su un solo componente
+
+La prop `labels` del componente vince su quelle del provider:
+
+```tsx title="Risultati.tsx"
+<Pages count={12} labels={{ label: 'Pagine dei risultati' }} />
+```
+
+<Callout title="Non è un sistema di traduzione">
+  La libreria traduce solo i suoi testi. I tuoi (titoli, bottoni, contenuti) restano alla tua app e
+  al suo sistema di lingue.
+</Callout>

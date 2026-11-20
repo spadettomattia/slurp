@@ -1,0 +1,29 @@
+import Basic from '@demos/toast/Basic.tsx?demo';
+
+# Toast
+
+Short confirmations at the bottom of the screen, above the Dock: they arrive, get read, and leave.
+
+<ApiLinks modules={['Toast']} />
+
+## Quick reference
+
+<QuickRef module="Toast" />
+
+## Examples
+
+### Basic use
+
+`ToastProvider` at the root, `useToast()` where you need it: `toast({ title, tone, action })`. They stay 5 seconds (`duration`), paused while hovered or focused; at most 3 at once.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Toast" />
+
+## Accessibility
+
+- The list is a `polite` region, present from the start: every new toast is announced.
+- The state is an icon plus a word, never colour alone.
+- An action ("Undo") stays reachable from the keyboard while the toast is shown.

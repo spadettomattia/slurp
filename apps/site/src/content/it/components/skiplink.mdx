@@ -1,0 +1,28 @@
+import Basic from '@demos/skiplink/Basic.tsx?demo';
+
+# SkipLink
+
+«Vai al contenuto»: il primo elemento che Tab raggiunge su ogni pagina.
+
+<ApiLinks modules={['SkipLink']} />
+
+## Riferimento rapido
+
+<QuickRef module="SkipLink" />
+
+## Esempi
+
+### Uso di base
+
+Mettilo per primo nel `body`. Il bersaglio ha un `id` e `tabIndex={-1}`, così il focus ci arriva davvero.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="SkipLink" />
+
+## Accessibilità
+
+- Invisibile finché non riceve il focus da tastiera, poi una pillola in alto a sinistra sopra tutto.
+- Il testo segue la lingua del provider (`labels`).

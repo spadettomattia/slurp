@@ -72,6 +72,8 @@ export const NAV: NavSection[] = [
           'AccentScope',
           'VisuallyHidden',
           'Portal',
+          'Hairline',
+          'SkipLink',
         ),
       },
       {
@@ -94,6 +96,10 @@ export const NAV: NavSection[] = [
         ),
       },
       {
+        title: t('Contenuti', 'Content'),
+        pages: comps('Prose', 'Code', 'Contents'),
+      },
+      {
         title: t('Pannelli', 'Panels'),
         pages: comps('Bloom', 'Menu', 'Dialog', 'Sheet', 'Hint', 'Fold', 'Tabs'),
       },
@@ -105,7 +111,10 @@ export const NAV: NavSection[] = [
         title: t('Dati e media', 'Data and media'),
         pages: comps('Table', 'Carousel', 'Avatar'),
       },
-      { title: t('Navigazione', 'Navigation'), pages: comps('Pages', 'Steps') },
+      {
+        title: t('Navigazione', 'Navigation'),
+        pages: comps('Rail', 'PageNav', 'Pages', 'Steps'),
+      },
       {
         title: t('Firma Slurp', 'Slurp signature'),
         pages: comps(

@@ -1,0 +1,40 @@
+import Basic from '@demos/code/Basic.tsx?demo';
+import Command from '@demos/code/Command.tsx?demo';
+
+# Code
+
+A block of code with its file name and a copy button that says when it worked.
+
+<ApiLinks modules={['Code']} />
+
+## Quick reference
+
+<QuickRef module="Code" />
+
+## Examples
+
+### With a file name
+
+`filename` names the block and its scrollable region. `code` is the text shown and copied.
+
+<Basic />
+
+### A command
+
+Without a name, the copy button sits at the top right, on the first line.
+
+<Command />
+
+### With a highlighter
+
+Pass the HTML of any highlighter (shiki, Prism…) to `html`: colours go through `--slurp-code-*`, and shiki's variables are already mapped. `code` stays the copied text.
+
+## Customizing the theme
+
+<ThemeSnippet module="Code" />
+
+## Accessibility
+
+- The code region is reachable with Tab and scrolls with the arrow keys; its name is the file, or the language.
+- Copy changes icon and name for two seconds and announces it in a status region.
+- Highlighting colours come from the tokens and stay at least 4.5:1 on `surface-2`.

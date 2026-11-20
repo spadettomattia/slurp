@@ -1,49 +1,37 @@
 # Installazione
 
-Installa Slurp UI e collega il suo foglio di stile: è tutto ciò che serve per iniziare.
+Quattro passi: il pacchetto, il foglio di stile, il provider, il primo componente.
 
-## Pacchetto
+## Con Vite e React
 
-```bash
+### 1. Installa il pacchetto
+
+```bash title="Terminale"
 npm install @slurp-ui/react
 ```
 
-Con altri package manager:
+`@slurp-ui/react` include i token, le icone (`@slurp-ui/react/icons`) e il motore dell'animazione: non serve installarli a parte. Con pnpm o yarn: `pnpm add @slurp-ui/react`, `yarn add @slurp-ui/react`.
 
-```bash
-pnpm add @slurp-ui/react
-yarn add @slurp-ui/react
-```
+### 2. Importa il foglio di stile
 
-`@slurp-ui/react` include i token (`@slurp-ui/tokens`), le icone (`@slurp-ui/icons`) e il motore dell'animazione (`@slurp-ui/motion`): non serve installarli a parte.
+Una volta, alla radice dell'app. Contiene i token `--slurp-*`, il font Poppins e gli stili di tutti i componenti, dentro `@layer slurp.*`: i tuoi CSS vincono senza `!important`.
 
-## Requisiti
-
-- **React 19** o successivo (`react` e `react-dom` sono peer dependency).
-- **Solo ESM**: funziona con Vite, Next.js, React Router, Remix e ogni bundler moderno.
-- Browser: le ultime due versioni dei browser evergreen e Safari 17+.
-
-## Foglio di stile
-
-Importa una volta, alla radice dell'app, il CSS della libreria. Contiene i token `--slurp-*`, il font Poppins e gli stili di tutti i componenti, dentro `@layer slurp.*`: i tuoi CSS vincono senza `!important`.
-
-```tsx
+```tsx title="main.tsx"
 import '@slurp-ui/react/styles.css';
 ```
 
-## Provider
+### 3. Avvolgi l'app nel provider
 
-`SlurpProvider` porta il tema, il tema chiaro / scuro scelto e il registro dell'animazione. `Ground` applica lo sfondo e la tipografia di base.
+`SlurpProvider` porta il tema, la scelta chiaro / scuro, i testi dei componenti e il registro dell'animazione. `Ground` applica lo sfondo e la tipografia di base.
 
-```tsx
-import '@slurp-ui/react/styles.css';
+```tsx title="App.tsx"
 import { createTheme, Ground, SlurpProvider } from '@slurp-ui/react';
 
 const theme = createTheme({ accent: 'hue-violet' });
 
 export function App() {
   return (
-    <SlurpProvider theme={theme}>
+    <SlurpProvider theme={theme} labels="it">
       <Ground />
       {/* la tua app */}
     </SlurpProvider>
@@ -51,11 +39,27 @@ export function App() {
 }
 ```
 
+### 4. Usa i componenti
+
+```tsx title="Salva.tsx"
+import { Button } from '@slurp-ui/react';
+
+export function Salva() {
+  return <Button>Salva</Button>;
+}
+```
+
+## Requisiti
+
+- **React 19** o successivo (`react` e `react-dom` sono peer dependency).
+- **Solo ESM**: funziona con Vite, Next.js, React Router e ogni bundler moderno.
+- Browser: le ultime due versioni dei browser evergreen e Safari 17+.
+
 ## Import per componente
 
 Ogni componente ha anche il suo subpath, utile per caricare solo ciò che serve:
 
-```tsx
+```tsx title="App.tsx"
 import { Button } from '@slurp-ui/react/Button';
 import { useSlurp } from '@slurp-ui/react/motion';
 ```

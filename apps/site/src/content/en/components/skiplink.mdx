@@ -1,0 +1,28 @@
+import Basic from '@demos/skiplink/Basic.tsx?demo';
+
+# SkipLink
+
+“Skip to content”: the first thing Tab reaches on every page.
+
+<ApiLinks modules={['SkipLink']} />
+
+## Quick reference
+
+<QuickRef module="SkipLink" />
+
+## Examples
+
+### Basic use
+
+Put it first in the `body`. Give the target an `id` and `tabIndex={-1}` so focus really lands on it.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="SkipLink" />
+
+## Accessibility
+
+- Out of sight until keyboard focus reaches it, then a pill at the top left above everything.
+- Its text follows the provider's language (`labels`).

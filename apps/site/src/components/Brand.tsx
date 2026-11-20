@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { REPO } from '../../site.config';
 import { href, useLang } from '~/lib/lang';
-import { RepoIcon } from './icons';
+import { BranchIcon } from '@slurp-ui/react/icons';
 import { Logo } from './Logo';
 
 /**
@@ -40,7 +40,7 @@ export function Brand() {
         tone="neutral"
         className="site-github"
       >
-        <RepoIcon />
+        <BranchIcon />
       </Bubble>
     </header>
   );

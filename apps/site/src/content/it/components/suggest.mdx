@@ -8,23 +8,33 @@ Un campo di testo con suggerimenti (autocomplete): il campo **diventa** la lista
 
 <ApiLinks modules={['Suggest']} />
 
-## Uso di base
+## Riferimento rapido
+
+<QuickRef module="Suggest" />
+
+## Esempi
+
+### Uso di base
 
 Scrivi: ogni parola del testo, in qualsiasi ordine e senza badare a maiuscole o accenti, viene cercata nell'etichetta e nella descrizione delle opzioni. Le corrispondenze sono evidenziate.
 
 <Basic />
 
-## Controllato
+### Controllato
 
 `value` / `onValueChange` per l'opzione scelta (`null` finché il testo non corrisponde a nessuna), `inputValue` / `onInputValueChange` per il testo. Con `openOnFocus` la lista si apre appena il campo prende il focus.
 
 <Controlled />
 
-## Risultati da un server
+### Risultati da un server
 
 Con `filter={false}` Suggest mostra le `options` così come sono: filtra la tua app, per esempio chiedendo a un server a ogni carattere.
 
 <Remote />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Suggest" />
 
 ## Accessibilità
 

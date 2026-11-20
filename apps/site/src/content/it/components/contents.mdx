@@ -1,0 +1,28 @@
+import Basic from '@demos/contents/Basic.tsx?demo';
+
+# Contents
+
+L'indice di una pagina: i link alle sezioni, con quella che stai leggendo evidenziata.
+
+<ApiLinks modules={['Contents']} />
+
+## Riferimento rapido
+
+<QuickRef module="Contents" />
+
+## Esempi
+
+### Uso di base
+
+Passa le sezioni con `id`, testo e livello. Senza `active` segue lo scorrimento da solo (`useScrollSpy`); con `active` lo guidi tu. Con meno di due sezioni non mostra niente.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Contents" />
+
+## Accessibilità
+
+- È una `nav` con nome; la sezione letta ha `aria-current="location"` oltre all'evidenziazione.
+- I link portano all'ancora della sezione, così funzionano anche senza JavaScript.

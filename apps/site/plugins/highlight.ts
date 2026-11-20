@@ -55,8 +55,11 @@ export function rehypeHighlight() {
       });
       const pre = hast.children[0] as Element;
       pre.properties['data-lang'] = known(lang);
-      // The raw text, for the copy button.
+      // The raw text, for the copy button; a fence's `title="main.tsx"` names the block.
       pre.properties['data-code'] = text.replace(/\n$/, '');
+      const meta = (code.data as { meta?: string } | undefined)?.meta ?? '';
+      const title = /title="([^"]+)"/.exec(meta)?.[1];
+      if (title) pre.properties['data-title'] = title;
       parent.children[index] = pre;
     });
   };

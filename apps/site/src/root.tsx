@@ -32,7 +32,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
-        <SlurpProvider theme={theme}>
+        <SlurpProvider theme={theme} labels={lang}>
           <Ground />
           {children}
         </SlurpProvider>

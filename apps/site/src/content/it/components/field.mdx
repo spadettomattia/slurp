@@ -8,23 +8,33 @@ Il campo di testo: etichetta visibile, input, suggerimento ed errore, già colle
 
 <ApiLinks modules={['Field']} />
 
-## Uso di base
+## Riferimento rapido
+
+<QuickRef module="Field" />
+
+## Esempi
+
+### Uso di base
 
 `label` è obbligatoria: il placeholder non sostituisce l'etichetta. `hint` aggiunge una riga di aiuto sotto il campo. Gli attributi dell'input nativo (`type`, `name`, `autoComplete`, `required`…) passano all'input.
 
 <Basic />
 
-## Errore
+### Errore
 
 `error` segna il campo come non valido e mostra il messaggio con un'icona.
 
 <Validation />
 
-## Più righe
+### Più righe
 
 `multiline` usa una `textarea`; `rows` ne dà l'altezza iniziale.
 
 <Multiline />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Field" />
 
 ## Accessibilità
 

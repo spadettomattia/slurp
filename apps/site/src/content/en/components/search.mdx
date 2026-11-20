@@ -7,13 +7,19 @@ The search field: an icon, a placeholder that says where it looks, the number of
 
 <ApiLinks modules={['Search']} />
 
-## Basic use
+## Quick reference
+
+<QuickRef module="Search" />
+
+## Examples
+
+### Basic use
 
 The placeholder says **where** it looks (`labels.placeholder`): “Search the archive…”, “Search in Settings…”.
 
 <Basic />
 
-## With the number of results
+### With the number of results
 
 `count` shows at the end of the field while typing and is announced. To filter, the library's `matchesAll` looks for every word, in any order, regardless of case and accents.
 
@@ -23,6 +29,10 @@ The placeholder says **where** it looks (`labels.placeholder`): “Search the ar
   A Slurp interface has one search field, in the Dock: see `Dock.Search`. `Search` is for a search
   that lives inside the content.
 </Callout>
+
+## Customizing the theme
+
+<ThemeSnippet module="Search" />
 
 ## Accessibility
 

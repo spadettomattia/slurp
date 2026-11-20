@@ -1,8 +1,7 @@
-import { Button, Surface } from '@slurp-ui/react';
-import { useId, useState, type ReactNode } from 'react';
+import { Code, Surface } from '@slurp-ui/react';
+import type { ReactNode } from 'react';
 
 import { useLang } from '~/lib/lang';
-import { CopyButton } from './Copy';
 
 export interface DemoProps {
   /** The live example. */
@@ -10,41 +9,29 @@ export interface DemoProps {
   /** Its source, as shown, and highlighted. */
   code: string;
   html: string;
-  /** Opens with the code shown. */
-  open?: boolean;
   /** Centres the example (default) or lets it fill the width. */
   align?: 'center' | 'stretch';
 }
 
+/** The highlighted lines without shiki's own <pre><code> wrapper (Code renders those). */
+const inner = (html: string) =>
+  html.replace(/^\s*<pre[^>]*>\s*<code[^>]*>/, '').replace(/<\/code>\s*<\/pre>\s*$/, '');
+
 /**
- * A live example and, one press away, the code that renders it (mui.com's demos), on one translucent Surface: the
- * example on its tinted stage, the controls, the code. No frame around separate boxes.
+ * A live example with the code that renders it right below, always visible (the tailwindcss.com way), on one
+ * translucent Surface: the example on its stage, then the library's Code with its copy button.
  */
-export function Demo({ children, code, html, open = false, align = 'center' }: DemoProps) {
+export function Demo({ children, code, html, align = 'center' }: DemoProps) {
   const { copy } = useLang();
-  const [shown, setShown] = useState(open);
-  const id = useId();
   return (
     <Surface as="figure" className="site-demo" data-align={align}>
       <div className="site-demo-stage">{children}</div>
-      <div className="site-demo-bar">
-        <Button
-          appearance="plain"
-          tone="neutral"
-          size="sm"
-          aria-expanded={shown}
-          aria-controls={id}
-          onClick={() => setShown((s) => !s)}
-        >
-          {shown ? copy.hideCode : copy.showCode}
-        </Button>
-        <CopyButton text={code} />
-      </div>
-      <div
-        id={id}
+      <Code
         className="site-demo-code"
-        hidden={!shown}
-        dangerouslySetInnerHTML={{ __html: html }}
+        code={code}
+        html={inner(html)}
+        filename={copy.example}
+        language="tsx"
       />
     </Surface>
   );

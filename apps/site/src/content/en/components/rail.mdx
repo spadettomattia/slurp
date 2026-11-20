@@ -1,0 +1,28 @@
+import Basic from '@demos/rail/Basic.tsx?demo';
+
+# Rail
+
+Vertical navigation in groups, beside the content on wide screens.
+
+<ApiLinks modules={['Rail']} />
+
+## Quick reference
+
+<QuickRef module="Rail" />
+
+## Examples
+
+### Basic use
+
+`Rail` is the named `nav`, `Rail.Group` a group with an eyebrow, `Rail.Link` a link: with a router, pass its link to `as` (`<Rail.Link as={NavLink} to="/profile">`). Put it in a floating Surface; on phones navigation stays in the Dock.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Rail" />
+
+## Accessibility
+
+- Every group is a list named by its title.
+- The current page has `aria-current="page"` and an outline, not only a colour.

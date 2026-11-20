@@ -1,0 +1,29 @@
+import Basic from '@demos/toast/Basic.tsx?demo';
+
+# Toast
+
+Conferme brevi in fondo allo schermo, sopra il Dock: arrivano, si leggono, se ne vanno.
+
+<ApiLinks modules={['Toast']} />
+
+## Riferimento rapido
+
+<QuickRef module="Toast" />
+
+## Esempi
+
+### Uso di base
+
+`ToastProvider` alla radice, `useToast()` dove serve: `toast({ title, tone, action })`. Restano 5 secondi (`duration`), in pausa mentre ci passi sopra o hanno il focus; al massimo 3 insieme.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Toast" />
+
+## Accessibilità
+
+- La lista è una regione `polite`, presente dall'inizio: ogni nuovo toast viene annunciato.
+- Lo stato è un'icona più una parola, mai solo un colore.
+- Un'azione ("Annulla") resta raggiungibile da tastiera finché il toast è visibile.

@@ -1,0 +1,37 @@
+import Basic from '@demos/dialog/Basic.tsx?demo';
+import SheetDemo from '@demos/dialog/Sheet.tsx?demo';
+
+# Dialog
+
+Una finestra modale che cresce dal bottone che l'ha aperta e ci torna quando si chiude.
+
+<ApiLinks modules={['Dialog', 'Sheet']} />
+
+## Riferimento rapido
+
+<QuickRef module="Dialog" />
+
+## Esempi
+
+### Uso di base
+
+Titolo, descrizione e una sola azione principale in `actions`. Si chiude con il bottone, con Esc o premendo fuori (`dismissible`).
+
+<Basic />
+
+### Sheet
+
+Lo stesso pannello che sale dal basso, a tutta larghezza sul telefono: per preferenze e filtri.
+
+<SheetDemo />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Dialog" />
+
+## Accessibilità
+
+- È un `<dialog>` nativo: focus contenuto, pagina inerte, Esc per chiudere.
+- Prende il nome dal titolo e la descrizione dalla `description`.
+- Alla chiusura il focus torna al bottone che l'ha aperta.
+- Con il movimento ridotto entrata e uscita diventano dissolvenze brevi.

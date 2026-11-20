@@ -1,0 +1,28 @@
+import Basic from '@demos/menu/Basic.tsx?demo';
+
+# Menu
+
+Una lista di azioni: il bottone diventa il pannello, come in tutto Slurp.
+
+<ApiLinks modules={['Menu']} />
+
+## Riferimento rapido
+
+<QuickRef module="Menu" />
+
+## Esempi
+
+### Uso di base
+
+`trigger` è il contenuto del bottone, ogni `MenuItem` un'azione; `tone="danger"` per quelle distruttive, che lo dicono anche nel testo.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Menu" />
+
+## Accessibilità
+
+- Ruoli `menu` e `menuitem`; frecce, Home e Fine per muoversi, Invio per scegliere.
+- Esc chiude e riporta il focus al bottone.

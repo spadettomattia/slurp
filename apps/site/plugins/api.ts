@@ -15,6 +15,8 @@ const src = path.join(ui, 'src');
 export interface ApiProp {
   name: string;
   type: string;
+  /** The literal values of a union type (`"fill" | "soft"`), when the type names an alias (`Appearance`). */
+  values?: string;
   required: boolean;
   default?: string;
   description: string;
@@ -58,6 +60,14 @@ function splitDefault(text: string): { description: string; default?: string } {
   };
 }
 
+/** `"fill" | "soft" | …` for a union of literals (docgen reports it as an enum), else nothing. */
+function literals(type: { name: string; value?: unknown }): string | undefined {
+  if (type.name !== 'enum' || !Array.isArray(type.value)) return undefined;
+  const values = (type.value as { value: string }[]).map((v) => v.value);
+  if (!values.length || values.some((v) => !/^["'\d]|^(true|false)$/.test(v))) return undefined;
+  return values.join(' | ');
+}
+
 function toApi(doc: ComponentDoc, module: string): ApiComponent {
   const props: ApiProp[] = Object.values(doc.props)
     .map((p) => {
@@ -66,6 +76,7 @@ function toApi(doc: ComponentDoc, module: string): ApiComponent {
       return {
         name: p.name,
         type: p.type.raw && p.type.raw.length < 160 ? p.type.raw : p.type.name,
+        values: literals(p.type),
         required: p.required,
         default: fromCode ?? fromText,
         description,

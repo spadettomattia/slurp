@@ -1,0 +1,51 @@
+# Tema
+
+Un tema cambia tutta la libreria da un punto solo: accento, schema chiaro / scuro, token, animazione e i default di ogni componente.
+
+## Creare un tema
+
+`createTheme` restituisce dati semplici e serializzabili: si può creare anche in un server component.
+
+```tsx title="theme.ts"
+import { createTheme } from '@slurp-ui/react';
+
+export const theme = createTheme({
+  accent: 'hue-teal', // un preset hue-* o un colore esadecimale
+  colorScheme: 'system', // light, dark o system
+  locale: 'it-IT', // solo per Intl (numeri)
+});
+```
+
+## Token
+
+`tokens` sostituisce i valori del design system in tutta l'app: colori (anche diversi per chiaro e scuro), spazi, raggi, ombre, sfocature.
+
+```tsx title="theme.ts"
+createTheme({
+  tokens: {
+    radius: { card: 24 },
+    color: { surface: { light: '#ffffff', dark: '#15151b' } },
+  },
+});
+```
+
+## Default dei componenti
+
+`components` dà a ogni componente le sue props predefinite e uno stile per parte, con i token.
+
+```tsx title="theme.ts"
+createTheme({
+  components: {
+    Button: { defaults: { size: 'lg' } },
+    Card: { css: { root: { radius: 'lg' } } },
+  },
+});
+```
+
+## Animazione
+
+`motion` cambia i default della transizione collapse / expand (`duration`, `stagger`, `goo`…) per tutta l'app.
+
+```tsx title="theme.ts"
+createTheme({ motion: { duration: 800, goo: false } });
+```

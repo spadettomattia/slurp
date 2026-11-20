@@ -7,8 +7,9 @@ import {
   Bubble,
   Button,
   Card,
-  Choice,
   Chip,
+  Choice,
+  Code,
   Count,
   Flow,
   Notice,
@@ -30,9 +31,8 @@ import { hue } from '@slurp-ui/react/tokens';
 import apiIndex from 'virtual:slurp-api-index';
 import { useEffect, useRef, useState } from 'react';
 
-import { REPO, type Lang } from '../../site.config';
-import { CopyButton } from '~/components/Copy';
-import { PauseIcon, PlayIcon, RepoIcon } from '~/components/icons';
+import type { Lang } from '../../site.config';
+import { PauseIcon, PlayIcon } from '@slurp-ui/react/icons';
 import { TileLink } from '~/components/Links';
 import { AVAILABLE } from '~/lib/available';
 import { href, useLang } from '~/lib/lang';
@@ -43,8 +43,13 @@ const INSTALL = 'npm install @slurp-ui/react';
 
 const TEXT = {
   it: {
-    title: 'Interfacce che si fondono, come cellule',
-    lead: 'Slurp UI è la libreria React del design system Slurp: per andare avanti n elementi si fondono in uno, per tornare indietro uno esplode in n. Attorno, controlli pronti, superfici fluttuanti e il Dock. Accessibile per costruzione, in tema chiaro e scuro.',
+    title: 'Componenti React che si fondono, come cellule',
+    lead: 'Per andare avanti n elementi si fondono in uno, per tornare indietro uno esplode in n. Attorno, controlli pronti, superfici fluttuanti e il Dock.',
+    facts: (components: number) => [
+      `${components} componenti`,
+      'WCAG AA, chiaro e scuro',
+      'testi in italiano e inglese',
+    ],
     start: 'Inizia',
     explore: 'Esplora i componenti',
     github: 'GitHub',
@@ -82,8 +87,13 @@ const TEXT = {
     explore2: 'Esplora la documentazione',
   },
   en: {
-    title: 'Interfaces that merge, like cells',
-    lead: 'Slurp UI is the React library of the Slurp design system: to go forward n elements merge into one, to go back one bursts into n. Around it, ready-made controls, floating surfaces and the Dock. Accessible by construction, in light and dark.',
+    title: 'React components that merge, like cells',
+    lead: 'To go forward n elements merge into one, to go back one bursts into n. Around it, ready-made controls, floating surfaces and the Dock.',
+    facts: (components: number) => [
+      `${components} components`,
+      'WCAG AA, light and dark',
+      'texts in Italian and English',
+    ],
     start: 'Get started',
     explore: 'Explore the components',
     github: 'GitHub',
@@ -120,7 +130,7 @@ const TEXT = {
     unread: 'new',
     explore2: 'Explore the documentation',
   },
-} satisfies Record<Lang, Record<string, string | string[]>>;
+} satisfies Record<Lang, Record<string, string | string[] | ((n: number) => string[])>>;
 
 type Copy = (typeof TEXT)[Lang];
 
@@ -346,6 +356,11 @@ export default function Landing() {
             <Text font="body-l" muted>
               {t.lead}
             </Text>
+            <ul className="site-facts">
+              {t.facts(modules).map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
             <Flow direction="row" gap={3} wrap>
               <Button size="lg" {...start} endIcon={<ChevronRightIcon />}>
                 {t.start}
@@ -353,23 +368,8 @@ export default function Landing() {
               <Button size="lg" appearance="soft" {...explore}>
                 {t.explore}
               </Button>
-              <Button
-                size="lg"
-                as="a"
-                appearance="outline"
-                tone="neutral"
-                href={REPO}
-                target="_blank"
-                rel="noreferrer"
-                icon={<RepoIcon />}
-              >
-                {t.github}
-              </Button>
             </Flow>
-            <div className="site-install">
-              <code>{INSTALL}</code>
-              <CopyButton text={INSTALL} />
-            </div>
+            <Code className="site-install" code={INSTALL} language="bash" />
           </Flow>
           <HeroMotion t={t} />
         </div>

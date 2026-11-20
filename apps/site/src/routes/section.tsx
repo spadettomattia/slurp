@@ -13,6 +13,8 @@ import { useRef } from 'react';
 import { useOutletContext, useParams } from 'react-router';
 
 import { RowLink } from '~/components/Links';
+import { hasPreview, Preview } from '~/components/Preview';
+import { DESCRIPTIONS } from '~/lib/descriptions';
 import { AVAILABLE } from '~/lib/available';
 import { href, useLang } from '~/lib/lang';
 import { motionIds } from '~/lib/link';
@@ -51,7 +53,7 @@ export default function Section() {
             slug: p.slug,
             to: href(lang, p.slug),
             title: p.title?.[lang] ?? p.slug,
-            description: id === 'components' ? summary(p.title?.en ?? '') : undefined,
+            description: DESCRIPTIONS[p.slug]?.[lang] ?? summary(p.title?.en ?? ''),
           })),
       }))
     : [
@@ -118,7 +120,8 @@ export default function Section() {
                     }}
                     title={e.title}
                     meta={e.description}
-                    actionLabel={copy.open}
+                    mark={hasPreview(e.slug) ? <Preview slug={e.slug} /> : undefined}
+                    classNames={hasPreview(e.slug) ? { mark: 'site-row-preview' } : undefined}
                   />
                 ))}
               </List>

@@ -8,23 +8,33 @@ A text field with suggestions (autocomplete): the field **becomes** the list, gr
 
 <ApiLinks modules={['Suggest']} />
 
-## Basic use
+## Quick reference
+
+<QuickRef module="Suggest" />
+
+## Examples
+
+### Basic use
 
 Type: every word of the text, in any order and regardless of case or accents, is looked for in the options' label and description. Matches are highlighted.
 
 <Basic />
 
-## Controlled
+### Controlled
 
 `value` / `onValueChange` for the chosen option (`null` while the text matches none), `inputValue` / `onInputValueChange` for the text. With `openOnFocus` the list opens as soon as the field takes focus.
 
 <Controlled />
 
-## Results from a server
+### Results from a server
 
 With `filter={false}` Suggest shows `options` as they are: your app filters, for example asking a server at every keystroke.
 
 <Remote />
+
+## Customizing the theme
+
+<ThemeSnippet module="Suggest" />
 
 ## Accessibility
 

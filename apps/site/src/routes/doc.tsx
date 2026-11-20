@@ -1,16 +1,18 @@
 import { MDXProvider } from '@mdx-js/react';
 import {
+  Contents,
   Dock,
   Flow,
   ResultRow,
   Settings,
+  SkipLink,
   Surface,
   Text,
   matchesAll,
+  Prose,
   useMediaQuery,
   useSlurpEnter,
   useSlurpNavigate,
-  type SettingsLabels,
 } from '@slurp-ui/react';
 import apiIndex from 'virtual:slurp-api-index';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -18,40 +20,16 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { LANGS, REPO, type Lang } from '../../site.config';
 import { Brand } from '~/components/Brand';
-import { CodeIcon, MenuIcon } from '~/components/icons';
+import { CodeIcon, MenuIcon } from '@slurp-ui/react/icons';
 import { mdxComponents } from '~/components/Mdx';
 import { PageNav } from '~/components/PageNav';
 import { SideNav } from '~/components/SideNav';
-import { Toc } from '~/components/Toc';
 import { AVAILABLE } from '~/lib/available';
 import { useHeadings } from '~/lib/headings';
 import { COPY } from '~/lib/i18n';
 import { href, useLang } from '~/lib/lang';
 import { motionIds } from '~/lib/link';
 import { API_SECTION, NAV, pageTitle, sectionOf } from '~/lib/nav';
-
-const SETTINGS_EN: Partial<SettingsLabels> = {
-  open: 'Settings',
-  close: 'Close settings',
-  title: 'Settings',
-  theme: 'Theme',
-  system: 'Automatic',
-  light: 'Light',
-  dark: 'Dark',
-  language: 'Language',
-};
-
-const DOCK_EN = {
-  navigation: 'Navigation',
-  crumbs: 'Path',
-  back: 'Back',
-  search: 'Search',
-  searchPlaceholder: 'Search…',
-  noResults: 'No results',
-  matches: (i: number, n: number) => `${n === 1 ? '1 match' : `${n} matches`}, ${i} of ${n}`,
-  nextMatch: (i: number, n: number) => `Go to the next match: ${i} of ${n}`,
-  resultsHint: 'Arrow down to browse the results, Esc to close them.',
-};
 
 /** Below this width the two indexes leave the sides and open from the Dock. */
 const NARROW = '(max-width: 1100px)';
@@ -114,6 +92,16 @@ export default function DocLayout() {
 
   const headings = useHeadings();
 
+  // Above the title, where the page sits (tailwindcss.com's breadcrumb line): "Componenti · Azioni".
+  const groups = section && 'groups' in section ? section.groups : [];
+  const group = groups.find((g) => g.pages.some((p) => p.slug === slug));
+  const eyebrow =
+    level !== 'page'
+      ? undefined
+      : [sectionTitle, group && groups.length > 1 ? group.title[lang] : null]
+          .filter(Boolean)
+          .join(' · ');
+
   // The Dock's search looks everywhere, like mui.com's: pages and APIs, results in the Dock's panel.
   const hits = useMemo<Hit[]>(() => {
     const q = query.trim();
@@ -165,9 +153,7 @@ export default function DocLayout() {
   return (
     <>
       {title && level !== 'home' && <title>{`${title} · Slurp UI`}</title>}
-      <a className="site-skip" href="#content">
-        {copy.skip}
-      </a>
+      <SkipLink />
       <Settings
         languages={LANGS.map((l: Lang) => ({ value: l, label: COPY[l].languageName, lang: l }))}
         language={lang}
@@ -175,7 +161,6 @@ export default function DocLayout() {
           const keep = level !== 'page' || api || AVAILABLE.has(`${to}/${slug}`);
           void navigate(href(to as Lang, keep ? slug : ''));
         }}
-        labels={lang === 'en' ? SETTINGS_EN : undefined}
       />
       <Brand />
 
@@ -194,7 +179,8 @@ export default function DocLayout() {
           )}
           <main id="content" className="site-content" tabIndex={-1}>
             {level === 'page' ? (
-              <article className="site-article" ref={article}>
+              <Prose as="article" className="site-article" ref={article}>
+                {eyebrow && <p className="site-eyebrow">{eyebrow}</p>}
                 <MDXProvider components={mdxComponents}>{outlet}</MDXProvider>
                 <a
                   className="site-edit slurp-link"
@@ -210,7 +196,7 @@ export default function DocLayout() {
                   {api ? copy.source : copy.editOnGithub}
                 </a>
                 <PageNav available={AVAILABLE} />
-              </article>
+              </Prose>
             ) : (
               outlet
             )}
@@ -218,7 +204,9 @@ export default function DocLayout() {
           {!narrow && showToc && (
             <div className="site-side site-side-right">
               <Surface className="site-float">
-                <Toc headings={headings} />
+                <Contents
+                  items={headings.map((h) => ({ id: h.id, label: h.text, level: h.level }))}
+                />
               </Surface>
             </div>
           )}
@@ -226,7 +214,6 @@ export default function DocLayout() {
       )}
 
       <Dock
-        labels={lang === 'en' ? DOCK_EN : undefined}
         panelLabel={
           searching ? copy.searchResults : panel === 'toc' ? copy.pageMenu : copy.docsIndex
         }

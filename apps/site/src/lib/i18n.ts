@@ -12,6 +12,15 @@ const it = {
   hideCode: 'Nascondi il codice',
   copied: 'Copiato',
   copyCode: 'Copia il codice',
+  example: 'Esempio',
+  values: 'Valori',
+  quickRef: 'Riferimento rapido',
+  allProps: (n: number, name: string) =>
+    `Tutte le ${n} props di ${name}, con classi e variabili CSS`,
+  themeIntro: (name: string) =>
+    `Per cambiare ${name} in tutta l'app, senza toccare ogni istanza: props predefinite e stile con i token, nel tema.`,
+  themeDefaults: 'le props predefinite di ogni istanza',
+  themeCss: 'stile con i token, per parte (root e le parti interne)',
   api: 'API',
   apiTitle: (name: string) => `API di ${name}`,
   import: 'Import',
@@ -72,6 +81,15 @@ const en: Copy = {
   hideCode: 'Hide code',
   copied: 'Copied',
   copyCode: 'Copy the code',
+  example: 'Example',
+  values: 'Values',
+  quickRef: 'Quick reference',
+  allProps: (n: number, name: string) =>
+    `All ${n} props of ${name}, with CSS classes and variables`,
+  themeIntro: (name: string) =>
+    `To change ${name} across the app without touching every instance: default props and token styles, in the theme.`,
+  themeDefaults: 'default props for every instance',
+  themeCss: 'token styles, per part (root and the inner parts)',
   api: 'API',
   apiTitle: (name: string) => `${name} API`,
   import: 'Import',

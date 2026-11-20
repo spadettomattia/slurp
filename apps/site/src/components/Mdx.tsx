@@ -1,11 +1,11 @@
-import { Link as SlurpLink, Notice, type StatusTone } from '@slurp-ui/react';
+import { Code, Link as SlurpLink, Notice, type StatusTone } from '@slurp-ui/react';
+import { LinkIcon } from '@slurp-ui/react/icons';
 import type { ComponentProps, ReactNode } from 'react';
 import { Link } from 'react-router';
 
 import { useLang } from '~/lib/lang';
 import { ApiLinks } from './ApiLinks';
-import { CopyButton } from './Copy';
-import { LinkIcon } from './icons';
+import { QuickRef, ThemeSnippet } from './Reference';
 
 /** h2 / h3 with a self link (ids come from rehype-slug). */
 function heading(Tag: 'h2' | 'h3') {
@@ -47,21 +47,26 @@ function A({ href = '', children, ...rest }: ComponentProps<'a'>) {
   );
 }
 
-/** A highlighted block from a ```fence, with its copy button. */
-function Pre(props: ComponentProps<'pre'> & { 'data-code'?: string; 'data-lang'?: string }) {
-  const { 'data-code': code, 'data-lang': lang, ...rest } = props;
+/** A highlighted block from a ```fence: the library's Code (copy, scroll region); `title="file"` names it. */
+function Pre(
+  props: ComponentProps<'pre'> & {
+    'data-code'?: string;
+    'data-lang'?: string;
+    'data-title'?: string;
+  },
+) {
+  const { 'data-code': code, 'data-lang': lang, 'data-title': title, children } = props;
   return (
-    <div className="site-code" data-lang={lang}>
-      <pre {...rest} tabIndex={0} />
-      {code != null && <CopyButton text={code} />}
-    </div>
+    <Code className="site-code" code={code} language={lang} filename={title}>
+      {children}
+    </Code>
   );
 }
 
 function Table(props: ComponentProps<'table'>) {
   const { copy } = useLang();
   return (
-    <div className="site-table" role="region" tabIndex={0} aria-label={copy.table}>
+    <div className="site-table" role="group" tabIndex={0} aria-label={copy.table}>
       <table {...props} />
     </div>
   );
@@ -102,4 +107,6 @@ export const mdxComponents = {
   table: Table,
   Callout,
   ApiLinks,
+  QuickRef,
+  ThemeSnippet,
 };

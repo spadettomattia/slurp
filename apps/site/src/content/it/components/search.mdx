@@ -7,13 +7,19 @@ Il campo di ricerca: icona, un placeholder che dice dove cerca, il numero di ris
 
 <ApiLinks modules={['Search']} />
 
-## Uso di base
+## Riferimento rapido
+
+<QuickRef module="Search" />
+
+## Esempi
+
+### Uso di base
 
 Il placeholder dice **dove** cerca (`labels.placeholder`): “Cerca nell'archivio…”, “Cerca in Impostazioni…”.
 
 <Basic />
 
-## Con il numero di risultati
+### Con il numero di risultati
 
 `count` compare in fondo al campo mentre si scrive ed è annunciato. Per filtrare, `matchesAll` della libreria cerca ogni parola, in qualsiasi ordine, senza badare a maiuscole e accenti.
 
@@ -23,6 +29,10 @@ Il placeholder dice **dove** cerca (`labels.placeholder`): “Cerca nell'archivi
   In un'interfaccia Slurp c'è un solo campo di ricerca, nel Dock: vedi `Dock.Search`. `Search` serve
   dove una ricerca vive dentro il contenuto.
 </Callout>
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Search" />
 
 ## Accessibilità
 
