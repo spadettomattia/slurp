@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
+import { duration } from '@slurp-ui/tokens';
 import { describe, expect, it } from 'vitest';
 
 // import.meta.url is not a file URL under jsdom; the directory is.
@@ -58,16 +59,25 @@ const FINE_POINTER = /@media \(hover: hover\) and \(pointer: fine\)/;
 const REDUCED = /prefers-reduced-motion: reduce/;
 const MOVES = /(?:^|;)\s*(?:transform|translate|scale|rotate)\s*:\s*(?!none)/;
 
+/** Seconds of a time: `0.3s`, `120ms` or a duration token, `var(--slurp-duration-press)`. */
+function seconds(time: string): number | undefined {
+  const token = /var\(--slurp-duration-([a-z]+)\)/.exec(time)?.[1];
+  const value = token ? (duration as Record<string, string>)[token] : time;
+  const m = value && /([\d.]+)(ms|s)/.exec(value);
+  if (!m) return undefined;
+  return Number(m[1]) / (m[2] === 'ms' ? 1000 : 1);
+}
+
 /** Seconds of the `transform` entry of a `transition` declaration, if any. */
 function transformDuration(body: string): number | undefined {
   const decl = /(?:^|;)\s*transition\s*:\s*([^;]+)/.exec(body)?.[1];
   if (decl) {
     const entry = decl.split(',').find((e) => e.trim().startsWith('transform'));
-    const s = entry && /([\d.]+)s/.exec(entry)?.[1];
-    if (s) return Number(s);
+    const s = entry ? seconds(entry) : undefined;
+    if (s !== undefined) return s;
   }
-  const d = /(?:^|;)\s*transition-duration\s*:\s*([\d.]+)s/.exec(body)?.[1];
-  return d ? Number(d) : undefined;
+  const d = /(?:^|;)\s*transition-duration\s*:\s*([^;]+)/.exec(body)?.[1];
+  return d ? seconds(d) : undefined;
 }
 
 describe('component stylesheets', () => {
@@ -111,6 +121,20 @@ describe('component stylesheets', () => {
         .filter((r) => /(?:^|;)\s*transition\s*:\s*none/.test(r.body))
         .map((r) => `${name}: ${r.selector.replace(/\s+/g, ' ')}`),
     );
+    expect(offenders).toEqual([]);
+  });
+
+  it('takes curves and transition durations from the motion tokens', () => {
+    const offenders = sheets.flatMap(({ name, css }) => {
+      const found: string[] = [];
+      if (css.includes('cubic-bezier(')) found.push(`${name}: hand-written cubic-bezier`);
+      for (const m of css.matchAll(/transition(?:-duration)?\s*:([^;{}]*);/g)) {
+        const times = [...(m[1] ?? '').matchAll(/(?<![\w.-])(\d*\.?\d+)(ms|s)\b/g)];
+        // 0s (instant visibility) and the short 0.1s delays and fades stay literal.
+        for (const t of times) if (!['0s', '0.1s'].includes(t[0])) found.push(`${name}: ${t[0]}`);
+      }
+      return found;
+    });
     expect(offenders).toEqual([]);
   });
 

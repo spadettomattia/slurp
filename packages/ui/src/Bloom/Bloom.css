@@ -28,9 +28,9 @@
     backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
     -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
     transition:
-      width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-      grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-radius 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      width var(--slurp-duration-surface) var(--slurp-ease-settle),
+      grid-template-rows var(--slurp-duration-surface) var(--slurp-ease-settle),
+      border-radius var(--slurp-duration-surface) var(--slurp-ease-settle);
   }
 
   .slurp-bloom:not([data-phase='closed']) .slurp-bloom-surface {
@@ -86,7 +86,7 @@
     letter-spacing: var(--slurp-font-label-tracking);
     white-space: nowrap;
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-bloom[data-align='end'] .slurp-bloom-trigger {
@@ -112,10 +112,10 @@
     grid-area: 1 / 1;
     align-self: start;
     transition:
-      background-color 0.25s,
-      margin 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-      width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-      min-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      background-color var(--slurp-duration-base),
+      margin var(--slurp-duration-surface) var(--slurp-ease-settle),
+      width var(--slurp-duration-surface) var(--slurp-ease-settle),
+      min-height var(--slurp-duration-surface) var(--slurp-ease-settle);
   }
 
   .slurp-bloom[data-icon][data-side='bottom'] .slurp-bloom-clip {
@@ -172,14 +172,14 @@
     opacity: 0;
     transition:
       opacity 0.1s,
-      visibility 0s 0.6s;
+      visibility 0s var(--slurp-duration-surface);
   }
 
   .slurp-bloom[data-phase='open'] .slurp-bloom-panel {
     visibility: visible;
     opacity: 1;
     transition:
-      opacity 0.3s 0.12s,
+      opacity var(--slurp-duration-move) var(--slurp-duration-press),
       visibility 0s;
   }
 
@@ -199,7 +199,7 @@
     letter-spacing: var(--slurp-font-body-s-tracking);
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-bloom-item:hover:not([aria-disabled='true']),

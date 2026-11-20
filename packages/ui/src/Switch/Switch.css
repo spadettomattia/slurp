@@ -15,8 +15,8 @@
     border-radius: var(--slurp-radius-full);
     background: var(--slurp-surface-2);
     transition:
-      background-color 0.3s,
-      border-color 0.3s;
+      background-color var(--slurp-duration-move),
+      border-color var(--slurp-duration-move);
   }
 
   .slurp-switch-thumb {
@@ -31,8 +31,8 @@
     background: var(--slurp-border-control);
     color: var(--slurp-accent-ink);
     transition:
-      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 0.3s;
+      transform var(--slurp-duration-move) var(--slurp-ease-settle),
+      background-color var(--slurp-duration-move);
   }
 
   .slurp-switch[data-state='on'] .slurp-switch-track {

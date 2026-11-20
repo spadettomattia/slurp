@@ -38,6 +38,7 @@ describe('tokens.css', () => {
       ...src.shadow.tokens,
       ...src.blur.tokens,
       ...src.opacity.tokens,
+      ...src.motion.tokens,
     ];
     for (const token of all) expect(css).toContain(`${varName(token.name)}:`);
   });

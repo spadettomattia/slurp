@@ -24,7 +24,7 @@
     text-align: left;
     text-decoration: none;
     container-type: inline-size;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-move) var(--slurp-ease-settle);
   }
 
   :is(a, button).slurp-card {
@@ -45,7 +45,7 @@
   /* Quick press, softer release (the base transition). */
   :is(a, button).slurp-card:active {
     transform: scale(0.98);
-    transition-duration: 0.12s;
+    transition-duration: var(--slurp-duration-press);
   }
 
   .slurp-card:focus-visible {
@@ -78,7 +78,7 @@
     place-items: center;
     height: 82%;
     max-width: 80%;
-    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-surface) var(--slurp-ease-settle);
   }
 
   .slurp-card-art > :is(svg, img) {

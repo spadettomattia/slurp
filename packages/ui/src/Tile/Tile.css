@@ -24,7 +24,7 @@
     text-decoration: none;
     cursor: pointer;
     container-type: size;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-move) var(--slurp-ease-settle);
   }
 
   :where([data-theme='dark']) .slurp-tile {
@@ -55,7 +55,7 @@
   /* Quick press, softer release (the base transition). */
   .slurp-tile:active {
     transform: scale(0.97);
-    transition-duration: 0.12s;
+    transition-duration: var(--slurp-duration-press);
   }
 
   .slurp-tile:focus-visible {
@@ -134,7 +134,7 @@
     right: 7cqi;
     width: min(36cqi, 52cqh);
     transform: translateY(-50%);
-    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-surface) var(--slurp-ease-settle);
   }
 
   .slurp-tile-media > :is(svg, img) {

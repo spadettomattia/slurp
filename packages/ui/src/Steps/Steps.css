@@ -66,8 +66,8 @@
     font: var(--slurp-font-label);
     font-variant-numeric: tabular-nums;
     transition:
-      background-color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      background-color var(--slurp-duration-move) var(--slurp-ease-settle),
+      border-color var(--slurp-duration-move) var(--slurp-ease-settle);
   }
 
   .slurp-steps-step[data-state='current'] .slurp-steps-marker {

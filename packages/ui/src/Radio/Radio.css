@@ -9,7 +9,7 @@
     border: 2px solid var(--slurp-border-control);
     border-radius: 50%;
     background: var(--slurp-surface-2);
-    transition: border-color 0.2s;
+    transition: border-color var(--slurp-duration-quick);
   }
 
   .slurp-radio-dot::after {
@@ -19,7 +19,7 @@
     border-radius: 50%;
     background: var(--slurp-accent-ink);
     transform: scale(0);
-    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-base) var(--slurp-ease-settle);
   }
 
   .slurp-radio[data-state='on'] .slurp-radio-dot {
@@ -86,7 +86,7 @@
     padding: 0 var(--slurp-space-3);
     border-radius: var(--slurp-radius-sm);
     font: var(--slurp-font-body-s);
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-radio[data-appearance='rows'] .slurp-toggle-input {

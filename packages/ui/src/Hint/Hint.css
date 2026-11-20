@@ -13,7 +13,7 @@
     font: var(--slurp-font-body-s);
     letter-spacing: var(--slurp-font-body-s-tracking);
     box-shadow: var(--slurp-shadow-float);
-    animation: slurp-hint-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: slurp-hint-in var(--slurp-duration-quick) var(--slurp-ease-settle);
   }
 
   .slurp-hint:not([data-open]) {

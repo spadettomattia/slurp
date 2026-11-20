@@ -14,9 +14,9 @@
     letter-spacing: var(--slurp-font-label-tracking);
     cursor: pointer;
     transition:
-      background-color 0.35s,
-      color 0.35s,
-      transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+      background-color var(--slurp-duration-move),
+      color var(--slurp-duration-move),
+      transform var(--slurp-duration-base) var(--slurp-ease-settle);
   }
 
   .slurp-chip:hover:not(:disabled) {

@@ -39,11 +39,11 @@
     -webkit-backdrop-filter: blur(var(--slurp-blur-surface)) saturate(1.4);
     /* Transitions, not keyframes: a toast dismissed while it enters turns back from where it is. */
     transition:
-      opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-      height 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s,
-      padding 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s,
-      margin 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+      opacity var(--slurp-duration-move) var(--slurp-ease-settle),
+      transform var(--slurp-duration-move) var(--slurp-ease-settle),
+      height var(--slurp-duration-quick) var(--slurp-ease-settle) 0.1s,
+      padding var(--slurp-duration-quick) var(--slurp-ease-settle) 0.1s,
+      margin var(--slurp-duration-quick) var(--slurp-ease-settle) 0.1s;
   }
 
   @starting-style {
@@ -58,7 +58,7 @@
     overflow: hidden;
     opacity: 0;
     transform: translateX(24px) scale(0.98);
-    transition-duration: 0.2s;
+    transition-duration: var(--slurp-duration-quick);
     height: 0;
     margin-bottom: calc(-1 * var(--slurp-space-2));
     padding-block: 0;
@@ -108,7 +108,7 @@
   /* Reduced motion: no movement and no closing gap, only a short fade in and out. */
   @media (prefers-reduced-motion: reduce) {
     .slurp-toast {
-      transition: opacity 0.15s;
+      transition: opacity var(--slurp-duration-quick);
     }
 
     .slurp-toast,

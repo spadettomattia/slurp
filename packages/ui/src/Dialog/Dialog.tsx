@@ -1,4 +1,5 @@
 import { CloseIcon } from '@slurp-ui/icons';
+import { duration, ease } from '@slurp-ui/tokens';
 import { cx } from '@slurp-ui/utils';
 import {
   useEffect,
@@ -199,7 +200,9 @@ function fromOpener(el: HTMLElement, from: HTMLElement | null) {
   return `translate(${dx}px, ${dy}px) scale(${s})`;
 }
 
-const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+const EASE = ease.settle;
+/** Milliseconds of a duration token (`'450ms'` → 450). */
+const ms = (t: string) => Number.parseFloat(t);
 
 /**
  * The dialog grows out of the control that opened it (the Bloom rule applied to a modal): it starts at the opener's
@@ -211,7 +214,7 @@ function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant) {
     el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150 });
     return;
   }
-  const timing = { duration: 450, easing: EASE };
+  const timing = { duration: ms(duration.panel), easing: EASE };
   if (variant === 'sheet') {
     el.animate([{ transform: 'translateY(100%)' }, { transform: 'none' }], timing);
     return;
@@ -234,7 +237,7 @@ function shrink(el: HTMLElement, to: HTMLElement | null, variant: Variant): Anim
   if (typeof el.animate !== 'function') return undefined;
   const fill = 'forwards' as const;
   if (reduced()) return el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill });
-  const timing = { duration: 200, easing: EASE, fill };
+  const timing = { duration: ms(duration.quick), easing: EASE, fill };
   if (variant === 'sheet') {
     return el.animate([{ transform: 'none' }, { transform: 'translateY(100%)' }], timing);
   }

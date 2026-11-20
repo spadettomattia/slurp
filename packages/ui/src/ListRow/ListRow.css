@@ -86,8 +86,8 @@
     font: var(--slurp-font-label);
     text-decoration: none;
     transition:
-      background-color 0.25s,
-      color 0.25s;
+      background-color var(--slurp-duration-base),
+      color var(--slurp-duration-base);
   }
 
   .slurp-list-row-action:hover {

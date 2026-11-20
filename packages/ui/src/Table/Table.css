@@ -79,7 +79,7 @@
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-table-head[data-align='end'] .slurp-table-sort {

@@ -24,10 +24,10 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
-      transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.4s,
-      background-color 0.25s,
-      color 0.25s;
+      transform var(--slurp-duration-base) var(--slurp-ease-settle),
+      box-shadow var(--slurp-duration-panel),
+      background-color var(--slurp-duration-base),
+      color var(--slurp-duration-base);
   }
 
   .slurp-button:focus-visible {
@@ -50,10 +50,10 @@
   .slurp-button:active:not(:disabled, [aria-disabled='true']) {
     transform: scale(0.97);
     transition:
-      transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.4s,
-      background-color 0.25s,
-      color 0.25s;
+      transform var(--slurp-duration-press) var(--slurp-ease-settle),
+      box-shadow var(--slurp-duration-panel),
+      background-color var(--slurp-duration-base),
+      color var(--slurp-duration-base);
   }
 
   .slurp-button:disabled,

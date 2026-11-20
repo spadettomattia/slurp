@@ -7,7 +7,7 @@
 
 @layer slurp.components {
   .slurp-accent-scope {
-    transition: --slurp-accent 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: --slurp-accent var(--slurp-duration-tint) var(--slurp-ease-settle);
   }
 
   @media (prefers-reduced-motion: reduce) {

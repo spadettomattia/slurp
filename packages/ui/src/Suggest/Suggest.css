@@ -35,10 +35,10 @@
     background: var(--slurp-surface-2);
     color: var(--slurp-fg);
     transition:
-      grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-radius 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.45s,
-      border-color 0.2s;
+      grid-template-rows var(--slurp-duration-panel) var(--slurp-ease-settle),
+      border-radius var(--slurp-duration-panel) var(--slurp-ease-settle),
+      box-shadow var(--slurp-duration-panel),
+      border-color var(--slurp-duration-quick);
   }
 
   .slurp-suggest-surface:hover:not(:has(:disabled)) {
@@ -99,7 +99,7 @@
     min-height: 0;
     overflow: hidden;
     visibility: hidden;
-    transition: visibility 0s 0.45s;
+    transition: visibility 0s var(--slurp-duration-panel);
   }
 
   .slurp-suggest[data-open] .slurp-suggest-clip {

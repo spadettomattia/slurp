@@ -36,6 +36,7 @@ export interface SlurpTokensSource {
   shadow: { tokens: ValueToken[] };
   blur: { tokens: ValueToken[] };
   opacity: { tokens: ValueToken[] };
+  motion: { tokens: ValueToken[] };
 }
 
 /** One CSS custom property: `--slurp-<name>`. `dark` is set only when it differs per theme. */
@@ -90,6 +91,7 @@ export function buildModel(src: SlurpTokensSource): Model {
     src.shadow.tokens,
     src.blur.tokens,
     src.opacity.tokens,
+    src.motion.tokens,
   ];
   for (const token of groups.flat()) {
     if (typeof token.value === 'string') {
@@ -299,6 +301,12 @@ export const shadow = ${literal(group(src.shadow.tokens, 'shadow'))} as const;
 export const blur = ${literal(group(src.blur.tokens, 'blur'))} as const;
 
 export const opacity = ${literal(group(src.opacity.tokens, 'opacity'))} as const;
+
+/** Transition durations as CSS times (\`press\` → \`120ms\`). */
+export const duration = ${literal(group(src.motion.tokens, 'duration', (n) => n.startsWith('duration-')))} as const;
+
+/** Transition curves (\`settle\`). */
+export const ease = ${literal(group(src.motion.tokens, 'ease', (n) => n.startsWith('ease-')))} as const;
 
 export const fontFamily = ${literal(model.families)} as const;
 

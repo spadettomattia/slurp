@@ -47,8 +47,8 @@
     background: var(--slurp-surface-2);
     color: var(--slurp-on-accent);
     transition:
-      background-color 0.2s,
-      border-color 0.2s;
+      background-color var(--slurp-duration-quick),
+      border-color var(--slurp-duration-quick);
   }
 
   .slurp-checkbox:not([data-state='off']) .slurp-checkbox-box {

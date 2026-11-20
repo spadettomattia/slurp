@@ -9,8 +9,8 @@
     color: inherit;
     scroll-margin: 96px 0 160px;
     transition:
-      background-color 0.25s,
-      color 0.25s;
+      background-color var(--slurp-duration-base),
+      color var(--slurp-duration-base);
   }
 
   .slurp-mark[data-active] {

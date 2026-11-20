@@ -105,7 +105,7 @@
     font: var(--slurp-font-body-s);
     letter-spacing: var(--slurp-font-body-s-tracking);
     text-decoration: none;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .site-nav-link:hover {
@@ -148,8 +148,8 @@
     letter-spacing: var(--slurp-font-caption-tracking);
     text-decoration: none;
     transition:
-      color 0.2s,
-      background-color 0.2s;
+      color var(--slurp-duration-quick),
+      background-color var(--slurp-duration-quick);
   }
 
   .site-toc li[data-level='3'] a {
@@ -236,7 +236,7 @@
     color: var(--slurp-muted);
     vertical-align: middle;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity var(--slurp-duration-quick);
   }
 
   .site-heading:hover .site-anchor {

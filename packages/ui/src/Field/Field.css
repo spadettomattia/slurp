@@ -24,7 +24,7 @@
     color: var(--slurp-fg);
     font: var(--slurp-font-body);
     letter-spacing: var(--slurp-font-body-tracking);
-    transition: border-color 0.2s;
+    transition: border-color var(--slurp-duration-quick);
   }
 
   textarea.slurp-field-control {

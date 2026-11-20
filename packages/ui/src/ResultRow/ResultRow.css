@@ -15,7 +15,7 @@
     text-align: left;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-result-row:hover {

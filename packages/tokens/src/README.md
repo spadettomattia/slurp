@@ -70,7 +70,24 @@ Slurp is a content-agnostic design system for interfaces that guide people throu
 ## Motion
 
 - **Collapse / expand** (signature): `collapse({ items, target, lead })` — n elements collapse into one (about 650ms) to go forward: nearer items first, the chosen one last, curved ease-in paths, droplets fusing through liquid bridges (`blur-goo` + alpha threshold) while the target swells; then navigate. `expand({ items, source })` plays it backwards to go back: the crumb you leave bursts into the items of the level you return to. Started by an action (a tile, a card, a crumb), never by scroll.
-- Elsewhere: springs (stiffness 140–260, damping 18–24) or `cubic-bezier(0.2, 0.8, 0.2, 1)` 0.35–0.9s; the Dock grows its panels by animating height.
+- Elsewhere: springs (stiffness 140–260, damping 18–24) or the `ease-settle` curve (`cubic-bezier(0.2, 0.8, 0.2, 1)`) on one duration scale; the Dock grows its panels by animating height.
+
+| Token | Value | Use |
+|---|---|---|
+| `ease-settle` | `cubic-bezier(0.2, 0.8, 0.2, 1)` | every transition that moves, grows or appears |
+| `duration-press` | 120ms | press feedback (`:active`); the release is longer |
+| `duration-quick` | 200ms | ways out (Dialog, Sheet, Toast), tooltips, field borders |
+| `duration-base` | 250ms | colour and background; release of Button and Chip |
+| `duration-move` | 350ms | toggles and indicators, lift and release of Tile and Card, Toast entrance |
+| `duration-panel` | 450ms | Dialog and Sheet entrance, Dock details |
+| `duration-surface` | 600ms | surfaces that grow: Bloom, Fold, Dock panels, progress |
+| `duration-signature` | 650ms | collapse / expand default |
+| `duration-tint` | 900ms | accent fading to a new content colour |
+
+- **Ways out are quicker than ways in**, and a press is quicker than its release.
+- **Hover motion only with a fine pointer** (`(hover: hover) and (pointer: fine)`): a tap leaves `:hover` on, so lifts and tilts would stick on touch screens. Colour changes on hover apply everywhere.
+- **Reduced motion keeps colour, opacity and shadow transitions** and drops movement and size changes; collapse / expand, Dialog and Sheet become short fades.
+- Ambient loops (blob drift, indeterminate progress) keep their own slow timings and stop under reduced motion.
 - **A button that opens a panel becomes the panel**: the `SettingsMenu` icon button grows into its menu (width, height, radius on one surface) and shrinks back into the button — no separate popover appearing beside it.
 
 ## Layout

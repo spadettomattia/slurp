@@ -1,3 +1,4 @@
+import { duration } from '@slurp-ui/tokens';
 import { cx } from '@slurp-ui/utils';
 import {
   useEffect,
@@ -54,8 +55,8 @@ export interface BloomOwnProps extends PartsProps<'surface' | 'trigger' | 'panel
 
 export type BloomProps<E extends ElementType = 'div'> = PolymorphicProps<E, BloomOwnProps>;
 
-/** The Dock's motion: 0.6s, cubic-bezier(0.2, 0.8, 0.2, 1). */
-const DURATION = 600;
+/** The Dock's motion: the surface duration (600ms) on the settle curve, as in Bloom.css. */
+const DURATION = Number.parseFloat(duration.surface);
 const VIEWPORT_MARGIN = 16;
 
 const reduced = () =>

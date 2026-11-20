@@ -61,8 +61,8 @@
 
   .slurp-rating-icon {
     transition:
-      color 0.2s,
-      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      color var(--slurp-duration-quick),
+      transform var(--slurp-duration-move) var(--slurp-ease-settle);
   }
 
   .slurp-rating:not([data-disabled]) .slurp-rating-stars:hover .slurp-rating-star {

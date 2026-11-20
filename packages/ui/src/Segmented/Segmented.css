@@ -36,8 +36,8 @@
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-      color 0.3s;
+      background-color var(--slurp-duration-move) var(--slurp-ease-settle),
+      color var(--slurp-duration-move);
   }
 
   .slurp-segmented-item:hover:not(:disabled, [data-selected]) {

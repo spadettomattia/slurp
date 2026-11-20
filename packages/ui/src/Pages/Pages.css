@@ -33,7 +33,7 @@
     font-variant-numeric: tabular-nums;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color var(--slurp-duration-base);
   }
 
   .slurp-pages-step {

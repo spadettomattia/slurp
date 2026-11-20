@@ -35,7 +35,7 @@
   .slurp-fold-chevron {
     flex-shrink: 0;
     color: var(--slurp-muted);
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--slurp-duration-panel) var(--slurp-ease-settle);
   }
 
   .slurp-fold[data-state='open'] .slurp-fold-chevron {
@@ -47,14 +47,14 @@
     display: grid;
     grid-template-rows: 0fr;
     transition:
-      grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-      visibility 0s 0.6s;
+      grid-template-rows var(--slurp-duration-surface) var(--slurp-ease-settle),
+      visibility 0s var(--slurp-duration-surface);
     visibility: hidden;
   }
 
   .slurp-fold[data-state='open'] .slurp-fold-region {
     grid-template-rows: 1fr;
-    transition: grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: grid-template-rows var(--slurp-duration-surface) var(--slurp-ease-settle);
     visibility: visible;
   }
 
