@@ -376,13 +376,23 @@
     margin: var(--slurp-space-4) 0;
   }
 
+  /* The table fits the column: each cell has a readable minimum, and only below the sum of those does it scroll. */
   .site-props .slurp-table-table {
-    min-width: 720px;
+    width: 100%;
+  }
+
+  .site-props .slurp-table-cell {
+    vertical-align: top;
   }
 
   .site-props .slurp-table-head:nth-child(2),
   .site-props .slurp-table-cell:nth-child(2) {
     width: 30%;
+    min-width: 9em;
+  }
+
+  .site-props .slurp-table-cell:nth-child(4) {
+    min-width: 14em;
   }
 
   .site-prop-name {
@@ -499,10 +509,6 @@
   }
 
   @media (max-width: 640px) {
-    .site-content {
-      padding-top: var(--slurp-space-8);
-    }
-
     .site-article h1 {
       font: var(--slurp-font-title-xl);
       letter-spacing: var(--slurp-font-title-xl-tracking);
@@ -619,8 +625,9 @@
   }
 
   @media (max-width: 640px) {
+    /* The top stays clear of the fixed brand pill, as on wider screens. */
     .site-landing {
-      padding: var(--slurp-space-8) var(--slurp-space-4) var(--slurp-space-48);
+      padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-4) var(--slurp-space-48);
     }
 
     .site-showcase {
