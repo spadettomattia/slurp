@@ -16,12 +16,18 @@
     transition:
       background-color 0.35s,
       color 0.35s,
-      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .slurp-chip:hover:not(:disabled) {
-    transform: translateY(-1px);
     background: var(--slurp-accent-soft);
+  }
+
+  /* The lift only where hover is real; the tint above shows on every pointer. */
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-chip:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
   }
 
   .slurp-chip:focus-visible {

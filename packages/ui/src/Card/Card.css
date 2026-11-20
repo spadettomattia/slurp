@@ -24,19 +24,28 @@
     text-align: left;
     text-decoration: none;
     container-type: inline-size;
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   :is(a, button).slurp-card {
     cursor: pointer;
   }
 
-  :is(a, button).slurp-card:hover {
-    transform: translateY(-6px);
+  /* Lift only where hover is real: after a tap the card would stay raised. */
+  @media (hover: hover) and (pointer: fine) {
+    :is(a, button).slurp-card:hover {
+      transform: translateY(-6px);
+    }
+
+    :is(a, button).slurp-card:hover .slurp-card-art {
+      transform: scale(1.06) rotate(-3deg);
+    }
   }
 
+  /* Quick press, softer release (the base transition). */
   :is(a, button).slurp-card:active {
     transform: scale(0.98);
+    transition-duration: 0.12s;
   }
 
   .slurp-card:focus-visible {
@@ -76,10 +85,6 @@
     width: auto;
     height: 100%;
     max-width: 100%;
-  }
-
-  :is(a, button).slurp-card:hover .slurp-card-art {
-    transform: scale(1.06) rotate(-3deg);
   }
 
   .slurp-card-badge {

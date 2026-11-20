@@ -24,7 +24,7 @@
     text-decoration: none;
     cursor: pointer;
     container-type: size;
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   :where([data-theme='dark']) .slurp-tile {
@@ -41,12 +41,21 @@
     --slurp-tile-tint: 22%;
   }
 
-  .slurp-tile:hover {
-    transform: translateY(-6px) scale(1.015);
+  /* Lift only where hover is real: after a tap the tile would stay raised. */
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-tile:hover {
+      transform: translateY(-6px) scale(1.015);
+    }
+
+    .slurp-tile:hover .slurp-tile-media {
+      transform: translateY(-50%) scale(1.08) rotate(-5deg);
+    }
   }
 
+  /* Quick press, softer release (the base transition). */
   .slurp-tile:active {
     transform: scale(0.97);
+    transition-duration: 0.12s;
   }
 
   .slurp-tile:focus-visible {
@@ -136,10 +145,6 @@
 
   .slurp-tile[data-size='large'] .slurp-tile-media {
     width: min(46cqi, 46cqh);
-  }
-
-  .slurp-tile:hover .slurp-tile-media {
-    transform: translateY(-50%) scale(1.08) rotate(-5deg);
   }
 
   @container (max-width: 240px) {

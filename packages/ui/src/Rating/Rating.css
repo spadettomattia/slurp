@@ -84,8 +84,11 @@
     fill: none;
   }
 
-  .slurp-rating:not([data-disabled]) .slurp-rating-star:hover .slurp-rating-icon {
-    transform: scale(1.12);
+  /* The star grows only where hover is real: after a tap it would stay enlarged. */
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-rating:not([data-disabled]) .slurp-rating-star:hover .slurp-rating-icon {
+      transform: scale(1.12);
+    }
   }
 
   .slurp-rating[data-disabled] .slurp-rating-stars {

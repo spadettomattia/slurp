@@ -379,6 +379,28 @@
     .slurp-crumb-label {
       max-width: none;
     }
+
+    /*
+     * An earlier crumb without an icon keeps its label, but it gives way first: it shrinks to a 44px stub (still a
+     * full target) before the current crumb loses a letter, so the page you are on stays readable.
+     */
+    .slurp-dock-crumbs > li:not(:first-child):has(> .slurp-crumb:not([data-current], [data-icon])) {
+      flex-shrink: 1000;
+      min-width: 44px;
+    }
+
+    .slurp-dock-crumbs > li > .slurp-crumb:not([data-current], [data-icon], .slurp-crumb-back),
+    .slurp-crumb[data-current][data-left='slant'] {
+      padding-left: var(--slurp-space-3);
+    }
+
+    .slurp-dock-crumbs > li > .slurp-crumb:not([data-current], [data-icon], .slurp-crumb-back) {
+      padding-right: var(--slurp-space-3);
+    }
+
+    .slurp-crumb[data-current][data-right='round'] {
+      padding-right: var(--slurp-space-4);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -24,7 +24,7 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
-      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 0.4s,
       background-color 0.25s,
       color 0.25s;
@@ -35,12 +35,25 @@
     outline-offset: 2px;
   }
 
-  .slurp-button:hover:not(:disabled, [aria-disabled='true']) {
-    transform: translateY(-2px);
+  /* Lift only where hover is real: a tap leaves :hover on, and the button would stay raised. */
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-button:hover:not(:disabled, [aria-disabled='true']) {
+      transform: translateY(-2px);
+    }
+
+    .slurp-button[data-appearance='fill'][data-tone='accent']:hover:not(:disabled) {
+      box-shadow: 0 14px 30px -12px var(--slurp-accent);
+    }
   }
 
+  /* The press lands while the finger is down (120ms); the release, back on the base transition, is softer. */
   .slurp-button:active:not(:disabled, [aria-disabled='true']) {
     transform: scale(0.97);
+    transition:
+      transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.4s,
+      background-color 0.25s,
+      color 0.25s;
   }
 
   .slurp-button:disabled,
@@ -57,10 +70,6 @@
   .slurp-button[data-size='lg'] {
     --slurp-button-height: 56px;
     --slurp-button-pad: var(--slurp-space-8);
-  }
-
-  .slurp-button[data-appearance='fill'][data-tone='accent']:hover:not(:disabled) {
-    box-shadow: 0 14px 30px -12px var(--slurp-accent);
   }
 
   .slurp-button[data-appearance='fill'][data-tone='neutral'] {
@@ -117,7 +126,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .slurp-button {
+    .slurp-button,
+    .slurp-button:active:not(:disabled, [aria-disabled='true']) {
       transition: none;
     }
 
