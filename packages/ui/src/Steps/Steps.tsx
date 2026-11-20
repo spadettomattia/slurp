@@ -2,6 +2,7 @@ import { CheckIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { Fragment, type ElementType, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
 import type { PartsProps, PolymorphicProps } from '../lib/polymorphic';
@@ -70,7 +71,7 @@ export function Steps<V extends string = string, E extends ElementType = 'nav'>(
     classNames,
     ...rest
   } = useThemeProps('Steps', props as unknown as StepsProps);
-  const labels = { ...STEPS_LABELS, ...labelsProp };
+  const labels = { ...STEPS_LABELS, ...useLabels('Steps'), ...labelsProp };
   const [value, setValue] = useControlled<string | undefined>({
     value: valueProp,
     defaultValue: defaultValue ?? steps[0]?.value,

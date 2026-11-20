@@ -15,6 +15,7 @@ import {
   type ReactNode,
 } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { splitInputProps, type InputAttributes } from '../Field/Field';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
@@ -115,7 +116,7 @@ export function Suggest<V extends string = string, E extends ElementType = 'div'
     classNames,
     ...others
   } = useThemeProps('Suggest', props as unknown as SuggestProps);
-  const labels = { ...SUGGEST_LABELS, ...labelsProp };
+  const labels = { ...SUGGEST_LABELS, ...useLabels('Suggest'), ...labelsProp };
   const { input, root: rest } = splitInputProps(others);
   const { name, disabled, onKeyDown, onFocus, onBlur, ...inputRest } = input as InputAttributes;
   const [value, setValue] = useControlled<string | null>({

@@ -24,6 +24,9 @@ export {
   type TokenOverrides,
 } from './lib/theme';
 
+// Texts
+export { labelsEn, labelsIt, type LabelsInput, type SlurpLabels } from './lib/labels';
+
 // Styling
 export type { BaseProps, PolymorphicProps } from './lib/polymorphic';
 export type {

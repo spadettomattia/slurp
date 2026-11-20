@@ -2,6 +2,7 @@ import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from '@slurp
 import { cx } from '@slurp-ui/utils';
 import { useId, type ElementType, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bubble } from '../Bubble/Bubble';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
@@ -61,7 +62,7 @@ export function Notice<E extends ElementType = 'div'>(props: NoticeProps<E>) {
     classNames,
     ...rest
   } = useThemeProps('Notice', props as NoticeProps);
-  const labels = { ...NOTICE_LABELS, ...labelsProp };
+  const labels = { ...NOTICE_LABELS, ...useLabels('Notice'), ...labelsProp };
   const Root = (as ?? 'div') as ElementType;
   const styled = useCss('Notice', 'root', css);
   const { part, style } = useParts('Notice', { parts, partProps, classNames });

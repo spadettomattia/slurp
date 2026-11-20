@@ -303,6 +303,33 @@
       color var(--slurp-duration-base);
   }
 
+  .slurp-dock-action-text {
+    display: none;
+  }
+
+  /*
+   * A bar with only the search (no path): the phone search action becomes a pill with its placeholder, so it reads as
+   * a field and not as a lone icon.
+   */
+  .slurp-dock-row:not(:has(.slurp-dock-crumbs)) > .slurp-dock-action[data-text] {
+    display: flex;
+    flex: 1;
+    gap: var(--slurp-space-2);
+    justify-content: flex-start;
+    width: auto;
+    min-width: 0;
+    padding: 0 var(--slurp-space-4);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+  }
+
+  .slurp-dock-row:not(:has(.slurp-dock-crumbs)) > .slurp-dock-action[data-text] .slurp-dock-action-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .slurp-dock-action:hover {
     background: var(--slurp-accent-soft);
   }

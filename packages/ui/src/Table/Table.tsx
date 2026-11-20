@@ -2,6 +2,7 @@ import { ArrowDownIcon, ArrowUpIcon, SortIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { useId, useMemo, type ElementType, type Key, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { useTheme } from '../internal/context';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
@@ -86,7 +87,7 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
     classNames,
     ...rest
   } = useThemeProps('Table', props as unknown as TableProps);
-  const labels = { ...TABLE_LABELS, ...labelsProp };
+  const labels = { ...TABLE_LABELS, ...useLabels('Table'), ...labelsProp };
   const [sort, setSort] = useControlled<TableSort | null>({
     value: sortProp,
     defaultValue: defaultSort,

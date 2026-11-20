@@ -12,6 +12,7 @@ import {
   type SyntheticEvent,
 } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bubble } from '../Bubble/Bubble';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
@@ -72,7 +73,7 @@ export function useModal(props: DialogProps, variant: Variant) {
     ref,
     ...rest
   } = props;
-  const labels = { ...DIALOG_LABELS, ...labelsProp };
+  const labels = { ...DIALOG_LABELS, ...useLabels('Dialog'), ...labelsProp };
   const [open, setOpen] = useControlled({
     value: openProp,
     defaultValue: defaultOpen,

@@ -2,6 +2,7 @@ import { AutoIcon, CloseIcon, GearIcon, MoonIcon, SunIcon } from '@slurp-ui/icon
 import { cx } from '@slurp-ui/utils';
 import { useId, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bloom } from '../Bloom/Bloom';
 import { useColorScheme } from '../internal/context';
 import { useThemeProps } from '../internal/styled';
@@ -78,7 +79,7 @@ export function Settings(props: SettingsProps) {
     className,
     css,
   } = useThemeProps('Settings', props);
-  const labels = { ...SETTINGS_LABELS, ...labelsProp };
+  const labels = { ...SETTINGS_LABELS, ...useLabels('Settings'), ...labelsProp };
   const { mode, setMode } = useColorScheme();
   const titleId = useId();
   return (

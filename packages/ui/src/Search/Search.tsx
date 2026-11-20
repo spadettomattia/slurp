@@ -8,6 +8,7 @@ import {
   type MouseEvent,
 } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bubble } from '../Bubble/Bubble';
 import { splitInputProps, type InputAttributes } from '../Field/Field';
 import { useAnimationRoot } from '../internal/animation';
@@ -64,7 +65,7 @@ export function Search<E extends ElementType = 'div'>(props: SearchProps<E>) {
     classNames,
     ...others
   } = useThemeProps('Search', props as SearchProps);
-  const labels = { ...SEARCH_LABELS, ...labelsProp };
+  const labels = { ...SEARCH_LABELS, ...useLabels('Search'), ...labelsProp };
   const { input, root: rest } = splitInputProps(others);
   const [value, setValue] = useControlled({
     value: valueProp,

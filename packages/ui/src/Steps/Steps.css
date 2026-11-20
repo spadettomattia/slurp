@@ -7,6 +7,8 @@
     --slurp-steps-marker: 36px;
     min-width: 0;
     color: var(--slurp-fg);
+    /* Its own width decides when the labels no longer fit (a narrow card on a wide screen too). */
+    container: slurp-steps / inline-size;
   }
 
   .slurp-steps-list {
@@ -165,7 +167,23 @@
     background: var(--slurp-accent-ink);
   }
 
-  /* Phones: the other steps keep only their marker. */
+  /*
+   * Narrow (under 480px of its own width, or on a phone): the other steps keep only their marker; their label stays
+   * for assistive tech.
+   */
+  @container slurp-steps (max-width: 480px) {
+    .slurp-steps[data-orientation='horizontal']
+      .slurp-steps-step:not([data-state='current'])
+      .slurp-steps-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
   @media (max-width: 640px) {
     .slurp-steps[data-orientation='horizontal']
       .slurp-steps-step:not([data-state='current'])

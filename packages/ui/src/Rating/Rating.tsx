@@ -2,6 +2,7 @@ import { StarIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { useId, type CSSProperties, type ElementType } from 'react';
 
+import { useLabels } from '../internal/labels';
 import type { ControlSize } from '../Button/Button';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
@@ -68,7 +69,7 @@ export function Rating<E extends ElementType = 'fieldset'>(props: RatingProps<E>
     style,
     ...rest
   } = useThemeProps('Rating', props as RatingProps);
-  const labels = { ...RATING_LABELS, ...labelsProp };
+  const labels = { ...RATING_LABELS, ...useLabels('Rating'), ...labelsProp };
   const max = Math.max(1, Math.round(maxProp));
   const [value, setValue] = useControlled<number | null>({
     value: valueProp,

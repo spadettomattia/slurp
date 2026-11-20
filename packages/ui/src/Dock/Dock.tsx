@@ -19,6 +19,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 
+import { useLabels } from '../internal/labels';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import { CRUMB_TAN, crumbPath, type CrumbEnd } from '../lib/crumb';
@@ -122,7 +123,7 @@ function DockRoot<E extends ElementType = 'nav'>(props: DockProps<E>) {
     labels: labelsProp,
     ...rest
   } = useThemeProps('Dock', props as DockProps);
-  const labels = { ...DOCK_LABELS, ...labelsProp };
+  const labels = { ...DOCK_LABELS, ...useLabels('Dock'), ...labelsProp };
   const compact = useMediaQuery(COMPACT_QUERY);
   const [searchOpen, setSearchOpen] = useState(false);
   const [panelInner, setPanelInner] = useState<HTMLElement | null>(null);
@@ -490,6 +491,7 @@ function DockSearch({
         label={typed ? `${name}: “${value.trim()}”` : name}
         expanded={ctx.searchOpen}
         dot={typed && !ctx.searchOpen}
+        text={typed ? value.trim() : (placeholder ?? labels.searchPlaceholder)}
         onClick={() => ctx.setSearchOpen(!ctx.searchOpen)}
       >
         <SearchIcon />
@@ -519,6 +521,11 @@ export interface DockActionOwnProps {
   countLabel?: (count: number) => string;
   /** A small accent dot (a query is active while the search panel is closed). */
   dot?: boolean;
+  /**
+   * Text shown beside the icon when the bar has room for it (the phone search of a Dock without a path). The
+   * accessible name stays `label`.
+   */
+  text?: string;
 }
 
 export type DockActionProps<E extends ElementType = 'button'> = PolymorphicProps<
@@ -535,6 +542,7 @@ function DockAction<E extends ElementType = 'button'>(props: DockActionProps<E>)
     count,
     countLabel = (n) => (n === 1 ? '1 attivo' : `${n} attivi`),
     dot,
+    text,
     className,
     css: _css,
     onClick,
@@ -547,6 +555,7 @@ function DockAction<E extends ElementType = 'button'>(props: DockActionProps<E>)
       type="button"
       className={cx('slurp-dock-action', className)}
       data-active={expanded || undefined}
+      data-text={text ? '' : undefined}
       aria-label={count ? `${label}, ${countLabel(count)}` : label}
       aria-expanded={expanded}
       aria-controls={expanded !== undefined ? panelId : undefined}
@@ -556,6 +565,11 @@ function DockAction<E extends ElementType = 'button'>(props: DockActionProps<E>)
       <span aria-hidden="true" className="slurp-dock-action-icon">
         {children}
       </span>
+      {text ? (
+        <span className="slurp-dock-action-text" aria-hidden="true">
+          {text}
+        </span>
+      ) : null}
       {count ? (
         <span className="slurp-dock-action-count" aria-hidden="true">
           {count}

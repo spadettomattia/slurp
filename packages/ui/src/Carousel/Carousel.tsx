@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bubble } from '../Bubble/Bubble';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
@@ -89,7 +90,7 @@ export function Carousel<E extends ElementType = 'section'>(props: CarouselProps
     classNames,
     ...rest
   } = useThemeProps('Carousel', props as CarouselProps);
-  const labels = { ...CAROUSEL_LABELS, ...labelsProp };
+  const labels = { ...CAROUSEL_LABELS, ...useLabels('Carousel'), ...labelsProp };
   const slides = Children.toArray(children);
   const count = slides.length;
   const [raw, setIndex] = useControlled({

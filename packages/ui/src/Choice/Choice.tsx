@@ -2,6 +2,7 @@ import { CheckIcon, ChevronDownIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { useId, useRef, type ElementType, type KeyboardEvent, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bloom, type BloomPlacement } from '../Bloom/Bloom';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
@@ -67,7 +68,7 @@ export function Choice<V extends string = string, E extends ElementType = 'div'>
     labels: labelsProp,
     ...rest
   } = useThemeProps('Choice', props as unknown as ChoiceProps);
-  const labels = { ...CHOICE_LABELS, ...labelsProp };
+  const labels = { ...CHOICE_LABELS, ...useLabels('Choice'), ...labelsProp };
   const [value, setValue] = useControlled<string | null>({
     value: valueProp,
     defaultValue,

@@ -12,6 +12,7 @@ import {
   type ReactNode,
 } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { Bubble } from '../Bubble/Bubble';
 import { Button } from '../Button/Button';
 import type { StatusTone } from '../Notice/Notice';
@@ -67,7 +68,7 @@ const ICONS = { neutral: InfoIcon, success: SuccessIcon, warning: WarningIcon, d
  * region, present from the start so new toasts are announced.
  */
 export function ToastProvider({ children, labels: labelsProp, limit = 3 }: ToastProviderProps) {
-  const labels = { ...TOAST_LABELS, ...labelsProp };
+  const labels = { ...TOAST_LABELS, ...useLabels('Toast'), ...labelsProp };
   const [items, setItems] = useState<ToastEntry[]>([]);
   const next = useRef(1);
   const remove = useCallback(

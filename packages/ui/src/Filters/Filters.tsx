@@ -2,6 +2,7 @@ import { ResetIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { useId, type ElementType, type ReactNode } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useThemeProps } from '../internal/styled';
 import type { PolymorphicProps } from '../lib/polymorphic';
@@ -40,7 +41,7 @@ function FiltersRoot<E extends ElementType = 'div'>(props: FiltersProps<E>) {
     children,
     ...rest
   } = useThemeProps('Filters', props as FiltersProps);
-  const labels = { ...FILTERS_LABELS, ...labelsProp };
+  const labels = { ...FILTERS_LABELS, ...useLabels('Filters'), ...labelsProp };
   const Root = (as ?? 'div') as ElementType;
   const styled = useCss('Filters', 'root', css);
   const root = useAnimationRoot(rest);

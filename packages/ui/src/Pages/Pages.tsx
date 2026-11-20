@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { Fragment, type ElementType, type MouseEvent } from 'react';
 
+import { useLabels } from '../internal/labels';
 import { useAnimationRoot } from '../internal/animation';
 import { useCss, useParts, useThemeProps } from '../internal/styled';
 import type { PartsProps, PolymorphicProps } from '../lib/polymorphic';
@@ -98,7 +99,7 @@ export function Pages<E extends ElementType = 'nav'>(props: PagesProps<E>) {
     classNames,
     ...rest
   } = useThemeProps('Pages', props as PagesProps);
-  const labels = { ...PAGES_LABELS, ...labelsProp };
+  const labels = { ...PAGES_LABELS, ...useLabels('Pages'), ...labelsProp };
   const count = Math.max(1, Math.floor(countProp));
   const [raw, setPage] = useControlled({
     value: pageProp,

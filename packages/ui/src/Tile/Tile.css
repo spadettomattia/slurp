@@ -104,7 +104,10 @@
   .slurp-tile-title {
     font: 600 clamp(17px, 9cqi, 28px) / 1.2 var(--slurp-font-family-display);
     letter-spacing: -0.015em;
-    overflow-wrap: anywhere;
+    /* A long word breaks with a hyphen where the page language allows it (lang on <html>), and only as a last resort
+       anywhere. */
+    hyphens: auto;
+    overflow-wrap: break-word;
   }
 
   .slurp-tile-subtitle {

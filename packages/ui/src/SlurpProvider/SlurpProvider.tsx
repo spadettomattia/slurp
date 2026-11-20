@@ -10,6 +10,8 @@ import {
 } from 'react';
 
 import { SlurpContext, type ColorSchemeState } from '../internal/context';
+import { LabelsContext } from '../internal/labels';
+import { resolveLabels, type LabelsInput } from '../lib/labels';
 import {
   DEFAULT_STORAGE_KEY,
   defaultTheme,
@@ -26,6 +28,11 @@ export interface SlurpProviderProps {
   theme?: Theme;
   /** localStorage key that remembers the chosen scheme; `null` disables persistence. Default `slurp-theme`. */
   storageKey?: string | null;
+  /**
+   * Texts of every component inside: `'en'`, `'it'` (the default) or your own texts by component, e.g.
+   * `{ Dialog: { close: 'Dismiss' } }`. A component's own `labels` prop still wins.
+   */
+  labels?: LabelsInput;
   children?: ReactNode;
 }
 
@@ -76,8 +83,10 @@ function applyMode(mode: ColorSchemeMode) {
 export function SlurpProvider({
   theme = defaultTheme,
   storageKey = DEFAULT_STORAGE_KEY,
+  labels: labelsProp,
   children,
 }: SlurpProviderProps) {
+  const outerLabels = useContext(LabelsContext);
   const outer = useContext(SlurpContext).colorScheme;
   const scope = useId();
   const stored = useSyncExternalStore(
@@ -122,15 +131,21 @@ export function SlurpProvider({
       {css}
     </style>
   );
+  const labels = useMemo(() => resolveLabels(labelsProp), [labelsProp]);
+  const content = outer ? (
+    <div data-slurp-theme={scope} style={{ display: 'contents' }}>
+      {children}
+    </div>
+  ) : (
+    children
+  );
   return (
     <SlurpContext value={value}>
       {style}
-      {outer ? (
-        <div data-slurp-theme={scope} style={{ display: 'contents' }}>
-          {children}
-        </div>
+      {labels && labels !== outerLabels ? (
+        <LabelsContext value={labels}>{content}</LabelsContext>
       ) : (
-        children
+        content
       )}
     </SlurpContext>
   );

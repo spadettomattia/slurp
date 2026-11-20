@@ -2,7 +2,16 @@ import { act, render, screen } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { ColorSchemeScript, createTheme, SlurpProvider, useColorScheme, useTheme } from '../src';
+import {
+  ColorSchemeScript,
+  createTheme,
+  Dialog,
+  labelsEn,
+  Pages,
+  SlurpProvider,
+  useColorScheme,
+  useTheme,
+} from '../src';
 
 function SchemeProbe() {
   const { mode, resolved, setMode } = useColorScheme();
@@ -151,5 +160,54 @@ describe('ColorSchemeScript', () => {
     const markup = renderToString(<ColorSchemeScript defaultMode="light" storageKey="other" />);
     new Function(/<script>(.*)<\/script>/.exec(markup)?.[1] ?? '')();
     expect(html.getAttribute('data-theme')).toBe('light');
+  });
+});
+
+describe('SlurpProvider labels', () => {
+  const closeName = () =>
+    screen.getByRole('dialog', { name: 'Titolo' }).querySelector('.slurp-dialog-close')
+      ?.getAttribute('aria-label');
+
+  it('keeps the Italian defaults without labels', () => {
+    render(
+      <SlurpProvider storageKey={null}>
+        <Dialog defaultOpen title="Titolo" />
+      </SlurpProvider>,
+    );
+    expect(closeName()).toBe('Chiudi');
+  });
+
+  it("switches every component to English with labels='en', functions included", () => {
+    render(
+      <SlurpProvider storageKey={null} labels="en">
+        <Dialog defaultOpen title="Titolo" />
+        <Pages count={12} defaultPage={3} />
+      </SlurpProvider>,
+    );
+    expect(closeName()).toBe('Close');
+    expect(screen.getByRole('navigation', { name: 'Pages' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Page 4' })).toBeTruthy();
+  });
+
+  it('merges your own texts by component, and a component prop still wins', () => {
+    render(
+      <SlurpProvider storageKey={null} labels={{ ...labelsEn, Dialog: { close: 'Dismiss' } }}>
+        <Dialog defaultOpen title="Titolo" />
+        <Pages count={12} defaultPage={3} labels={{ label: 'Results pages' }} />
+      </SlurpProvider>,
+    );
+    expect(closeName()).toBe('Dismiss');
+    expect(screen.getByRole('navigation', { name: 'Results pages' })).toBeTruthy();
+  });
+
+  it('a nested provider without labels keeps the outer ones', () => {
+    render(
+      <SlurpProvider storageKey={null} labels="en">
+        <SlurpProvider theme={createTheme({ accent: 'hue-teal' })}>
+          <Dialog defaultOpen title="Titolo" />
+        </SlurpProvider>
+      </SlurpProvider>,
+    );
+    expect(closeName()).toBe('Close');
   });
 });
