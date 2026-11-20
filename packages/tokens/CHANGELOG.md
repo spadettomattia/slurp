@@ -1,5 +1,11 @@
 # @slurp-ui/tokens
 
+## 1.1.0
+
+### Minor Changes
+
+- f3d9909: Add `--slurp-font-family-mono` (the system monospace stack) for code snippets.
+
 ## 1.0.1
 
 ### Patch Changes
