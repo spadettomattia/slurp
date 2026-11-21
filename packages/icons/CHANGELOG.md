@@ -1,5 +1,11 @@
 # @slurp-ui/icons
 
+## 1.2.0
+
+### Minor Changes
+
+- f6b705d: Add everyday icons: Menu, Plus, Edit, Trash, Copy, Link, External, Download, Upload, Code, Branch, Calendar, Clock, User, Mail, Eye, EyeOff, Lock, Globe, Home, Bell, Play and Pause.
+
 ## 1.1.0
 
 ### Minor Changes

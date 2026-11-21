@@ -1,5 +1,47 @@
 # @slurp-ui/react
 
+## 1.2.0
+
+### Minor Changes
+
+- f6b705d: New components for content and navigation, for any site:
+
+  - `Prose`: typography for long text that arrives as HTML (Markdown, MDX, a CMS), on the design system's scale.
+  - `Code`: a code block with an optional file name and a copy button that confirms; takes plain text or HTML from any highlighter (`--slurp-code-*` colours, shiki variables mapped).
+  - `Contents`: "on this page" links that follow the section being read.
+  - `Rail` (`Rail.Group`, `Rail.Link`): vertical navigation in groups for wide screens, the current page highlighted.
+  - `PageNav`: previous and next page at the end of a sequence, with your router's link.
+  - `SkipLink`: "skip to content", visible on keyboard focus.
+  - `Hairline`: a 1px separator, decorative by default.
+  - Hooks `useClipboard` and `useScrollSpy`. English texts for the new components in `labelsEn`.
+
+- feeffe9: New components: `Calendar` and `DateField` (a day or a period, in the theme's language), `NumberField`, `SecretField`, `PinField`, `FileDrop`, `ErrorSummary`, `Media`, `Footer`, `Tag`, `Quote` and `Kbd`. English texts in `labelsEn`. A panel element marked `data-autofocus` takes focus first when a Bloom opens.
+- a5cdf08: Texts in other languages and components that hold up in narrow spaces:
+
+  - `SlurpProvider` takes `labels`: `'en'` switches every component's texts to English, `'it'` keeps the Italian defaults, or pass your own texts by component (`{ Dialog: { close: 'Dismiss' } }`). The string presets can be passed from a server component. A component's own `labels` prop still wins. `labelsEn` and `labelsIt` are exported to build on.
+  - Dock: on phones, a bar with only the search shows it as a pill with its placeholder instead of a lone round icon (`Dock.Action` takes `text`).
+  - Steps: below 480px of its own width (not only on phones) the other steps keep only their marker, so labels never collide in a narrow card.
+  - Tile: long titles break with a hyphen where the page language allows it, instead of anywhere.
+
+- b3a055b: - `ListRow` with `href` and no `actionLabel` is a link as a whole: its title becomes the link and covers the row (one target, one focus stop, no extra "Open" button). A router link goes in `parts={{ link: … }}`.
+  - `Code`: the scrollable block is a named group instead of a region, so a page with many code blocks keeps unique landmarks.
+  - Dock: the phone search pill's accessible name includes its visible placeholder (WCAG 2.5.3).
+
+### Patch Changes
+
+- 6557e10: Finish the motion of panels and notifications:
+
+  - Dialog and Sheet now play their way out (200ms: back toward the control that opened them, a sheet back down) before closing; reopening during the exit keeps them open. Dialog grows from its opener with a uniform scale, so its text no longer stretches. Reduced motion: a 150ms fade in and out.
+  - Toast leaves with a short exit and the stack closes the gap instead of jumping; its entrance is now a transition, so a toast dismissed while it appears turns back from where it is.
+  - Hint: after one hint closes, the next one within 300ms shows at once and without its entrance, so moving along a row of icons only waits once.
+  - Reduced motion keeps colour, opacity and shadow transitions in every component and drops only movement and size changes.
+
+- fc030e1: Take every transition curve and duration from the new motion tokens (`--slurp-ease-settle`, `--slurp-duration-*`), in the stylesheets and in Dialog and Bloom. Timings are unchanged except where they snap to the scale (for example 0.3s → 350ms, 0.4s and 0.5s → 450ms, 0.7s → 600ms).
+- Updated dependencies [f6b705d]
+- Updated dependencies [fc030e1]
+  - @slurp-ui/icons@1.2.0
+  - @slurp-ui/tokens@1.2.0
+
 ## 1.1.1
 
 ### Patch Changes
