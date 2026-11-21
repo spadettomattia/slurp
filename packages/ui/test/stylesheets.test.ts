@@ -138,6 +138,19 @@ describe('component stylesheets', () => {
     expect(offenders).toEqual([]);
   });
 
+  it('uses logical properties for sides, so right-to-left mirrors by itself', () => {
+    const offenders = sheets.flatMap(({ name, css }) =>
+      [
+        ...css
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .matchAll(
+            /(?:^|[\s;{])((?:padding|margin)-(?:left|right)|text-align\s*:\s*(?:left|right)|border-(?:top|bottom)-(?:left|right)-radius)\b/g,
+          ),
+      ].map((m) => `${name}: ${m[1]}`),
+    );
+    expect(offenders).toEqual([]);
+  });
+
   it('on phones, the Dock shrinks earlier crumbs before the current one', () => {
     const dock = parse(sheets.find((s) => s.name === 'Dock.css')?.css ?? '');
     const giveWay = dock.find(

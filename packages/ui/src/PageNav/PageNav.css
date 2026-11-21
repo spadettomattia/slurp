@@ -21,7 +21,7 @@
   }
 
   .slurp-page-nav-step[data-dir='next'] {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 
   .slurp-page-nav-step[data-dir='next'] .slurp-button-label {

@@ -3,13 +3,17 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import {
+  AvatarGroup,
   Calendar,
+  Consent,
   createTheme,
   DateField,
   ErrorSummary,
   FileDrop,
+  Compare,
   Footer,
   Kbd,
+  Lightbox,
   Media,
   MultiSuggest,
   NumberField,
@@ -18,6 +22,8 @@ import {
   SecretField,
   SlurpProvider,
   Tag,
+  Timeline,
+  Tree,
 } from '../src';
 import { expectNoAxeViolations } from './axe';
 
@@ -269,5 +275,144 @@ describe('MultiSuggest', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Rimuovi Rosso' }));
     expect(onValueChange).toHaveBeenLastCalledWith([]);
     await expectNoAxeViolations(container);
+  });
+});
+
+describe('Tree, Compare, Lightbox', () => {
+  it('Tree: one tab stop, Right opens, Left closes, Enter chooses', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <main>
+        <Tree
+          label="File"
+          onValueChange={onValueChange}
+          items={[
+            { id: 'a', label: 'Cartella', children: [{ id: 'a1', label: 'Nota' }] },
+            { id: 'b', label: 'Altro' },
+          ]}
+        />
+      </main>,
+    );
+    const folder = screen.getByRole('treeitem', { name: 'Cartella' });
+    expect(folder.getAttribute('aria-expanded')).toBe('false');
+    expect(screen.getAllByRole('treeitem').filter((i) => i.tabIndex === 0)).toHaveLength(1);
+    act(() => folder.focus());
+    fireEvent.keyDown(folder, { key: 'ArrowRight' });
+    expect(folder.getAttribute('aria-expanded')).toBe('true');
+    fireEvent.keyDown(folder, { key: 'ArrowDown' });
+    const note = screen.getByRole('treeitem', { name: 'Nota' });
+    expect(document.activeElement).toBe(note);
+    expect(note.getAttribute('aria-level')).toBe('2');
+    fireEvent.keyDown(note, { key: 'Enter' });
+    expect(onValueChange).toHaveBeenLastCalledWith('a1');
+    fireEvent.keyDown(note, { key: 'ArrowLeft' });
+    expect(document.activeElement).toBe(folder);
+    fireEvent.keyDown(folder, { key: 'ArrowLeft' });
+    expect(folder.getAttribute('aria-expanded')).toBe('false');
+    await expectNoAxeViolations(container);
+  });
+
+  it('Compare is a named slider that sets how much of the first picture shows', async () => {
+    const { container } = render(
+      <main>
+        <Compare
+          before={<img src="/a.jpg" alt="Prima" />}
+          after={<img src="/b.jpg" alt="Dopo" />}
+        />
+      </main>,
+    );
+    const slider = screen.getByRole('slider', { name: 'Confronta prima e dopo' });
+    fireEvent.change(slider, { target: { value: '80' } });
+    expect(
+      (container.querySelector('.slurp-compare') as HTMLElement).style.getPropertyValue(
+        '--slurp-compare',
+      ),
+    ).toBe('80%');
+    await expectNoAxeViolations(container);
+  });
+
+  it('Lightbox shows one picture, moves through the set and wraps', async () => {
+    render(
+      <Lightbox
+        open
+        images={[
+          { src: '/1.jpg', alt: 'Uno' },
+          { src: '/2.jpg', alt: 'Due' },
+        ]}
+      />,
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Uno' });
+    expect(within(dialog).getByRole('img', { name: 'Uno' })).toBeTruthy();
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Immagine successiva' }));
+    expect(screen.getByRole('dialog', { name: 'Due' })).toBeTruthy();
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Immagine successiva' }));
+    expect(screen.getByRole('dialog', { name: 'Uno' })).toBeTruthy();
+  });
+});
+
+describe('AvatarGroup, Timeline, Consent', () => {
+  it('AvatarGroup shows the first people and names the rest', async () => {
+    const people = ['Anna Rossi', 'Luca Bianchi', 'Sara Verdi', 'Marco Neri'].map((name) => ({
+      name,
+    }));
+    const { container } = render(
+      <main>
+        <AvatarGroup label="Partecipanti" people={people} max={2} />
+      </main>,
+    );
+    const group = screen.getByRole('group', { name: 'Partecipanti' });
+    expect(within(group).getAllByRole('img')).toHaveLength(3);
+    expect(within(group).getByRole('img', { name: 'altre 2 persone' })).toBeTruthy();
+    await expectNoAxeViolations(container);
+  });
+
+  it('Timeline is an ordered list of events with machine-readable dates', async () => {
+    const { container } = render(
+      <main>
+        <Timeline
+          latestFirst
+          items={[
+            { title: 'Consegnato', time: '12 marzo', dateTime: '2026-03-12' },
+            { title: 'Spedito', description: 'In viaggio' },
+          ]}
+        />
+      </main>,
+    );
+    const list = screen.getByRole('list');
+    expect(list.tagName).toBe('OL');
+    expect(within(list).getAllByRole('listitem')).toHaveLength(2);
+    expect(container.querySelector('time')?.getAttribute('datetime')).toBe('2026-03-12');
+    expect(container.querySelector('[data-latest]')).toBeTruthy();
+    await expectNoAxeViolations(container);
+  });
+
+  it('Consent is a named region whose buttons report the answer; closed it renders nothing', async () => {
+    const onAccept = vi.fn();
+    const onReject = vi.fn();
+    const { container, rerender } = render(
+      <main>
+        <Consent
+          title="Cookie"
+          onAccept={onAccept}
+          onReject={onReject}
+          onCustomize={() => undefined}
+        >
+          Usiamo cookie tecnici.
+        </Consent>
+      </main>,
+    );
+    const region = screen.getByRole('region', { name: 'Preferenze sui cookie' });
+    await userEvent.click(within(region).getByRole('button', { name: 'Rifiuta' }));
+    await userEvent.click(within(region).getByRole('button', { name: 'Accetta' }));
+    expect(onReject).toHaveBeenCalledTimes(1);
+    expect(onAccept).toHaveBeenCalledTimes(1);
+    expect(within(region).getByRole('button', { name: 'Personalizza' })).toBeTruthy();
+    await expectNoAxeViolations(container);
+    rerender(
+      <main>
+        <Consent open={false}>x</Consent>
+      </main>,
+    );
+    expect(screen.queryByRole('region')).toBeNull();
   });
 });

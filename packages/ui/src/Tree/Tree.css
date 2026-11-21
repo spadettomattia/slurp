@@ -1,0 +1,70 @@
+/* Tree: rows with a chevron that turns when open; nesting is padding, so it mirrors in RTL. */
+@layer slurp.components {
+  .slurp-tree,
+  .slurp-tree-group {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-tree {
+    color: var(--slurp-fg);
+  }
+
+  .slurp-tree-item {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+    min-height: 44px;
+    padding-inline-end: var(--slurp-space-3);
+    border-radius: var(--slurp-radius-sm);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    cursor: pointer;
+    transition: background-color var(--slurp-duration-quick);
+  }
+
+  .slurp-tree-item:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-tree-item[aria-selected='true'] {
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font-weight: 600;
+  }
+
+  .slurp-tree-chevron {
+    display: inline-grid;
+    flex-shrink: 0;
+    width: 16px;
+    color: var(--slurp-muted);
+    transition: rotate var(--slurp-duration-quick) var(--slurp-ease-settle);
+  }
+
+  .slurp-tree-chevron[data-open],
+  .slurp-tree-chevron[data-open]:dir(rtl) {
+    rotate: 90deg;
+  }
+
+  .slurp-tree-chevron:dir(rtl) {
+    rotate: 180deg;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-tree-item:hover:not([aria-selected='true']) {
+      background: color-mix(in oklab, var(--slurp-fg) 6%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-tree-item {
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
+    }
+
+    .slurp-tree-chevron {
+      transition-property: none;
+    }
+  }
+}

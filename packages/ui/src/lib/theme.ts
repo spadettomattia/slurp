@@ -53,6 +53,9 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { LightboxProps } from '../Lightbox/Lightbox';
+import type { CompareProps } from '../Compare/Compare';
+import type { TreeProps } from '../Tree/Tree';
 import type { ConsentProps } from '../Consent/Consent';
 import type { TimelineProps } from '../Timeline/Timeline';
 import type { AvatarGroupProps } from '../AvatarGroup/AvatarGroup';
@@ -121,6 +124,9 @@ const DEFAULT_MOTION: MotionOptions = {
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
+  Lightbox: { props: LightboxProps; parts: 'root' };
+  Compare: { props: CompareProps; parts: 'root' };
+  Tree: { props: TreeProps; parts: 'root' };
   Consent: { props: ConsentProps; parts: 'root' };
   Timeline: { props: TimelineProps; parts: 'root' };
   AvatarGroup: { props: AvatarGroupProps; parts: 'root' };

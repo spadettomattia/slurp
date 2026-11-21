@@ -22,7 +22,9 @@ import type { SearchLabels } from '../Search/Search';
 import type { SettingsLabels } from '../Settings/Settings';
 import type { StepsLabels } from '../Steps/Steps';
 import type { AvatarGroupLabels } from '../AvatarGroup/AvatarGroup';
+import type { CompareLabels } from '../Compare/Compare';
 import type { ConsentLabels } from '../Consent/Consent';
+import type { LightboxLabels } from '../Lightbox/Lightbox';
 import type { MultiSuggestLabels } from '../MultiSuggest/MultiSuggest';
 import type { SuggestLabels } from '../Suggest/Suggest';
 import type { TableLabels } from '../Table/Table';
@@ -52,7 +54,9 @@ export interface SlurpLabels {
   SkipLink?: Partial<SkipLinkLabels>;
   Steps?: Partial<StepsLabels>;
   AvatarGroup?: Partial<AvatarGroupLabels>;
+  Compare?: Partial<CompareLabels>;
   Consent?: Partial<ConsentLabels>;
+  Lightbox?: Partial<LightboxLabels>;
   MultiSuggest?: Partial<MultiSuggestLabels>;
   Suggest?: Partial<SuggestLabels>;
   Table?: Partial<TableLabels>;
@@ -137,6 +141,12 @@ export const labelsEn = {
   SkipLink: { label: 'Skip to content' },
   Steps: { label: 'Steps', done: 'completed' },
   AvatarGroup: { more: (n) => (n === 1 ? 'one more person' : `${n} more people`) },
+  Compare: { handle: 'Compare before and after' },
+  Lightbox: {
+    previous: 'Previous image',
+    next: 'Next image',
+    position: (i, n) => `${i} of ${n}`,
+  },
   Consent: {
     region: 'Cookie preferences',
     accept: 'Accept',

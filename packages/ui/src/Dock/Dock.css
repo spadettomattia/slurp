@@ -133,14 +133,14 @@
   }
 
   .slurp-crumb[data-left='round'] {
-    border-top-left-radius: 999px;
-    border-bottom-left-radius: 999px;
+    border-start-start-radius: 999px;
+    border-end-start-radius: 999px;
   }
 
   .slurp-crumb[data-right='round'] {
-    padding-right: var(--slurp-space-6);
-    border-top-right-radius: 999px;
-    border-bottom-right-radius: 999px;
+    padding-inline-end: var(--slurp-space-6);
+    border-start-end-radius: 999px;
+    border-end-end-radius: 999px;
   }
 
   /* Drawn: the SVG path is the shape; the button itself is transparent. */
@@ -283,7 +283,7 @@
     flex-shrink: 0;
     align-items: center;
     gap: var(--slurp-space-2);
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 
   .slurp-dock-action {
@@ -353,7 +353,7 @@
   .slurp-dock-action-count {
     position: absolute;
     top: -4px;
-    right: -4px;
+    inset-inline-end: -4px;
     display: grid;
     place-items: center;
     min-width: 20px;
@@ -368,7 +368,7 @@
   .slurp-dock-action-dot {
     position: absolute;
     top: 8px;
-    right: 8px;
+    inset-inline-end: 8px;
     width: 10px;
     height: 10px;
     border-radius: var(--slurp-radius-full);
@@ -387,7 +387,7 @@
     }
 
     .slurp-crumb[data-right='round'] {
-      padding-right: var(--slurp-space-5);
+      padding-inline-end: var(--slurp-space-5);
     }
 
     .slurp-crumb-back {
@@ -420,15 +420,15 @@
 
     .slurp-dock-crumbs > li > .slurp-crumb:not([data-current], [data-icon], .slurp-crumb-back),
     .slurp-crumb[data-current][data-left='slant'] {
-      padding-left: var(--slurp-space-3);
+      padding-inline-start: var(--slurp-space-3);
     }
 
     .slurp-dock-crumbs > li > .slurp-crumb:not([data-current], [data-icon], .slurp-crumb-back) {
-      padding-right: var(--slurp-space-3);
+      padding-inline-end: var(--slurp-space-3);
     }
 
     .slurp-crumb[data-current][data-right='round'] {
-      padding-right: var(--slurp-space-4);
+      padding-inline-end: var(--slurp-space-4);
     }
   }
 

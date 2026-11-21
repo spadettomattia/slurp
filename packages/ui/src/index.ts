@@ -147,6 +147,15 @@ export { ResultRow, type ResultRowProps } from './ResultRow';
 export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
+export {
+  Lightbox,
+  LIGHTBOX_LABELS,
+  type LightboxImage,
+  type LightboxLabels,
+  type LightboxProps,
+} from './Lightbox';
+export { Compare, COMPARE_LABELS, type CompareLabels, type CompareProps } from './Compare';
+export { Tree, type TreeItem, type TreeProps } from './Tree';
 export { Consent, CONSENT_LABELS, type ConsentLabels, type ConsentProps } from './Consent';
 export { Timeline, type TimelineItem, type TimelineProps } from './Timeline';
 export {

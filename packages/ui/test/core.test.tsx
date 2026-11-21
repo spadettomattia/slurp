@@ -593,6 +593,13 @@ describe('Dialog and Sheet', () => {
     proto.animate = had;
   });
 
+  it('a side sheet is marked with its edge', () => {
+    render(<Sheet open side="end" title="Filtri" />);
+    expect(screen.getByRole('dialog', { name: 'Filtri' }).getAttribute('data-side')).toBe('end');
+    render(<Sheet open title="Altro" />);
+    expect(screen.getByRole('dialog', { name: 'Altro' }).getAttribute('data-side')).toBe('bottom');
+  });
+
   it('Escape (cancel) closes through the state', async () => {
     const onOpenChange = vi.fn();
     render(<Dialog open title="Titolo" onOpenChange={onOpenChange} />);

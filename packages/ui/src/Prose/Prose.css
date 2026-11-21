@@ -55,7 +55,7 @@
   }
 
   .slurp-prose :where(ul, ol):not([class*='slurp-']) {
-    padding-left: var(--slurp-space-6);
+    padding-inline-start: var(--slurp-space-6);
   }
 
   .slurp-prose :where(li + li):not([class*='slurp-']) {

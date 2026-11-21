@@ -1,0 +1,25 @@
+/* Lightbox: a wider Dialog whose body is the picture; the arrows sit beside it. */
+@layer slurp.components {
+  .slurp-lightbox {
+    width: min(960px, calc(100vw - 2 * var(--slurp-space-4)));
+  }
+
+  .slurp-lightbox-stage {
+    display: flex;
+    align-items: center;
+    gap: var(--slurp-space-2);
+  }
+
+  .slurp-lightbox-image {
+    flex: 1;
+    min-width: 0;
+    max-height: 70dvh;
+    object-fit: contain;
+    border-radius: var(--slurp-radius-sm);
+  }
+
+  .slurp-lightbox-prev:dir(rtl),
+  .slurp-lightbox-next:dir(rtl) {
+    scale: -1 1;
+  }
+}

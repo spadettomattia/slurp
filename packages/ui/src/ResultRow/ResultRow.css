@@ -12,7 +12,7 @@
     background: none;
     color: var(--slurp-fg);
     font: var(--slurp-font-body-s);
-    text-align: left;
+    text-align: start;
     text-decoration: none;
     cursor: pointer;
     transition: background-color var(--slurp-duration-base);

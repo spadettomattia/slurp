@@ -46,11 +46,11 @@
   }
 
   .slurp-bloom[data-align='start'] .slurp-bloom-surface {
-    left: 0;
+    inset-inline-start: 0;
   }
 
   .slurp-bloom[data-align='end'] .slurp-bloom-surface {
-    right: 0;
+    inset-inline-end: 0;
   }
 
   .slurp-bloom[data-phase='open'] .slurp-bloom-surface {
@@ -197,7 +197,7 @@
     color: var(--slurp-fg);
     font: var(--slurp-font-body-s);
     letter-spacing: var(--slurp-font-body-s-tracking);
-    text-align: left;
+    text-align: start;
     cursor: pointer;
     transition: background-color var(--slurp-duration-base);
   }

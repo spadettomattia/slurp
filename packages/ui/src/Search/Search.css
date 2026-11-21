@@ -63,6 +63,6 @@
   }
 
   .slurp-search:not([data-typed]) {
-    padding-right: var(--slurp-space-4);
+    padding-inline-end: var(--slurp-space-4);
   }
 }

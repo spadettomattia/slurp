@@ -22,7 +22,7 @@
     color: inherit;
     font: var(--slurp-font-title-s);
     letter-spacing: var(--slurp-font-title-s-tracking);
-    text-align: left;
+    text-align: start;
     cursor: pointer;
   }
 

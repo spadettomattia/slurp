@@ -20,7 +20,7 @@
     );
     color: var(--slurp-fg);
     font: var(--slurp-font-body);
-    text-align: left;
+    text-align: start;
     text-decoration: none;
     cursor: pointer;
     container-type: size;
@@ -66,7 +66,7 @@
   /* A radial gradient (no blur filter) moved only with transform: it never repaints. */
   .slurp-tile-blob {
     position: absolute;
-    right: -25%;
+    inset-inline-end: -25%;
     bottom: -30%;
     width: 95%;
     height: 95%;
@@ -134,7 +134,7 @@
   .slurp-tile-media {
     position: absolute;
     top: 50%;
-    right: 7cqi;
+    inset-inline-end: 7cqi;
     width: min(36cqi, 52cqh);
     transform: translateY(-50%);
     transition: transform var(--slurp-duration-surface) var(--slurp-ease-settle);

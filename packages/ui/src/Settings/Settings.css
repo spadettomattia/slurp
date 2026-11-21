@@ -2,14 +2,14 @@
   .slurp-settings {
     position: fixed;
     top: var(--slurp-space-4);
-    right: var(--slurp-space-4);
+    inset-inline-end: var(--slurp-space-4);
     z-index: 45;
   }
 
   .slurp-settings[data-inline] {
     position: relative;
     top: auto;
-    right: auto;
+    inset-inline-end: auto;
     display: flex;
     justify-content: flex-end;
   }

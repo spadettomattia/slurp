@@ -33,7 +33,7 @@
     display: grid;
     gap: var(--slurp-space-1);
     margin: 0;
-    padding-left: calc(20px + var(--slurp-space-2));
+    padding-inline-start: calc(20px + var(--slurp-space-2));
     font: var(--slurp-font-body-s);
   }
 

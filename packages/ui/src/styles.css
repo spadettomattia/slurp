@@ -75,3 +75,6 @@
 @import './AvatarGroup/AvatarGroup.css';
 @import './Timeline/Timeline.css';
 @import './Consent/Consent.css';
+@import './Tree/Tree.css';
+@import './Compare/Compare.css';
+@import './Lightbox/Lightbox.css';

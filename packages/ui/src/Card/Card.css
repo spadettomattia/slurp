@@ -21,7 +21,7 @@
     box-shadow: var(--slurp-shadow-float);
     color: var(--slurp-fg);
     font: var(--slurp-font-body);
-    text-align: left;
+    text-align: start;
     text-decoration: none;
     container-type: inline-size;
     transition: transform var(--slurp-duration-move) var(--slurp-ease-settle);
@@ -90,7 +90,7 @@
   .slurp-card-badge {
     position: absolute;
     top: 14px;
-    right: 14px;
+    inset-inline-end: 14px;
     display: inline-flex;
     align-items: center;
     min-height: 30px;

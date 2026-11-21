@@ -82,7 +82,7 @@
 
   .slurp-file-drop-progress {
     grid-column: 1 / -1;
-    margin-right: var(--slurp-space-3);
+    margin-inline-end: var(--slurp-space-3);
   }
 
   .slurp-file-drop[data-disabled] {

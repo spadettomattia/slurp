@@ -3,7 +3,7 @@
   .slurp-skip-link {
     position: fixed;
     top: var(--slurp-space-2);
-    left: var(--slurp-space-2);
+    inset-inline-start: var(--slurp-space-2);
     z-index: 100;
     padding: var(--slurp-space-3) var(--slurp-space-4);
     border-radius: var(--slurp-radius-full);

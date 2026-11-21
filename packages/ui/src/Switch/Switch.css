@@ -22,7 +22,7 @@
   .slurp-switch-thumb {
     position: absolute;
     top: 3px;
-    left: 3px;
+    inset-inline-start: 3px;
     display: grid;
     place-items: center;
     width: 22px;
@@ -43,6 +43,10 @@
   .slurp-switch[data-state='on'] .slurp-switch-thumb {
     background: var(--slurp-surface-2);
     transform: translateX(20px);
+  }
+
+  .slurp-switch[data-state='on'] .slurp-switch-thumb:dir(rtl) {
+    transform: translateX(-20px);
   }
 
   @media (prefers-reduced-motion: reduce) {

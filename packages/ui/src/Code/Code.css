@@ -49,7 +49,7 @@
   .slurp-code-bar:has(.slurp-code-filename:empty) {
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     padding: var(--slurp-space-1);
   }
 
@@ -69,7 +69,7 @@
 
   .slurp-code-bar:has(.slurp-code-filename:empty) + .slurp-code-pre {
     padding-top: var(--slurp-space-4);
-    padding-right: 56px;
+    padding-inline-end: 56px;
   }
 
   .slurp-code-pre:focus-visible {

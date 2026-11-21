@@ -58,6 +58,10 @@
     overflow: hidden;
     opacity: 0;
     transform: translateX(24px) scale(0.98);
+  }
+
+  .slurp-toast[data-leaving]:dir(rtl) {
+    transform: translateX(-24px) scale(0.98);
     transition-duration: var(--slurp-duration-quick);
     height: 0;
     margin-bottom: calc(-1 * var(--slurp-space-2));
