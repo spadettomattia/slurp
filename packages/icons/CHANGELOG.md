@@ -1,5 +1,11 @@
 # @slurp-ui/icons
 
+## 1.3.0
+
+### Minor Changes
+
+- efe26ec: New icon: `GithubIcon`, the GitHub mark outlined on the set's own grid and stroke.
+
 ## 1.2.0
 
 ### Minor Changes

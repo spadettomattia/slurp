@@ -1,5 +1,19 @@
 # @slurp-ui/react
 
+## 1.3.0
+
+### Minor Changes
+
+- 82f0410: New components: `MultiSuggest` (Suggest with several choices and removable tags), `Timeline`, `AvatarGroup` and `Consent` (a banner where refusing is as easy as accepting). `Table` gains row selection (`selectable`) and a fixed header (`maxHeight`). `Menu` gains `Menu.Group`, `Menu.Separator` and a `shortcut` on each item. `Sheet` can slide in from a side with `side="end"` or `"start"`.
+- a38bda7: New components: `Tree` (nested list with full keyboard support), `Compare` (before and after slider) and `Lightbox` (pictures at full size in a modal). Right-to-left: every component stylesheet now uses logical properties (start/end instead of left/right), and the Switch, Toast and Lightbox movements mirror.
+
+### Patch Changes
+
+- 56a8957: The last `Fold` of a group no longer draws a line under itself, so it does not meet the corners of a rounded container.
+- 04c84d6: `Prose` paragraphs and list items use `text-wrap: pretty`, so a line never ends on a single word.
+- Updated dependencies [efe26ec]
+  - @slurp-ui/icons@1.3.0
+
 ## 1.2.0
 
 ### Minor Changes
