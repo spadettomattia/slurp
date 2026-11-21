@@ -399,7 +399,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .site-anchor {
+    .site-anchor,
+    .site-brand-version {
       transition: none;
     }
   }
@@ -655,6 +656,15 @@
   .site-brand-version:hover {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+
+  /* Pressed: a short, quick dip (120ms in, as the library's controls). */
+  .site-brand-version {
+    transition: scale var(--slurp-duration-press) var(--slurp-ease-settle);
+  }
+
+  .site-brand-version:active {
+    scale: 0.96;
   }
 
   /* Beside Settings (48px at space-4 from the corner). */
