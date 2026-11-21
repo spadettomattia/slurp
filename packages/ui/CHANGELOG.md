@@ -1,5 +1,16 @@
 # @slurp-ui/react
 
+## 1.6.0
+
+### Minor Changes
+
+- 18186b8: `Toast` can be swiped away sideways (it follows the finger, leaves past 80px or with a quick flick, else returns) and a bottom `Sheet` has a grab handle that closes it when dragged down. Fixes the way out of a dismissed `Toast`, whose height and padding no longer collapsed.
+- 795e0bc: New components: `TimeField` (the browser's time input as a Field), `FocusTrap` (Tab stays inside, focus goes in and comes back) and `Blobs` (slow ambient gradients, decorative). `Table` gains a loading state (`loading`, `loadingRows`) and `Menu` gains `Menu.CheckboxItem`, `Menu.RadioGroup` and `Menu.RadioItem`. `Field` passes `min`, `max` and `step` to the input.
+
+### Patch Changes
+
+- f099d4f: Right-to-left: the connector lines of `Steps`, the fill of `Progress` (and its indeterminate bar), the track of `Range` and the hit area of `Checkbox`, `Radio` and `Switch` now mirror with the writing direction.
+
 ## 1.5.0
 
 ### Minor Changes
