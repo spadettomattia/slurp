@@ -1,0 +1,29 @@
+import Basic from '@demos/pinfield/Basic.tsx?demo';
+
+# PinField
+
+A short code (verification, sign-in) shown as boxes but handled by a single field.
+
+<ApiLinks modules={['PinField']} />
+
+## Quick reference
+
+<QuickRef module="PinField" />
+
+## Examples
+
+### Six-digit code
+
+`onComplete` fires when the code is complete. Pasting and the browser’s code suggestion work, because there is a single `input` underneath.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="PinField" />
+
+## Accessibility
+
+- A single `input` with `autocomplete="one-time-code"`: screen readers read it as a normal field.
+- The boxes are only graphics; the caret and selection follow the text.
+- `kind="numeric"` opens the numeric keyboard on phones.

@@ -1,0 +1,29 @@
+import Basic from '@demos/reveal/Basic.tsx?demo';
+
+# Reveal
+
+Una frase grande le cui parole si accendono una alla volta mentre scorri. Un momento solo per pagina, per dire il beneficio principale.
+
+<ApiLinks modules={['Reveal']} />
+
+## Riferimento rapido
+
+<QuickRef module="Reveal" />
+
+## Esempi
+
+### Una frase
+
+Scorri la pagina: le parole passano dal tono secondario a quello pieno quando superano una linea al 65% della finestra. Con più righe l’effetto si legge meglio.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Reveal" />
+
+## Accessibilità
+
+- Il testo è un solo paragrafo: i lettori di schermo lo leggono intero, a prescindere dallo scorrimento.
+- Entrambi i toni (`muted` e `fg`) hanno contrasto AA: la frase si legge anche prima di accendersi.
+- Con `prefers-reduced-motion`, senza script o senza `IntersectionObserver` è subito tutta accesa.

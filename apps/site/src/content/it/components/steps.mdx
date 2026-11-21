@@ -1,0 +1,29 @@
+import Basic from '@demos/steps/Basic.tsx?demo';
+
+# Steps
+
+I passaggi di un percorso: fatti, corrente e da fare, in orizzontale o in verticale.
+
+<ApiLinks modules={['Steps']} />
+
+## Riferimento rapido
+
+<QuickRef module="Steps" />
+
+## Esempi
+
+### Tre passaggi
+
+`value` è il passaggio corrente. Con `navigable="done"` si può tornare indietro a quelli fatti. Negli spazi stretti mostra solo il corrente e “2 di 3”.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Steps" />
+
+## Accessibilità
+
+- È una lista ordinata; il passaggio corrente ha `aria-current="step"` e i fatti sono annunciati come “completato”.
+- Stato non solo a colore: i fatti hanno la spunta, il corrente è pieno.
+- Con `navigable`, i passaggi raggiungibili sono bottoni; gli altri testo semplice.

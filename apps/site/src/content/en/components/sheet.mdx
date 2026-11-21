@@ -1,0 +1,36 @@
+import Basic from '@demos/sheet/Basic.tsx?demo';
+import Side from '@demos/sheet/Side.tsx?demo';
+
+# Sheet
+
+A modal panel that rises from the bottom edge (full width on phones) or slides in from a side. Same API as Dialog.
+
+<ApiLinks modules={['Sheet']} />
+
+## Quick reference
+
+<QuickRef module="Sheet" />
+
+## Examples
+
+### From the bottom
+
+`open` and `onOpenChange` control it. Title, description and actions go in the `title`, `description` and `actions` properties.
+
+<Basic />
+
+### From a side
+
+`side="end"` or `"start"` attaches it to the side edge, full height; it mirrors in right-to-left languages.
+
+<Side />
+
+## Customizing the theme
+
+<ThemeSnippet module="Sheet" />
+
+## Accessibility
+
+- It is a native modal `<dialog>`: contained focus, Escape, the rest of the page inert.
+- On closing, focus returns to the element that opened it.
+- It enters and leaves with a 450 and 200ms movement; with `prefers-reduced-motion`, a 150ms fade.

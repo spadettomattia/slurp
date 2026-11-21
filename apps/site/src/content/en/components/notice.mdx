@@ -1,0 +1,29 @@
+import Tones from '@demos/notice/Tones.tsx?demo';
+
+# Notice
+
+A message that stays on the page: information, success, warning or error, with a title and a text.
+
+<ApiLinks modules={['Notice']} />
+
+## Quick reference
+
+<QuickRef module="Notice" />
+
+## Examples
+
+### Four tones
+
+`tone` chooses icon and colour; the title and text say the rest. `onDismiss` adds the button to close it.
+
+<Tones />
+
+## Customizing the theme
+
+<ThemeSnippet module="Notice" />
+
+## Accessibility
+
+- By default it is a `role="status"`: it appears and is announced calmly. For an error that must interrupt pass `role="alert"`.
+- The tone always has an icon and a title: colour is not the only signal.
+- The button to close it has a name (“Dismiss notice”).

@@ -1,0 +1,36 @@
+import Basic from '@demos/datefield/Basic.tsx?demo';
+import Range from '@demos/datefield/Range.tsx?demo';
+
+# DateField
+
+Un campo data che si apre in un calendario: il giorno (o il periodo) si scrive in lettere, nella lingua del tema.
+
+<ApiLinks modules={['DateField']} />
+
+## Riferimento rapido
+
+<QuickRef module="DateField" />
+
+## Esempi
+
+### Un giorno
+
+Il valore è un giorno ISO (`2026-12-08`). Il campo cresce nel calendario e si chiude quando scegli.
+
+<Basic />
+
+### Un periodo
+
+Con `range` scegli l’inizio e poi la fine, in qualsiasi ordine; `min` e `max` spengono i giorni fuori limite.
+
+<Range />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="DateField" />
+
+## Accessibilità
+
+- Il pulsante dice il valore (“Arrivo 8 dicembre 2026”) ed espone `aria-expanded`.
+- Dentro c’è un `Calendar`: griglia di giorni con nome completo, frecce, Pagina su e giù, Home e Fine.
+- Il focus passa al giorno corrente all’apertura e torna al campo alla chiusura.

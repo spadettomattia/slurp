@@ -1,0 +1,36 @@
+import Basic from '@demos/calendar/Basic.tsx?demo';
+import Disabled from '@demos/calendar/Disabled.tsx?demo';
+
+# Calendar
+
+La griglia di un mese, usabile da sola: un giorno o un periodo, con limiti e giorni spenti.
+
+<ApiLinks modules={['Calendar']} />
+
+## Riferimento rapido
+
+<QuickRef module="Calendar" />
+
+## Esempi
+
+### Un giorno
+
+`defaultMonth` sceglie il mese mostrato. Le frecce muovono di un giorno o una settimana, Pagina su e giù cambiano mese.
+
+<Basic />
+
+### Giorni spenti
+
+`isDateDisabled` riceve il giorno ISO e restituisce `true` per spegnerlo: qui i fine settimana. Un giorno spento non si sceglie e resta nel testo.
+
+<Disabled />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Calendar" />
+
+## Accessibilità
+
+- È una griglia (`role="grid"`) con il mese nel nome; ogni giorno è un bottone con il nome completo (“martedì 8 dicembre 2026”).
+- Un solo giorno è nella sequenza di tabulazione; le frecce spostano il focus senza perdere il punto.
+- Il giorno scelto e quelli di un periodo hanno riempimento e segno, non solo colore.

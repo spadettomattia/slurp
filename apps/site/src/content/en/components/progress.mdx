@@ -1,0 +1,29 @@
+import Shapes from '@demos/progress/Shapes.tsx?demo';
+
+# Progress
+
+How much is done: a bar or a ring, with a name and, if needed, the value written out.
+
+<ApiLinks modules={['Progress']} />
+
+## Quick reference
+
+<QuickRef module="Progress" />
+
+## Examples
+
+### Bar and ring
+
+`value` and `max` give the progress; without `value` the bar is indeterminate. `showValue` writes the percentage.
+
+<Shapes />
+
+## Customizing the theme
+
+<ThemeSnippet module="Progress" />
+
+## Accessibility
+
+- It is a `role="progressbar"` with a name, minimum and maximum; indeterminate without `aria-valuenow`.
+- `label` is required: it says what it is about.
+- With `prefers-reduced-motion` the indeterminate bar stays still.

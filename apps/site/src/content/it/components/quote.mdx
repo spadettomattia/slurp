@@ -1,0 +1,28 @@
+import Basic from '@demos/quote/Basic.tsx?demo';
+
+# Quote
+
+Una citazione con chi la dice: un `<blockquote>` dentro una `<figure>`, con l’autore e il ruolo.
+
+<ApiLinks modules={['Quote']} />
+
+## Riferimento rapido
+
+<QuickRef module="Quote" />
+
+## Esempi
+
+### Con autore
+
+`author` e `role` formano la didascalia. Se non servono, la citazione sta da sola.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Quote" />
+
+## Accessibilità
+
+- La struttura `<figure>` / `<blockquote>` / `<figcaption>` lega la citazione al suo autore.
+- Il testo citato è il contenuto; l’autore non è mai solo un’immagine.

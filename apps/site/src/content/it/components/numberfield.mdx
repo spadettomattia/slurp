@@ -1,0 +1,29 @@
+import Basic from '@demos/numberfield/Basic.tsx?demo';
+
+# NumberField
+
+Un campo numerico con − e + da 44px: si usa con i tasti, con la rotella o con i bottoni, entro i limiti che dai.
+
+<ApiLinks modules={['NumberField']} />
+
+## Riferimento rapido
+
+<QuickRef module="NumberField" />
+
+## Esempi
+
+### Quantità con limiti
+
+`min`, `max` e `step` fissano i limiti e il passo; i bottoni si spengono agli estremi. Freccia su e giù cambiano il valore, Home e Fine vanno ai limiti.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="NumberField" />
+
+## Accessibilità
+
+- È un `spinbutton`: i lettori di schermo annunciano valore, minimo e massimo.
+- I bottoni − e + hanno un nome (“Diminuisci”, “Aumenta”) e un bersaglio di almeno 44px.
+- Il valore digitato fuori dai limiti viene riportato dentro quando lasci il campo o premi Invio.

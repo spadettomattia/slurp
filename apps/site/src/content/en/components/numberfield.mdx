@@ -1,0 +1,29 @@
+import Basic from '@demos/numberfield/Basic.tsx?demo';
+
+# NumberField
+
+A number field with 44px − and + buttons: it works with the keys, the wheel or the buttons, within the limits you set.
+
+<ApiLinks modules={['NumberField']} />
+
+## Quick reference
+
+<QuickRef module="NumberField" />
+
+## Examples
+
+### Quantity with limits
+
+`min`, `max` and `step` set the limits and the step; the buttons turn off at the ends. Arrow up and down change the value, Home and End go to the limits.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="NumberField" />
+
+## Accessibility
+
+- It is a `spinbutton`: screen readers announce value, minimum and maximum.
+- The − and + buttons have a name (“Decrease”, “Increase”) and a target of at least 44px.
+- A typed value outside the limits is brought back inside when you leave the field or press Enter.

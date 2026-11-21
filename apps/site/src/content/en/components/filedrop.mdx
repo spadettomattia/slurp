@@ -1,0 +1,29 @@
+import Basic from '@demos/filedrop/Basic.tsx?demo';
+
+# FileDrop
+
+An area to choose or drag files, with the list of those chosen and a way to remove them.
+
+<ApiLinks modules={['FileDrop']} />
+
+## Quick reference
+
+<QuickRef module="FileDrop" />
+
+## Examples
+
+### Several files
+
+`accept` limits the types, `multiple` allows more than one. `onValueChange` receives the updated list of `File`s.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="FileDrop" />
+
+## Accessibility
+
+- Underneath is a real `<input type="file">`: it works with the keyboard and the system picker; dragging is an extra.
+- Each file has a “Remove file-name” button.
+- `progress` shows the progress of an upload with a named bar.

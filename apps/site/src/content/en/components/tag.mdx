@@ -1,0 +1,29 @@
+import Tones from '@demos/tag/Tones.tsx?demo';
+
+# Tag
+
+A static label for a state or category: “New”, “Draft”, “Verified”. It is not pressed: to choose, use Chip.
+
+<ApiLinks modules={['Tag']} />
+
+## Quick reference
+
+<QuickRef module="Tag" />
+
+## Examples
+
+### Tones
+
+The status tones add a dot in their colour: the word says the state, the colour reinforces it.
+
+<Tones />
+
+## Customizing the theme
+
+<ThemeSnippet module="Tag" />
+
+## Accessibility
+
+- It is plain text: no special role, no interaction.
+- The state is always a word; colour is never the only signal.
+- The text keeps the normal colour: AA contrast on every tone.

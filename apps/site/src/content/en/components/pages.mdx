@@ -1,0 +1,36 @@
+import Basic from '@demos/pages/Basic.tsx?demo';
+import Links from '@demos/pages/Links.tsx?demo';
+
+# Pages
+
+Pagination: the current page, neighbours and ends, with previous and next. As buttons or as links.
+
+<ApiLinks modules={['Pages']} />
+
+## Quick reference
+
+<QuickRef module="Pages" />
+
+## Examples
+
+### With state
+
+`count` is the number of pages; `onPageChange` receives the chosen page. `siblings` and `boundaries` decide how many it shows.
+
+<Basic />
+
+### As links
+
+With `href` each page is a real link: it works without script and opens in a new tab.
+
+<Links />
+
+## Customizing the theme
+
+<ThemeSnippet module="Pages" />
+
+## Accessibility
+
+- It is a named `<nav>`; the current page has `aria-current="page"`.
+- Previous and next turn off at the limits; each number has a name (“Page 3”).
+- Targets are at least 44px.

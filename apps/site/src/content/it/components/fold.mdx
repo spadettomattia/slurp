@@ -1,0 +1,29 @@
+import Basic from '@demos/fold/Basic.tsx?demo';
+
+# Fold
+
+Una sezione che si apre e si chiude: un titolo che è un bottone e una regione che cresce in altezza.
+
+<ApiLinks modules={['Fold']} />
+
+## Riferimento rapido
+
+<QuickRef module="Fold" />
+
+## Esempi
+
+### Domande e risposte
+
+`summary` è il titolo; `headingLevel` sceglie il livello del titolo (2–6). Ognuno si apre per conto suo, con `defaultOpen` per partire aperto.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Fold" />
+
+## Accessibilità
+
+- Il titolo contiene un `<button>` con `aria-expanded`, in un’intestazione del livello che scegli.
+- La regione è nominata dal suo titolo ed è nascosta (anche al focus) quando è chiusa.
+- L’ultimo di un gruppo non ha la linea sotto, così non incontra gli angoli di un contenitore arrotondato.

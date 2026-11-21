@@ -1,0 +1,36 @@
+import Basic from '@demos/pages/Basic.tsx?demo';
+import Links from '@demos/pages/Links.tsx?demo';
+
+# Pages
+
+La paginazione: pagina corrente, vicine e estremi, con precedente e successiva. Come bottoni o come link.
+
+<ApiLinks modules={['Pages']} />
+
+## Riferimento rapido
+
+<QuickRef module="Pages" />
+
+## Esempi
+
+### Con stato
+
+`count` è il numero di pagine; `onPageChange` riceve la pagina scelta. `siblings` e `boundaries` decidono quante ne mostra.
+
+<Basic />
+
+### Come link
+
+Con `href` ogni pagina è un vero link: funziona anche senza script e si apre in una nuova scheda.
+
+<Links />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Pages" />
+
+## Accessibilità
+
+- È una `<nav>` con nome; la pagina corrente ha `aria-current="page"`.
+- Precedente e successiva si spengono ai limiti; ogni numero ha un nome (“Pagina 3”).
+- I bersagli sono di almeno 44px.

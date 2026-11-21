@@ -1,0 +1,29 @@
+import Basic from '@demos/hint/Basic.tsx?demo';
+
+# Hint
+
+Un suggerimento breve che compare vicino a un controllo, al passaggio o al focus. Per un’icona senza testo, non per informazioni essenziali.
+
+<ApiLinks modules={['Hint']} />
+
+## Riferimento rapido
+
+<QuickRef module="Hint" />
+
+## Esempi
+
+### Su un’icona
+
+`content` è il testo; il figlio è l’elemento che lo attiva (un solo elemento). `placement` sceglie sopra o sotto.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Hint" />
+
+## Accessibilità
+
+- Il suggerimento è collegato al controllo con `aria-describedby`; compare anche al focus da tastiera e si chiude con Escape.
+- Non mettere qui ciò che serve per capire: sui telefoni non c’è il passaggio del mouse. Il controllo deve avere già il suo nome.
+- Dopo che uno si chiude, il successivo entro 300ms compare subito.

@@ -1,0 +1,29 @@
+import Basic from '@demos/tabs/Basic.tsx?demo';
+
+# Tabs
+
+Alternating panels with a row of tabs: only one visible, the active tab marked by an indicator that slides.
+
+<ApiLinks modules={['Tabs']} />
+
+## Quick reference
+
+<QuickRef module="Tabs" />
+
+## Examples
+
+### Three tabs
+
+`items` lists the tabs (`value`, `label`, `content`). `label` names the set.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Tabs" />
+
+## Accessibility
+
+- WAI-ARIA pattern: `tablist`, `tab`, `tabpanel`; the active tab has `aria-selected`.
+- Right and left arrows move the choice, Home and End go to the ends; only the active tab is in the tab sequence.
+- The indicator is a graphic extra: the active tab also has stronger text.

@@ -1,0 +1,29 @@
+import Basic from '@demos/reveal/Basic.tsx?demo';
+
+# Reveal
+
+A large sentence whose words light up one at a time as you scroll. One moment per page, to state the main benefit.
+
+<ApiLinks modules={['Reveal']} />
+
+## Quick reference
+
+<QuickRef module="Reveal" />
+
+## Examples
+
+### A sentence
+
+Scroll the page: the words go from the secondary tone to the full one as they cross a line at 65% of the window. With more lines the effect reads better.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Reveal" />
+
+## Accessibility
+
+- The text is a single paragraph: screen readers read it whole, whatever the scroll.
+- Both tones (`muted` and `fg`) have AA contrast: the sentence reads before it lights up.
+- With `prefers-reduced-motion`, without script or without `IntersectionObserver` it is simply lit.

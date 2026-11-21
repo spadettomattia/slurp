@@ -1,0 +1,29 @@
+import Basic from '@demos/carousel/Basic.tsx?demo';
+
+# Carousel
+
+A row of items that scroll one at a time, with previous, next and dots.
+
+<ApiLinks modules={['Carousel']} />
+
+## Quick reference
+
+<QuickRef module="Carousel" />
+
+## Examples
+
+### Three slides
+
+Each child is a slide. `label` names the group; `index` and `onIndexChange` control it.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Carousel" />
+
+## Accessibility
+
+- It is a named region and each slide declares its position (“2 of 3”).
+- Previous and next are 44px buttons; the dots are named buttons.
+- It scrolls with touch and keyboard too; it never changes by itself.

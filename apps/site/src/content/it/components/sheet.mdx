@@ -1,0 +1,36 @@
+import Basic from '@demos/sheet/Basic.tsx?demo';
+import Side from '@demos/sheet/Side.tsx?demo';
+
+# Sheet
+
+Un pannello modale che sale dal bordo in basso (a tutta larghezza sui telefoni) o scorre da un lato. Stessa API di Dialog.
+
+<ApiLinks modules={['Sheet']} />
+
+## Riferimento rapido
+
+<QuickRef module="Sheet" />
+
+## Esempi
+
+### Dal basso
+
+`open` e `onOpenChange` lo controllano. Titolo, descrizione e azioni stanno nelle proprietà `title`, `description` e `actions`.
+
+<Basic />
+
+### Da un lato
+
+`side="end"` o `"start"` lo attacca al bordo laterale, a tutta altezza; si specchia nelle lingue da destra a sinistra.
+
+<Side />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Sheet" />
+
+## Accessibilità
+
+- È un `<dialog>` modale nativo: focus contenuto, Escape, resto della pagina inerte.
+- Alla chiusura il focus torna all’elemento che l’ha aperto.
+- Entra ed esce con un movimento di 450 e 200ms; con `prefers-reduced-motion`, una dissolvenza di 150ms.

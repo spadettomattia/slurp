@@ -1,0 +1,29 @@
+import Basic from '@demos/filedrop/Basic.tsx?demo';
+
+# FileDrop
+
+Un’area per scegliere o trascinare file, con l’elenco di quelli scelti e il modo di toglierli.
+
+<ApiLinks modules={['FileDrop']} />
+
+## Riferimento rapido
+
+<QuickRef module="FileDrop" />
+
+## Esempi
+
+### Più file
+
+`accept` limita i tipi, `multiple` ne ammette più d’uno. `onValueChange` riceve l’elenco aggiornato dei `File`.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="FileDrop" />
+
+## Accessibilità
+
+- Sotto c’è un vero `<input type="file">`: funziona con la tastiera e con il selettore del sistema; il trascinamento è un di più.
+- Ogni file ha un bottone “Rimuovi nome-del-file”.
+- `progress` mostra l’avanzamento di un caricamento con una barra con nome.

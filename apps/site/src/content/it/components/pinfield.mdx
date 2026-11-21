@@ -1,0 +1,29 @@
+import Basic from '@demos/pinfield/Basic.tsx?demo';
+
+# PinField
+
+Un codice a poche cifre (verifica, accesso) mostrato a caselle ma gestito da un solo campo.
+
+<ApiLinks modules={['PinField']} />
+
+## Riferimento rapido
+
+<QuickRef module="PinField" />
+
+## Esempi
+
+### Codice a sei cifre
+
+`onComplete` scatta quando il codice è completo. Incolla e il suggerimento del codice dal messaggio funzionano, perché sotto c’è un solo `input`.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="PinField" />
+
+## Accessibilità
+
+- Un solo `input` con `autocomplete="one-time-code"`: i lettori di schermo lo leggono come un campo normale.
+- Le caselle sono solo grafica; il cursore e la selezione seguono il testo.
+- `kind="numeric"` apre la tastiera numerica sui telefoni.

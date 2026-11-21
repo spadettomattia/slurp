@@ -1,0 +1,29 @@
+import Basic from '@demos/carousel/Basic.tsx?demo';
+
+# Carousel
+
+Una fila di elementi che scorrono uno alla volta, con precedente, successivo e punti.
+
+<ApiLinks modules={['Carousel']} />
+
+## Riferimento rapido
+
+<QuickRef module="Carousel" />
+
+## Esempi
+
+### Tre diapositive
+
+Ogni figlio è una diapositiva. `label` dà il nome al gruppo; `index` e `onIndexChange` lo controllano.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Carousel" />
+
+## Accessibilità
+
+- È una regione con nome e ogni diapositiva dichiara la sua posizione (“2 di 3”).
+- Precedente e successivo sono bottoni da 44px; i punti sono bottoni con nome.
+- Scorre anche con il tocco e la tastiera; non cambia da solo.

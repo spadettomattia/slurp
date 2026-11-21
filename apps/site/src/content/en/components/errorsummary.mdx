@@ -1,0 +1,29 @@
+import Basic from '@demos/errorsummary/Basic.tsx?demo';
+
+# ErrorSummary
+
+The list of a form’s errors, at the top: it announces the problem, takes focus and leads to each field with a link.
+
+<ApiLinks modules={['ErrorSummary']} />
+
+## Quick reference
+
+<QuickRef module="ErrorSummary" />
+
+## Examples
+
+### After submitting
+
+Each item has the field’s `id` and the message. The summary takes focus when it appears (`focusOnShow`); a link takes you to the field and focuses it.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="ErrorSummary" />
+
+## Accessibility
+
+- It is a `role="alert"`: it appears and is read at once; it takes focus to bring attention there.
+- Each error is a link to the field’s `id`: it reaches it and focuses it.
+- With no errors it renders nothing.

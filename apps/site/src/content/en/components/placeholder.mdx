@@ -1,0 +1,29 @@
+import Basic from '@demos/placeholder/Basic.tsx?demo';
+
+# Placeholder
+
+The stand-in for content that is arriving: a round, capsule or square shape, the size it will have.
+
+<ApiLinks modules={['Placeholder']} />
+
+## Quick reference
+
+<QuickRef module="Placeholder" />
+
+## Examples
+
+### The three shapes
+
+Give the width and height of what it replaces, so the page does not jump when it arrives.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Placeholder" />
+
+## Accessibility
+
+- It is decorative: hidden from assistive technologies.
+- The container that uses it can declare `aria-busy` until the content arrives.
+- With `prefers-reduced-motion` it does not pulse.

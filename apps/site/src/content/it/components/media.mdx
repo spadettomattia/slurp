@@ -1,0 +1,29 @@
+import Basic from '@demos/media/Basic.tsx?demo';
+
+# Media
+
+Un’immagine con le sue proporzioni riservate: la pagina non salta mentre carica, e la didascalia è un vero `<figcaption>`.
+
+<ApiLinks modules={['Media']} />
+
+## Riferimento rapido
+
+<QuickRef module="Media" />
+
+## Esempi
+
+### Con proporzioni e didascalia
+
+`ratio` riserva lo spazio prima del caricamento; `loading="lazy"` è il comportamento di base. Quando l’immagine è arrivata compare con una dissolvenza.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Media" />
+
+## Accessibilità
+
+- `alt` descrive l’immagine; se è solo decorativa lascialo vuoto.
+- La didascalia è un `<figcaption>` dentro un `<figure>`, quindi è collegata all’immagine.
+- Il riquadro ha già le proporzioni: niente salti di layout mentre carica.

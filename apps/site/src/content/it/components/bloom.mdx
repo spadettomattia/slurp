@@ -1,0 +1,29 @@
+import Basic from '@demos/bloom/Basic.tsx?demo';
+
+# Bloom
+
+Un bottone che diventa il suo pannello: cresce in larghezza e altezza su una sola superficie e torna bottone alla chiusura.
+
+<ApiLinks modules={['Bloom']} />
+
+## Riferimento rapido
+
+<QuickRef module="Bloom" />
+
+## Esempi
+
+### Pannello di filtri
+
+`trigger` è il testo del bottone; i figli sono il contenuto. Con una funzione come figlio ricevi `close` per chiudere dal contenuto.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Bloom" />
+
+## Accessibilità
+
+- Il bottone ha `aria-expanded` e `aria-controls`; il pannello è nominato da `panelLabel`.
+- Aprendo, il focus entra nel pannello; Escape, un clic fuori o Tab fuori lo chiudono e il focus torna al bottone.
+- Con `prefers-reduced-motion` il pannello compare con una dissolvenza.

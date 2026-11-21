@@ -1,0 +1,29 @@
+import Basic from '@demos/steps/Basic.tsx?demo';
+
+# Steps
+
+The steps of a path: done, current and to do, horizontal or vertical.
+
+<ApiLinks modules={['Steps']} />
+
+## Quick reference
+
+<QuickRef module="Steps" />
+
+## Examples
+
+### Three steps
+
+`value` is the current step. With `navigable="done"` you can go back to the done ones. In narrow spaces it shows only the current one and “2 of 3”.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Steps" />
+
+## Accessibility
+
+- It is an ordered list; the current step has `aria-current="step"` and the done ones are announced as “completed”.
+- State is not colour alone: done steps have a check, the current one is filled.
+- With `navigable`, reachable steps are buttons; the others plain text.

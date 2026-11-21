@@ -1,0 +1,29 @@
+import Basic from '@demos/hint/Basic.tsx?demo';
+
+# Hint
+
+A short hint that appears near a control, on hover or focus. For an icon without text, not for essential information.
+
+<ApiLinks modules={['Hint']} />
+
+## Quick reference
+
+<QuickRef module="Hint" />
+
+## Examples
+
+### On an icon
+
+`content` is the text; the child is the element that triggers it (a single element). `placement` chooses above or below.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Hint" />
+
+## Accessibility
+
+- The hint is linked to the control with `aria-describedby`; it also appears on keyboard focus and closes with Escape.
+- Do not put here what is needed to understand: phones have no hover. The control must already have its name.
+- After one closes, the next within 300ms shows at once.

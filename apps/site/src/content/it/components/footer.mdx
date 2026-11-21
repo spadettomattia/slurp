@@ -1,0 +1,29 @@
+import Basic from '@demos/footer/Basic.tsx?demo';
+
+# Footer
+
+Il piede del sito: colonne di link e una riga finale per legale, versione e lingua.
+
+<ApiLinks modules={['Footer']} />
+
+## Riferimento rapido
+
+<QuickRef module="Footer" />
+
+## Esempi
+
+### Colonne e riga finale
+
+`Footer.Group` è una colonna con titolo, `Footer.Link` un link (con `as` usa il link del tuo router), `Footer.Bottom` la riga in fondo.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Footer" />
+
+## Accessibilità
+
+- È il landmark `contentinfo` (`<footer>`), uno per pagina.
+- Ogni colonna è una lista con il titolo come nome: si legge “Documentazione, lista di 2 elementi”.
+- I link hanno il focus visibile e un’altezza di almeno 32px.

@@ -1,0 +1,29 @@
+import Basic from '@demos/footer/Basic.tsx?demo';
+
+# Footer
+
+The foot of a site: columns of links and a bottom line for legal, version and language.
+
+<ApiLinks modules={['Footer']} />
+
+## Quick reference
+
+<QuickRef module="Footer" />
+
+## Examples
+
+### Columns and bottom line
+
+`Footer.Group` is a column with a title, `Footer.Link` a link (with `as` it uses your router’s link), `Footer.Bottom` the bottom line.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Footer" />
+
+## Accessibility
+
+- It is the `contentinfo` landmark (`<footer>`), one per page.
+- Each column is a list named by its title: “Documentation, list of 2 items”.
+- Links have a visible focus and a height of at least 32px.

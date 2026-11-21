@@ -1,0 +1,29 @@
+import Shapes from '@demos/progress/Shapes.tsx?demo';
+
+# Progress
+
+Quanto è fatto: una barra o un anello, con un nome e, se serve, il valore scritto.
+
+<ApiLinks modules={['Progress']} />
+
+## Riferimento rapido
+
+<QuickRef module="Progress" />
+
+## Esempi
+
+### Barra e anello
+
+`value` e `max` dicono l’avanzamento; senza `value` la barra è indeterminata. `showValue` scrive la percentuale.
+
+<Shapes />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Progress" />
+
+## Accessibilità
+
+- È un `role="progressbar"` con nome, valore minimo e massimo; indeterminato senza `aria-valuenow`.
+- `label` è obbligatorio: dice di che cosa si tratta.
+- Con `prefers-reduced-motion` la barra indeterminata resta ferma.

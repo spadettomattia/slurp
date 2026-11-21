@@ -1,0 +1,28 @@
+import Basic from '@demos/count/Basic.tsx?demo';
+
+# Count
+
+A number in a circle for what is new or unread. The number is part of the accessible name.
+
+<ApiLinks modules={['Count']} />
+
+## Quick reference
+
+<QuickRef module="Count" />
+
+## Examples
+
+### On an avatar
+
+`max` caps the number (“99+”); `label` can be a function to say what is counted.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Count" />
+
+## Accessibility
+
+- The number is text with a full name (“3 new messages”), not just a digit.
+- The number’s contrast on its background is AA in both themes.

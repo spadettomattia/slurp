@@ -1,0 +1,29 @@
+import Basic from '@demos/rise/Basic.tsx?demo';
+
+# Rise
+
+Rivela ciò che avvolge quando scorre in vista: sale di 32px e appare in 650ms, una volta.
+
+<ApiLinks modules={['Rise']} />
+
+## Riferimento rapido
+
+<QuickRef module="Rise" />
+
+## Esempi
+
+### Una fila a scalini
+
+`delay` ritarda l’inizio: per una fila di fratelli usa `indice × 60`. Scorri la pagina per vederla.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Rise" />
+
+## Accessibilità
+
+- Il contenuto è nel DOM e leggibile da subito: cambiano solo opacità e posizione.
+- Con `prefers-reduced-motion` è una dissolvenza, senza movimento; senza script il contenuto è visibile.
+- Non avvolgere l’hero né ciò che compare di continuo.

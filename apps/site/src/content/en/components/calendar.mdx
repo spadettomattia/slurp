@@ -1,0 +1,36 @@
+import Basic from '@demos/calendar/Basic.tsx?demo';
+import Disabled from '@demos/calendar/Disabled.tsx?demo';
+
+# Calendar
+
+A month grid, usable on its own: a day or a period, with limits and disabled days.
+
+<ApiLinks modules={['Calendar']} />
+
+## Quick reference
+
+<QuickRef module="Calendar" />
+
+## Examples
+
+### One day
+
+`defaultMonth` chooses the month shown. The arrows move by a day or a week, Page up and down change month.
+
+<Basic />
+
+### Disabled days
+
+`isDateDisabled` receives the ISO day and returns `true` to turn it off: here, weekends. A disabled day cannot be chosen and stays in the text.
+
+<Disabled />
+
+## Customizing the theme
+
+<ThemeSnippet module="Calendar" />
+
+## Accessibility
+
+- It is a grid (`role="grid"`) with the month in its name; each day is a button with its full name (“Tuesday 8 December 2026”).
+- Only one day is in the tab sequence; the arrows move focus without losing the place.
+- The chosen day and the days of a period have fill and mark, not colour alone.

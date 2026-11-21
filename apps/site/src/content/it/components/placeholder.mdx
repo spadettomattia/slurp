@@ -1,0 +1,29 @@
+import Basic from '@demos/placeholder/Basic.tsx?demo';
+
+# Placeholder
+
+Il segnaposto di un contenuto che sta arrivando: una forma tonda, a capsula o quadrata, delle dimensioni che avrà.
+
+<ApiLinks modules={['Placeholder']} />
+
+## Riferimento rapido
+
+<QuickRef module="Placeholder" />
+
+## Esempi
+
+### Le tre forme
+
+Dai larghezza e altezza di ciò che sostituisce, così la pagina non salta quando arriva.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Placeholder" />
+
+## Accessibilità
+
+- È decorativo: nascosto alle tecnologie assistive.
+- Il contenitore che lo usa può dichiarare `aria-busy` finché il contenuto non arriva.
+- Con `prefers-reduced-motion` non pulsa.

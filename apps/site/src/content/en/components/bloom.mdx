@@ -1,0 +1,29 @@
+import Basic from '@demos/bloom/Basic.tsx?demo';
+
+# Bloom
+
+A button that becomes its panel: it grows in width and height on a single surface and turns back into a button when closed.
+
+<ApiLinks modules={['Bloom']} />
+
+## Quick reference
+
+<QuickRef module="Bloom" />
+
+## Examples
+
+### Filters panel
+
+`trigger` is the button’s text; the children are the content. With a function as child you receive `close` to close from inside.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Bloom" />
+
+## Accessibility
+
+- The button has `aria-expanded` and `aria-controls`; the panel is named by `panelLabel`.
+- On opening, focus enters the panel; Escape, a click outside or Tabbing out closes it and focus returns to the button.
+- With `prefers-reduced-motion` the panel appears with a fade.

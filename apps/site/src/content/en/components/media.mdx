@@ -1,0 +1,29 @@
+import Basic from '@demos/media/Basic.tsx?demo';
+
+# Media
+
+An image with its proportions reserved: the page does not jump while it loads, and the caption is a real `<figcaption>`.
+
+<ApiLinks modules={['Media']} />
+
+## Quick reference
+
+<QuickRef module="Media" />
+
+## Examples
+
+### With ratio and caption
+
+`ratio` reserves the space before loading; `loading="lazy"` is the default. Once the image has arrived it fades in.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Media" />
+
+## Accessibility
+
+- `alt` describes the image; if it is only decorative, leave it empty.
+- The caption is a `<figcaption>` inside a `<figure>`, so it is tied to the image.
+- The frame already has its proportions: no layout shift while it loads.

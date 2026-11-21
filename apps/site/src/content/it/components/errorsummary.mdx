@@ -1,0 +1,29 @@
+import Basic from '@demos/errorsummary/Basic.tsx?demo';
+
+# ErrorSummary
+
+L’elenco degli errori di un modulo, in cima: annuncia il problema, prende il focus e porta a ogni campo con un link.
+
+<ApiLinks modules={['ErrorSummary']} />
+
+## Riferimento rapido
+
+<QuickRef module="ErrorSummary" />
+
+## Esempi
+
+### Dopo l’invio
+
+Ogni voce ha l’`id` del campo e il messaggio. Il riepilogo prende il focus quando compare (`focusOnShow`); un link porta al campo e lo mette a fuoco.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="ErrorSummary" />
+
+## Accessibilità
+
+- È un `role="alert"`: compare e viene letto subito; prende il focus per portare l’attenzione lì.
+- Ogni errore è un link all’`id` del campo: lo raggiunge e lo mette a fuoco.
+- Senza errori non rende nulla.

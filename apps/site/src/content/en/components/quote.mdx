@@ -1,0 +1,28 @@
+import Basic from '@demos/quote/Basic.tsx?demo';
+
+# Quote
+
+A quotation with who says it: a `<blockquote>` inside a `<figure>`, with the author and role.
+
+<ApiLinks modules={['Quote']} />
+
+## Quick reference
+
+<QuickRef module="Quote" />
+
+## Examples
+
+### With author
+
+`author` and `role` make the caption. If they are not needed, the quote stands alone.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Quote" />
+
+## Accessibility
+
+- The `<figure>` / `<blockquote>` / `<figcaption>` structure ties the quote to its author.
+- The quoted text is the content; the author is never only an image.

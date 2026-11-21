@@ -1,0 +1,29 @@
+import Basic from '@demos/multisuggest/Basic.tsx?demo';
+
+# MultiSuggest
+
+Suggest for several choices: the list stays open while you pick and each choice becomes a tag you can remove.
+
+<ApiLinks modules={['MultiSuggest']} />
+
+## Quick reference
+
+<QuickRef module="MultiSuggest" />
+
+## Examples
+
+### Several colours
+
+`value` is the list of chosen values, in the order chosen. Backspace in an empty field removes the last one; with `name` one hidden field per value is submitted.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="MultiSuggest" />
+
+## Accessibility
+
+- A `combobox` with an `aria-multiselectable` list: arrows to move, Enter to choose or remove.
+- Each choice is a “Remove …” button in a named list.
+- The number of suggestions is announced in a `status` region.

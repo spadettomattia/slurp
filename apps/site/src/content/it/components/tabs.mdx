@@ -1,0 +1,29 @@
+import Basic from '@demos/tabs/Basic.tsx?demo';
+
+# Tabs
+
+Pannelli alternati con una riga di schede: una sola visibile, la scheda attiva sottolineata da un indicatore che scorre.
+
+<ApiLinks modules={['Tabs']} />
+
+## Riferimento rapido
+
+<QuickRef module="Tabs" />
+
+## Esempi
+
+### Tre schede
+
+`items` elenca le schede (`value`, `label`, `content`). `label` dà il nome all’insieme.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Tabs" />
+
+## Accessibilità
+
+- Schema WAI-ARIA: `tablist`, `tab`, `tabpanel`; la scheda attiva ha `aria-selected`.
+- Frecce destra e sinistra spostano la scelta, Home e Fine vanno agli estremi; solo la scheda attiva è nella sequenza di tabulazione.
+- L’indicatore è un di più grafico: la scheda attiva ha anche il testo più forte.

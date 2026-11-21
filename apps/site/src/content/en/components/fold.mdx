@@ -1,0 +1,29 @@
+import Basic from '@demos/fold/Basic.tsx?demo';
+
+# Fold
+
+A section that opens and closes: a heading that is a button and a region that grows in height.
+
+<ApiLinks modules={['Fold']} />
+
+## Quick reference
+
+<QuickRef module="Fold" />
+
+## Examples
+
+### Questions and answers
+
+`summary` is the heading; `headingLevel` chooses the heading level (2–6). Each opens on its own, with `defaultOpen` to start open.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Fold" />
+
+## Accessibility
+
+- The heading holds a `<button>` with `aria-expanded`, in a heading of the level you choose.
+- The region is named by its heading and hidden (also from focus) when closed.
+- The last of a group has no line under it, so it does not meet the corners of a rounded container.

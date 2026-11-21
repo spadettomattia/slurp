@@ -1,0 +1,29 @@
+import Basic from '@demos/rise/Basic.tsx?demo';
+
+# Rise
+
+Reveals what it wraps when it scrolls into view: it rises 32px and fades in over 650ms, once.
+
+<ApiLinks modules={['Rise']} />
+
+## Quick reference
+
+<QuickRef module="Rise" />
+
+## Examples
+
+### A staggered row
+
+`delay` postpones the start: for a row of siblings use `index × 60`. Scroll the page to see it.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Rise" />
+
+## Accessibility
+
+- The content is in the DOM and readable at once: only opacity and position change.
+- With `prefers-reduced-motion` it is a fade, with no movement; without script the content is visible.
+- Do not wrap the hero or anything that appears again and again.
