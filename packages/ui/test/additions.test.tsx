@@ -20,6 +20,7 @@ import {
   PinField,
   Quote,
   Reveal,
+  Rise,
   SecretField,
   SlurpProvider,
   Tag,
@@ -471,5 +472,75 @@ describe('Reveal', () => {
     const { container } = render(<Reveal>Una frase</Reveal>);
     expect(container.querySelector('.slurp-reveal')?.hasAttribute('data-armed')).toBe(false);
     restore();
+  });
+});
+
+describe('Rise', () => {
+  type Callback = (entries: Partial<IntersectionObserverEntry>[]) => void;
+  const real = globalThis.IntersectionObserver;
+
+  it('waits armed until it scrolls into view, then shows once and keeps its content', async () => {
+    let callback: Callback = () => undefined;
+    const disconnect = vi.fn();
+    globalThis.IntersectionObserver = class {
+      constructor(cb: Callback) {
+        callback = cb;
+      }
+      observe() {}
+      disconnect() {
+        disconnect();
+      }
+    } as unknown as typeof IntersectionObserver;
+    const { container } = render(
+      <main>
+        <Rise delay={120}>
+          <p>Contenuto</p>
+        </Rise>
+      </main>,
+    );
+    const rise = container.querySelector('.slurp-rise') as HTMLElement;
+    expect(rise.hasAttribute('data-armed')).toBe(true);
+    expect(rise.hasAttribute('data-in')).toBe(false);
+    expect(rise.style.getPropertyValue('--slurp-rise-delay')).toBe('120ms');
+    act(() => callback([{ isIntersecting: false }]));
+    expect(rise.hasAttribute('data-in')).toBe(false);
+    act(() => callback([{ isIntersecting: true }]));
+    expect(rise.hasAttribute('data-in')).toBe(true);
+    expect(disconnect).toHaveBeenCalled();
+    expect(screen.getByText('Contenuto')).toBeTruthy();
+    await expectNoAxeViolations(container);
+    globalThis.IntersectionObserver = real;
+  });
+
+  it('shows too when it was scrolled past without ever being seen', () => {
+    let callback: Callback = () => undefined;
+    globalThis.IntersectionObserver = class {
+      constructor(cb: Callback) {
+        callback = cb;
+      }
+      observe() {}
+      disconnect() {}
+    } as unknown as typeof IntersectionObserver;
+    const { container } = render(<Rise>x</Rise>);
+    const rise = container.querySelector('.slurp-rise') as HTMLElement;
+    act(() =>
+      callback([
+        {
+          isIntersecting: false,
+          rootBounds: { top: 0 } as DOMRectReadOnly,
+          boundingClientRect: { top: -400 } as DOMRectReadOnly,
+        },
+      ]),
+    );
+    expect(rise.hasAttribute('data-in')).toBe(true);
+    globalThis.IntersectionObserver = real;
+  });
+
+  it('is plainly there when there is no IntersectionObserver', () => {
+    // @ts-expect-error jsdom has none
+    globalThis.IntersectionObserver = undefined;
+    const { container } = render(<Rise>x</Rise>);
+    expect(container.querySelector('.slurp-rise')?.hasAttribute('data-armed')).toBe(false);
+    globalThis.IntersectionObserver = real;
   });
 });

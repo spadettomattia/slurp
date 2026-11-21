@@ -17,6 +17,7 @@ import {
   Range,
   Rating,
   Reveal,
+  Rise,
   Score,
   Segmented,
   Steps,
@@ -458,7 +459,7 @@ export default function Landing() {
           <HeroMotion t={t} />
         </div>
 
-        <section className="site-feature" aria-labelledby="showcase-title">
+        <Rise as="section" className="site-feature" aria-labelledby="showcase-title">
           <Flow gap={3} className="site-feature-text">
             <Text font="title-xl" as="h2" id="showcase-title">
               {t.showcase}
@@ -468,15 +469,15 @@ export default function Landing() {
             </Text>
           </Flow>
           <Showcase t={t} />
-        </section>
+        </Rise>
 
-        <section className="site-argument" aria-labelledby="benefits-title">
+        <Rise as="section" className="site-argument" aria-labelledby="benefits-title">
           <Text font="title-xl" as="h2" id="benefits-title">
             {arg.benefitsTitle}
           </Text>
           <ul className="site-benefits">
-            {arg.benefits.map(([title, text]) => (
-              <li key={title}>
+            {arg.benefits.map(([title, text], i) => (
+              <Rise as="li" key={title} delay={i * 60}>
                 <Surface className="site-benefit">
                   <Text font="title-s" as="h3">
                     {title}
@@ -485,22 +486,22 @@ export default function Landing() {
                     {text}
                   </Text>
                 </Surface>
-              </li>
+              </Rise>
             ))}
           </ul>
-        </section>
+        </Rise>
 
         <section className="site-tagline">
           <Reveal as="h2">{arg.tagline}</Reveal>
         </section>
 
-        <section className="site-argument" aria-labelledby="steps-title">
+        <Rise as="section" className="site-argument" aria-labelledby="steps-title">
           <Text font="title-xl" as="h2" id="steps-title">
             {arg.stepsTitle}
           </Text>
           <ol className="site-how">
             {arg.steps.map(([title, code, language], i) => (
-              <li key={title} className="site-how-step">
+              <Rise as="li" key={title} delay={i * 60} className="site-how-step">
                 <span className="site-how-number" aria-hidden="true">
                   {i + 1}
                 </span>
@@ -508,10 +509,10 @@ export default function Landing() {
                   {title}
                 </Text>
                 <Code code={code} language={language} />
-              </li>
+              </Rise>
             ))}
           </ol>
-        </section>
+        </Rise>
 
         <Text font="title-xl" as="h2" className="site-explore-title">
           {t.explore2}
@@ -545,7 +546,7 @@ export default function Landing() {
         </Bento>
       </AnimationGroup>
 
-      <section className="site-final" aria-labelledby="final-title">
+      <Rise as="section" className="site-final" aria-labelledby="final-title">
         <Text font="title-xl" as="h2" id="final-title">
           {arg.ctaTitle}
         </Text>
@@ -560,7 +561,7 @@ export default function Landing() {
             {t.explore}
           </Button>
         </Flow>
-      </section>
+      </Rise>
     </div>
   );
 }

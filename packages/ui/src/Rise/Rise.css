@@ -1,0 +1,26 @@
+/* Rise: visible until armed (no script, no observer); armed it waits 32px lower and transparent, then rises once. */
+@layer slurp.components {
+  .slurp-rise[data-armed] {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  .slurp-rise[data-armed][data-in] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--slurp-duration-signature) var(--slurp-ease-settle) var(--slurp-rise-delay, 0s),
+      transform var(--slurp-duration-signature) var(--slurp-ease-settle) var(--slurp-rise-delay, 0s);
+  }
+
+  /* Reduced motion: no movement, only a plain fade. */
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-rise[data-armed] {
+      transform: none;
+    }
+
+    .slurp-rise[data-armed][data-in] {
+      transition-property: opacity;
+    }
+  }
+}
