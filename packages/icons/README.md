@@ -25,3 +25,7 @@ Without `title` an icon is decorative (`aria-hidden`) and the control around it 
 ## License
 
 MIT
+
+## Credits
+
+`GithubIcon` takes its path from [Lucide](https://lucide.dev) (ISC licence, Copyright (c) Lucide Contributors), drawn on the same 24×24 grid and 2px stroke as the rest of the set.
