@@ -1,5 +1,11 @@
 # @slurp-ui/react
 
+## 1.4.0
+
+### Minor Changes
+
+- b386d97: New component: `Reveal`, a large sentence whose words go from the secondary colour to the full one as the page scrolls. Colour only, lit with reduced motion and without script.
+
 ## 1.3.0
 
 ### Minor Changes
