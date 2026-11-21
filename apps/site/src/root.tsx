@@ -13,7 +13,6 @@ import {
   useLocation,
 } from 'react-router';
 
-import { COPY } from './lib/i18n';
 import { langOf } from './lib/lang';
 
 const theme = createTheme({ accent: 'hue-violet' });
@@ -25,7 +24,6 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={COPY[lang].tagline} />
         <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
         <ColorSchemeScript />
         <Meta />

@@ -20,6 +20,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { LANGS, REPO, type Lang } from '../../site.config';
 import { SiteFooter } from '~/components/SiteFooter';
+import { DESCRIPTIONS } from '~/lib/descriptions';
 import { Brand } from '~/components/Brand';
 import { EditIcon, MenuIcon } from '@slurp-ui/react/icons';
 import { mdxComponents } from '~/components/Mdx';
@@ -145,6 +146,8 @@ export default function DocLayout() {
   const article = useRef<HTMLElement>(null);
   useSlurpEnter(undefined, { key: level === 'page' ? pathname : null, content: article });
 
+  const pageDescription = DESCRIPTIONS[slug]?.[lang] ?? copy.tagline;
+
   const showToc = level === 'page' && headings.length > 1;
   const searching = query.trim() !== '';
   const toggle = (p: Exclude<Panel, null>) => setPanel((now) => (now === p ? null : p));
@@ -154,6 +157,16 @@ export default function DocLayout() {
   return (
     <>
       {title && level !== 'home' && <title>{`${title} · Slurp UI`}</title>}
+      <meta name="description" content={pageDescription} />
+      <meta property="og:site_name" content="Slurp UI" />
+      <meta property="og:type" content="website" />
+      <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_US'} />
+      <meta
+        property="og:title"
+        content={title && level !== 'home' ? `${title} · Slurp UI` : `Slurp UI · ${copy.tagline}`}
+      />
+      <meta property="og:description" content={pageDescription} />
+      <meta name="twitter:card" content="summary" />
       <SkipLink />
       <Settings
         languages={LANGS.map((l: Lang) => ({ value: l, label: COPY[l].languageName, lang: l }))}

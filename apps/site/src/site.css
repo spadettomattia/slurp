@@ -437,6 +437,22 @@
     }
   }
 
+  /* Headline and lead: at most 680px, lines balanced for headings and without a lone last word for text. */
+  .site-hero-text > * {
+    max-width: 680px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
   .site-hero-text h1:focus {
     outline: none;
   }
