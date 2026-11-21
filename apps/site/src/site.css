@@ -508,6 +508,66 @@
     padding-top: var(--slurp-space-10);
   }
 
+  .site-argument {
+    margin-top: var(--slurp-space-10);
+    padding-top: var(--slurp-space-10);
+  }
+
+  .site-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--slurp-space-4);
+    margin: var(--slurp-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-benefit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-2);
+    height: 100%;
+    box-sizing: border-box;
+    padding: var(--slurp-space-5);
+  }
+
+  .site-how {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--slurp-space-5);
+    margin: var(--slurp-space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-how-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-3);
+    min-width: 0;
+  }
+
+  .site-how-number {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+    font: var(--slurp-font-label);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .site-final {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--slurp-space-3);
+    margin-top: var(--slurp-space-10);
+    padding-top: var(--slurp-space-10);
+  }
+
   .site-explore-title {
     margin: var(--slurp-space-10) 0 var(--slurp-space-6);
     padding-top: var(--slurp-space-10);
@@ -523,7 +583,7 @@
   @media (max-width: 640px) {
     /* The top stays clear of the fixed brand pill, as on wider screens. */
     .site-landing {
-      padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-4) var(--slurp-space-48);
+      padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-4) 0;
     }
 
     .site-showcase {

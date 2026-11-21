@@ -134,6 +134,84 @@ const TEXT = {
 
 type Copy = (typeof TEXT)[Lang];
 
+/** The argument of the page: what you get (outcomes, from what the repository checks), how to start, the last invitation. */
+const ARGUMENT = {
+  it: {
+    benefitsTitle: 'Perché usare Slurp UI',
+    benefits: [
+      [
+        'Si usano da tastiera e da lettore di schermo',
+        'Ogni componente ha nomi e ruoli corretti e un test automatico di accessibilità: non devi aggiungere nulla.',
+      ],
+      [
+        'Un tema da pochi valori',
+        'Accento, caratteri e raggio in createTheme: i token si generano da soli, in chiaro e in scuro.',
+      ],
+      [
+        'Poco codice da scaricare',
+        'Pulsante e provider pesano meno di 8 kB compressi, l’intera libreria meno di 50 kB.',
+      ],
+      [
+        'Italiano e inglese, e i tuoi testi',
+        'I componenti parlano due lingue; per altre passi i tuoi testi con una sola proprietà del provider.',
+      ],
+    ],
+    stepsTitle: 'Inizia in tre passi',
+    steps: [
+      ['Installa il pacchetto', 'npm install @slurp-ui/react', 'bash'],
+      [
+        'Importa lo stile e avvolgi l’app',
+        'import \'@slurp-ui/react/styles.css\';\n\n<SlurpProvider labels="it">\n  <Ground />\n  <App />\n</SlurpProvider>',
+        'tsx',
+      ],
+      [
+        'Usa un componente',
+        "import { Button } from '@slurp-ui/react';\n\n<Button>Salva</Button>",
+        'tsx',
+      ],
+    ],
+    ctaTitle: 'Prova Slurp UI nel tuo progetto',
+    ctaLead: 'Gratuita e con licenza MIT: la installi e la provi senza registrarti.',
+  },
+  en: {
+    benefitsTitle: 'Why use Slurp UI',
+    benefits: [
+      [
+        'Works with the keyboard and screen readers',
+        'Every component has correct names and roles and an automated accessibility test: you add nothing.',
+      ],
+      [
+        'A theme from a few values',
+        'Accent, typefaces and radius in createTheme: the tokens generate themselves, in light and dark.',
+      ],
+      [
+        'Little code to download',
+        'Button and the provider weigh under 8 kB compressed, the whole library under 50 kB.',
+      ],
+      [
+        'Italian and English, and your own texts',
+        'Components speak two languages; for others you pass your texts with one provider property.',
+      ],
+    ],
+    stepsTitle: 'Start in three steps',
+    steps: [
+      ['Install the package', 'npm install @slurp-ui/react', 'bash'],
+      [
+        'Import the style and wrap the app',
+        'import \'@slurp-ui/react/styles.css\';\n\n<SlurpProvider labels="en">\n  <Ground />\n  <App />\n</SlurpProvider>',
+        'tsx',
+      ],
+      [
+        'Use a component',
+        "import { Button } from '@slurp-ui/react';\n\n<Button>Save</Button>",
+        'tsx',
+      ],
+    ],
+    ctaTitle: 'Try Slurp UI in your project',
+    ctaLead: 'Free and MIT licensed: install it and try it without signing up.',
+  },
+} as const;
+
 const HUES = ['violet', 'blue', 'teal', 'orange', 'pink'] as const;
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -324,6 +402,7 @@ function Showcase({ t }: { t: Copy }) {
 export default function Landing() {
   const { lang, copy } = useLang();
   const t = TEXT[lang];
+  const arg = ARGUMENT[lang];
   const intro = useRef<HTMLDivElement>(null);
   const start = useLinkProps(href(lang, 'getting-started/installation'));
   const explore = useLinkProps(href(lang, 'components'));
@@ -386,6 +465,45 @@ export default function Landing() {
           <Showcase t={t} />
         </section>
 
+        <section className="site-argument" aria-labelledby="benefits-title">
+          <Text font="title-xl" as="h2" id="benefits-title">
+            {arg.benefitsTitle}
+          </Text>
+          <ul className="site-benefits">
+            {arg.benefits.map(([title, text]) => (
+              <li key={title}>
+                <Surface className="site-benefit">
+                  <Text font="title-s" as="h3">
+                    {title}
+                  </Text>
+                  <Text font="body-s" muted>
+                    {text}
+                  </Text>
+                </Surface>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="site-argument" aria-labelledby="steps-title">
+          <Text font="title-xl" as="h2" id="steps-title">
+            {arg.stepsTitle}
+          </Text>
+          <ol className="site-how">
+            {arg.steps.map(([title, code, language], i) => (
+              <li key={title} className="site-how-step">
+                <span className="site-how-number" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <Text font="title-s" as="h3">
+                  {title}
+                </Text>
+                <Code code={code} language={language} />
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <Text font="title-xl" as="h2" className="site-explore-title">
           {t.explore2}
         </Text>
@@ -417,6 +535,23 @@ export default function Landing() {
           />
         </Bento>
       </AnimationGroup>
+
+      <section className="site-final" aria-labelledby="final-title">
+        <Text font="title-xl" as="h2" id="final-title">
+          {arg.ctaTitle}
+        </Text>
+        <Text font="body-l" muted>
+          {arg.ctaLead}
+        </Text>
+        <Flow direction="row" gap={3} wrap>
+          <Button size="lg" {...start} endIcon={<ChevronRightIcon />}>
+            {t.start}
+          </Button>
+          <Button size="lg" appearance="soft" {...explore}>
+            {t.explore}
+          </Button>
+        </Flow>
+      </section>
     </div>
   );
 }
