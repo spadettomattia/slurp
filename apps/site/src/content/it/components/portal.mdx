@@ -1,0 +1,27 @@
+import Basic from '@demos/portal/Basic.tsx?demo';
+
+# Portal
+
+Disegna i figli in un altro punto del documento (di base alla fine del body): per tutto ciò che deve stare sopra e fuori dai contenitori che tagliano.
+
+<ApiLinks modules={['Portal']} />
+
+## Riferimento rapido
+
+<QuickRef module="Portal" />
+
+## Esempi
+
+### Un elemento fuori dal contenitore
+
+`container` sceglie dove; senza, usa il body. Il contenuto resta nell’albero React, quindi ricevi contesto ed eventi come prima.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Portal" />
+
+## Accessibilità
+
+- Il contenuto portato altrove resta dopo il suo punto d’origine nell’ordine del focus solo se lo gestisci: per i pannelli usa Bloom, Dialog o Hint, che lo fanno già.

@@ -1,0 +1,28 @@
+import Basic from '@demos/tree/Basic.tsx?demo';
+
+# Tree
+
+Una lista annidata (file, categorie) con un solo punto di tabulazione e tutta la tastiera.
+
+<ApiLinks modules={['Tree']} />
+
+## Riferimento rapido
+
+<QuickRef module="Tree" />
+
+## Esempi
+
+### Cartelle
+
+`items` è un albero di `id`, `label` e `children`. `defaultExpanded` apre dei nodi; `onValueChange` riceve il nodo scelto.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Tree" />
+
+## Accessibilità
+
+- Schema WAI-ARIA `tree`: su e giù per muoversi, destra apre o scende, sinistra chiude o torna al padre, Home e Fine agli estremi, Invio sceglie.
+- Ogni nodo dichiara `aria-level` e, se ha figli, `aria-expanded`.

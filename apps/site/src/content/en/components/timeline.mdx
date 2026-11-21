@@ -1,0 +1,28 @@
+import Basic from '@demos/timeline/Basic.tsx?demo';
+
+# Timeline
+
+A vertical list of events in order, joined by a line: a history, an order, a roadmap.
+
+<ApiLinks modules={['Timeline']} />
+
+## Quick reference
+
+<QuickRef module="Timeline" />
+
+## Examples
+
+### A delivery history
+
+`items` has `title`, `time`, `dateTime` (ISO) and `description`. With `latestFirst` the first event is the newest and has the accent marker.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Timeline" />
+
+## Accessibility
+
+- It is an ordered list (`<ol>`): the order is in the content, not just in the line.
+- With `dateTime` the date is a machine-readable `<time>`; the markers are decorative.

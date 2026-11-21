@@ -1,0 +1,28 @@
+import Basic from '@demos/compare/Basic.tsx?demo';
+
+# Compare
+
+Two pictures in the same frame with a divider that sweeps between them: before and after.
+
+<ApiLinks modules={['Compare']} />
+
+## Quick reference
+
+<QuickRef module="Compare" />
+
+## Examples
+
+### Before and after
+
+`before` and `after` are the two contents, the same size. `value` (0–100) is the share given to the first.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Compare" />
+
+## Accessibility
+
+- It is a real `input[type=range]` over the whole frame: arrows, Home and End and touch work as in any slider.
+- The value is announced as a percentage; `labels.handle` gives the name.

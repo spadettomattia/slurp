@@ -1,0 +1,28 @@
+import Basic from '@demos/visuallyhidden/Basic.tsx?demo';
+
+# VisuallyHidden
+
+Testo nascosto alla vista ma letto dai lettori di schermo: l’etichetta di un’icona, un titolo che il design non mostra.
+
+<ApiLinks modules={['VisuallyHidden']} />
+
+## Riferimento rapido
+
+<QuickRef module="VisuallyHidden" />
+
+## Esempi
+
+### Etichetta di un’icona
+
+Il testo resta nel flusso e nell’albero di accessibilità, ma occupa 1px e non si vede.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="VisuallyHidden" />
+
+## Accessibilità
+
+- Non usarlo per nascondere contenuto che il focus può raggiungere: sarebbe un focus invisibile.
+- Preferisci un’etichetta visibile quando c’è spazio.

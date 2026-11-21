@@ -1,0 +1,36 @@
+import Basic from '@demos/table/Basic.tsx?demo';
+import Selectable from '@demos/table/Selectable.tsx?demo';
+
+# Table
+
+Una tabella di dati senza cornice: linee tra le righe, numeri allineati, intestazioni che ordinano, selezione e intestazione fissa.
+
+<ApiLinks modules={['Table']} />
+
+## Riferimento rapido
+
+<QuickRef module="Table" />
+
+## Esempi
+
+### Con ordinamento
+
+`columns` descrive le colonne (`key`, `header`, `sortable`, `align`, `cell`); `rows` i dati. Il primo clic ordina in modo crescente, il secondo decrescente.
+
+<Basic />
+
+### Con selezione
+
+`selectable` aggiunge una casella per riga e una nell’intestazione, che seleziona tutto e mostra lo stato misto. Serve un `rowKey` stabile. `maxHeight` tiene fissa l’intestazione.
+
+<Selectable />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Table" />
+
+## Accessibilità
+
+- È una regione con nome (la didascalia) e focalizzabile: una tabella larga scorre in orizzontale con la tastiera.
+- Le intestazioni ordinabili sono bottoni e la colonna ordinata ha `aria-sort`; la prima colonna può essere `rowHeader`.
+- Le caselle hanno un nome (“Seleziona la riga”, “Seleziona tutte le righe”); la riga selezionata è anche tinta.

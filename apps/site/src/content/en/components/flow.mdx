@@ -1,0 +1,28 @@
+import Basic from '@demos/flow/Basic.tsx?demo';
+
+# Flow
+
+A row or column with even spacing between children: the row of buttons, the stack of fields.
+
+<ApiLinks modules={['Flow']} />
+
+## Quick reference
+
+<QuickRef module="Flow" />
+
+## Examples
+
+### A wrapping row
+
+`direction`, `gap` (on the spacing scale), `align`, `justify` and `wrap`; `direction` and `gap` can change by width.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Flow" />
+
+## Accessibility
+
+- It is layout only: it does not change the reading order, which follows the children’s order.
+- For a list use `as="ul"` and `li` children.

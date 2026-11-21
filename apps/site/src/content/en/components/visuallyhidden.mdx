@@ -1,0 +1,28 @@
+import Basic from '@demos/visuallyhidden/Basic.tsx?demo';
+
+# VisuallyHidden
+
+Text hidden from view but read by screen readers: an icon’s label, a heading the design does not show.
+
+<ApiLinks modules={['VisuallyHidden']} />
+
+## Quick reference
+
+<QuickRef module="VisuallyHidden" />
+
+## Examples
+
+### An icon’s label
+
+The text stays in the flow and in the accessibility tree, but takes up 1px and is not seen.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="VisuallyHidden" />
+
+## Accessibility
+
+- Do not use it to hide content that focus can reach: it would be an invisible focus.
+- Prefer a visible label when there is room.

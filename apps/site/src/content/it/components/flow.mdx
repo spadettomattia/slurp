@@ -1,0 +1,28 @@
+import Basic from '@demos/flow/Basic.tsx?demo';
+
+# Flow
+
+Una fila o una colonna con spazio uniforme tra i figli: la riga di pulsanti, la pila di campi.
+
+<ApiLinks modules={['Flow']} />
+
+## Riferimento rapido
+
+<QuickRef module="Flow" />
+
+## Esempi
+
+### Riga che va a capo
+
+`direction`, `gap` (sulla scala degli spazi), `align`, `justify` e `wrap`; `direction` e `gap` possono cambiare per larghezza.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Flow" />
+
+## Accessibilità
+
+- È solo disposizione: non cambia l’ordine di lettura, che segue l’ordine dei figli.
+- Per una lista usa `as="ul"` e figli `li`.

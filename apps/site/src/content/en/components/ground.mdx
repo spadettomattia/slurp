@@ -1,0 +1,28 @@
+import Basic from '@demos/ground/Basic.tsx?demo';
+
+# Ground
+
+The page baseline, to use once at the root: background, typography and focus ring. It renders no element.
+
+<ApiLinks modules={['Ground']} />
+
+## Quick reference
+
+<QuickRef module="Ground" />
+
+## Examples
+
+### At the root
+
+It goes inside `SlurpProvider` (in an app, usually near the root; here the site already has one). It sets `box-sizing: border-box`, removes the body margin, applies Poppins and the theme background (tinted 7% by the accent) and a 2px focus ring.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Ground" />
+
+## Accessibility
+
+- The 2px visible focus is guaranteed on every focusable element: do not remove it.
+- Background and text meet AA contrast in light and dark.

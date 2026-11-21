@@ -1,0 +1,28 @@
+import Basic from '@demos/lightbox/Basic.tsx?demo';
+
+# Lightbox
+
+Un’immagine a grandezza piena in un modale, con la galleria da sfogliare. Costruito su Dialog.
+
+<ApiLinks modules={['Lightbox']} />
+
+## Riferimento rapido
+
+<QuickRef module="Lightbox" />
+
+## Esempi
+
+### Galleria
+
+`images` elenca `src`, `alt` e una didascalia. `open` e `onOpenChange` lo controllano; `index` la immagine mostrata. Frecce o bottoni passano alla successiva e si torna alla prima.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Lightbox" />
+
+## Accessibilità
+
+- Modale nativo: focus contenuto, Escape, ritorno del focus a chi l’ha aperto.
+- Frecce sinistra e destra (invertite nelle lingue da destra a sinistra); la posizione “2 di 3” è la descrizione.

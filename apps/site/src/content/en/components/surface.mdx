@@ -1,0 +1,28 @@
+import Levels from '@demos/surface/Levels.tsx?demo';
+
+# Surface
+
+A translucent surface with rounded corners and a single shadow: the panel the content sits on.
+
+<ApiLinks modules={['Surface']} />
+
+## Quick reference
+
+<QuickRef module="Surface" />
+
+## Examples
+
+### Levels and radii
+
+`level` chooses the density (`surface`, near-opaque `dock`, opaque `solid`); `radius` grows with the container.
+
+<Levels />
+
+## Customizing the theme
+
+<ThemeSnippet module="Surface" />
+
+## Accessibility
+
+- Text on the surface has AA contrast at every level and in both themes.
+- It is not interactive: if it becomes so, use the right element (`button`, `a`) as `as`.

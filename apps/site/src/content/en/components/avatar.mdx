@@ -1,0 +1,28 @@
+import Basic from '@demos/avatar/Basic.tsx?demo';
+
+# Avatar
+
+A person (or a brand): a round photo, and initials when it is missing or fails to load.
+
+<ApiLinks modules={['Avatar']} />
+
+## Quick reference
+
+<QuickRef module="Avatar" />
+
+## Examples
+
+### Sizes and initials
+
+`size` is `sm` 32, `md` 44 or `lg` 64. Without `src` it shows the name’s initials.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Avatar" />
+
+## Accessibility
+
+- `name` is the image’s alternative text and the initials’ name; beside the name already written use `decorative`.
+- With a broken photo it falls back to the initials, with no gap.

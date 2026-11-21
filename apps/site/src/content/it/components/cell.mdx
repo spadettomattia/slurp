@@ -1,0 +1,28 @@
+import Basic from '@demos/cell/Basic.tsx?demo';
+
+# Cell
+
+Il mattone di base: qualunque elemento, stilizzato con `css`. Serve quando nessun altro componente è abbastanza semplice.
+
+<ApiLinks modules={['Cell']} />
+
+## Riferimento rapido
+
+<QuickRef module="Cell" />
+
+## Esempi
+
+### Un elemento a piacere
+
+`as` sceglie il tag; `css` accetta le proprietà CSS con i token (`var(--slurp-…)`), scritte come in un oggetto.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Cell" />
+
+## Accessibilità
+
+- Rende l’elemento che scegli con `as`: scegli quello giusto per il significato (`section`, `nav`, `ul`…).
+- Non aggiunge ruoli né testi.

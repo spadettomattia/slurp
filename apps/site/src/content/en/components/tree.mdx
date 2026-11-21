@@ -1,0 +1,28 @@
+import Basic from '@demos/tree/Basic.tsx?demo';
+
+# Tree
+
+A nested list (files, categories) with a single tab stop and full keyboard support.
+
+<ApiLinks modules={['Tree']} />
+
+## Quick reference
+
+<QuickRef module="Tree" />
+
+## Examples
+
+### Folders
+
+`items` is a tree of `id`, `label` and `children`. `defaultExpanded` opens some nodes; `onValueChange` receives the chosen node.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Tree" />
+
+## Accessibility
+
+- WAI-ARIA `tree` pattern: up and down to move, right opens or descends, left closes or goes to the parent, Home and End to the ends, Enter chooses.
+- Each node declares `aria-level` and, if it has children, `aria-expanded`.

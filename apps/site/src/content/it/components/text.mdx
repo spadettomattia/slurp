@@ -1,0 +1,28 @@
+import Basic from '@demos/text/Basic.tsx?demo';
+
+# Text
+
+Il testo con gli stili del design system: un nome di carattere, un tono e, se serve, attenuato.
+
+<ApiLinks modules={['Text']} />
+
+## Riferimento rapido
+
+<QuickRef module="Text" />
+
+## Esempi
+
+### Stili e toni
+
+`font` sceglie lo stile (`display-xl`, `title-l`, `body`, `caption`…); `tone` il colore di stato; `muted` il tono secondario.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Text" />
+
+## Accessibilità
+
+- `as` sceglie il tag: usa un’intestazione vera (`h1`–`h6`) per i titoli, non solo lo stile.
+- Ogni tono ha contrasto AA; il significato è sempre nelle parole, non solo nel colore.

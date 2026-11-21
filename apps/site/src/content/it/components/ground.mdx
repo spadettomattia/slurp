@@ -1,0 +1,28 @@
+import Basic from '@demos/ground/Basic.tsx?demo';
+
+# Ground
+
+La base della pagina, da usare una volta alla radice: sfondo, tipografia e anello di focus. Non produce un elemento.
+
+<ApiLinks modules={['Ground']} />
+
+## Riferimento rapido
+
+<QuickRef module="Ground" />
+
+## Esempi
+
+### Alla radice
+
+Va dentro `SlurpProvider` (nell’app, di solito vicino alla radice; qui il sito ce l’ha già). Mette `box-sizing: border-box`, toglie il margine del body, applica Poppins e lo sfondo del tema (tinto dall’accento al 7%) e un anello di focus di 2px.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Ground" />
+
+## Accessibilità
+
+- Il focus visibile di 2px è garantito su ogni elemento focalizzabile: non va rimosso.
+- Lo sfondo e il testo rispettano il contrasto AA in chiaro e in scuro.

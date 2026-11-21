@@ -1,0 +1,27 @@
+import Basic from '@demos/portal/Basic.tsx?demo';
+
+# Portal
+
+Renders the children somewhere else in the document (by default at the end of the body): for everything that must sit on top and outside clipping containers.
+
+<ApiLinks modules={['Portal']} />
+
+## Quick reference
+
+<QuickRef module="Portal" />
+
+## Examples
+
+### An element outside the container
+
+`container` chooses where; without it, the body. The content stays in the React tree, so you get context and events as before.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Portal" />
+
+## Accessibility
+
+- Content rendered elsewhere follows its origin in focus order only if you handle it: for panels use Bloom, Dialog or Hint, which already do.

@@ -1,0 +1,28 @@
+import Basic from '@demos/timeline/Basic.tsx?demo';
+
+# Timeline
+
+Una lista verticale di eventi in ordine, uniti da una linea: una cronologia, un ordine, una tabella di marcia.
+
+<ApiLinks modules={['Timeline']} />
+
+## Riferimento rapido
+
+<QuickRef module="Timeline" />
+
+## Esempi
+
+### Cronologia di una consegna
+
+`items` ha `title`, `time`, `dateTime` (ISO) e `description`. Con `latestFirst` il primo evento è quello più recente e ha il marcatore d’accento.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Timeline" />
+
+## Accessibilità
+
+- È una lista ordinata (`<ol>`): l’ordine è nel contenuto, non solo nella linea.
+- Con `dateTime` la data è un `<time>` leggibile dalle macchine; i marcatori sono decorativi.

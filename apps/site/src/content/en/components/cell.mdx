@@ -1,0 +1,28 @@
+import Basic from '@demos/cell/Basic.tsx?demo';
+
+# Cell
+
+The base primitive: any element, styled with `css`. For when no other component is simple enough.
+
+<ApiLinks modules={['Cell']} />
+
+## Quick reference
+
+<QuickRef module="Cell" />
+
+## Examples
+
+### Any element
+
+`as` chooses the tag; `css` accepts CSS properties with tokens (`var(--slurp-…)`), written as an object.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Cell" />
+
+## Accessibility
+
+- It renders the element you choose with `as`: choose the right one for the meaning (`section`, `nav`, `ul`…).
+- It adds no roles or texts.

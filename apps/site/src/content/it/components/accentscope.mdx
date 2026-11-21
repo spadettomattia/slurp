@@ -1,0 +1,28 @@
+import Basic from '@demos/accentscope/Basic.tsx?demo';
+
+# AccentScope
+
+Dà a una parte della pagina un altro colore d’accento, ricavato da un colore qualunque.
+
+<ApiLinks modules={['AccentScope']} />
+
+## Riferimento rapido
+
+<QuickRef module="AccentScope" />
+
+## Esempi
+
+### Un accento per sezione
+
+`color` è un colore qualunque; con `vivid()` diventa un accento vivido e leggibile. Tutti i figli usano quell’accento.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="AccentScope" />
+
+## Accessibilità
+
+- L’accento calcolato mantiene i contrasti AA: testo ≥ 4,5:1, bordi e simboli ≥ 3:1.
+- Il colore da solo non porta significato: gli stati hanno anche forma e parole.

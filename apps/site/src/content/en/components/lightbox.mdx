@@ -1,0 +1,28 @@
+import Basic from '@demos/lightbox/Basic.tsx?demo';
+
+# Lightbox
+
+A picture at full size in a modal, with the gallery to browse. Built on Dialog.
+
+<ApiLinks modules={['Lightbox']} />
+
+## Quick reference
+
+<QuickRef module="Lightbox" />
+
+## Examples
+
+### Gallery
+
+`images` lists `src`, `alt` and a caption. `open` and `onOpenChange` control it; `index` the picture shown. Arrows or buttons go to the next and wrap to the first.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Lightbox" />
+
+## Accessibility
+
+- Native modal: contained focus, Escape, focus returning to what opened it.
+- Left and right arrows (reversed in right-to-left languages); the “2 of 3” position is the description.

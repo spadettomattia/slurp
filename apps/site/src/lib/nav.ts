@@ -120,7 +120,7 @@ export const NAV: NavSection[] = [
       },
       {
         title: t('Pannelli', 'Panels'),
-        pages: comps('Bloom', 'Menu', 'Dialog', 'Sheet', 'Hint', 'Fold', 'Tabs'),
+        pages: comps('Bloom', 'Menu', 'Dialog', 'Sheet', 'Hint', 'Fold', 'Tabs', 'Consent'),
       },
       {
         title: t('Feedback', 'Feedback'),

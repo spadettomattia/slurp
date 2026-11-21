@@ -1,0 +1,28 @@
+import Basic from '@demos/compare/Basic.tsx?demo';
+
+# Compare
+
+Due immagini nello stesso riquadro con un divisore che scorre dall’una all’altra: prima e dopo.
+
+<ApiLinks modules={['Compare']} />
+
+## Riferimento rapido
+
+<QuickRef module="Compare" />
+
+## Esempi
+
+### Prima e dopo
+
+`before` e `after` sono i due contenuti, della stessa dimensione. `value` (0–100) è la parte data al primo.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Compare" />
+
+## Accessibilità
+
+- È un vero `input[type=range]` a tutto riquadro: frecce, Home e Fine e tocco funzionano come in ogni slider.
+- Il valore è annunciato in percentuale; `labels.handle` dà il nome.

@@ -1,0 +1,29 @@
+import Basic from '@demos/consent/Basic.tsx?demo';
+
+# Consent
+
+A consent banner fixed to the bottom: accepting and rejecting have the same weight, so refusing is as easy as agreeing.
+
+<ApiLinks modules={['Consent']} />
+
+## Quick reference
+
+<QuickRef module="Consent" />
+
+## Examples
+
+### With three actions
+
+`onAccept`, `onReject` and `onCustomize` answer the buttons; the app stores the choice and decides when to show it (`open`).
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Consent" />
+
+## Accessibility
+
+- It is a named, non-modal region: the page stays usable and focus is not captured.
+- Accept and Reject are buttons of the same look, side by side.
+- It stores nothing: the choice, and when to ask again, belong to the app.

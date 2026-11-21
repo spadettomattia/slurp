@@ -1,0 +1,36 @@
+import Basic from '@demos/table/Basic.tsx?demo';
+import Selectable from '@demos/table/Selectable.tsx?demo';
+
+# Table
+
+A data table without a frame: lines between rows, aligned numbers, headers that sort, selection and a fixed header.
+
+<ApiLinks modules={['Table']} />
+
+## Quick reference
+
+<QuickRef module="Table" />
+
+## Examples
+
+### With sorting
+
+`columns` describes the columns (`key`, `header`, `sortable`, `align`, `cell`); `rows` the data. The first click sorts ascending, the second descending.
+
+<Basic />
+
+### With selection
+
+`selectable` adds a checkbox per row and one in the header, which selects all and shows the mixed state. It needs a stable `rowKey`. `maxHeight` keeps the header fixed.
+
+<Selectable />
+
+## Customizing the theme
+
+<ThemeSnippet module="Table" />
+
+## Accessibility
+
+- It is a named (the caption) and focusable region: a wide table scrolls horizontally with the keyboard.
+- Sortable headers are buttons and the sorted column has `aria-sort`; the first column can be `rowHeader`.
+- Checkboxes have a name (“Select row”, “Select all rows”); the selected row is also tinted.
