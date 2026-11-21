@@ -1,5 +1,11 @@
 # @slurp-ui/react
 
+## 1.5.0
+
+### Minor Changes
+
+- a72bcde: New component: `Rise`, which reveals what it wraps when it scrolls into view: it rises 32px and fades in over 650ms, once; with reduced motion it only fades; without script it is just there.
+
 ## 1.4.0
 
 ### Minor Changes
