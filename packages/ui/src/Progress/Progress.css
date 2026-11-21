@@ -29,6 +29,10 @@
     transition: transform var(--slurp-duration-surface) var(--slurp-ease-settle);
   }
 
+  .slurp-progress-bar > .slurp-progress-fill:dir(rtl) {
+    transform-origin: right;
+  }
+
   .slurp-progress[data-indeterminate] .slurp-progress-bar > .slurp-progress-fill {
     width: 35%;
     transform: none;
@@ -70,6 +74,20 @@
     to {
       transform: translateX(290%);
     }
+  }
+
+  @keyframes slurp-progress-slide-rtl {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(-290%);
+    }
+  }
+
+  .slurp-progress[data-indeterminate] .slurp-progress-bar > .slurp-progress-fill:dir(rtl) {
+    animation-name: slurp-progress-slide-rtl;
   }
 
   @keyframes slurp-progress-spin {

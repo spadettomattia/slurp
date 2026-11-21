@@ -125,8 +125,8 @@
     content: '';
     position: absolute;
     top: calc(var(--slurp-space-1) + var(--slurp-steps-marker) / 2 - 1px);
-    right: calc(50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
-    left: calc(-50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
+    inset-inline-end: calc(50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
+    inset-inline-start: calc(-50% + var(--slurp-steps-marker) / 2 + var(--slurp-space-2));
     height: 2px;
     border-radius: var(--slurp-radius-full);
     background: var(--slurp-line);
@@ -154,7 +154,7 @@
     position: absolute;
     top: calc(var(--slurp-space-1) + var(--slurp-steps-marker) + var(--slurp-space-1));
     bottom: var(--slurp-space-1);
-    left: calc(var(--slurp-space-1) + var(--slurp-steps-marker) / 2 - 1px);
+    inset-inline-start: calc(var(--slurp-space-1) + var(--slurp-steps-marker) / 2 - 1px);
     width: 2px;
     border-radius: var(--slurp-radius-full);
     background: var(--slurp-line);

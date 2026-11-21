@@ -59,6 +59,14 @@
     );
   }
 
+  .slurp-range-control:dir(rtl)::-webkit-slider-runnable-track {
+    background: linear-gradient(
+      to left,
+      var(--slurp-range-fill) calc(var(--slurp-range-ratio) * 100%),
+      var(--slurp-range-rest) 0
+    );
+  }
+
   .slurp-range-control::-moz-range-track {
     height: 6px;
     border-radius: var(--slurp-radius-full);

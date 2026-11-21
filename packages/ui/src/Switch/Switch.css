@@ -4,6 +4,10 @@
     transform: translate(-4px, -50%);
   }
 
+  .slurp-switch-input:dir(rtl) {
+    transform: translate(4px, -50%);
+  }
+
   .slurp-switch-track {
     box-sizing: border-box;
     position: relative;
