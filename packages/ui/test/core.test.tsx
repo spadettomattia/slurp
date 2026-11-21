@@ -600,6 +600,23 @@ describe('Dialog and Sheet', () => {
     expect(screen.getByRole('dialog', { name: 'Altro' }).getAttribute('data-side')).toBe('bottom');
   });
 
+  it('a bottom sheet closes when its grab handle is dragged down; a side sheet has none', () => {
+    const onOpenChange = vi.fn();
+    const { container, unmount } = render(
+      <Sheet open title="Filtri" onOpenChange={onOpenChange} />,
+    );
+    const grab = container.querySelector('.slurp-dialog-grab') as HTMLElement;
+    expect(grab.getAttribute('aria-hidden')).toBe('true');
+    fireEvent.pointerDown(grab, { clientY: 100, button: 0, pointerId: 1 });
+    fireEvent.pointerMove(grab, { clientY: 130, pointerId: 1 });
+    fireEvent.pointerUp(grab, { clientY: 130, pointerId: 1 });
+    // A short, slow drag... (jsdom has no clock between events, so a flick counts): both go through the state.
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    unmount();
+    const side = render(<Sheet open side="end" title="Lato" />);
+    expect(side.container.querySelector('.slurp-dialog-grab')).toBeNull();
+  });
+
   it('Escape (cancel) closes through the state', async () => {
     const onOpenChange = vi.fn();
     render(<Dialog open title="Titolo" onOpenChange={onOpenChange} />);
@@ -689,6 +706,38 @@ describe('Feedback', () => {
     expect(toast.hasAttribute('data-leaving')).toBe(true);
     await act(() => vi.advanceTimersByTimeAsync(400));
     expect(screen.queryByText('Copiato')).toBeNull();
+  });
+
+  it('Toast: a sideways swipe past 80px dismisses it, a short one returns it', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    function Trigger() {
+      const { toast } = useToast();
+      return (
+        <button type="button" onClick={() => toast({ title: 'Archiviato', duration: Infinity })}>
+          Archivia
+        </button>
+      );
+    }
+    render(
+      <ToastProvider>
+        <Trigger />
+      </ToastProvider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Archivia' }));
+    const toast = screen.getByText('Archiviato').closest('li') as HTMLElement;
+    const swipe = (dx: number) => {
+      fireEvent.pointerDown(toast, { clientX: 200, button: 0, pointerId: 1 });
+      fireEvent.pointerMove(toast, { clientX: 200 + dx, pointerId: 1 });
+      fireEvent.pointerUp(toast, { clientX: 200 + dx, pointerId: 1 });
+    };
+    swipe(8);
+    expect(toast.hasAttribute('data-leaving')).toBe(false);
+    expect(toast.style.transform).toBe('');
+    swipe(120);
+    expect(toast.hasAttribute('data-leaving')).toBe(true);
+    expect(toast.style.getPropertyValue('--slurp-toast-out')).toBe('120%');
+    await act(() => vi.advanceTimersByTimeAsync(400));
+    expect(screen.queryByText('Archiviato')).toBeNull();
   });
 
   it('useToast needs a provider', () => {

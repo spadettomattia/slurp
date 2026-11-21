@@ -9,6 +9,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type PointerEvent,
   type ReactNode,
 } from 'react';
 
@@ -142,6 +143,42 @@ function ToastItem({
 
   const [paused, setPaused] = useState(false);
 
+  // Swipe sideways to dismiss: it follows the finger 1:1; past 80px, or fast enough, it goes on its way; else it returns.
+  const drag = useRef<{ x: number; t: number; dx: number } | null>(null);
+  const SWIPE = 80;
+  const FLICK = 0.11;
+  const onDown = (e: PointerEvent<HTMLLIElement>) => {
+    if (e.button !== 0 || leaving) return;
+    if ((e.target as HTMLElement).closest('button, a, input, [role="button"]')) return;
+    drag.current = { x: e.clientX, t: e.timeStamp, dx: 0 };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    e.currentTarget.setAttribute('data-dragging', '');
+    setPaused(true);
+  };
+  const onMove = (e: PointerEvent<HTMLLIElement>) => {
+    const d = drag.current;
+    if (!d) return;
+    d.dx = e.clientX - d.x;
+    e.currentTarget.style.transform = `translateX(${d.dx}px)`;
+    e.currentTarget.style.opacity = String(Math.max(0.3, 1 - Math.abs(d.dx) / 240));
+  };
+  const onUp = (e: PointerEvent<HTMLLIElement>) => {
+    const d = drag.current;
+    drag.current = null;
+    const el = e.currentTarget;
+    if (!d) return;
+    el.removeAttribute('data-dragging');
+    const velocity = Math.abs(d.dx) / Math.max(1, e.timeStamp - d.t);
+    const away =
+      e.type === 'pointerup' &&
+      (Math.abs(d.dx) > SWIPE || (velocity > FLICK && Math.abs(d.dx) > 10));
+    if (away) el.style.setProperty('--slurp-toast-out', d.dx > 0 ? '120%' : '-120%');
+    el.style.removeProperty('transform');
+    el.style.removeProperty('opacity');
+    if (away) onDismiss();
+    else setPaused(false);
+  };
+
   useEffect(() => {
     if (leaving || paused || !Number.isFinite(left.current)) return;
     const started = Date.now();
@@ -160,7 +197,13 @@ function ToastItem({
       data-tone={tone}
       inert={leaving || undefined}
       onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
+      onPointerLeave={() => {
+        if (!drag.current) setPaused(false);
+      }}
+      onPointerDown={onDown}
+      onPointerMove={onMove}
+      onPointerUp={onUp}
+      onPointerCancel={onUp}
       onFocus={() => setPaused(true)}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false);

@@ -57,16 +57,27 @@
   .slurp-toast[data-leaving] {
     overflow: hidden;
     opacity: 0;
-    transform: translateX(24px) scale(0.98);
-  }
-
-  .slurp-toast[data-leaving]:dir(rtl) {
-    transform: translateX(-24px) scale(0.98);
+    transform: translateX(var(--slurp-toast-out, 24px)) scale(0.98);
     transition-duration: var(--slurp-duration-quick);
     height: 0;
     margin-bottom: calc(-1 * var(--slurp-space-2));
     padding-block: 0;
     border-width: 0;
+  }
+
+  .slurp-toast:dir(rtl) {
+    --slurp-toast-out: -24px;
+  }
+
+  /* Swiped away: it follows the finger with no transition, and the way out continues in the same direction. */
+  .slurp-toast {
+    touch-action: pan-y;
+  }
+
+  .slurp-toast[data-dragging] {
+    transition: none;
+    cursor: grabbing;
+    user-select: none;
   }
 
   .slurp-toast[data-tone='success'] {

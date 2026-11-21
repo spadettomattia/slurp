@@ -31,6 +31,7 @@ A modal panel that rises from the bottom edge (full width on phones) or slides i
 
 ## Accessibility
 
+- From the bottom it has a handle at the top: drag it down and the panel follows your finger; past 100px, or with a quick flick, it closes, otherwise it returns. It is only an extra: the Close button and Escape remain.
 - It is a native modal `<dialog>`: contained focus, Escape, the rest of the page inert.
 - On closing, focus returns to the element that opened it.
 - It enters and leaves with a 450 and 200ms movement; with `prefers-reduced-motion`, a 150ms fade.

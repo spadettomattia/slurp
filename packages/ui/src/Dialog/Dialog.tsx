@@ -8,6 +8,7 @@ import {
   useRef,
   type ElementType,
   type MouseEvent,
+  type PointerEvent,
   type ReactNode,
   type SyntheticEvent,
 } from 'react';
@@ -92,6 +93,47 @@ export function useModal(props: DialogProps & { side?: SheetSide }, variant: Var
   const root = useAnimationRoot({ ...rest, ref: useForkRef(ref as never, dialog) });
 
   const leaving = useRef<Animation | null>(null);
+  /** Where a drag left the sheet (px down), so its way out starts from there instead of from rest. */
+  const draggedTo = useRef<number | null>(null);
+  const grab = useRef<{ y: number; t: number; dy: number } | null>(null);
+  const DISMISS_PX = 100;
+  const FLICK = 0.11;
+  const onGrabDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    grab.current = { y: e.clientY, t: e.timeStamp, dy: 0 };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const onGrabMove = (e: PointerEvent<HTMLDivElement>) => {
+    const g = grab.current;
+    const el = dialog.current;
+    if (!g || !el) return;
+    // Down follows the finger 1:1; up resists (a rubber band).
+    g.dy = e.clientY - g.y;
+    const shown = g.dy >= 0 ? g.dy : g.dy / 6;
+    el.style.transform = `translateY(${shown}px)`;
+  };
+  const onGrabUp = (e: PointerEvent<HTMLDivElement>) => {
+    const g = grab.current;
+    const el = dialog.current;
+    grab.current = null;
+    if (!g || !el) return;
+    const velocity = g.dy / Math.max(1, e.timeStamp - g.t);
+    const away = e.type === 'pointerup' && (g.dy > DISMISS_PX || (velocity > FLICK && g.dy > 10));
+    if (away) {
+      draggedTo.current = g.dy;
+      el.style.removeProperty('transform');
+      setOpen(false);
+      return;
+    }
+    // Back to rest with the way in's curve.
+    el.style.removeProperty('transform');
+    if (typeof el.animate === 'function' && g.dy > 0) {
+      el.animate([{ transform: `translateY(${g.dy}px)` }, { transform: 'none' }], {
+        duration: ms(duration.move),
+        easing: EASE,
+      });
+    }
+  };
 
   useLayoutEffect(() => {
     const el = dialog.current;
@@ -116,7 +158,9 @@ export function useModal(props: DialogProps & { side?: SheetSide }, variant: Var
         opener.current?.focus();
         opener.current = null;
       };
-      const exit = shrink(el, opener.current, variant, side);
+      const dragged = draggedTo.current;
+      draggedTo.current = null;
+      const exit = shrink(el, opener.current, variant, side, dragged);
       if (!exit) return close();
       leaving.current = exit;
       exit.finished.then(
@@ -157,6 +201,16 @@ export function useModal(props: DialogProps & { side?: SheetSide }, variant: Var
         }}
         {...root}
       >
+        {variant === 'sheet' && side === 'bottom' && (
+          <div
+            className="slurp-dialog-grab"
+            aria-hidden="true"
+            onPointerDown={onGrabDown}
+            onPointerMove={onGrabMove}
+            onPointerUp={onGrabUp}
+            onPointerCancel={onGrabUp}
+          />
+        )}
         <div className="slurp-dialog-inner">
           {part('header', 'div', {
             className: 'slurp-dialog-header',
@@ -251,13 +305,15 @@ function shrink(
   to: HTMLElement | null,
   variant: Variant,
   side: SheetSide,
+  fromPx: number | null = null,
 ): Animation | undefined {
   if (typeof el.animate !== 'function') return undefined;
   const fill = 'forwards' as const;
   if (reduced()) return el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill });
   const timing = { duration: ms(duration.quick), easing: EASE, fill };
   if (variant === 'sheet') {
-    return el.animate([{ transform: 'none' }, { transform: offscreen(el, side) }], timing);
+    const start = fromPx != null && side === 'bottom' ? `translateY(${fromPx}px)` : 'none';
+    return el.animate([{ transform: start }, { transform: offscreen(el, side) }], timing);
   }
   const end = fromOpener(el, to) ?? 'scale(0.96)';
   return el.animate(

@@ -56,6 +56,9 @@ type Panel = 'index' | 'toc' | null;
  * floating Surface on the left, the page's own index on the right, and the Dock at the bottom carrying the path and
  * the global search. On narrow screens both indexes open from the Dock as its panels. Settings at the top right.
  */
+/** The picture shown when a page is shared (absolute: social networks need a full address). */
+const SHARE_IMAGE = 'https://spadettomattia.github.io/slurp/share.jpg';
+
 export default function DocLayout() {
   const { lang, copy, slug } = useLang();
   const { pathname, hash } = useLocation();
@@ -166,7 +169,12 @@ export default function DocLayout() {
         content={title && level !== 'home' ? `${title} · Slurp UI` : `Slurp UI · ${copy.tagline}`}
       />
       <meta property="og:description" content={pageDescription} />
-      <meta name="twitter:card" content="summary" />
+      <meta property="og:image" content={SHARE_IMAGE} />
+      <meta property="og:image:width" content="800" />
+      <meta property="og:image:height" content="420" />
+      <meta property="og:image:alt" content="Slurp UI" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={SHARE_IMAGE} />
       <SkipLink />
       <Settings
         languages={LANGS.map((l: Lang) => ({ value: l, label: COPY[l].languageName, lang: l }))}

@@ -110,4 +110,28 @@
     box-sizing: border-box;
     padding-bottom: max(var(--slurp-space-6), env(safe-area-inset-bottom));
   }
+
+  /* The grab handle of a bottom sheet: a short pill at the top; dragging it down closes the sheet. */
+  .slurp-dialog-grab {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+    z-index: 1;
+    width: 96px;
+    height: 28px;
+    margin-inline-start: -48px;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .slurp-dialog-grab::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 10px;
+    inset-inline-start: 30px;
+    width: 36px;
+    height: 4px;
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-border-control);
+  }
 }
