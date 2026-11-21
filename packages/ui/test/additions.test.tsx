@@ -19,6 +19,7 @@ import {
   NumberField,
   PinField,
   Quote,
+  Reveal,
   SecretField,
   SlurpProvider,
   Tag,
@@ -414,5 +415,61 @@ describe('AvatarGroup, Timeline, Consent', () => {
       </main>,
     );
     expect(screen.queryByRole('region')).toBeNull();
+  });
+});
+
+describe('Reveal', () => {
+  type Callback = (entries: Partial<IntersectionObserverEntry>[]) => void;
+  let callback: Callback = () => undefined;
+  const real = globalThis.IntersectionObserver;
+  const realMatch = globalThis.matchMedia;
+
+  function install(reduced: boolean) {
+    globalThis.IntersectionObserver = class {
+      constructor(cb: Callback) {
+        callback = cb;
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    } as unknown as typeof IntersectionObserver;
+    globalThis.matchMedia = ((q: string) => ({
+      matches: reduced && q.includes('reduce'),
+    })) as unknown as typeof matchMedia;
+  }
+  function restore() {
+    globalThis.IntersectionObserver = real;
+    globalThis.matchMedia = realMatch;
+  }
+
+  it('renders the sentence whole and lights its words in order as they cross the line', async () => {
+    install(false);
+    const { container } = render(
+      <main>
+        <Reveal as="h2">Una frase di tre parole</Reveal>
+      </main>,
+    );
+    const heading = screen.getByRole('heading', { name: 'Una frase di tre parole' });
+    expect(heading.hasAttribute('data-armed')).toBe(true);
+    const words = [...container.querySelectorAll<HTMLElement>('.slurp-reveal-word')];
+    expect(words.map((w) => w.textContent)).toEqual(['Una', 'frase', 'di', 'tre', 'parole']);
+    act(() =>
+      callback([
+        { target: words[1], isIntersecting: true },
+        { target: words[0], isIntersecting: true },
+      ]),
+    );
+    expect(words.map((w) => w.hasAttribute('data-lit'))).toEqual([true, true, false, false, false]);
+    expect(words[0]?.style.transitionDelay).toBe('0ms');
+    expect(words[1]?.style.transitionDelay).toBe('30ms');
+    await expectNoAxeViolations(container);
+    restore();
+  });
+
+  it('stays lit, with nothing armed, when motion is reduced', () => {
+    install(true);
+    const { container } = render(<Reveal>Una frase</Reveal>);
+    expect(container.querySelector('.slurp-reveal')?.hasAttribute('data-armed')).toBe(false);
+    restore();
   });
 });

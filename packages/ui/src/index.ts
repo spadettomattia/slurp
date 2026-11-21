@@ -148,6 +148,10 @@ export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
 export {
+  Reveal,
+  type RevealProps,
+} from './Reveal';
+export {
   Lightbox,
   LIGHTBOX_LABELS,
   type LightboxImage,

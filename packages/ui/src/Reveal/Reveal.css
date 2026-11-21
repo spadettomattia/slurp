@@ -1,0 +1,20 @@
+/* Reveal: the words start in the secondary colour and turn to the full one; only colour changes. Lit until armed. */
+@layer slurp.components {
+  .slurp-reveal {
+    max-width: 680px;
+    margin: 0;
+    color: var(--slurp-fg);
+    font: var(--slurp-font-display-l);
+    letter-spacing: var(--slurp-font-display-l-tracking);
+    text-wrap: balance;
+  }
+
+  .slurp-reveal[data-armed] .slurp-reveal-word {
+    color: var(--slurp-muted);
+    transition: color var(--slurp-duration-base) var(--slurp-ease-settle);
+  }
+
+  .slurp-reveal[data-armed] .slurp-reveal-word[data-lit] {
+    color: var(--slurp-fg);
+  }
+}

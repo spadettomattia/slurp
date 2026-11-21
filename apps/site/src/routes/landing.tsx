@@ -16,6 +16,7 @@ import {
   Progress,
   Range,
   Rating,
+  Reveal,
   Score,
   Segmented,
   Steps,
@@ -156,6 +157,8 @@ const ARGUMENT = {
         'I componenti parlano due lingue; per altre passi i tuoi testi con una sola proprietà del provider.',
       ],
     ],
+    tagline:
+      'Un solo posto per navigare, controlli che restano accessibili e un tema che segue il tuo colore.',
     stepsTitle: 'Inizia in tre passi',
     steps: [
       ['Installa il pacchetto', 'npm install @slurp-ui/react', 'bash'],
@@ -193,6 +196,8 @@ const ARGUMENT = {
         'Components speak two languages; for others you pass your texts with one provider property.',
       ],
     ],
+    tagline:
+      'One place to navigate, controls that stay accessible and a theme that follows your colour.',
     stepsTitle: 'Start in three steps',
     steps: [
       ['Install the package', 'npm install @slurp-ui/react', 'bash'],
@@ -483,6 +488,10 @@ export default function Landing() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="site-tagline">
+          <Reveal as="h2">{arg.tagline}</Reveal>
         </section>
 
         <section className="site-argument" aria-labelledby="steps-title">

@@ -53,6 +53,7 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { RevealProps } from '../Reveal/Reveal';
 import type { LightboxProps } from '../Lightbox/Lightbox';
 import type { CompareProps } from '../Compare/Compare';
 import type { TreeProps } from '../Tree/Tree';
@@ -124,6 +125,7 @@ const DEFAULT_MOTION: MotionOptions = {
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
+  Reveal: { props: RevealProps; parts: 'root' };
   Lightbox: { props: LightboxProps; parts: 'root' };
   Compare: { props: CompareProps; parts: 'root' };
   Tree: { props: TreeProps; parts: 'root' };

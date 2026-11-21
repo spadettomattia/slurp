@@ -513,6 +513,11 @@
     padding-top: var(--slurp-space-10);
   }
 
+  /* A moment of its own: room above and below, so the words light up while it scrolls through the screen. */
+  .site-tagline {
+    padding-block: calc(var(--slurp-space-10) * 2);
+  }
+
   .site-benefits {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
