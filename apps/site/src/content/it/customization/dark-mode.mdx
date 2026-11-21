@@ -1,0 +1,40 @@
+# Tema chiaro e scuro
+
+Il tema scuro segue `prefers-color-scheme`, oppure `data-theme="light"` o `"dark"` su un elemento. La scelta di chi usa il sito vince sul sistema.
+
+## Il provider
+
+`SlurpProvider` applica la scelta e la ricorda in `localStorage` (`storageKey`, `null` per non ricordarla). Il valore di partenza è `colorScheme` del tema: `light`, `dark` o `system`.
+
+```tsx
+createTheme({ colorScheme: 'system' });
+
+<SlurpProvider theme={theme} storageKey="app-theme">
+  …
+</SlurpProvider>;
+```
+
+## Cambiarlo
+
+`useColorScheme()` dà `{ mode, setMode, resolved }`: `mode` è ciò che è stato scelto, `resolved` ciò che si vede (`system` si risolve con il sistema).
+
+```tsx
+import { useColorScheme } from '@slurp-ui/react';
+
+const { mode, setMode } = useColorScheme();
+<button onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>Cambia tema</button>;
+```
+
+Il componente `Settings` ha già il suo selettore Chiaro, Scuro e Automatico.
+
+## Senza lampeggi
+
+Con il rendering sul server, `ColorSchemeScript` nell'`<head>` applica la scelta prima del primo disegno; metti `suppressHydrationWarning` su `<html>`, perché lo script ne cambia `data-theme`.
+
+```tsx
+<html lang="it" suppressHydrationWarning>
+  <head>
+    <ColorSchemeScript />
+  </head>
+</html>
+```

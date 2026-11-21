@@ -1,0 +1,42 @@
+# Stato e media query
+
+## useControlled
+
+Controllato o no con un'unica API (`value`, `defaultValue`, `on…Change`), come gli `input` nativi: se è controllato lo si decide al montaggio.
+
+```tsx
+import { useControlled } from '@slurp-ui/react/utils';
+
+const [value, setValue] = useControlled({
+  value: props.value,
+  defaultValue: 0,
+  onChange: props.onValueChange,
+});
+```
+
+## useMediaQuery
+
+Dice se una media query corrisponde e resta aggiornato. Durante il rendering sul server e l'idratazione restituisce `defaultMatches`. `COMPACT_QUERY` è il layout da telefono del design system.
+
+```tsx
+import { COMPACT_QUERY, useMediaQuery } from '@slurp-ui/react/utils';
+
+const phone = useMediaQuery(COMPACT_QUERY);
+```
+
+## useClipboard
+
+Copia testo negli appunti. `copied` resta vero per `timeout` millisecondi (2000) dopo una copia riuscita; `copy` restituisce `false` se il browser rifiuta (nessun permesso, pagina non sicura).
+
+```tsx
+const { copy, copied } = useClipboard();
+<button onClick={() => copy('npm i @slurp-ui/react')}>{copied ? 'Copiato' : 'Copia'}</button>;
+```
+
+## useScrollSpy
+
+L'id, tra quelli dati, della sezione che si sta leggendo: il primo elemento nella fascia di lettura (di base il 35% in alto). Resta sull'ultimo visto mentre scorri una sezione lunga; è `undefined` finché nessuno compare.
+
+```tsx
+const active = useScrollSpy(['intro', 'esempi', 'accessibilita']);
+```

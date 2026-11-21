@@ -1,0 +1,37 @@
+# Navigazione tra route
+
+La transizione può attraversare due pagine: parte dalla tile della home e atterra nella briciola del Dock della pagina successiva, poi torna indietro al contrario.
+
+## Due hook
+
+`useSlurpNavigate(navigate)` avvolge la funzione di navigazione del tuo router (`navigate` di React Router, `router.push`, `history.pushState`…): con le opzioni misura gli elementi che partono e lascia un passaggio di consegne. Nella route che si monta, `useSlurpEnter()` lo riprende e lo gioca verso gli elementi di arrivo.
+
+```tsx title="Home.tsx"
+import { useNavigate } from 'react-router';
+import { useSlurpNavigate } from '@slurp-ui/react';
+
+const navigate = useSlurpNavigate(useNavigate());
+
+navigate('/componenti', {
+  from: { group: 'tiles' },
+  lead: 'tile-componenti',
+  to: 'crumb-componenti',
+});
+```
+
+```tsx title="Componenti.tsx"
+import { useSlurpEnter } from '@slurp-ui/react';
+
+useSlurpEnter(undefined, { content: contentRef });
+```
+
+## Opzioni utili
+
+- `from`, `to` e `lead` dicono che cosa parte, dove atterra e quale elemento si fonde per ultimo.
+- `content` (di `useSlurpEnter`) è il resto della pagina: resta nascosto fino al primo disegno e compare mentre le gocce atterrano.
+- `key` rigioca la transizione quando la route viene riusata con altri parametri (per esempio il percorso).
+- `timeout` è l'attesa degli elementi di arrivo (800ms); un passaggio più vecchio di un secondo si limita a una dissolvenza.
+
+## Senza passaggio
+
+Con una visita diretta o il tasto indietro del browser non c'è nessun passaggio: nulla si muove, la pagina compare normalmente. La transizione non è mai necessaria per usare il sito.

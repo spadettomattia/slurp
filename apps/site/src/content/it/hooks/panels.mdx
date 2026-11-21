@@ -1,0 +1,44 @@
+# Pannelli e focus
+
+Le regole dei pannelli flottanti (il menu del Dock, i filtri, un popover) hanno **un’unica implementazione**: costruisci i tuoi su queste, non riscriverle.
+
+## useDismiss
+
+Un clic fuori, Escape o Tab fuori chiudono il pannello; Escape riporta il focus a chi lo ha aperto. Si mette `containerProps` sul contenitore.
+
+```tsx
+import { useDismiss } from '@slurp-ui/react/utils';
+
+const dismiss = useDismiss({ ref: box, open, onDismiss: () => setOpen(false) });
+<div ref={box} {...dismiss.containerProps}>
+  …
+</div>;
+```
+
+## focusFirst
+
+All'apertura sposta il focus nel pannello: prima un elemento con `data-autofocus`, poi la scelta attiva (un chip premuto, una radio selezionata), poi il primo controllo.
+
+```tsx
+import { focusFirst } from '@slurp-ui/react/utils';
+
+useEffect(() => {
+  if (open) focusFirst(panel.current);
+}, [open]);
+```
+
+## moveFocus e useRovingFocus
+
+`moveFocus` sposta il focus con le frecce tra gli elementi che corrispondono a un selettore (Home e Fine agli estremi, i disattivati saltati; si specchia nelle lingue da destra a sinistra). `useRovingFocus` aggiunge l'unico punto di tabulazione per un gruppo (schede, controlli segmentati).
+
+```tsx
+const { onKeyDown } = useRovingFocus(list, { selector: '[role="tab"]', orientation: 'horizontal' });
+<div ref={list} onKeyDown={onKeyDown}>
+  …
+</div>;
+```
+
+## Accessibilità
+
+- Il focus entra nel pannello all'apertura e torna al suo bottone alla chiusura.
+- Le liste di risultati si percorrono con le frecce.

@@ -1,0 +1,36 @@
+# Tokens
+
+Tokens are the design system’s values: colours in light and dark, type, spacing, radii, depth, motion and the phone breakpoint.
+
+## In CSS
+
+They are `--slurp-*` variables (see [CSS classes and variables](/customization/css-variables)). `@slurp-ui/react/styles.css` already brings them; without React install `@slurp-ui/tokens` alone.
+
+```css
+@import '@slurp-ui/tokens/tokens.css';
+
+.card {
+  padding: var(--slurp-space-5);
+  border-radius: var(--slurp-radius-card);
+  background: var(--slurp-surface);
+}
+```
+
+## In TypeScript
+
+```ts
+import { COMPACT_QUERY, cssVar, duration, ease, hue } from '@slurp-ui/react/tokens';
+
+cssVar('space-5'); // 'var(--slurp-space-5)'
+hue.violet; // the default accent preset
+duration.base; // '250ms'
+matchMedia(COMPACT_QUERY); // phones
+```
+
+## Motion
+
+Curves and durations are tokens: `--slurp-ease-settle` and the durations `press` 120, `quick` 200, `base` 250, `move` 350, `panel` 450, `surface` 600, `signature` 650 and `tint` 900 milliseconds. Use them for what you build, so it moves like the rest.
+
+## Changing them
+
+They are not edited by hand: they are replaced from the theme with `createTheme({ tokens })` (see [Theme](/customization/theme)), which applies to the whole app, in light and dark.

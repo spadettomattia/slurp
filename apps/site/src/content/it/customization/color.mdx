@@ -1,0 +1,35 @@
+# Colore e accento
+
+L'interfaccia non ha un colore fisso: l'accento viene dal contenuto, e ogni colore diventa un accento leggibile.
+
+## L'accento del tema
+
+`createTheme({ accent })` accetta un preset `hue-*` (`hue-violet` di base) o un colore esadecimale. Un colore qualunque passa da `vivid()`: stessa tinta, più viva, con una luminosità che mantiene i contrasti AA.
+
+```tsx
+createTheme({ accent: 'hue-teal' });
+createTheme({ accent: '#e8762d' });
+```
+
+## Un accento per una parte della pagina
+
+`AccentScope` dà ai figli un altro accento: per una sezione, una scheda, una pagina di prodotto.
+
+```tsx
+import { AccentScope, Button, vivid } from '@slurp-ui/react';
+
+<AccentScope color={vivid('#e8762d')}>
+  <Button>Azione</Button>
+</AccentScope>;
+```
+
+## Controllare il contrasto
+
+`contrast(a, b)` dà il rapporto tra due colori, `meetsContrast` lo confronta con la soglia (`CONTRAST_MIN`: 4,5 per il testo, 3 per il testo grande e i controlli) e `onColor(fill)` sceglie il testo che si legge sopra un riempimento.
+
+```ts
+import { contrast, meetsContrast, onColor } from '@slurp-ui/react';
+
+contrast('#8b6fff', '#ffffff');
+onColor('#e8762d'); // il colore del testo sopra quel riempimento
+```

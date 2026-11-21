@@ -1,0 +1,47 @@
+# Collapse / expand
+
+La transizione che dà il nome a Slurp: per andare avanti n elementi si fondono in uno, come cellule; per tornare indietro uno esplode in n.
+
+## Come funziona
+
+Gli elementi sono misurati (posizione, raggio, riempimento); un velo fisso di gocce viaggia su traiettorie curve con le Web Animations e un filtro SVG le unisce con ponti di liquido, mentre l'elemento di arrivo si gonfia. Alla fine tutto viene ripulito. Parte da un'azione (una tile, una card, una briciola), mai dallo scorrimento.
+
+## Con React
+
+`useSlurp()` restituisce `collapse`, `expand`, `morph` e `run`, con i valori di movimento del tema. Gli elementi si registrano con `animationId` (e `AnimationGroup` per raggrupparli).
+
+```tsx
+import { AnimationGroup, Tile, useSlurp } from '@slurp-ui/react';
+
+function Home() {
+  const slurp = useSlurp();
+  return (
+    <AnimationGroup id="tiles">
+      <Tile
+        title="Componenti"
+        animationId="tile-components"
+        onClick={() =>
+          slurp.collapse({ items: { group: 'tiles' }, target: 'crumb', lead: 'tile-components' })
+        }
+      />
+    </AnimationGroup>
+  );
+}
+```
+
+`collapse` porta n elementi in uno (`items` verso `target`, con `lead` che si fonde per ultimo); `expand({ source, items })` lo fa al contrario; `morph` va da uno a uno.
+
+## Valori
+
+`createTheme({ motion })` cambia i valori per tutta l'app: `duration` (650ms), `stagger` (0,35), `curve`, `swell`, `drop`, `goo` (`auto`, `true`, `false`) e `ghost`.
+
+```tsx
+createTheme({ motion: { duration: 800, goo: false } });
+```
+
+## Accessibilità e prestazioni
+
+- Con `prefers-reduced-motion` la transizione diventa una dissolvenza di 150ms.
+- Fino a 40 gocce; il filtro dei ponti si spegne da solo sopra le 24 o su dispositivi lenti.
+- Una scheda nascosta non lascia mai elementi nascosti: un controllo di sicurezza chiude la transizione.
+- Usa il motore anche senza React: `@slurp-ui/motion`.

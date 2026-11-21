@@ -1,0 +1,33 @@
+# Text search
+
+Searching inside a page has three pieces: matching, highlighting and moving between matches.
+
+## matchesAll and matchRanges
+
+`matchesAll(text, query)` says whether **every word** of the query appears in the text, in any order, ignoring case and accents (“piu” finds “più”): it is a list’s filter. `matchRanges` gives the ranges to highlight; `normalizeText` is the normalisation both use.
+
+```tsx
+import { matchesAll } from '@slurp-ui/react/utils';
+
+const found = items.filter((i) => matchesAll(`${i.name} ${i.brand}`, query));
+```
+
+## Mark
+
+Renders a text with the matches in `<mark>`: tint and underline, never colour alone.
+
+```tsx
+<Mark text="A lighter phone" query="light" />
+```
+
+## useFindInPage
+
+“Find in page”: the text goes through `Mark`, the same query goes into the hook, which counts the matches, highlights the active one and brings it to the middle of the screen. `step(+1)` and `step(-1)` bind to Enter and Shift+Enter, or to the “2/5” counter of `Dock.Search`.
+
+```tsx
+const { count, index, step } = useFindInPage(articleRef, query);
+
+<Dock.Search value={query} onValueChange={setQuery} count={count} index={index} onStep={step} />;
+```
+
+A new query restarts from the first match; with `prefers-reduced-motion` scrolling is instant.

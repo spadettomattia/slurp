@@ -1,0 +1,33 @@
+# Ricerca nel testo
+
+La ricerca dentro una pagina ha tre pezzi: confrontare, evidenziare e muoversi tra le corrispondenze.
+
+## matchesAll e matchRanges
+
+`matchesAll(testo, ricerca)` dice se **ogni parola** della ricerca compare nel testo, in qualunque ordine, ignorando maiuscole e accenti (“piu” trova “più”): è il filtro di una lista. `matchRanges` dà gli intervalli da evidenziare; `normalizeText` è la normalizzazione che usano entrambi.
+
+```tsx
+import { matchesAll } from '@slurp-ui/react/utils';
+
+const found = items.filter((i) => matchesAll(`${i.name} ${i.brand}`, query));
+```
+
+## Mark
+
+Disegna un testo con le corrispondenze in `<mark>`: tinta e sottolineatura, mai solo il colore.
+
+```tsx
+<Mark text="Un telefono più leggero" query="piu" />
+```
+
+## useFindInPage
+
+Il “trova nella pagina”: il testo passa da `Mark`, la stessa ricerca va nell'hook, che conta le corrispondenze, evidenzia quella attiva e la porta a metà schermo. `step(+1)` e `step(-1)` si legano a Invio e Maiusc+Invio, o al contatore “2/5” di `Dock.Search`.
+
+```tsx
+const { count, index, step } = useFindInPage(articleRef, query);
+
+<Dock.Search value={query} onValueChange={setQuery} count={count} index={index} onStep={step} />;
+```
+
+Una nuova ricerca riparte dalla prima corrispondenza; con `prefers-reduced-motion` lo scorrimento è immediato.

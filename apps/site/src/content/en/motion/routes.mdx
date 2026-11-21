@@ -1,0 +1,37 @@
+# Across routes
+
+The transition can cross two pages: it starts from the home tile and lands in the next page’s Dock crumb, then comes back in reverse.
+
+## Two hooks
+
+`useSlurpNavigate(navigate)` wraps your router’s navigate function (React Router’s `navigate`, `router.push`, `history.pushState`…): with options it measures the elements that leave and leaves a handoff. In the route that mounts, `useSlurpEnter()` picks it up and plays it toward the arriving elements.
+
+```tsx title="Home.tsx"
+import { useNavigate } from 'react-router';
+import { useSlurpNavigate } from '@slurp-ui/react';
+
+const navigate = useSlurpNavigate(useNavigate());
+
+navigate('/components', {
+  from: { group: 'tiles' },
+  lead: 'tile-components',
+  to: 'crumb-components',
+});
+```
+
+```tsx title="Components.tsx"
+import { useSlurpEnter } from '@slurp-ui/react';
+
+useSlurpEnter(undefined, { content: contentRef });
+```
+
+## Useful options
+
+- `from`, `to` and `lead` say what leaves, where it lands and which element merges last.
+- `content` (of `useSlurpEnter`) is the rest of the page: it stays hidden until the first paint and shows while the droplets land.
+- `key` replays the transition when the route is reused with other parameters (for example the path).
+- `timeout` is the wait for the arriving elements (800ms); a handoff older than a second only fades.
+
+## Without a handoff
+
+With a direct visit or the browser’s back button there is no handoff: nothing moves, the page simply appears. The transition is never needed to use the site.

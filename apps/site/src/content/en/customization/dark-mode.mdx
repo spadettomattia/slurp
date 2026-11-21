@@ -1,0 +1,40 @@
+# Light and dark
+
+The dark theme follows `prefers-color-scheme`, or `data-theme="light"` or `"dark"` on an element. The choice of whoever uses the site wins over the system.
+
+## The provider
+
+`SlurpProvider` applies the choice and remembers it in `localStorage` (`storageKey`, `null` to not remember). The starting value is the theme’s `colorScheme`: `light`, `dark` or `system`.
+
+```tsx
+createTheme({ colorScheme: 'system' });
+
+<SlurpProvider theme={theme} storageKey="app-theme">
+  …
+</SlurpProvider>;
+```
+
+## Changing it
+
+`useColorScheme()` gives `{ mode, setMode, resolved }`: `mode` is what was chosen, `resolved` what is shown (`system` resolves through the system).
+
+```tsx
+import { useColorScheme } from '@slurp-ui/react';
+
+const { mode, setMode } = useColorScheme();
+<button onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>Switch theme</button>;
+```
+
+The `Settings` component already has its own Light, Dark and Automatic selector.
+
+## Without flashes
+
+With server rendering, `ColorSchemeScript` in the `<head>` applies the choice before the first paint; put `suppressHydrationWarning` on `<html>`, because the script changes its `data-theme`.
+
+```tsx
+<html lang="en" suppressHydrationWarning>
+  <head>
+    <ColorSchemeScript />
+  </head>
+</html>
+```

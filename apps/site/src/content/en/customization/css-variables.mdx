@@ -1,0 +1,28 @@
+# CSS classes and variables
+
+All of the library’s styling is plain CSS, with names you can use.
+
+## Classes
+
+Every component has a root class `.slurp-<name>` (`.slurp-button`, `.slurp-card`) and classes for its parts (`.slurp-card-media`). States live in attributes: `[data-state="open"]`, `[data-selected]`, `[aria-pressed="true"]`.
+
+## Variables
+
+Tokens are `--slurp-*` variables on the root: colours (`--slurp-fg`, `--slurp-accent`), spaces (`--slurp-space-4`), radii (`--slurp-radius-card`), type (`--slurp-font-body`), motion (`--slurp-duration-base`, `--slurp-ease-settle`). Changing one on an element changes it for all its descendants.
+
+```css
+.section {
+  --slurp-accent: #e8762d;
+  padding: var(--slurp-space-6);
+}
+```
+
+## Layers
+
+The library’s styles live in `@layer slurp.*`, declared before any layer of yours: your CSS wins without `!important` and without raising specificity.
+
+```css
+.slurp-button {
+  letter-spacing: 0.02em;
+}
+```

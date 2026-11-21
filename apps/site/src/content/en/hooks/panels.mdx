@@ -1,0 +1,44 @@
+# Panels and focus
+
+The rules of floating panels (the Dock’s menu, filters, a popover) have **one implementation**: build yours on these, do not rewrite them.
+
+## useDismiss
+
+A click outside, Escape or Tab out closes the panel; Escape returns focus to whatever opened it. Put `containerProps` on the container.
+
+```tsx
+import { useDismiss } from '@slurp-ui/react/utils';
+
+const dismiss = useDismiss({ ref: box, open, onDismiss: () => setOpen(false) });
+<div ref={box} {...dismiss.containerProps}>
+  …
+</div>;
+```
+
+## focusFirst
+
+On opening it moves focus into the panel: first an element with `data-autofocus`, then the active choice (a pressed chip, a selected radio), then the first control.
+
+```tsx
+import { focusFirst } from '@slurp-ui/react/utils';
+
+useEffect(() => {
+  if (open) focusFirst(panel.current);
+}, [open]);
+```
+
+## moveFocus and useRovingFocus
+
+`moveFocus` moves focus with the arrows among the elements that match a selector (Home and End to the ends, disabled ones skipped; it mirrors in right-to-left languages). `useRovingFocus` adds the single tab stop for a group (tabs, segmented controls).
+
+```tsx
+const { onKeyDown } = useRovingFocus(list, { selector: '[role="tab"]', orientation: 'horizontal' });
+<div ref={list} onKeyDown={onKeyDown}>
+  …
+</div>;
+```
+
+## Accessibility
+
+- Focus enters the panel on opening and returns to its button on closing.
+- Result lists are walked with the arrows.

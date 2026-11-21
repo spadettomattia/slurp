@@ -1,0 +1,39 @@
+# The css prop
+
+Every component accepts `css`: a style for that one instance, written with the design system’s tokens.
+
+## Token shortcuts
+
+The spacing shortcuts (`p`, `px`, `m`, `gap`…) take a step of the scale (`4` becomes `var(--slurp-space-4)`) or any CSS length. `bg`, `color`, `borderColor` take a colour token (`accent-soft`, `hue-teal`) or any colour. `radius` and `font` take the radius and type style tokens.
+
+```tsx
+import { Card } from '@slurp-ui/react';
+
+<Card title="Title" css={{ p: 4, bg: 'accent-soft', radius: 'lg' }} />;
+```
+
+## Nested selectors and variables
+
+Keys that start with `&` are nested selectors; `--…` keys set CSS variables.
+
+```tsx
+<Card
+  css={{
+    '&:hover': { shadow: 'float' },
+    '& .slurp-card-media': { opacity: 0.9 },
+    '--slurp-card-gap': 8,
+  }}
+/>
+```
+
+## Values by width
+
+Every value can change with the width: `compact` is the phone layout, `wide` everything else.
+
+```tsx
+<Flow css={{ gap: { compact: 2, wide: 5 } }}>…</Flow>
+```
+
+## When to use it
+
+For a tweak to a single instance. To change a component across the whole app use the [theme](/customization/theme): the style of its components, per part, with the same tokens.

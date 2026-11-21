@@ -1,0 +1,28 @@
+# Classi e variabili CSS
+
+Tutto lo stile della libreria è CSS normale, con nomi che puoi usare.
+
+## Classi
+
+Ogni componente ha una classe radice `.slurp-<nome>` (`.slurp-button`, `.slurp-card`) e classi per le sue parti (`.slurp-card-media`). Gli stati stanno in attributi: `[data-state="open"]`, `[data-selected]`, `[aria-pressed="true"]`.
+
+## Variabili
+
+I token sono variabili `--slurp-*` sulla radice: colori (`--slurp-fg`, `--slurp-accent`), spazi (`--slurp-space-4`), raggi (`--slurp-radius-card`), tipografia (`--slurp-font-body`), movimento (`--slurp-duration-base`, `--slurp-ease-settle`). Cambiarle su un elemento le cambia per tutti i suoi discendenti.
+
+```css
+.sezione {
+  --slurp-accent: #e8762d;
+  padding: var(--slurp-space-6);
+}
+```
+
+## Livelli
+
+Gli stili della libreria stanno in `@layer slurp.*`, dichiarati prima di qualunque tuo livello: il tuo CSS vince senza `!important` e senza alzare la specificità.
+
+```css
+.slurp-button {
+  letter-spacing: 0.02em;
+}
+```
