@@ -19,8 +19,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { LANGS, REPO, type Lang } from '../../site.config';
+import { SiteFooter } from '~/components/SiteFooter';
 import { Brand } from '~/components/Brand';
-import { CodeIcon, MenuIcon } from '@slurp-ui/react/icons';
+import { EditIcon, MenuIcon } from '@slurp-ui/react/icons';
 import { mdxComponents } from '~/components/Mdx';
 import { PageNav } from '~/components/PageNav';
 import { SideNav } from '~/components/SideNav';
@@ -192,7 +193,7 @@ export default function DocLayout() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <CodeIcon size={18} />
+                  <EditIcon size={18} />
                   {api ? copy.source : copy.editOnGithub}
                 </a>
                 <PageNav available={AVAILABLE} />
@@ -212,6 +213,7 @@ export default function DocLayout() {
           )}
         </div>
       )}
+      <SiteFooter />
 
       <Dock
         panelLabel={

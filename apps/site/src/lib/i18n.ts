@@ -66,6 +66,42 @@ const it = {
   docsIndex: 'Indice della documentazione',
   index: 'Indice',
   open: 'Apri',
+  footer: {
+    label: 'Piè di pagina',
+    docs: 'Documentazione',
+    project: 'Progetto',
+    releases: 'Note di rilascio',
+    issues: 'Segnala un problema',
+    license: 'Licenza MIT',
+    faqTitle: 'Domande frequenti',
+    faq: [
+      {
+        q: 'Come installo la libreria?',
+        a: 'Con il gestore di pacchetti che usi: aggiungi `@slurp-ui/react`, importa il foglio di stile una volta e avvolgi l’app nel provider.',
+        to: 'getting-started/installation',
+      },
+      {
+        q: 'Funziona con Next.js, Remix o Astro?',
+        a: 'Sì: i componenti sono React e il tema si imposta senza script bloccanti, quindi si adatta ai framework con rendering sul server.',
+        to: 'getting-started/frameworks',
+      },
+      {
+        q: 'Posso cambiare colori, font e raggi?',
+        a: 'Sì: il tema genera i token a partire da pochi valori (accento, caratteri, raggio) e ogni componente si può ritoccare dal tema.',
+        to: 'customization/theme',
+      },
+      {
+        q: 'I testi sono tradotti?',
+        a: 'I componenti parlano italiano di base e hanno un set inglese; per altre lingue passi i tuoi testi al provider.',
+        to: 'customization/labels',
+      },
+      {
+        q: 'È accessibile?',
+        a: 'Ogni componente si usa da tastiera, ha nomi e ruoli corretti, rispetta il movimento ridotto ed è verificato con test automatici di accessibilità.',
+      },
+    ],
+    rights: (year: number) => `© ${year} SpaM. Rilasciato con licenza MIT.`,
+  },
 };
 
 export type Copy = typeof it;
@@ -135,6 +171,42 @@ const en: Copy = {
   docsIndex: 'Documentation index',
   index: 'Index',
   open: 'Open',
+  footer: {
+    label: 'Page footer',
+    docs: 'Documentation',
+    project: 'Project',
+    releases: 'Release notes',
+    issues: 'Report an issue',
+    license: 'MIT licence',
+    faqTitle: 'Frequently asked questions',
+    faq: [
+      {
+        q: 'How do I install the library?',
+        a: 'With your package manager: add `@slurp-ui/react`, import the stylesheet once and wrap the app in the provider.',
+        to: 'getting-started/installation',
+      },
+      {
+        q: 'Does it work with Next.js, Remix or Astro?',
+        a: 'Yes: the components are React and the theme is set without blocking scripts, so it suits frameworks that render on the server.',
+        to: 'getting-started/frameworks',
+      },
+      {
+        q: 'Can I change colours, fonts and radii?',
+        a: 'Yes: the theme generates the tokens from a few values (accent, typefaces, radius) and each component can be adjusted from the theme.',
+        to: 'customization/theme',
+      },
+      {
+        q: 'Are the texts translated?',
+        a: 'Components speak Italian by default and ship an English set; for other languages you pass your own texts to the provider.',
+        to: 'customization/labels',
+      },
+      {
+        q: 'Is it accessible?',
+        a: 'Every component works from the keyboard, has correct names and roles, respects reduced motion and is checked with automated accessibility tests.',
+      },
+    ],
+    rights: (year: number) => `© ${year} SpaM. Released under the MIT licence.`,
+  },
 };
 
 export const COPY: Record<Lang, Copy> = { it, en };

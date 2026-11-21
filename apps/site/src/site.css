@@ -36,7 +36,33 @@
   .site-content {
     min-width: 0;
     padding-top: calc(var(--slurp-space-10) * 2);
-    padding-bottom: var(--slurp-space-48);
+    padding-bottom: var(--slurp-space-10);
+  }
+
+  /* The foot of every page; room below for the Dock. */
+  .site-footer {
+    box-sizing: border-box;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--slurp-space-10) var(--slurp-space-6) var(--slurp-space-48);
+  }
+
+  .site-faq {
+    max-width: 720px;
+    margin-bottom: var(--slurp-space-8);
+  }
+
+  .site-faq-title {
+    margin: 0 0 var(--slurp-space-3);
+    font: var(--slurp-font-title-l);
+    letter-spacing: var(--slurp-font-title-l-tracking);
+  }
+
+  .site-faq-answer {
+    margin: 0 0 var(--slurp-space-3);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body);
+    letter-spacing: var(--slurp-font-body-tracking);
   }
 
   /* Sticky just below the brand pill (fixed at the top), clear of the Dock at the bottom. */
@@ -394,7 +420,7 @@
     max-width: 1280px;
     margin: 0 auto;
     /* Clear of the Settings button, fixed at the top right. */
-    padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-6) var(--slurp-space-48);
+    padding: calc(var(--slurp-space-10) * 2) var(--slurp-space-6) 0;
   }
 
   .site-hero-grid {
@@ -500,7 +526,8 @@
     display: flex;
     align-items: center;
     gap: var(--slurp-space-1);
-    padding: var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-1) var(--slurp-space-2);
+    /* The chip sits 8px from the pill's edge on every side (the pill is 48px, the chip 32px). */
+    padding: var(--slurp-space-1) var(--slurp-space-2) var(--slurp-space-1) var(--slurp-space-2);
   }
 
   .site-brand-link {
