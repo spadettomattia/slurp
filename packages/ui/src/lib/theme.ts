@@ -53,6 +53,10 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { ConsentProps } from '../Consent/Consent';
+import type { TimelineProps } from '../Timeline/Timeline';
+import type { AvatarGroupProps } from '../AvatarGroup/AvatarGroup';
+import type { MultiSuggestProps } from '../MultiSuggest/MultiSuggest';
 import type { DateFieldProps } from '../DateField/DateField';
 import type { CalendarProps } from '../Calendar/Calendar';
 import type { FileDropProps } from '../FileDrop/FileDrop';
@@ -117,6 +121,13 @@ const DEFAULT_MOTION: MotionOptions = {
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
+  Consent: { props: ConsentProps; parts: 'root' };
+  Timeline: { props: TimelineProps; parts: 'root' };
+  AvatarGroup: { props: AvatarGroupProps; parts: 'root' };
+  MultiSuggest: {
+    props: MultiSuggestProps;
+    parts: 'root' | 'label' | 'control' | 'list' | 'option' | 'tags' | 'tag' | 'hint' | 'error';
+  };
   DateField: { props: DateFieldProps; parts: 'root' };
   Calendar: { props: CalendarProps; parts: 'root' };
   FileDrop: { props: FileDropProps; parts: 'root' };

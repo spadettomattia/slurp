@@ -2,6 +2,7 @@ import { ArrowDownIcon, ArrowUpIcon, SortIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import { useId, useMemo, type ElementType, type Key, type ReactNode } from 'react';
 
+import { Checkbox } from '../Checkbox/Checkbox';
 import { useLabels } from '../internal/labels';
 import { useTheme } from '../internal/context';
 import { useAnimationRoot } from '../internal/animation';
@@ -36,9 +37,17 @@ export interface TableSort {
 export interface TableLabels {
   /** Shown in place of the rows when there are none. */
   empty: string;
+  /** Names the checkbox of the header (selects or clears every row). */
+  selectAll: string;
+  /** Names the checkbox of a row. */
+  selectRow: string;
 }
 
-export const TABLE_LABELS: TableLabels = { empty: 'Nessun elemento' };
+export const TABLE_LABELS: TableLabels = {
+  empty: 'Nessun elemento',
+  selectAll: 'Seleziona tutte le righe',
+  selectRow: 'Seleziona la riga',
+};
 
 export interface TableOwnProps<R extends Row = Row> extends PartsProps<'table' | 'caption'> {
   /** Title of the table: names it and its scroll region. Hide it with `hideCaption` when a heading already says it. */
@@ -53,6 +62,14 @@ export interface TableOwnProps<R extends Row = Row> extends PartsProps<'table' |
   onSortChange?: (sort: TableSort) => void;
   /** The rows are already sorted (by a server): the table only reports `onSortChange`. */
   manualSort?: boolean;
+  /** A checkbox on every row and one in the header that selects them all. Needs a stable `rowKey`. */
+  selectable?: boolean;
+  /** Keys of the selected rows. */
+  selected?: Key[];
+  defaultSelected?: Key[];
+  onSelectedChange?: (keys: Key[]) => void;
+  /** Keeps the header in view while the rows scroll: the table scrolls inside this height (CSS value). */
+  maxHeight?: string | number;
   labels?: Partial<TableLabels>;
 }
 
@@ -81,6 +98,12 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
     defaultSort = null,
     onSortChange,
     manualSort = false,
+    selectable = false,
+    selected: selectedProp,
+    defaultSelected = [],
+    onSelectedChange,
+    maxHeight,
+    style: styleProp,
     labels: labelsProp,
     parts,
     partProps,
@@ -94,6 +117,11 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
     onChange: onSortChange as ((s: TableSort | null) => void) | undefined,
   });
   const { locale } = useTheme();
+  const [selected, setSelected] = useControlled<Key[]>({
+    value: selectedProp,
+    defaultValue: defaultSelected,
+    onChange: onSelectedChange,
+  });
   const captionId = useId();
   const Root = (as ?? 'div') as ElementType;
   const styled = useCss('Table', 'root', css);
@@ -126,12 +154,25 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
       direction: sort?.key === key && sort.direction === 'ascending' ? 'descending' : 'ascending',
     });
 
+  const keyOf = (row: Row, i: number): Key => (rowKey ? rowKey(row as R, i) : i);
+  const keys = sorted.map((r, i) => keyOf(r, i));
+  const chosen = keys.filter((k) => selected.includes(k));
+  const all = keys.length > 0 && chosen.length === keys.length;
+  const toggleRow = (key: Key, on: boolean) =>
+    setSelected(on ? [...selected, key] : selected.filter((k) => k !== key));
+  const toggleAll = (on: boolean) =>
+    setSelected(
+      on ? [...new Set([...selected, ...keys])] : selected.filter((k) => !keys.includes(k)),
+    );
+
   return (
     <>
       {styled.style}
       {style}
       <Root
         className={cx('slurp-table', styled.className, className)}
+        data-sticky={maxHeight != null ? '' : undefined}
+        style={maxHeight != null ? { ...styleProp, maxHeight } : styleProp}
         role="region"
         aria-labelledby={captionId}
         tabIndex={0}
@@ -146,8 +187,9 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
                 className: cx('slurp-table-caption', hideCaption && 'slurp-visually-hidden'),
                 children: caption,
               })}
-              {columns.some((c) => c.width != null) && (
+              {(selectable || columns.some((c) => c.width != null)) && (
                 <colgroup>
+                  {selectable && <col style={{ width: 48 }} />}
                   {columns.map((c) => (
                     <col key={c.key} style={c.width != null ? { width: c.width } : undefined} />
                   ))}
@@ -155,6 +197,17 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
               )}
               <thead>
                 <tr>
+                  {selectable && (
+                    <th scope="col" className="slurp-table-head slurp-table-select">
+                      <Checkbox
+                        checked={all}
+                        indeterminate={chosen.length > 0 && !all}
+                        onCheckedChange={toggleAll}
+                      >
+                        <span className="slurp-visually-hidden">{labels.selectAll}</span>
+                      </Checkbox>
+                    </th>
+                  )}
                   {columns.map((c) => {
                     const on = sort?.key === c.key ? sort.direction : undefined;
                     return (
@@ -194,13 +247,30 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
               <tbody>
                 {sorted.length === 0 ? (
                   <tr>
-                    <td className="slurp-table-empty" colSpan={columns.length}>
+                    <td
+                      className="slurp-table-empty"
+                      colSpan={columns.length + (selectable ? 1 : 0)}
+                    >
                       {labels.empty}
                     </td>
                   </tr>
                 ) : (
                   sorted.map((row, i) => (
-                    <tr key={rowKey ? rowKey(row as R, i) : i} className="slurp-table-row">
+                    <tr
+                      key={keyOf(row, i)}
+                      className="slurp-table-row"
+                      data-selected={selectable && chosen.includes(keyOf(row, i)) ? '' : undefined}
+                    >
+                      {selectable && (
+                        <td className="slurp-table-cell slurp-table-select">
+                          <Checkbox
+                            checked={chosen.includes(keyOf(row, i))}
+                            onCheckedChange={(on) => toggleRow(keyOf(row, i), on)}
+                          >
+                            <span className="slurp-visually-hidden">{labels.selectRow}</span>
+                          </Checkbox>
+                        </td>
+                      )}
                       {columns.map((c) => {
                         const Cell = c.rowHeader ? 'th' : 'td';
                         const content = c.cell

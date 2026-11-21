@@ -41,3 +41,16 @@ type Story = StoryObj<typeof meta>;
 
 /** A list of actions on Bloom: the trigger becomes the menu. */
 export const Playground: Story = {};
+
+export const GruppiEScorciatoie: Story = {
+  render: (args) => (
+    <Menu {...args}>
+      <Menu.Group label="Documento">
+        <MenuItem shortcut="⌘S">Salva</MenuItem>
+        <MenuItem shortcut="⌘D">Duplica</MenuItem>
+      </Menu.Group>
+      <Menu.Separator />
+      <MenuItem tone="danger">Elimina</MenuItem>
+    </Menu>
+  ),
+};

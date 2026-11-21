@@ -71,3 +71,7 @@
 @import './FileDrop/FileDrop.css';
 @import './Calendar/Calendar.css';
 @import './DateField/DateField.css';
+@import './MultiSuggest/MultiSuggest.css';
+@import './AvatarGroup/AvatarGroup.css';
+@import './Timeline/Timeline.css';
+@import './Consent/Consent.css';

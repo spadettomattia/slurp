@@ -4,4 +4,32 @@
     flex-direction: column;
     gap: 2px;
   }
+
+  .slurp-menu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .slurp-menu-group-label {
+    padding: var(--slurp-space-2) var(--slurp-space-3) var(--slurp-space-1);
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  .slurp-menu-separator {
+    height: 1px;
+    margin: var(--slurp-space-1) var(--slurp-space-2);
+    background: var(--slurp-line);
+  }
+
+  .slurp-menu-shortcut {
+    margin-inline-start: auto;
+    padding-inline-start: var(--slurp-space-4);
+    color: var(--slurp-muted);
+    font: inherit;
+    font-size: 0.85em;
+    white-space: nowrap;
+  }
 }

@@ -1,0 +1,39 @@
+/* AvatarGroup: avatars overlap by a quarter of their width; each wears a ring in the page colour to read as separate. */
+@layer slurp.components {
+  .slurp-avatargroup {
+    --slurp-avatar-gap: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .slurp-avatargroup[data-size='sm'] {
+    --slurp-avatar-gap: 32px;
+  }
+
+  .slurp-avatargroup[data-size='lg'] {
+    --slurp-avatar-gap: 64px;
+  }
+
+  .slurp-avatargroup > * {
+    box-shadow: 0 0 0 2px var(--slurp-bg);
+  }
+
+  .slurp-avatargroup > * + * {
+    margin-inline-start: calc(var(--slurp-avatar-gap) * -0.25);
+  }
+
+  .slurp-avatargroup-more {
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--slurp-avatar-gap);
+    height: var(--slurp-avatar-gap);
+    border-radius: 50%;
+    background: color-mix(in oklab, var(--slurp-fg) 8%, var(--slurp-bg));
+    color: var(--slurp-fg);
+    font: var(--slurp-font-caption);
+    font-weight: 600;
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+}

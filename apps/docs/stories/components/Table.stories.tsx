@@ -76,3 +76,11 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 export const Empty: Story = { args: { rows: [] } };
+
+export const Selezione: Story = {
+  args: { selectable: true, rowKey: (r) => (r as Phone).name },
+};
+
+export const IntestazioneFissa: Story = {
+  args: { maxHeight: 220, rowKey: (r) => (r as Phone).name },
+};

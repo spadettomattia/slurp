@@ -2,6 +2,7 @@ import { cx } from '@slurp-ui/utils';
 import {
   createContext,
   useContext,
+  useId,
   useRef,
   type ElementType,
   type MouseEvent,
@@ -51,6 +52,8 @@ export interface MenuItemOwnProps {
   /** Runs the action; the menu closes afterwards (unless the handler calls preventDefault). */
   onSelect?: (event: MouseEvent<HTMLButtonElement>) => void;
   icon?: ReactNode;
+  /** The key combination that runs it elsewhere, shown at the end (`⌘K`): a hint, not a binding. */
+  shortcut?: string;
   disabled?: boolean;
   /** `danger` for destructive actions (the text says so too). */
   tone?: 'neutral' | 'danger';
@@ -67,6 +70,7 @@ export function MenuItem<E extends ElementType = 'button'>(props: MenuItemProps<
     className,
     onSelect,
     icon,
+    shortcut,
     disabled,
     tone = 'neutral',
     children,
@@ -95,8 +99,39 @@ export function MenuItem<E extends ElementType = 'button'>(props: MenuItemProps<
         </span>
       )}
       <span className="slurp-bloom-item-label">{children}</span>
+      {shortcut != null && (
+        <kbd className="slurp-menu-shortcut" aria-keyshortcuts={shortcut}>
+          {shortcut}
+        </kbd>
+      )}
     </Root>
   );
 }
 
+export interface MenuGroupProps {
+  /** Names the group (shown above it and read by screen readers). */
+  label: string;
+  children?: ReactNode;
+}
+
+/** A named set of items inside a Menu. */
+export function MenuGroup({ label, children }: MenuGroupProps) {
+  const id = useId();
+  return (
+    <div role="group" aria-labelledby={id} className="slurp-menu-group">
+      <div id={id} className="slurp-menu-group-label" role="presentation">
+        {label}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/** A line between two sets of items. */
+export function MenuSeparator() {
+  return <div role="separator" className="slurp-menu-separator" />;
+}
+
 Menu.Item = MenuItem;
+Menu.Group = MenuGroup;
+Menu.Separator = MenuSeparator;

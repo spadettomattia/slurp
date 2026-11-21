@@ -1,0 +1,79 @@
+/* Timeline: a hairline runs through the markers; the content sits beside it. Logical properties, so it mirrors in RTL. */
+@layer slurp.components {
+  .slurp-timeline {
+    --slurp-timeline-marker: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--slurp-fg);
+  }
+
+  .slurp-timeline-item {
+    position: relative;
+    display: flex;
+    gap: var(--slurp-space-4);
+    padding-bottom: var(--slurp-space-6);
+  }
+
+  .slurp-timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .slurp-timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--slurp-timeline-marker) 0;
+    inset-inline-start: calc(var(--slurp-timeline-marker) / 2 - 0.5px);
+    width: 1px;
+    background: var(--slurp-line);
+  }
+
+  .slurp-timeline-marker {
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--slurp-timeline-marker);
+    height: var(--slurp-timeline-marker);
+    border: 2px solid var(--slurp-border-control);
+    border-radius: 50%;
+    background: var(--slurp-bg);
+    color: var(--slurp-muted);
+  }
+
+  .slurp-timeline-item[data-latest] .slurp-timeline-marker {
+    border-color: var(--slurp-accent-ink);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-accent-ink);
+  }
+
+  .slurp-timeline-marker > svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .slurp-timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slurp-space-1);
+    min-width: 0;
+  }
+
+  .slurp-timeline-title {
+    font: var(--slurp-font-body);
+    font-weight: 600;
+    letter-spacing: var(--slurp-font-body-tracking);
+  }
+
+  .slurp-timeline-time {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-caption);
+    letter-spacing: var(--slurp-font-caption-tracking);
+  }
+
+  .slurp-timeline-description {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+}

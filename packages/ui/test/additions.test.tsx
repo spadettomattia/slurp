@@ -11,6 +11,7 @@ import {
   Footer,
   Kbd,
   Media,
+  MultiSuggest,
   NumberField,
   PinField,
   Quote,
@@ -230,5 +231,43 @@ describe('DateField', () => {
     expect((document.querySelector('input[name="arrivo"]') as HTMLInputElement | null)?.value).toBe(
       '2026-12-11',
     );
+  });
+});
+
+describe('MultiSuggest', () => {
+  const options = [
+    { value: 'r', label: 'Rosso' },
+    { value: 'v', label: 'Verde' },
+    { value: 'b', label: 'Blu' },
+  ];
+
+  it('keeps the list open while picking, shows removable tags and submits each value', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <main>
+        <MultiSuggest
+          label="Colori"
+          name="colori"
+          options={options}
+          onValueChange={onValueChange}
+        />
+      </main>,
+    );
+    const input = screen.getByRole('combobox', { name: 'Colori' });
+    await userEvent.click(input);
+    await userEvent.click(screen.getByRole('option', { name: /Rosso/ }));
+    await userEvent.click(screen.getByRole('option', { name: /Blu/ }));
+    expect(onValueChange).toHaveBeenLastCalledWith(['r', 'b']);
+    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(screen.getByRole('listbox').getAttribute('aria-multiselectable')).toBe('true');
+    expect(screen.getByRole('button', { name: 'Rimuovi Rosso' })).toBeTruthy();
+    expect(
+      [...container.querySelectorAll<HTMLInputElement>('input[type="hidden"]')].map((i) => i.value),
+    ).toEqual(['r', 'b']);
+    await userEvent.keyboard('{Backspace}');
+    expect(onValueChange).toHaveBeenLastCalledWith(['r']);
+    await userEvent.click(screen.getByRole('button', { name: 'Rimuovi Rosso' }));
+    expect(onValueChange).toHaveBeenLastCalledWith([]);
+    await expectNoAxeViolations(container);
   });
 });

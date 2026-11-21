@@ -46,15 +46,19 @@ export interface DialogOwnProps extends PartsProps<
 
 export type DialogProps<E extends ElementType = 'dialog'> = PolymorphicProps<E, DialogOwnProps>;
 
-/** Where a modal panel comes from: centred dialog, or a sheet from the bottom. */
+/** Where a modal panel comes from: centred dialog, or a sheet from an edge. */
 type Variant = 'dialog' | 'sheet';
+
+/** The edge a sheet is attached to: `bottom` (default), or the `start` / `end` side (flipped in RTL). */
+export type SheetSide = 'bottom' | 'start' | 'end';
 
 const reduced = () =>
   typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** Shared by Dialog and Sheet: a native modal <dialog> (top layer, focus contained, Escape, inert page). */
-export function useModal(props: DialogProps, variant: Variant) {
+export function useModal(props: DialogProps & { side?: SheetSide }, variant: Variant) {
   const {
+    side = 'bottom',
     as,
     css,
     className,
@@ -103,7 +107,7 @@ export function useModal(props: DialogProps, variant: Variant) {
         document.activeElement instanceof HTMLElement ? document.activeElement : null;
       if (typeof el.showModal === 'function') el.showModal();
       else el.setAttribute('open', '');
-      grow(el, opener.current, variant);
+      grow(el, opener.current, variant, side);
     } else if (!open && el.open && !leaving.current) {
       const close = () => {
         leaving.current = null;
@@ -112,7 +116,7 @@ export function useModal(props: DialogProps, variant: Variant) {
         opener.current?.focus();
         opener.current = null;
       };
-      const exit = shrink(el, opener.current, variant);
+      const exit = shrink(el, opener.current, variant, side);
       if (!exit) return close();
       leaving.current = exit;
       exit.finished.then(
@@ -127,7 +131,7 @@ export function useModal(props: DialogProps, variant: Variant) {
         },
       );
     }
-  }, [open, variant]);
+  }, [open, variant, side]);
 
   // Unmounting while open: give focus back.
   useEffect(() => () => opener.current?.focus(), []);
@@ -140,6 +144,7 @@ export function useModal(props: DialogProps, variant: Variant) {
       <Root
         className={cx('slurp-dialog', styled.className, className)}
         data-variant={variant}
+        data-side={variant === 'sheet' ? side : undefined}
         aria-labelledby={`${id}-title`}
         aria-describedby={description != null ? `${id}-description` : undefined}
         onCancel={(e: SyntheticEvent) => {
@@ -201,6 +206,13 @@ function fromOpener(el: HTMLElement, from: HTMLElement | null) {
   return `translate(${dx}px, ${dy}px) scale(${s})`;
 }
 
+/** The transform that puts a sheet fully off its edge. */
+function offscreen(el: HTMLElement, side: SheetSide) {
+  if (side === 'bottom') return 'translateY(100%)';
+  const rtl = getComputedStyle(el).direction === 'rtl';
+  return `translateX(${(side === 'end') !== rtl ? '' : '-'}100%)`;
+}
+
 const EASE = ease.settle;
 /** Milliseconds of a duration token (`'450ms'` → 450). */
 const ms = (t: string) => Number.parseFloat(t);
@@ -209,7 +221,7 @@ const ms = (t: string) => Number.parseFloat(t);
  * The dialog grows out of the control that opened it (the Bloom rule applied to a modal): it starts at the opener's
  * place and settles in the centre. A sheet rises from the bottom edge. Reduced motion: a 150ms fade, as the engine.
  */
-function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant) {
+function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant, side: SheetSide) {
   if (typeof el.animate !== 'function') return;
   if (reduced()) {
     el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150 });
@@ -217,7 +229,7 @@ function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant) {
   }
   const timing = { duration: ms(duration.panel), easing: EASE };
   if (variant === 'sheet') {
-    el.animate([{ transform: 'translateY(100%)' }, { transform: 'none' }], timing);
+    el.animate([{ transform: offscreen(el, side) }, { transform: 'none' }], timing);
     return;
   }
   const start = fromOpener(el, from) ?? 'scale(0.96)';
@@ -234,13 +246,18 @@ function grow(el: HTMLElement, from: HTMLElement | null, variant: Variant) {
  * The way out, quicker than the way in (200ms): back toward the opener, a sheet back down. Returns the animation to
  * wait for before closing, or nothing when there is nothing to play.
  */
-function shrink(el: HTMLElement, to: HTMLElement | null, variant: Variant): Animation | undefined {
+function shrink(
+  el: HTMLElement,
+  to: HTMLElement | null,
+  variant: Variant,
+  side: SheetSide,
+): Animation | undefined {
   if (typeof el.animate !== 'function') return undefined;
   const fill = 'forwards' as const;
   if (reduced()) return el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill });
   const timing = { duration: ms(duration.quick), easing: EASE, fill };
   if (variant === 'sheet') {
-    return el.animate([{ transform: 'none' }, { transform: 'translateY(100%)' }], timing);
+    return el.animate([{ transform: 'none' }, { transform: offscreen(el, side) }], timing);
   }
   const end = fromOpener(el, to) ?? 'scale(0.96)';
   return el.animate(

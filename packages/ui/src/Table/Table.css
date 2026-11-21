@@ -103,6 +103,27 @@
     display: inline-grid;
   }
 
+  .slurp-table[data-sticky] {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .slurp-table[data-sticky] .slurp-table-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--slurp-bg);
+  }
+
+  .slurp-table-select {
+    width: 48px;
+    padding-inline: var(--slurp-space-3);
+  }
+
+  .slurp-table-row[data-selected] > * {
+    background: var(--slurp-accent-soft);
+  }
+
   .slurp-table-empty {
     padding: var(--slurp-space-6) var(--slurp-space-4);
     color: var(--slurp-muted);

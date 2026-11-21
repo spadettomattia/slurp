@@ -385,6 +385,36 @@ describe('Table', () => {
     expect(screen.getByRole('cell', { name: '979 €' }).dataset.align).toBe('end');
   });
 
+  it('selects rows with checkboxes; the header one selects all and shows a mixed state', async () => {
+    const onSelectedChange = vi.fn();
+    const { container } = render(
+      <main>
+        <Table
+          caption="Telefoni"
+          columns={COLUMNS}
+          rows={ROWS}
+          rowKey={(r) => r.name}
+          selectable
+          maxHeight={200}
+          onSelectedChange={onSelectedChange}
+        />
+      </main>,
+    );
+    const all = screen.getByRole('checkbox', {
+      name: 'Seleziona tutte le righe',
+    }) as HTMLInputElement;
+    const rows = screen.getAllByRole('checkbox', { name: 'Seleziona la riga' });
+    await userEvent.click(rows[1] as HTMLElement);
+    expect(onSelectedChange).toHaveBeenLastCalledWith(['iPhone 17']);
+    expect(all.indeterminate || all.getAttribute('aria-checked') === 'mixed').toBe(true);
+    await userEvent.click(all);
+    expect(onSelectedChange).toHaveBeenLastCalledWith(['iPhone 17', 'Pixel 10', 'Galaxy S26']);
+    await userEvent.click(all);
+    expect(onSelectedChange).toHaveBeenLastCalledWith([]);
+    expect(container.querySelector('.slurp-table')?.hasAttribute('data-sticky')).toBe(true);
+    await expectNoAxeViolations(container);
+  });
+
   it('sorts on the header button (ascending, then descending) and says so with aria-sort', async () => {
     const onSort = vi.fn();
     render(<Table caption="Telefoni" columns={COLUMNS} rows={ROWS} onSortChange={onSort} />);

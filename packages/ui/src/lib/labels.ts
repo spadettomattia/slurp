@@ -21,6 +21,9 @@ import type { RatingLabels } from '../Rating/Rating';
 import type { SearchLabels } from '../Search/Search';
 import type { SettingsLabels } from '../Settings/Settings';
 import type { StepsLabels } from '../Steps/Steps';
+import type { AvatarGroupLabels } from '../AvatarGroup/AvatarGroup';
+import type { ConsentLabels } from '../Consent/Consent';
+import type { MultiSuggestLabels } from '../MultiSuggest/MultiSuggest';
 import type { SuggestLabels } from '../Suggest/Suggest';
 import type { TableLabels } from '../Table/Table';
 import type { ToastLabels } from '../Toast/Toast';
@@ -48,6 +51,9 @@ export interface SlurpLabels {
   Settings?: Partial<SettingsLabels>;
   SkipLink?: Partial<SkipLinkLabels>;
   Steps?: Partial<StepsLabels>;
+  AvatarGroup?: Partial<AvatarGroupLabels>;
+  Consent?: Partial<ConsentLabels>;
+  MultiSuggest?: Partial<MultiSuggestLabels>;
   Suggest?: Partial<SuggestLabels>;
   Table?: Partial<TableLabels>;
   Toast?: Partial<ToastLabels>;
@@ -130,11 +136,24 @@ export const labelsEn = {
   },
   SkipLink: { label: 'Skip to content' },
   Steps: { label: 'Steps', done: 'completed' },
+  AvatarGroup: { more: (n) => (n === 1 ? 'one more person' : `${n} more people`) },
+  Consent: {
+    region: 'Cookie preferences',
+    accept: 'Accept',
+    reject: 'Reject',
+    customize: 'Customise',
+  },
+  MultiSuggest: {
+    results: (n) => (n === 1 ? '1 suggestion' : `${n} suggestions`),
+    empty: 'No suggestions',
+    remove: (label) => `Remove ${label}`,
+    chosen: 'Chosen',
+  },
   Suggest: {
     results: (n) => (n === 1 ? '1 suggestion' : `${n} suggestions`),
     empty: 'No suggestions',
   },
-  Table: { empty: 'No items' },
+  Table: { empty: 'No items', selectAll: 'Select all rows', selectRow: 'Select row' },
   Toast: { region: 'Notifications', dismiss: 'Dismiss notification' },
 } satisfies Required<SlurpLabels>;
 

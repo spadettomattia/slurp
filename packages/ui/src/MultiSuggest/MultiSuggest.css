@@ -1,0 +1,62 @@
+/* MultiSuggest: Suggest with several choices. Here `aria-selected` means chosen (a check), the keyboard's place is `data-active`. */
+@layer slurp.components {
+  .slurp-multisuggest .slurp-suggest-option[aria-selected='true'] {
+    background: transparent;
+    outline: 0;
+  }
+
+  .slurp-multisuggest .slurp-suggest-option[data-active] {
+    background: var(--slurp-accent-soft);
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: -2px;
+  }
+
+  .slurp-multisuggest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-2);
+    margin: var(--slurp-space-2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slurp-multisuggest-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slurp-space-1);
+    min-height: 44px;
+    margin: 0;
+    padding: 0 var(--slurp-space-3);
+    border: 1px solid var(--slurp-border-control);
+    border-radius: var(--slurp-radius-full);
+    background: var(--slurp-accent-soft);
+    color: var(--slurp-fg);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+    cursor: pointer;
+    transition: background-color var(--slurp-duration-base);
+  }
+
+  .slurp-multisuggest-tag:focus-visible {
+    outline: 2px solid var(--slurp-focus);
+    outline-offset: 2px;
+  }
+
+  .slurp-multisuggest-tag:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .slurp-multisuggest-tag:hover:not(:disabled) {
+      background: var(--slurp-surface-hover, var(--slurp-accent-soft));
+      border-color: var(--slurp-accent-ink);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-multisuggest-tag {
+      transition-property: background-color, border-color, color, fill, opacity, box-shadow;
+    }
+  }
+}

@@ -81,4 +81,33 @@
   .slurp-dialog[data-variant='sheet'] .slurp-dialog-inner {
     padding-bottom: max(var(--slurp-space-6), env(safe-area-inset-bottom));
   }
+
+  /* Side sheet: full height against the inline start or end edge. */
+  .slurp-dialog[data-side='start'],
+  .slurp-dialog[data-side='end'] {
+    width: min(420px, 100vw);
+    height: 100dvh;
+    max-height: none;
+    border-block: 0;
+    margin-block: 0;
+  }
+
+  .slurp-dialog[data-side='end'] {
+    margin-inline: auto 0;
+    border-inline-end: 0;
+    border-radius: var(--slurp-radius-panel) 0 0 var(--slurp-radius-panel);
+  }
+
+  .slurp-dialog[data-side='start'] {
+    margin-inline: 0 auto;
+    border-inline-start: 0;
+    border-radius: 0 var(--slurp-radius-panel) var(--slurp-radius-panel) 0;
+  }
+
+  .slurp-dialog[data-side='end'] .slurp-dialog-inner,
+  .slurp-dialog[data-side='start'] .slurp-dialog-inner {
+    height: 100%;
+    box-sizing: border-box;
+    padding-bottom: max(var(--slurp-space-6), env(safe-area-inset-bottom));
+  }
 }

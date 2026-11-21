@@ -46,3 +46,29 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
+
+function SideDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button appearance="outline" tone="neutral" onClick={() => setOpen(true)}>
+        Apri il pannello laterale
+      </Button>
+      <Sheet
+        side="end"
+        open={open}
+        onOpenChange={setOpen}
+        title="Dettagli"
+        description="Scorre dal bordo di fine, a tutta altezza."
+      >
+        <Flow gap={2}>
+          {['Nuovo', 'Usato', 'Sotto i 500 €'].map((c) => (
+            <Chip key={c}>{c}</Chip>
+          ))}
+        </Flow>
+      </Sheet>
+    </>
+  );
+}
+
+export const Laterale: Story = { render: () => <SideDemo /> };

@@ -1,0 +1,71 @@
+/* Consent: a panel fixed to the bottom edge, in a centred column; actions wrap under the text on phones. */
+@layer slurp.components {
+  .slurp-consent {
+    position: fixed;
+    inset-block-end: var(--slurp-space-4);
+    inset-inline: var(--slurp-space-4);
+    z-index: 40;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--slurp-space-4);
+    max-width: 720px;
+    margin-inline: auto;
+    padding: var(--slurp-space-4) var(--slurp-space-5);
+    border: 1px solid var(--slurp-line);
+    border-radius: var(--slurp-radius-panel);
+    background: var(--slurp-surface-dock);
+    color: var(--slurp-fg);
+    box-shadow: var(--slurp-shadow-float);
+  }
+
+  .slurp-consent-text {
+    flex: 1 1 280px;
+    min-width: 0;
+  }
+
+  .slurp-consent-title {
+    margin: 0 0 var(--slurp-space-1);
+    font: var(--slurp-font-title-s);
+    letter-spacing: var(--slurp-font-title-s-tracking);
+  }
+
+  .slurp-consent-body {
+    color: var(--slurp-muted);
+    font: var(--slurp-font-body-s);
+    letter-spacing: var(--slurp-font-body-s-tracking);
+  }
+
+  .slurp-consent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--slurp-space-2);
+  }
+
+  @starting-style {
+    .slurp-consent {
+      opacity: 0;
+      translate: 0 var(--slurp-space-4);
+    }
+  }
+
+  .slurp-consent {
+    transition:
+      opacity var(--slurp-duration-move) var(--slurp-ease-settle),
+      translate var(--slurp-duration-move) var(--slurp-ease-settle);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-consent {
+      transition-property: opacity;
+    }
+
+    @starting-style {
+      .slurp-consent {
+        translate: none;
+      }
+    }
+  }
+}

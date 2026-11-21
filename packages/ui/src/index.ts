@@ -113,9 +113,18 @@ export { Tabs, type TabItem, type TabsProps } from './Tabs';
 export { Fold, type FoldProps } from './Fold';
 export { Hint, type HintProps } from './Hint';
 export { Bloom, type BloomPlacement, type BloomProps } from './Bloom';
-export { Menu, MenuItem, type MenuItemProps, type MenuProps } from './Menu';
+export {
+  Menu,
+  MenuGroup,
+  MenuItem,
+  MenuSeparator,
+  type MenuGroupProps,
+  type MenuItemProps,
+  type MenuProps,
+} from './Menu';
 export { Dialog, DIALOG_LABELS, type DialogLabels, type DialogProps } from './Dialog';
-export { Sheet, type SheetProps } from './Sheet';
+export { Sheet, type SheetOwnProps, type SheetProps } from './Sheet';
+export type { SheetSide } from './Dialog/Dialog';
 export {
   TOAST_LABELS,
   ToastProvider,
@@ -138,6 +147,20 @@ export { ResultRow, type ResultRowProps } from './ResultRow';
 export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
+export { Consent, CONSENT_LABELS, type ConsentLabels, type ConsentProps } from './Consent';
+export { Timeline, type TimelineItem, type TimelineProps } from './Timeline';
+export {
+  AvatarGroup,
+  AVATAR_GROUP_LABELS,
+  type AvatarGroupLabels,
+  type AvatarGroupProps,
+} from './AvatarGroup';
+export {
+  MultiSuggest,
+  MULTI_SUGGEST_LABELS,
+  type MultiSuggestLabels,
+  type MultiSuggestProps,
+} from './MultiSuggest';
 export {
   DATEFIELD_LABELS,
   DateField,
