@@ -1,0 +1,28 @@
+import Basic from '@demos/score/Basic.tsx?demo';
+
+# Score
+
+A score in a ring: the filled arc and the written figure in the centre.
+
+<ApiLinks modules={['Score']} />
+
+## Quick reference
+
+<QuickRef module="Score" />
+
+## Examples
+
+### A score out of ten
+
+`score` and `max` give the value; `size` the size; `label` says what is rated.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Score" />
+
+## Accessibility
+
+- It is an image (`role="img"`) with the full name: “Score 9.1 out of 10”.
+- The figure is always written: the value does not depend on the drawing. The arc has contrast ≥ 3:1.

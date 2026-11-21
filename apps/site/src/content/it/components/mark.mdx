@@ -1,0 +1,28 @@
+import Basic from '@demos/mark/Basic.tsx?demo';
+
+# Mark
+
+Evidenzia nel testo le parole che corrispondono a una ricerca, ignorando maiuscole e accenti.
+
+<ApiLinks modules={['Mark']} />
+
+## Riferimento rapido
+
+<QuickRef module="Mark" />
+
+## Esempi
+
+### Nel testo
+
+`text` è il testo, `query` la ricerca (“piu” trova “più”). Le corrispondenze sono `<mark>`.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Mark" />
+
+## Accessibilità
+
+- Le corrispondenze sono `<mark>`: tinta **e** sottolineatura, non solo colore.
+- Il conteggio (“2 di 5”) va annunciato a parte: lo fa `Dock.Search` con il suo contatore.

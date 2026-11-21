@@ -1,0 +1,29 @@
+import Basic from '@demos/dock/Basic.tsx?demo';
+
+# Dock
+
+La barra flottante in basso che porta tutta la navigazione: briciole, ricerca e azioni. È anche l’origine della transizione collapse / expand.
+
+<ApiLinks modules={['Dock']} />
+
+## Riferimento rapido
+
+<QuickRef module="Dock" />
+
+## Esempi
+
+### Briciole, ricerca e filtri
+
+`Dock.Crumbs` con `Dock.Back` e `Dock.Crumb` (l’ultima `current`), `Dock.Search` e `Dock.Actions`. Il pannello sopra la barra (`panel`) ospita i filtri. Qui è `inline`: nell’app è fisso in basso.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Dock" />
+
+## Accessibilità
+
+- Un solo bordo: la barra. Briciole, ricerca e azioni sono pezzi morbidi dentro.
+- Le azioni e i pannelli seguono le regole di Bloom: il focus entra nel pannello, Escape lo chiude e lo riporta sul bottone.
+- Sui telefoni le briciole intermedie si nascondono e la corrente prende lo spazio; con solo la ricerca diventa una pillola “Cerca…”.

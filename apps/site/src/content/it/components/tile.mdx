@@ -1,0 +1,29 @@
+import Basic from '@demos/tile/Basic.tsx?demo';
+
+# Tile
+
+Il pezzo d’ingresso della griglia: un titolo grande su un fondo del colore della sezione, con una bolla che si muove piano.
+
+<ApiLinks modules={['Tile']} />
+
+## Riferimento rapido
+
+<QuickRef module="Tile" />
+
+## Esempi
+
+### Una tile
+
+`color` tinge il fondo; `badge` aggiunge una pillola; `weight` (dentro un `Bento`) decide la dimensione. Con `as` e `href` diventa un link.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Tile" />
+
+## Accessibilità
+
+- Un `<button>` (o un link con `as`): il nome è titolo, sottotitolo e badge.
+- Il testo usa `fg` e `muted` del tema; con colori molto scuri o saturi controlla il contrasto.
+- La bolla usa solo `transform` e si ferma con `prefers-reduced-motion`.

@@ -1,0 +1,28 @@
+import Basic from '@demos/score/Basic.tsx?demo';
+
+# Score
+
+Un punteggio in un anello: l’arco pieno e la cifra scritta al centro.
+
+<ApiLinks modules={['Score']} />
+
+## Riferimento rapido
+
+<QuickRef module="Score" />
+
+## Esempi
+
+### Un punteggio su dieci
+
+`score` e `max` danno il valore; `size` la grandezza; `label` dice che cosa viene valutato.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Score" />
+
+## Accessibilità
+
+- È un’immagine (`role="img"`) con il nome completo: “Punteggio 9.1 su 10”.
+- La cifra è sempre scritta: il valore non dipende dal disegno. L’arco ha contrasto ≥ 3:1.

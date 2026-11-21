@@ -1,0 +1,29 @@
+import Basic from '@demos/card/Basic.tsx?demo';
+
+# Card
+
+Una scheda di contenuto: un’immagine o un fondo del colore, un titolo, una descrizione e un valore.
+
+<ApiLinks modules={['Card']} />
+
+## Riferimento rapido
+
+<QuickRef module="Card" />
+
+## Esempi
+
+### Una scheda
+
+`href` ne fa un link, `onClick` un bottone, senza nessuno dei due è un contenitore. `value` e `valuePrefix` scrivono il dato (un prezzo, un punteggio).
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Card" />
+
+## Accessibilità
+
+- Il nome è il contenuto testuale: tienilo breve e senza frasi come “scopri di più”.
+- Il media è decorativo; le pillole del testo non lo coprono mai.
+- Il sollevamento in hover c’è solo con puntatore preciso: sul tocco non resta “appiccicato”.

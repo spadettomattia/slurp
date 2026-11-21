@@ -1,0 +1,28 @@
+import Basic from '@demos/bento/Basic.tsx?demo';
+
+# Bento
+
+The twelve-column entry grid: tiles take more or less room by weight, but the order stays the children’s.
+
+<ApiLinks modules={['Bento']} />
+
+## Quick reference
+
+<QuickRef module="Bento" />
+
+## Examples
+
+### Different weights
+
+Each `Tile`’s `weight` decides how much room it takes. `layout="auto"` arranges by itself; below 860px it switches to two columns.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Bento" />
+
+## Accessibility
+
+- The grid changes only the layout: reading and Tab order stay the children’s, that is the priority order.
+- Tiles stay large targets even at two columns.

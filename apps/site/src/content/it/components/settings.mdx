@@ -1,0 +1,29 @@
+import Basic from '@demos/settings/Basic.tsx?demo';
+
+# Settings
+
+Il bottone tondo in alto a destra che diventa il pannello delle impostazioni: tema chiaro, scuro o automatico, e lingua.
+
+<ApiLinks modules={['Settings']} />
+
+## Riferimento rapido
+
+<QuickRef module="Settings" />
+
+## Esempi
+
+### Tema e lingua
+
+`languages` elenca le lingue (ognuna scritta in sé stessa, con il suo `lang`); `language` e `onLanguageChange` la controllano. I figli aggiungono note nel pannello. Qui è `inline`.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Settings" />
+
+## Accessibilità
+
+- Un bottone tondo con nome che diventa il pannello: valgono le regole di Bloom (focus nel pannello, Escape sul bottone).
+- Tema e Lingua sono gruppi di radio con nome, a righe con icona e spunta.
+- Ogni lingua è scritta in sé stessa e ha il suo `lang`: il lettore di schermo la pronuncia bene.

@@ -1,0 +1,29 @@
+import Basic from '@demos/tile/Basic.tsx?demo';
+
+# Tile
+
+The grid’s entry piece: a large title on a ground in the section’s colour, with a slowly moving blob.
+
+<ApiLinks modules={['Tile']} />
+
+## Quick reference
+
+<QuickRef module="Tile" />
+
+## Examples
+
+### A tile
+
+`color` tints the ground; `badge` adds a pill; `weight` (inside a `Bento`) decides the size. With `as` and `href` it becomes a link.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Tile" />
+
+## Accessibility
+
+- A `<button>` (or a link with `as`): the name is title, subtitle and badge.
+- The text uses the theme’s `fg` and `muted`; with very dark or saturated colours check the contrast.
+- The blob uses only `transform` and stops with `prefers-reduced-motion`.

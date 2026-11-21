@@ -1,0 +1,29 @@
+import Basic from '@demos/listrow/Basic.tsx?demo';
+
+# ListRow
+
+A list row with title, note, value and an action: the highlighted row has an outline and the tag with a check.
+
+<ApiLinks modules={['ListRow']} />
+
+## Quick reference
+
+<QuickRef module="ListRow" />
+
+## Examples
+
+### A list
+
+`List` is the list, each `ListRow` an item. With `href` and no `actionLabel` the whole row is a link; with `actionLabel` the link is the action.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="ListRow" />
+
+## Accessibility
+
+- `List` is a list: each row is an item.
+- The action link’s name is its text plus the row’s title (“Details Free shipping”): many “Details” stay distinguishable.
+- The highlighted row has the `accent-ink` outline and the tag with a check, not just colour.

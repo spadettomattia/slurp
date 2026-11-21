@@ -1,0 +1,28 @@
+import Basic from '@demos/filters/Basic.tsx?demo';
+
+# Filters
+
+The filters panel: groups of chips with a name and “Clear filters”.
+
+<ApiLinks modules={['Filters']} />
+
+## Quick reference
+
+<QuickRef module="Filters" />
+
+## Examples
+
+### Two groups
+
+`active` is the number of filters on; `onReset` clears them. With `active` at 0 the button is off.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Filters" />
+
+## Accessibility
+
+- Each `Filters.Group` is a group named by its label; the chips inside are buttons with `aria-pressed`.
+- In the Dock it sits in the panel that grows above the bar: focus enters it on opening.

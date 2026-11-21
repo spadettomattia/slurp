@@ -1,0 +1,28 @@
+import Basic from '@demos/filters/Basic.tsx?demo';
+
+# Filters
+
+Il pannello dei filtri: gruppi di chip con un nome e “Azzera filtri”.
+
+<ApiLinks modules={['Filters']} />
+
+## Riferimento rapido
+
+<QuickRef module="Filters" />
+
+## Esempi
+
+### Due gruppi
+
+`active` è il numero di filtri accesi; `onReset` li azzera. Con `active` a 0 il pulsante è spento.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Filters" />
+
+## Accessibilità
+
+- Ogni `Filters.Group` è un gruppo con il nome dalla sua etichetta; i chip dentro sono bottoni con `aria-pressed`.
+- Nel Dock sta nel pannello che cresce sopra la barra: il focus ci entra all’apertura.

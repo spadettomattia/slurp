@@ -1,0 +1,29 @@
+import Basic from '@demos/dock/Basic.tsx?demo';
+
+# Dock
+
+The floating bar at the bottom that carries all navigation: crumbs, search and actions. It is also the origin of the collapse / expand transition.
+
+<ApiLinks modules={['Dock']} />
+
+## Quick reference
+
+<QuickRef module="Dock" />
+
+## Examples
+
+### Crumbs, search and filters
+
+`Dock.Crumbs` with `Dock.Back` and `Dock.Crumb` (the last `current`), `Dock.Search` and `Dock.Actions`. The panel above the bar (`panel`) holds the filters. Here it is `inline`: in an app it is fixed at the bottom.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Dock" />
+
+## Accessibility
+
+- One boundary: the bar. Crumbs, search and actions are soft pieces inside.
+- Actions and panels follow Bloom’s rules: focus enters the panel, Escape closes it and returns to the button.
+- On phones the middle crumbs hide and the current one takes the room; with only search it becomes a “Search…” pill.

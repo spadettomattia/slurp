@@ -1,0 +1,28 @@
+import Basic from '@demos/shelf/Basic.tsx?demo';
+
+# Shelf
+
+A row of cards that arranges itself: columns of at least 220px that fill the space.
+
+<ApiLinks modules={['Shelf']} />
+
+## Quick reference
+
+<QuickRef module="Shelf" />
+
+## Examples
+
+### Four cards
+
+Each child ends up in an `li` of a list.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Shelf" />
+
+## Accessibility
+
+- It is a list (`ul`): screen readers say how many items it holds.
+- The order stays the children’s, whatever the number of columns.

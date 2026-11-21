@@ -1,0 +1,28 @@
+import Basic from '@demos/stage/Basic.tsx?demo';
+
+# Stage
+
+Il fondale per un’immagine o un dato: un alone e un anello nel colore, dietro il contenuto.
+
+<ApiLinks modules={['Stage']} />
+
+## Riferimento rapido
+
+<QuickRef module="Stage" />
+
+## Esempi
+
+### Con un punteggio
+
+`color` tinge alone e anello; il contenuto (una foto, uno `Score`) sta al centro.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Stage" />
+
+## Accessibilità
+
+- Solo fondale: alone e anello sono decorativi e nascosti ai lettori di schermo; il contenuto porta il significato.
+- L’alone respira lentamente e si ferma con `prefers-reduced-motion`.

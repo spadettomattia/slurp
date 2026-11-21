@@ -1,0 +1,29 @@
+import Basic from '@demos/listrow/Basic.tsx?demo';
+
+# ListRow
+
+Una riga di lista con titolo, nota, valore e un’azione: la riga evidenziata ha un contorno e il tag con la spunta.
+
+<ApiLinks modules={['ListRow']} />
+
+## Riferimento rapido
+
+<QuickRef module="ListRow" />
+
+## Esempi
+
+### Una lista
+
+`List` è la lista, ogni `ListRow` un elemento. Con `href` e senza `actionLabel` tutta la riga è un link; con `actionLabel` il link è l’azione.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="ListRow" />
+
+## Accessibilità
+
+- `List` è una lista: ogni riga è un elemento.
+- Il link dell’azione ha come nome il suo testo più il titolo della riga (“Dettagli Spedizione gratuita”): tanti “Dettagli” restano distinguibili.
+- La riga evidenziata ha il contorno `accent-ink` e il tag con la spunta, non solo il colore.

@@ -1,0 +1,29 @@
+import Basic from '@demos/settings/Basic.tsx?demo';
+
+# Settings
+
+The round button at the top right that becomes the settings panel: light, dark or automatic theme, and language.
+
+<ApiLinks modules={['Settings']} />
+
+## Quick reference
+
+<QuickRef module="Settings" />
+
+## Examples
+
+### Theme and language
+
+`languages` lists the languages (each written in itself, with its `lang`); `language` and `onLanguageChange` control it. Children add notes in the panel. Here it is `inline`.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Settings" />
+
+## Accessibility
+
+- A named round button that becomes the panel: Bloom’s rules apply (focus into the panel, Escape back to the button).
+- Theme and Language are named radio groups, as rows with icon and check.
+- Each language is written in itself and has its own `lang`: the screen reader pronounces it well.

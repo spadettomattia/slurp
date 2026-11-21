@@ -1,0 +1,28 @@
+import Basic from '@demos/mark/Basic.tsx?demo';
+
+# Mark
+
+Highlights the words in a text that match a search, ignoring case and accents.
+
+<ApiLinks modules={['Mark']} />
+
+## Quick reference
+
+<QuickRef module="Mark" />
+
+## Examples
+
+### In text
+
+`text` is the text, `query` the search (“piu” finds “più”). Matches are `<mark>`.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Mark" />
+
+## Accessibility
+
+- Matches are `<mark>`: tint **and** underline, not colour alone.
+- The count (“2 of 5”) must be announced separately: `Dock.Search` does it with its counter.

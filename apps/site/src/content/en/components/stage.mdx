@@ -1,0 +1,28 @@
+import Basic from '@demos/stage/Basic.tsx?demo';
+
+# Stage
+
+The backdrop for an image or a figure: a glow and a ring in the colour, behind the content.
+
+<ApiLinks modules={['Stage']} />
+
+## Quick reference
+
+<QuickRef module="Stage" />
+
+## Examples
+
+### With a score
+
+`color` tints glow and ring; the content (a photo, a `Score`) sits in the centre.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Stage" />
+
+## Accessibility
+
+- Backdrop only: glow and ring are decorative and hidden from screen readers; the content carries the meaning.
+- The glow breathes slowly and stops with `prefers-reduced-motion`.

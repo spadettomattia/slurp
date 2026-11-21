@@ -1,0 +1,29 @@
+import Basic from '@demos/card/Basic.tsx?demo';
+
+# Card
+
+A content card: an image or a ground in the colour, a title, a description and a value.
+
+<ApiLinks modules={['Card']} />
+
+## Quick reference
+
+<QuickRef module="Card" />
+
+## Examples
+
+### A card
+
+`href` makes it a link, `onClick` a button, with neither it is a container. `value` and `valuePrefix` write the figure (a price, a score).
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Card" />
+
+## Accessibility
+
+- The name is the text content: keep it short and without phrases like “learn more”.
+- The media is decorative; the text pills never cover it.
+- The hover lift exists only with a precise pointer: on touch it does not stay “stuck”.

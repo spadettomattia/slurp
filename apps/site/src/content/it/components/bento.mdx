@@ -1,0 +1,28 @@
+import Basic from '@demos/bento/Basic.tsx?demo';
+
+# Bento
+
+La griglia d’ingresso a dodici colonne: le tile prendono più o meno spazio secondo il loro peso, ma l’ordine resta quello dei figli.
+
+<ApiLinks modules={['Bento']} />
+
+## Riferimento rapido
+
+<QuickRef module="Bento" />
+
+## Esempi
+
+### Pesi diversi
+
+`weight` di ogni `Tile` decide quanto spazio occupa. `layout="auto"` dispone da solo; sotto 860px passa a due colonne.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Bento" />
+
+## Accessibilità
+
+- La griglia cambia solo la disposizione: l’ordine di lettura e di Tab resta quello dei figli, cioè l’ordine di priorità.
+- Le tile restano bersagli grandi anche a due colonne.
