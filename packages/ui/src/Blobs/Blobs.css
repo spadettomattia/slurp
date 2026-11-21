@@ -1,0 +1,79 @@
+/* Blobs: radial gradients that drift with transform only (never blurred or reshaped per frame, so they cost no repaint). */
+@layer slurp.components {
+  .slurp-blobs {
+    --slurp-blob: var(--slurp-accent);
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .slurp-blob {
+    position: absolute;
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--slurp-blob) 45%, transparent),
+      transparent
+    );
+    opacity: 0.7;
+    will-change: transform;
+    animation: slurp-blob-drift 16s ease-in-out infinite;
+  }
+
+  .slurp-blob:nth-child(1) {
+    inset-block-start: -20%;
+    inset-inline-start: -10%;
+  }
+
+  .slurp-blob:nth-child(2) {
+    inset-block-end: -25%;
+    inset-inline-end: -15%;
+    width: 70%;
+    animation-duration: 20s;
+    animation-delay: -6s;
+  }
+
+  .slurp-blob:nth-child(3) {
+    inset-block-start: 30%;
+    inset-inline-start: 40%;
+    width: 45%;
+    animation-duration: 24s;
+    animation-delay: -12s;
+  }
+
+  .slurp-blob:nth-child(4) {
+    inset-block-start: 55%;
+    inset-inline-start: -15%;
+    width: 40%;
+    animation-duration: 18s;
+    animation-delay: -3s;
+  }
+
+  .slurp-blob:nth-child(5) {
+    inset-block-start: -15%;
+    inset-inline-end: 5%;
+    width: 35%;
+    animation-duration: 22s;
+    animation-delay: -9s;
+  }
+
+  @keyframes slurp-blob-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate3d(8%, 6%, 0) scale(1.1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slurp-blob {
+      animation: none;
+    }
+  }
+}

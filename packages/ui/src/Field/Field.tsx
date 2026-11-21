@@ -26,6 +26,10 @@ export interface InputAttributes {
   enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
   maxLength?: number;
   minLength?: number;
+  /** For `type` number, date, time…: the lowest, the highest and the step of the value. */
+  min?: string | number;
+  max?: string | number;
+  step?: string | number;
   pattern?: string;
   readOnly?: boolean;
   required?: boolean;
@@ -46,6 +50,9 @@ const INPUT_KEYS = [
   'enterKeyHint',
   'maxLength',
   'minLength',
+  'min',
+  'max',
+  'step',
   'pattern',
   'readOnly',
   'required',

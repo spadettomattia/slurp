@@ -1,0 +1,29 @@
+import Basic from '@demos/focustrap/Basic.tsx?demo';
+
+# FocusTrap
+
+Tiene Tab dentro un contenitore: dall’ultimo controllo si va al primo, e alla chiusura il focus torna dov’era. Per pannelli che non sono un `<dialog>` nativo.
+
+<ApiLinks modules={['FocusTrap']} />
+
+## Riferimento rapido
+
+<QuickRef module="FocusTrap" />
+
+## Esempi
+
+### Un pannello
+
+All’attivazione il focus entra nel primo controllo (o in un elemento con `data-autofocus`). `onEscape` chiude il pannello; `active` e `restoreFocus` ne regolano il comportamento.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="FocusTrap" />
+
+## Accessibilità
+
+- Tab e Maiusc+Tab restano dentro; i controlli nascosti (`display: none`, `visibility: hidden`) sono saltati.
+- Alla chiusura il focus torna all’elemento che lo aveva prima.
+- Un `<dialog>` modale nativo (Dialog, Sheet, Lightbox) contiene già il focus: qui non serve.

@@ -1,0 +1,6 @@
+/* FocusTrap: a plain container; the behaviour is in the component. */
+@layer slurp.components {
+  .slurp-focus-trap {
+    display: block;
+  }
+}

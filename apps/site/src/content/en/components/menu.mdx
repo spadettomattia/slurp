@@ -1,3 +1,4 @@
+import Choices from '@demos/menu/Choices.tsx?demo';
 import Basic from '@demos/menu/Basic.tsx?demo';
 
 # Menu
@@ -17,6 +18,12 @@ A list of actions: the button becomes the panel, as everywhere in Slurp.
 `trigger` is the button's content, every `MenuItem` an action; `tone="danger"` for destructive ones, which say so in their text too.
 
 <Basic />
+
+### Choice items
+
+`Menu.CheckboxItem` is an item that is on or off, `Menu.RadioGroup` with its `Menu.RadioItem`s a choice among several. The menu stays open when you change them; the tick always takes the same room, so labels stay aligned.
+
+<Choices />
 
 ## Customizing the theme
 

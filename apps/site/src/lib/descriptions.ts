@@ -358,4 +358,20 @@ export const DESCRIPTIONS: Record<string, Text> = {
     'La transizione può attraversare due pagine',
     'The transition can cross two pages: it starts from the home tile and lands in the next page’s Dock',
   ),
+  'components/timefield': t(
+    'Un orario: l’input time del browser, vestito da Field',
+    'A time of day: the browser’s time input, dressed as a Field',
+  ),
+  'components/focustrap': t(
+    'Tiene Tab dentro un contenitore: dall’ultimo controllo si va al primo',
+    'Keeps Tab inside a container: from the last control it goes to the first',
+  ),
+  'components/blobs': t(
+    'Macchie di colore che si muovono piano dietro il contenuto',
+    'Patches of colour that drift slowly behind the content',
+  ),
+  'components/slurpprovider': t(
+    'Il punto da cui parte tutto: porta il tema',
+    'Where everything starts: it carries the theme',
+  ),
 };

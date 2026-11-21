@@ -1,0 +1,39 @@
+# SlurpProvider
+
+Il punto da cui parte tutto: porta il tema, la scelta chiaro / scuro, i testi dei componenti e il registro dell'animazione. Va una volta, alla radice dell'app.
+
+<ApiLinks modules={['SlurpProvider']} />
+
+## Riferimento rapido
+
+<QuickRef module="SlurpProvider" />
+
+## Uso
+
+```tsx title="App.tsx"
+import { createTheme, Ground, SlurpProvider } from '@slurp-ui/react';
+
+const theme = createTheme({ accent: 'hue-violet' });
+
+export function App() {
+  return (
+    <SlurpProvider theme={theme} labels="it" storageKey="app-theme">
+      <Ground />
+      {/* la tua app */}
+    </SlurpProvider>
+  );
+}
+```
+
+- `theme` viene da [`createTheme`](/customization/theme): accento, schema chiaro / scuro, token, default dei componenti e animazione.
+- `labels` è `'it'` (di base), `'en'` o i tuoi testi per componente: vedi [Testi e lingue](/customization/labels).
+- `storageKey` è la chiave di `localStorage` che ricorda la scelta chiaro / scuro; `null` per non ricordarla.
+
+## Provider annidati
+
+Un provider dentro un altro ha il suo tema e i suoi testi, ma segue la scelta chiaro / scuro del primo: serve per cambiare il tema o i testi di una parte. Per un altro accento in una parte della pagina usa [AccentScope](/components/accentscope).
+
+## Accessibilità
+
+- Non produce elementi: nessun ruolo e nessun testo.
+- Con il rendering sul server aggiungi `ColorSchemeScript` nell'`<head>`, per applicare la scelta prima del primo disegno (vedi [Tema chiaro e scuro](/customization/dark-mode)).

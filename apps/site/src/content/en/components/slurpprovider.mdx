@@ -1,0 +1,39 @@
+# SlurpProvider
+
+Where everything starts: it carries the theme, the light / dark choice, the components’ texts and the animation registry. It goes once, at the root of the app.
+
+<ApiLinks modules={['SlurpProvider']} />
+
+## Quick reference
+
+<QuickRef module="SlurpProvider" />
+
+## Usage
+
+```tsx title="App.tsx"
+import { createTheme, Ground, SlurpProvider } from '@slurp-ui/react';
+
+const theme = createTheme({ accent: 'hue-violet' });
+
+export function App() {
+  return (
+    <SlurpProvider theme={theme} labels="en" storageKey="app-theme">
+      <Ground />
+      {/* your app */}
+    </SlurpProvider>
+  );
+}
+```
+
+- `theme` comes from [`createTheme`](/customization/theme): accent, light / dark scheme, tokens, component defaults and motion.
+- `labels` is `'it'` (default), `'en'` or your own texts per component: see [Copy and languages](/customization/labels).
+- `storageKey` is the `localStorage` key that remembers the light / dark choice; `null` to not remember it.
+
+## Nested providers
+
+A provider inside another has its own theme and texts, but follows the first one’s light / dark choice: handy to change the theme or the texts of a part. For another accent in part of the page use [AccentScope](/components/accentscope).
+
+## Accessibility
+
+- It produces no elements: no roles and no texts.
+- With server rendering add `ColorSchemeScript` in the `<head>`, to apply the choice before the first paint (see [Light and dark](/customization/dark-mode)).

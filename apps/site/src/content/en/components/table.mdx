@@ -1,3 +1,4 @@
+import Loading from '@demos/table/Loading.tsx?demo';
 import Basic from '@demos/table/Basic.tsx?demo';
 import Selectable from '@demos/table/Selectable.tsx?demo';
 
@@ -25,6 +26,12 @@ A data table without a frame: lines between rows, aligned numbers, headers that 
 
 <Selectable />
 
+### Loading state
+
+`loading` replaces the rows with placeholders of the right shape and marks the table `aria-busy`; `loadingRows` sets their number. For long tables, put them above `Pages`: the table shows a page of rows and `Pages` changes page.
+
+<Loading />
+
 ## Customizing the theme
 
 <ThemeSnippet module="Table" />
@@ -33,4 +40,5 @@ A data table without a frame: lines between rows, aligned numbers, headers that 
 
 - It is a named (the caption) and focusable region: a wide table scrolls horizontally with the keyboard.
 - Sortable headers are buttons and the sorted column has `aria-sort`; the first column can be `rowHeader`.
+- With `loading` the table is `aria-busy` and a `status` announces “Loading rows”.
 - Checkboxes have a name (“Select row”, “Select all rows”); the selected row is also tinted.

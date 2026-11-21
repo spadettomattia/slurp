@@ -163,7 +163,12 @@ export const labelsEn = {
     results: (n) => (n === 1 ? '1 suggestion' : `${n} suggestions`),
     empty: 'No suggestions',
   },
-  Table: { empty: 'No items', selectAll: 'Select all rows', selectRow: 'Select row' },
+  Table: {
+    empty: 'No items',
+    selectAll: 'Select all rows',
+    selectRow: 'Select row',
+    loading: 'Loading rows',
+  },
   Toast: { region: 'Notifications', dismiss: 'Dismiss notification' },
 } satisfies Required<SlurpLabels>;
 

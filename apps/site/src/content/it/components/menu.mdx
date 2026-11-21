@@ -1,3 +1,4 @@
+import Choices from '@demos/menu/Choices.tsx?demo';
 import Basic from '@demos/menu/Basic.tsx?demo';
 
 # Menu
@@ -17,6 +18,12 @@ Una lista di azioni: il bottone diventa il pannello, come in tutto Slurp.
 `trigger` è il contenuto del bottone, ogni `MenuItem` un'azione; `tone="danger"` per quelle distruttive, che lo dicono anche nel testo.
 
 <Basic />
+
+### Voci a scelta
+
+`Menu.CheckboxItem` è una voce accesa o spenta, `Menu.RadioGroup` con i suoi `Menu.RadioItem` una scelta tra più. Il menu resta aperto quando le cambi; la spunta occupa sempre lo stesso spazio, così le etichette restano allineate.
+
+<Choices />
 
 ## Personalizzare il tema
 

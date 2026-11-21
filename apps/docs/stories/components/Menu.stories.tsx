@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Menu, MenuItem } from '@slurp-ui/react';
 import { FiltersIcon } from '@slurp-ui/react/icons';
@@ -54,3 +55,22 @@ export const GruppiEScorciatoie: Story = {
     </Menu>
   ),
 };
+
+function ChoicesDemo() {
+  const [notes, setNotes] = useState(true);
+  const [order, setOrder] = useState('new');
+  return (
+    <Menu trigger="Vista">
+      <Menu.CheckboxItem checked={notes} onCheckedChange={setNotes}>
+        Mostra le note
+      </Menu.CheckboxItem>
+      <Menu.Separator />
+      <Menu.RadioGroup label="Ordina per" value={order} onValueChange={setOrder}>
+        <Menu.RadioItem value="new">Più recenti</Menu.RadioItem>
+        <Menu.RadioItem value="rel">Rilevanza</Menu.RadioItem>
+      </Menu.RadioGroup>
+    </Menu>
+  );
+}
+
+export const Scelte: Story = { render: () => <ChoicesDemo /> };

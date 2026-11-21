@@ -32,4 +32,13 @@
     font-size: 0.85em;
     white-space: nowrap;
   }
+
+  /* The slot of the tick: kept even when unchecked, so labels line up. */
+  .slurp-menu-check {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 18px;
+    color: var(--slurp-accent-ink);
+  }
 }

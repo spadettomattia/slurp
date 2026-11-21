@@ -63,6 +63,7 @@ export const NAV: NavSection[] = [
       {
         title: t('Fondamenta', 'Foundations'),
         pages: comps(
+          'SlurpProvider',
           'Ground',
           'Cell',
           'Flow',
@@ -101,6 +102,7 @@ export const NAV: NavSection[] = [
           'FileDrop',
           'ErrorSummary',
           'MultiSuggest',
+          'TimeField',
         ),
       },
       {
@@ -116,11 +118,22 @@ export const NAV: NavSection[] = [
           'Footer',
           'Reveal',
           'Rise',
+          'Blobs',
         ),
       },
       {
         title: t('Pannelli', 'Panels'),
-        pages: comps('Bloom', 'Menu', 'Dialog', 'Sheet', 'Hint', 'Fold', 'Tabs', 'Consent'),
+        pages: comps(
+          'Bloom',
+          'Menu',
+          'Dialog',
+          'Sheet',
+          'Hint',
+          'Fold',
+          'Tabs',
+          'Consent',
+          'FocusTrap',
+        ),
       },
       {
         title: t('Feedback', 'Feedback'),

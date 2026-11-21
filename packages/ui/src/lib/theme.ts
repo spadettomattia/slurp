@@ -53,6 +53,9 @@ import type { SwatchGroupProps, SwatchProps } from '../Swatch/Swatch';
 import type { SwitchProps } from '../Switch/Switch';
 import type { TabsProps } from '../Tabs/Tabs';
 import type { TextProps } from '../Text/Text';
+import type { BlobsProps } from '../Blobs/Blobs';
+import type { FocusTrapProps } from '../FocusTrap/FocusTrap';
+import type { TimeFieldProps } from '../TimeField/TimeField';
 import type { RiseProps } from '../Rise/Rise';
 import type { RevealProps } from '../Reveal/Reveal';
 import type { LightboxProps } from '../Lightbox/Lightbox';
@@ -126,6 +129,9 @@ const DEFAULT_MOTION: MotionOptions = {
 
 /** Components that read defaults and `css` overrides from the theme, with their parts. */
 export interface ThemeComponents {
+  Blobs: { props: BlobsProps; parts: 'root' };
+  FocusTrap: { props: FocusTrapProps; parts: 'root' };
+  TimeField: { props: TimeFieldProps; parts: 'root' | 'label' | 'control' | 'hint' | 'error' };
   Rise: { props: RiseProps; parts: 'root' };
   Reveal: { props: RevealProps; parts: 'root' };
   Lightbox: { props: LightboxProps; parts: 'root' };

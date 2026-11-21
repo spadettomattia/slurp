@@ -1,3 +1,4 @@
+import Loading from '@demos/table/Loading.tsx?demo';
 import Basic from '@demos/table/Basic.tsx?demo';
 import Selectable from '@demos/table/Selectable.tsx?demo';
 
@@ -25,6 +26,12 @@ Una tabella di dati senza cornice: linee tra le righe, numeri allineati, intesta
 
 <Selectable />
 
+### Stato di caricamento
+
+`loading` sostituisce le righe con segnaposto della forma giusta e segna la tabella `aria-busy`; `loadingRows` ne decide il numero. Per le tabelle lunghe, mettile sopra a `Pages`: la tabella mostra una pagina di righe e `Pages` cambia pagina.
+
+<Loading />
+
 ## Personalizzare il tema
 
 <ThemeSnippet module="Table" />
@@ -33,4 +40,5 @@ Una tabella di dati senza cornice: linee tra le righe, numeri allineati, intesta
 
 - È una regione con nome (la didascalia) e focalizzabile: una tabella larga scorre in orizzontale con la tastiera.
 - Le intestazioni ordinabili sono bottoni e la colonna ordinata ha `aria-sort`; la prima colonna può essere `rowHeader`.
+- Con `loading` la tabella è `aria-busy` e un `status` annuncia “Caricamento delle righe”.
 - Le caselle hanno un nome (“Seleziona la riga”, “Seleziona tutte le righe”); la riga selezionata è anche tinta.

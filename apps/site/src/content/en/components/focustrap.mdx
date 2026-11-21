@@ -1,0 +1,29 @@
+import Basic from '@demos/focustrap/Basic.tsx?demo';
+
+# FocusTrap
+
+Keeps Tab inside a container: from the last control it goes to the first, and on closing focus returns to where it was. For panels that are not a native `<dialog>`.
+
+<ApiLinks modules={['FocusTrap']} />
+
+## Quick reference
+
+<QuickRef module="FocusTrap" />
+
+## Examples
+
+### A panel
+
+On activation focus enters the first control (or an element with `data-autofocus`). `onEscape` closes the panel; `active` and `restoreFocus` adjust its behaviour.
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="FocusTrap" />
+
+## Accessibility
+
+- Tab and Shift+Tab stay inside; hidden controls (`display: none`, `visibility: hidden`) are skipped.
+- On closing, focus returns to the element that had it before.
+- A native modal `<dialog>` (Dialog, Sheet, Lightbox) already contains focus: it is not needed there.

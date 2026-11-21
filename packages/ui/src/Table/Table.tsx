@@ -3,6 +3,7 @@ import { cx } from '@slurp-ui/utils';
 import { useId, useMemo, type ElementType, type Key, type ReactNode } from 'react';
 
 import { Checkbox } from '../Checkbox/Checkbox';
+import { Placeholder } from '../Placeholder/Placeholder';
 import { useLabels } from '../internal/labels';
 import { useTheme } from '../internal/context';
 import { useAnimationRoot } from '../internal/animation';
@@ -41,12 +42,15 @@ export interface TableLabels {
   selectAll: string;
   /** Names the checkbox of a row. */
   selectRow: string;
+  /** Announced while the rows load. */
+  loading: string;
 }
 
 export const TABLE_LABELS: TableLabels = {
   empty: 'Nessun elemento',
   selectAll: 'Seleziona tutte le righe',
   selectRow: 'Seleziona la riga',
+  loading: 'Caricamento delle righe',
 };
 
 export interface TableOwnProps<R extends Row = Row> extends PartsProps<'table' | 'caption'> {
@@ -68,6 +72,10 @@ export interface TableOwnProps<R extends Row = Row> extends PartsProps<'table' |
   selected?: Key[];
   defaultSelected?: Key[];
   onSelectedChange?: (keys: Key[]) => void;
+  /** The rows are on their way: placeholders of the right shape take their place and the table is `aria-busy`. */
+  loading?: boolean;
+  /** How many placeholder rows while loading. Default 5. */
+  loadingRows?: number;
   /** Keeps the header in view while the rows scroll: the table scrolls inside this height (CSS value). */
   maxHeight?: string | number;
   labels?: Partial<TableLabels>;
@@ -103,6 +111,8 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
     defaultSelected = [],
     onSelectedChange,
     maxHeight,
+    loading = false,
+    loadingRows = 5,
     style: styleProp,
     labels: labelsProp,
     parts,
@@ -171,6 +181,7 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
       {style}
       <Root
         className={cx('slurp-table', styled.className, className)}
+        aria-busy={loading || undefined}
         data-sticky={maxHeight != null ? '' : undefined}
         style={maxHeight != null ? { ...styleProp, maxHeight } : styleProp}
         role="region"
@@ -245,7 +256,31 @@ export function Table<R extends Row = Row, E extends ElementType = 'div'>(props:
                 </tr>
               </thead>
               <tbody>
-                {sorted.length === 0 ? (
+                {loading ? (
+                  Array.from({ length: Math.max(1, loadingRows) }, (_, r) => (
+                    <tr
+                      key={`loading-${r}`}
+                      className="slurp-table-row"
+                      aria-hidden={r > 0 || undefined}
+                    >
+                      {selectable && <td className="slurp-table-cell slurp-table-select" />}
+                      {columns.map((c, i) => (
+                        <td
+                          key={c.key}
+                          className="slurp-table-cell"
+                          data-align={c.align ?? 'start'}
+                        >
+                          {r === 0 && i === 0 && (
+                            <span className="slurp-visually-hidden" role="status">
+                              {labels.loading}
+                            </span>
+                          )}
+                          <Placeholder width={i === 0 ? '70%' : '50%'} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : sorted.length === 0 ? (
                   <tr>
                     <td
                       className="slurp-table-empty"

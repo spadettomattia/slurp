@@ -1,0 +1,29 @@
+import Basic from '@demos/blobs/Basic.tsx?demo';
+
+# Blobs
+
+Macchie di colore che si muovono piano dietro il contenuto: solo decorazione, per dare vita a un fondo.
+
+<ApiLinks modules={['Blobs']} />
+
+## Riferimento rapido
+
+<QuickRef module="Blobs" />
+
+## Esempi
+
+### Dietro il contenuto
+
+Il genitore ha `position: relative`; `count` (1–5) è il numero di macchie e `color` il loro colore (di base l’accento).
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="Blobs" />
+
+## Accessibilità
+
+- È decorativo: `aria-hidden`, senza puntatore.
+- Si muove solo con `transform` e sta fermo con `prefers-reduced-motion`: non costa ridisegni.
+- Il testo sopra deve avere contrasto AA anche sulla macchia più viva.

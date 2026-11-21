@@ -4,12 +4,14 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   AvatarGroup,
+  Blobs,
   Calendar,
   Consent,
   createTheme,
   DateField,
   ErrorSummary,
   FileDrop,
+  FocusTrap,
   Compare,
   Footer,
   Kbd,
@@ -26,6 +28,10 @@ import {
   Tag,
   Timeline,
   Tree,
+  Menu,
+  MenuCheckboxItem,
+  Table,
+  TimeField,
 } from '../src';
 import { expectNoAxeViolations } from './axe';
 
@@ -542,5 +548,109 @@ describe('Rise', () => {
     const { container } = render(<Rise>x</Rise>);
     expect(container.querySelector('.slurp-rise')?.hasAttribute('data-armed')).toBe(false);
     globalThis.IntersectionObserver = real;
+  });
+});
+
+describe('TimeField, FocusTrap, Blobs, Table loading, Menu choices', () => {
+  it('TimeField is a time input with its limits, as a Field', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <main>
+        <TimeField
+          label="Orario"
+          min="08:00"
+          max="18:00"
+          step={900}
+          defaultValue="09:30"
+          onValueChange={onValueChange}
+        />
+      </main>,
+    );
+    const input = screen.getByLabelText('Orario') as HTMLInputElement;
+    expect(input.type).toBe('time');
+    expect(input.min).toBe('08:00');
+    expect(input.step).toBe('900');
+    expect(input.value).toBe('09:30');
+    fireEvent.change(input, { target: { value: '10:15' } });
+    expect(onValueChange).toHaveBeenLastCalledWith('10:15', expect.anything());
+    await expectNoAxeViolations(container);
+  });
+
+  it('FocusTrap moves focus in, wraps Tab at the ends and gives focus back', async () => {
+    const outside = document.createElement('button');
+    document.body.appendChild(outside);
+    outside.focus();
+    const onEscape = vi.fn();
+    const { unmount } = render(
+      <FocusTrap onEscape={onEscape}>
+        <button>Uno</button>
+        <button>Due</button>
+      </FocusTrap>,
+    );
+    const one = screen.getByRole('button', { name: 'Uno' });
+    const two = screen.getByRole('button', { name: 'Due' });
+    expect(document.activeElement).toBe(one);
+    act(() => two.focus());
+    fireEvent.keyDown(two, { key: 'Tab' });
+    expect(document.activeElement).toBe(one);
+    fireEvent.keyDown(one, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(two);
+    fireEvent.keyDown(two, { key: 'Escape' });
+    expect(onEscape).toHaveBeenCalled();
+    unmount();
+    expect(document.activeElement).toBe(outside);
+    outside.remove();
+  });
+
+  it('Blobs are decorative and clamp their number', () => {
+    const { container } = render(<Blobs count={9} />);
+    const root = container.querySelector('.slurp-blobs') as HTMLElement;
+    expect(root.getAttribute('aria-hidden')).toBe('true');
+    expect(root.querySelectorAll('.slurp-blob')).toHaveLength(5);
+  });
+
+  it('Table shows placeholders while loading and says so', async () => {
+    const { container } = render(
+      <main>
+        <Table
+          caption="Persone"
+          columns={[{ key: 'name', header: 'Nome', rowHeader: true }]}
+          rows={[]}
+          loading
+          loadingRows={3}
+        />
+      </main>,
+    );
+    expect(container.querySelector('.slurp-table')?.getAttribute('aria-busy')).toBe('true');
+    expect(container.querySelectorAll('.slurp-placeholder')).toHaveLength(3);
+    expect(screen.getByRole('status').textContent).toBe('Caricamento delle righe');
+    await expectNoAxeViolations(container);
+  });
+
+  it('Menu choice items are checkable, a radio group has one chosen, and the menu stays open', async () => {
+    const onCheckedChange = vi.fn();
+    const onValueChange = vi.fn();
+    render(
+      <Menu trigger="Vista" defaultOpen>
+        <MenuCheckboxItem checked onCheckedChange={onCheckedChange}>
+          Mostra le note
+        </MenuCheckboxItem>
+        <Menu.RadioGroup label="Ordina per" value="new" onValueChange={onValueChange}>
+          <Menu.RadioItem value="new">Più recenti</Menu.RadioItem>
+          <Menu.RadioItem value="rel">Rilevanza</Menu.RadioItem>
+        </Menu.RadioGroup>
+      </Menu>,
+    );
+    const check = screen.getByRole('menuitemcheckbox', { name: 'Mostra le note' });
+    expect(check.getAttribute('aria-checked')).toBe('true');
+    await userEvent.click(check);
+    expect(onCheckedChange).toHaveBeenCalledWith(false);
+    expect(screen.getByRole('group', { name: 'Ordina per' })).toBeTruthy();
+    expect(
+      screen.getByRole('menuitemradio', { name: 'Più recenti' }).getAttribute('aria-checked'),
+    ).toBe('true');
+    await userEvent.click(screen.getByRole('menuitemradio', { name: 'Rilevanza' }));
+    expect(onValueChange).toHaveBeenCalledWith('rel');
+    expect(screen.getByRole('menuitemcheckbox', { name: 'Mostra le note' })).toBeTruthy();
   });
 });

@@ -84,3 +84,7 @@ export const Selezione: Story = {
 export const IntestazioneFissa: Story = {
   args: { maxHeight: 220, rowKey: (r) => (r as Phone).name },
 };
+
+export const Caricamento: Story = {
+  args: { rows: [], loading: true, loadingRows: 4 },
+};

@@ -1,0 +1,29 @@
+import Basic from '@demos/blobs/Basic.tsx?demo';
+
+# Blobs
+
+Patches of colour that drift slowly behind the content: decoration only, to give life to a background.
+
+<ApiLinks modules={['Blobs']} />
+
+## Quick reference
+
+<QuickRef module="Blobs" />
+
+## Examples
+
+### Behind the content
+
+The parent has `position: relative`; `count` (1–5) is the number of blobs and `color` their colour (by default the accent).
+
+<Basic />
+
+## Customizing the theme
+
+<ThemeSnippet module="Blobs" />
+
+## Accessibility
+
+- It is decorative: `aria-hidden`, no pointer.
+- It moves only with `transform` and stands still with `prefers-reduced-motion`: it costs no repaints.
+- The text above must have AA contrast even on the most vivid patch.

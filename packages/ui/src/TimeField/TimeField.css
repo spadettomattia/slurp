@@ -1,0 +1,6 @@
+/* TimeField: the browser time input inside a Field; it takes the Field stylesheet. */
+@layer slurp.components {
+  .slurp-field-control[type='time'] {
+    font-variant-numeric: tabular-nums;
+  }
+}

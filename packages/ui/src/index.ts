@@ -115,12 +115,18 @@ export { Hint, type HintProps } from './Hint';
 export { Bloom, type BloomPlacement, type BloomProps } from './Bloom';
 export {
   Menu,
+  MenuCheckboxItem,
   MenuGroup,
   MenuItem,
+  MenuRadioGroup,
+  MenuRadioItem,
   MenuSeparator,
+  type MenuCheckboxItemProps,
   type MenuGroupProps,
   type MenuItemProps,
   type MenuProps,
+  type MenuRadioGroupProps,
+  type MenuRadioItemProps,
 } from './Menu';
 export { Dialog, DIALOG_LABELS, type DialogLabels, type DialogProps } from './Dialog';
 export { Sheet, type SheetOwnProps, type SheetProps } from './Sheet';
@@ -147,6 +153,9 @@ export { ResultRow, type ResultRowProps } from './ResultRow';
 export { Mark, type MarkProps } from './Mark';
 export { Empty, type EmptyProps } from './Empty';
 export { Link, type LinkProps } from './Link';
+export { Blobs, type BlobsProps } from './Blobs';
+export { FocusTrap, type FocusTrapProps } from './FocusTrap';
+export { TimeField, type TimeFieldProps } from './TimeField';
 export { Rise, type RiseProps } from './Rise';
 export { Reveal, type RevealProps } from './Reveal';
 export {

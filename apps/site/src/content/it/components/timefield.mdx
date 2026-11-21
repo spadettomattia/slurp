@@ -1,0 +1,29 @@
+import Basic from '@demos/timefield/Basic.tsx?demo';
+
+# TimeField
+
+Un orario: l’input `time` del browser, vestito da Field. Tastiera, selettore sul tocco e annunci sono quelli della piattaforma.
+
+<ApiLinks modules={['TimeField']} />
+
+## Riferimento rapido
+
+<QuickRef module="TimeField" />
+
+## Esempi
+
+### Con limiti e passo
+
+Il valore è sempre `HH:MM`. `min` e `max` limitano la scelta; `step` (in secondi) la scandisce: 900 va a quarti d’ora.
+
+<Basic />
+
+## Personalizzare il tema
+
+<ThemeSnippet module="TimeField" />
+
+## Accessibilità
+
+- È un vero `input type="time"`: i lettori di schermo annunciano ore e minuti, e i telefoni aprono il selettore del sistema.
+- Etichetta sempre visibile, suggerimento e errore collegati con `aria-describedby`, come in ogni Field.
+- Il formato mostrato segue la lingua di chi lo usa; il valore resta `HH:MM`.

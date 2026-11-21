@@ -1,3 +1,4 @@
+import { CheckIcon } from '@slurp-ui/icons';
 import { cx } from '@slurp-ui/utils';
 import {
   createContext,
@@ -38,7 +39,7 @@ export function Menu<E extends ElementType = 'div'>(props: MenuProps<E>) {
           <div
             ref={list}
             className="slurp-menu-list"
-            onKeyDown={(e) => moveFocus(e, list.current, '[role="menuitem"]', { loop: true })}
+            onKeyDown={(e) => moveFocus(e, list.current, '[role^="menuitem"]', { loop: true })}
           >
             {children}
           </div>
@@ -132,6 +133,113 @@ export function MenuSeparator() {
   return <div role="separator" className="slurp-menu-separator" />;
 }
 
+export interface MenuCheckboxItemProps {
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
+  icon?: ReactNode;
+  disabled?: boolean;
+  /** The shortcut that toggles it elsewhere, shown at the end. */
+  shortcut?: string;
+  children?: ReactNode;
+}
+
+/** An item that is on or off (a view option). The menu stays open when you toggle it. */
+export function MenuCheckboxItem({
+  checked,
+  onCheckedChange,
+  icon,
+  disabled,
+  shortcut,
+  children,
+}: MenuCheckboxItemProps) {
+  return (
+    <button
+      type="button"
+      role="menuitemcheckbox"
+      aria-checked={checked}
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      className="slurp-bloom-item"
+      onClick={() => {
+        if (!disabled) onCheckedChange(!checked);
+      }}
+    >
+      <span className="slurp-menu-check" aria-hidden="true">
+        {checked && <CheckIcon size={18} />}
+      </span>
+      {icon != null && (
+        <span className="slurp-bloom-item-icon" aria-hidden="true">
+          {icon}
+        </span>
+      )}
+      <span className="slurp-bloom-item-label">{children}</span>
+      {shortcut != null && (
+        <kbd className="slurp-menu-shortcut" aria-keyshortcuts={shortcut}>
+          {shortcut}
+        </kbd>
+      )}
+    </button>
+  );
+}
+
+const RadioContext = createContext<{ value: string; select: (value: string) => void } | null>(null);
+
+export interface MenuRadioGroupProps {
+  /** Names the group. */
+  label: string;
+  value: string;
+  onValueChange: (value: string) => void;
+  children?: ReactNode;
+}
+
+/** A set of items of which exactly one is chosen (a sort order). */
+export function MenuRadioGroup({ label, value, onValueChange, children }: MenuRadioGroupProps) {
+  const id = useId();
+  return (
+    <RadioContext value={{ value, select: onValueChange }}>
+      <div role="group" aria-labelledby={id} className="slurp-menu-group">
+        <div id={id} className="slurp-menu-group-label" role="presentation">
+          {label}
+        </div>
+        {children}
+      </div>
+    </RadioContext>
+  );
+}
+
+export interface MenuRadioItemProps {
+  value: string;
+  disabled?: boolean;
+  children?: ReactNode;
+}
+
+/** One choice of a `MenuRadioGroup`. */
+export function MenuRadioItem({ value, disabled, children }: MenuRadioItemProps) {
+  const group = useContext(RadioContext);
+  const checked = group?.value === value;
+  return (
+    <button
+      type="button"
+      role="menuitemradio"
+      aria-checked={checked}
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      className="slurp-bloom-item"
+      onClick={() => {
+        if (!disabled) group?.select(value);
+      }}
+    >
+      <span className="slurp-menu-check" aria-hidden="true">
+        {checked && <CheckIcon size={18} />}
+      </span>
+      <span className="slurp-bloom-item-label">{children}</span>
+    </button>
+  );
+}
+
 Menu.Item = MenuItem;
+Menu.CheckboxItem = MenuCheckboxItem;
+Menu.RadioGroup = MenuRadioGroup;
+Menu.RadioItem = MenuRadioItem;
 Menu.Group = MenuGroup;
 Menu.Separator = MenuSeparator;
