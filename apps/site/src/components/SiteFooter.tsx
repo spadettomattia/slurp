@@ -1,73 +1,70 @@
-import { Fold, Footer } from '@slurp-ui/react';
+import { Footer, Surface } from '@slurp-ui/react';
 import { Link } from 'react-router';
 
 import { REPO } from '../../site.config';
 import { href, useLang } from '~/lib/lang';
 import { AVAILABLE } from '~/lib/available';
-import { inline } from '~/lib/inline';
+import { API_SECTION, NAV } from '~/lib/nav';
+
+/** The components a visitor looks for first: the foot shows these, the rest is one link away. */
+const FEATURED_COMPONENTS = ['button', 'field', 'dialog', 'table', 'dock', 'toast'];
 
 /**
- * The foot of every page: the frequent questions (Fold), the sections and project links (Footer) and the copyright.
- * Only the library's own components; links to pages that exist.
+ * The foot of every page, as tailwindcss.com keeps it — quiet: three link columns (the sections, the components people
+ * look for, the project) and the copyright. The frequent questions are not here: under a page of documentation they
+ * would read as part of it; they are a section of the home. Links to pages that exist.
  */
 export function SiteFooter() {
   const { lang, copy } = useLang();
   const f = copy.footer;
+  const sections = [
+    ...NAV.filter((s) =>
+      s.groups.some((g) => g.pages.some((p) => AVAILABLE.has(`${lang}/${p.slug}`))),
+    ).map((s) => ({ id: s.id, title: s.title[lang] })),
+    { id: API_SECTION.id, title: API_SECTION.title[lang] },
+  ];
+  const components = FEATURED_COMPONENTS.filter((n) => AVAILABLE.has(`${lang}/components/${n}`));
+  const allComponents = lang === 'it' ? 'Tutti i componenti' : 'All components';
   return (
     <div className="site-footer">
-      <section className="site-faq" aria-labelledby="site-faq-title">
-        <h2 id="site-faq-title" className="site-faq-title">
-          {f.faqTitle}
-        </h2>
-        {f.faq.map((item) => (
-          <Fold key={item.q} summary={item.q} headingLevel={3}>
-            <p className="site-faq-answer">
-              {inline(item.a)}
-              {item.to && AVAILABLE.has(`${lang}/${item.to}`) && (
-                <>
-                  {' '}
-                  <Link className="slurp-link" to={href(lang, item.to)}>
-                    {copy.open}
-                  </Link>
-                </>
-              )}
-            </p>
-          </Fold>
-        ))}
-      </section>
-      <Footer aria-label={f.label}>
-        <Footer.Group title={f.docs}>
-          <Footer.Link as={Link} to={href(lang, 'getting-started')}>
-            {lang === 'it' ? 'Per iniziare' : 'Getting started'}
-          </Footer.Link>
-          <Footer.Link as={Link} to={href(lang, 'components')}>
-            {lang === 'it' ? 'Componenti' : 'Components'}
-          </Footer.Link>
-          <Footer.Link as={Link} to={href(lang, 'customization')}>
-            {lang === 'it' ? 'Personalizzazione' : 'Customisation'}
-          </Footer.Link>
-          <Footer.Link as={Link} to={href(lang, 'api')}>
-            API
-          </Footer.Link>
-        </Footer.Group>
-        <Footer.Group title={f.project}>
-          <Footer.Link href={REPO} target="_blank" rel="noreferrer">
-            GitHub
-          </Footer.Link>
-          <Footer.Link href={`${REPO}/releases`} target="_blank" rel="noreferrer">
-            {f.releases}
-          </Footer.Link>
-          <Footer.Link href={`${REPO}/issues`} target="_blank" rel="noreferrer">
-            {f.issues}
-          </Footer.Link>
-          <Footer.Link href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noreferrer">
-            {f.license}
-          </Footer.Link>
-        </Footer.Group>
-        <Footer.Bottom>
-          <span>{f.rights(new Date().getFullYear())}</span>
-        </Footer.Bottom>
-      </Footer>
+      <Surface className="site-footer-card">
+        <Footer aria-label={f.label}>
+          <Footer.Group title={f.docs}>
+            {sections.map((c) => (
+              <Footer.Link key={c.id} as={Link} to={href(lang, c.id)}>
+                {c.title}
+              </Footer.Link>
+            ))}
+          </Footer.Group>
+          <Footer.Group title={f.popular}>
+            {components.map((n) => (
+              <Footer.Link key={n} as={Link} to={href(lang, `components/${n}`)}>
+                {n.charAt(0).toUpperCase() + n.slice(1)}
+              </Footer.Link>
+            ))}
+            <Footer.Link as={Link} to={href(lang, 'components')}>
+              {allComponents}
+            </Footer.Link>
+          </Footer.Group>
+          <Footer.Group title={f.project}>
+            <Footer.Link href={REPO} target="_blank" rel="noreferrer">
+              GitHub
+            </Footer.Link>
+            <Footer.Link href={`${REPO}/releases`} target="_blank" rel="noreferrer">
+              {f.releases}
+            </Footer.Link>
+            <Footer.Link href={`${REPO}/issues`} target="_blank" rel="noreferrer">
+              {f.issues}
+            </Footer.Link>
+            <Footer.Link href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noreferrer">
+              {f.license}
+            </Footer.Link>
+          </Footer.Group>
+          <Footer.Bottom>
+            <span>{f.rights(new Date().getFullYear())}</span>
+          </Footer.Bottom>
+        </Footer>
+      </Surface>
     </div>
   );
 }

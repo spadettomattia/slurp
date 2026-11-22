@@ -7,41 +7,43 @@ import { href, useLang } from '~/lib/lang';
 import { GithubIcon } from '@slurp-ui/react/icons';
 import { Logo } from './Logo';
 
-/**
- * The identity of the site, floating like every Slurp control: the logo, the name and the version on a pill at the
- * top left (back to the home); the repository on a Bubble at the top right, beside Settings.
- */
+/** The identity of the site, a floating pill at the left of the header: the logo and the name (back to the home) and the version. */
 export function Brand() {
   const { lang, copy } = useLang();
   return (
-    <header className="site-top">
-      <Surface as="div" level="dock" radius="full" className="site-brand">
-        <Link to={href(lang, '')} className="site-brand-link" aria-label={copy.homeLink}>
-          <Logo className="site-logo" />
-          <span className="site-brand-name">Slurp UI</span>
-        </Link>
-        <a
-          className="site-brand-version"
-          href={`${REPO}/releases`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={copy.releases(pkg.version)}
-        >
-          v{pkg.version}
-        </a>
-      </Surface>
-      <Bubble
-        as="a"
-        href={REPO}
+    <Surface as="div" level="dock" radius="full" className="site-brand">
+      <Link to={href(lang, '')} className="site-brand-link" aria-label={copy.homeLink}>
+        <Logo className="site-logo" />
+        <span className="site-brand-name">Slurp UI</span>
+      </Link>
+      <a
+        className="site-brand-version"
+        href={`${REPO}/releases`}
         target="_blank"
         rel="noreferrer"
-        label={copy.github}
-        appearance="soft"
-        tone="neutral"
-        className="site-github"
+        aria-label={copy.releases(pkg.version)}
       >
-        <GithubIcon />
-      </Bubble>
-    </header>
+        v{pkg.version}
+      </a>
+    </Surface>
+  );
+}
+
+/** The repository, a Bubble beside Settings at the right of the header. */
+export function Repository() {
+  const { copy } = useLang();
+  return (
+    <Bubble
+      as="a"
+      href={REPO}
+      target="_blank"
+      rel="noreferrer"
+      label={copy.github}
+      appearance="soft"
+      tone="neutral"
+      className="site-github"
+    >
+      <GithubIcon />
+    </Bubble>
   );
 }

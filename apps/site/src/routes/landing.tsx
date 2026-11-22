@@ -35,6 +35,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { Lang } from '../../site.config';
 import { PauseIcon, PlayIcon } from '@slurp-ui/react/icons';
+import { Faq } from '~/components/Faq';
 import { TileLink } from '~/components/Links';
 import { AVAILABLE } from '~/lib/available';
 import { href, useLang } from '~/lib/lang';
@@ -45,8 +46,10 @@ const INSTALL = 'npm install @slurp-ui/react';
 
 const TEXT = {
   it: {
-    title: 'Componenti React che si fondono, come cellule',
-    lead: 'Per andare avanti n elementi si fondono in uno, per tornare indietro uno esplode in n. Attorno, controlli pronti, superfici fluttuanti e il Dock.',
+    eyebrow: 'Design system React open source',
+    title: 'Interfacce React accessibili, con una navigazione che si trasforma',
+    lead: (components: number) =>
+      `Slurp UI è una libreria di ${components} componenti React con tema chiaro e scuro, pensati per la tastiera e per i lettori di schermo. Il suo tratto distintivo: le sezioni si fondono in una sola briciola e tornano indietro, e tutta la navigazione vive in un unico Dock.`,
     facts: (components: number) => [
       `${components} componenti`,
       'WCAG AA, chiaro e scuro',
@@ -89,8 +92,10 @@ const TEXT = {
     explore2: 'Esplora la documentazione',
   },
   en: {
-    title: 'React components that merge, like cells',
-    lead: 'To go forward n elements merge into one, to go back one bursts into n. Around it, ready-made controls, floating surfaces and the Dock.',
+    eyebrow: 'Open source React design system',
+    title: 'Accessible React interfaces, with a navigation that transforms',
+    lead: (components: number) =>
+      `Slurp UI is a library of ${components} React components with light and dark themes, built for the keyboard and for screen readers. Its signature: sections merge into a single crumb and burst back out, and all the navigation lives in one Dock.`,
     facts: (components: number) => [
       `${components} components`,
       'WCAG AA, light and dark',
@@ -132,14 +137,21 @@ const TEXT = {
     unread: 'new',
     explore2: 'Explore the documentation',
   },
-} satisfies Record<Lang, Record<string, string | string[] | ((n: number) => string[])>>;
+} satisfies Record<Lang, Record<string, string | string[] | ((n: number) => string | string[])>>;
 
 type Copy = (typeof TEXT)[Lang];
 
 /** The argument of the page: what you get (outcomes, from what the repository checks), how to start, the last invitation. */
 const ARGUMENT = {
   it: {
+    eyebrows: {
+      showcase: 'Componenti',
+      benefits: 'Perché Slurp',
+      steps: 'Per iniziare',
+      explore: 'Documentazione',
+    },
     benefitsTitle: 'Perché usare Slurp UI',
+    benefitsLead: 'Ciò che ottieni senza lavoro in più, verificato dai test del repository.',
     benefits: [
       [
         'Si usano da tastiera e da lettore di schermo',
@@ -161,6 +173,9 @@ const ARGUMENT = {
     tagline:
       'Un solo posto per navigare, controlli che restano accessibili e un tema che segue il tuo colore.',
     stepsTitle: 'Inizia in tre passi',
+    stepsLead: 'Dall’installazione al primo componente in pochi minuti.',
+    exploreLead:
+      'Guide, componenti, personalizzazione, movimento e riferimento API: scegli da dove partire.',
     steps: [
       ['Installa il pacchetto', 'npm install @slurp-ui/react', 'bash'],
       [
@@ -178,7 +193,14 @@ const ARGUMENT = {
     ctaLead: 'Gratuita e con licenza MIT: la installi e la provi senza registrarti.',
   },
   en: {
+    eyebrows: {
+      showcase: 'Components',
+      benefits: 'Why Slurp',
+      steps: 'Getting started',
+      explore: 'Documentation',
+    },
     benefitsTitle: 'Why use Slurp UI',
+    benefitsLead: 'What you get with no extra work, checked by the repository’s tests.',
     benefits: [
       [
         'Works with the keyboard and screen readers',
@@ -200,6 +222,9 @@ const ARGUMENT = {
     tagline:
       'One place to navigate, controls that stay accessible and a theme that follows your colour.',
     stepsTitle: 'Start in three steps',
+    stepsLead: 'From installing to your first component in a few minutes.',
+    exploreLead:
+      'Guides, components, customisation, motion and API reference: choose where to start.',
     steps: [
       ['Install the package', 'npm install @slurp-ui/react', 'bash'],
       [
@@ -402,6 +427,34 @@ function Showcase({ t }: { t: Copy }) {
 }
 
 /**
+ * The head every section of the home shares (tailwindcss.com's): a small label, the title and a line under it, then the
+ * content across the full width.
+ */
+function SectionHead({
+  id,
+  eyebrow,
+  title,
+  lead,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+}) {
+  return (
+    <Flow gap={2} className="site-section-head">
+      <p className="site-eyebrow">{eyebrow}</p>
+      <Text font="title-xl" as="h2" id={id}>
+        {title}
+      </Text>
+      <Text font="body-l" muted>
+        {lead}
+      </Text>
+    </Flow>
+  );
+}
+
+/**
  * The home (mui.com's front page in Slurp's terms): the signature transition playing next to what the library is
  * and how to start, then a collage of live components, then the sections of the documentation as an entry grid.
  */
@@ -435,11 +488,12 @@ export default function Landing() {
       <div ref={intro}>
         <div className="site-hero-grid">
           <Flow gap={5} className="site-hero-text">
+            <p className="site-eyebrow">{t.eyebrow}</p>
             <Text font="display-xl" as="h1" tabIndex={-1}>
               {t.title}
             </Text>
             <Text font="body-l" muted>
-              {t.lead}
+              {t.lead(modules)}
             </Text>
             <ul className="site-facts">
               {t.facts(modules).map((f) => (
@@ -459,22 +513,25 @@ export default function Landing() {
           <HeroMotion t={t} />
         </div>
 
-        <Rise as="section" className="site-feature" aria-labelledby="showcase-title">
-          <Flow gap={3} className="site-feature-text">
-            <Text font="title-xl" as="h2" id="showcase-title">
-              {t.showcase}
-            </Text>
-            <Text font="body-l" muted>
-              {t.showcaseLead}
-            </Text>
-          </Flow>
-          <Showcase t={t} />
+        <Rise as="section" className="site-section" aria-labelledby="showcase-title">
+          <SectionHead
+            id="showcase-title"
+            eyebrow={arg.eyebrows.showcase}
+            title={t.showcase}
+            lead={t.showcaseLead}
+          />
+          <div className="site-panel">
+            <Showcase t={t} />
+          </div>
         </Rise>
 
-        <Rise as="section" className="site-argument" aria-labelledby="benefits-title">
-          <Text font="title-xl" as="h2" id="benefits-title">
-            {arg.benefitsTitle}
-          </Text>
+        <Rise as="section" className="site-section" aria-labelledby="benefits-title">
+          <SectionHead
+            id="benefits-title"
+            eyebrow={arg.eyebrows.benefits}
+            title={arg.benefitsTitle}
+            lead={arg.benefitsLead}
+          />
           <ul className="site-benefits">
             {arg.benefits.map(([title, text], i) => (
               <Rise as="li" key={title} delay={i * 60}>
@@ -495,10 +552,13 @@ export default function Landing() {
           <Reveal as="h2">{arg.tagline}</Reveal>
         </section>
 
-        <Rise as="section" className="site-argument" aria-labelledby="steps-title">
-          <Text font="title-xl" as="h2" id="steps-title">
-            {arg.stepsTitle}
-          </Text>
+        <Rise as="section" className="site-section" aria-labelledby="steps-title">
+          <SectionHead
+            id="steps-title"
+            eyebrow={arg.eyebrows.steps}
+            title={arg.stepsTitle}
+            lead={arg.stepsLead}
+          />
           <ol className="site-how">
             {arg.steps.map(([title, code, language], i) => (
               <Rise as="li" key={title} delay={i * 60} className="site-how-step">
@@ -513,54 +573,66 @@ export default function Landing() {
             ))}
           </ol>
         </Rise>
-
-        <Text font="title-xl" as="h2" className="site-explore-title">
-          {t.explore2}
-        </Text>
       </div>
-      <AnimationGroup id={motionIds.tiles}>
-        <Bento>
-          {sections.map((s) => (
+      <section className="site-section" aria-labelledby="explore-title">
+        <SectionHead
+          id="explore-title"
+          eyebrow={arg.eyebrows.explore}
+          title={t.explore2}
+          lead={arg.exploreLead}
+        />
+        <AnimationGroup id={motionIds.tiles}>
+          <Bento>
+            {sections.map((s) => (
+              <TileLink
+                key={s.id}
+                to={href(lang, s.id)}
+                title={s.title[lang]}
+                subtitle={s.subtitle[lang]}
+                badge={copy.pages(s.count)}
+                color={tint(s.hue)}
+                weight={s.count}
+                animationId={motionIds.tile(s.id)}
+                slurp={open(s.id)}
+              />
+            ))}
             <TileLink
-              key={s.id}
-              to={href(lang, s.id)}
-              title={s.title[lang]}
-              subtitle={s.subtitle[lang]}
-              badge={copy.pages(s.count)}
-              color={tint(s.hue)}
-              weight={s.count}
-              animationId={motionIds.tile(s.id)}
-              slurp={open(s.id)}
+              to={href(lang, API_SECTION.id)}
+              title={API_SECTION.title[lang]}
+              subtitle={API_SECTION.subtitle[lang]}
+              badge={copy.pages(modules)}
+              color={tint(API_SECTION.hue)}
+              weight={modules}
+              animationId={motionIds.tile(API_SECTION.id)}
+              slurp={open(API_SECTION.id)}
             />
-          ))}
-          <TileLink
-            to={href(lang, API_SECTION.id)}
-            title={API_SECTION.title[lang]}
-            subtitle={API_SECTION.subtitle[lang]}
-            badge={copy.pages(modules)}
-            color={tint(API_SECTION.hue)}
-            weight={modules}
-            animationId={motionIds.tile(API_SECTION.id)}
-            slurp={open(API_SECTION.id)}
-          />
-        </Bento>
-      </AnimationGroup>
+          </Bento>
+        </AnimationGroup>
+      </section>
 
-      <Rise as="section" className="site-final" aria-labelledby="final-title">
-        <Text font="title-xl" as="h2" id="final-title">
-          {arg.ctaTitle}
-        </Text>
-        <Text font="body-l" muted>
-          {arg.ctaLead}
-        </Text>
-        <Flow direction="row" gap={3} wrap>
-          <Button size="lg" {...start} endIcon={<ChevronRightIcon />}>
-            {t.start}
-          </Button>
-          <Button size="lg" appearance="soft" {...explore}>
-            {t.explore}
-          </Button>
-        </Flow>
+      <Rise as="section" className="site-section" aria-labelledby="faq-title">
+        <Faq />
+      </Rise>
+
+      <Rise as="section" className="site-section" aria-labelledby="final-title">
+        <Surface className="site-final">
+          <Flow gap={2}>
+            <Text font="title-xl" as="h2" id="final-title">
+              {arg.ctaTitle}
+            </Text>
+            <Text font="body-l" muted>
+              {arg.ctaLead}
+            </Text>
+          </Flow>
+          <Flow direction="row" gap={3} wrap>
+            <Button size="lg" {...start} endIcon={<ChevronRightIcon />}>
+              {t.start}
+            </Button>
+            <Button size="lg" appearance="soft" {...explore}>
+              {t.explore}
+            </Button>
+          </Flow>
+        </Surface>
       </Rise>
     </div>
   );

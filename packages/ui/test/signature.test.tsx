@@ -347,6 +347,37 @@ describe('Dock', () => {
     expect(pill.textContent).toContain('Cerca nelle guide…');
   });
 
+  it('side="top": marks the wrap and puts the panel after the bar, in reading order', () => {
+    const { container } = render(
+      <Dock inline side="top" panel={<Chip>Risultato</Chip>} panelLabel="Risultati">
+        <Dock.Search placeholder="Cerca…" />
+      </Dock>,
+    );
+    const wrap = container.querySelector('.slurp-dock-wrap');
+    expect(wrap?.getAttribute('data-side')).toBe('top');
+    const bar = container.querySelector('.slurp-dock');
+    const row = bar?.querySelector('.slurp-dock-row');
+    const panel = bar?.querySelector('.slurp-dock-panel');
+    expect(
+      row && panel && row.compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it('by default the panel comes before the bar and nothing is marked', () => {
+    const { container } = render(
+      <Dock inline panel={<Chip>Risultato</Chip>} panelLabel="Risultati">
+        <Dock.Search placeholder="Cerca…" />
+      </Dock>,
+    );
+    expect(container.querySelector('.slurp-dock-wrap')?.hasAttribute('data-side')).toBe(false);
+    const bar = container.querySelector('.slurp-dock');
+    const row = bar?.querySelector('.slurp-dock-row');
+    const panel = bar?.querySelector('.slurp-dock-panel');
+    expect(
+      row && panel && panel.compareDocumentPosition(row) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
   it('has no axe violations with the panel open', async () => {
     const { container } = render(
       <main>

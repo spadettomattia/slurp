@@ -3,7 +3,7 @@ import type { Lang } from '../../site.config';
 
 const it = {
   siteTitle: 'Slurp UI',
-  tagline: 'Componenti React del design system Slurp',
+  tagline: 'Design system React: componenti accessibili e una navigazione che si trasforma',
   skip: 'Vai al contenuto',
   previous: 'Precedente',
   next: 'Successiva',
@@ -73,7 +73,10 @@ const it = {
     releases: 'Note di rilascio',
     issues: 'Segnala un problema',
     license: 'Licenza MIT',
+    faqEyebrow: 'Domande',
     faqTitle: 'Domande frequenti',
+    faqLead: 'Le risposte brevi alle domande più comuni. Il resto lo trovi nella documentazione.',
+    popular: 'Componenti più usati',
     faq: [
       {
         q: 'Come installo la libreria?',
@@ -108,7 +111,7 @@ export type Copy = typeof it;
 
 const en: Copy = {
   siteTitle: 'Slurp UI',
-  tagline: 'React components of the Slurp design system',
+  tagline: 'React design system: accessible components and a navigation that transforms',
   skip: 'Skip to content',
   previous: 'Previous',
   next: 'Next',
@@ -178,7 +181,10 @@ const en: Copy = {
     releases: 'Release notes',
     issues: 'Report an issue',
     license: 'MIT licence',
+    faqEyebrow: 'Questions',
     faqTitle: 'Frequently asked questions',
+    faqLead: 'Short answers to the most common questions. The rest is in the documentation.',
+    popular: 'Most used components',
     faq: [
       {
         q: 'How do I install the library?',

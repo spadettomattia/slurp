@@ -13,7 +13,6 @@ import { useRef } from 'react';
 import { useOutletContext, useParams } from 'react-router';
 
 import { RowLink } from '~/components/Links';
-import { hasPreview, Preview } from '~/components/Preview';
 import { DESCRIPTIONS } from '~/lib/descriptions';
 import { AVAILABLE } from '~/lib/available';
 import { href, useLang } from '~/lib/lang';
@@ -29,7 +28,10 @@ interface Entry {
   description?: string;
 }
 
-/** A section: its pages as lists of rows, grouped; the Dock's search filters them as you type. */
+/**
+ * A section, laid out like tailwindcss.com's lists: a big title and a line, then one band per group — its name in a
+ * narrow column on the left, its pages as text rows on the right. The Dock's search filters them as you type.
+ */
 export default function Section() {
   const { lang, copy } = useLang();
   const { section: id } = useParams();
@@ -78,14 +80,14 @@ export default function Section() {
 
   return (
     <>
-      <Flow gap={2} className="site-hero" ref={intro}>
-        <Text font="title-xl" as="h1" tabIndex={-1}>
+      <Flow gap={3} className="site-hero" ref={intro}>
+        <Text font="display-l" as="h1" tabIndex={-1}>
           {head.title[lang]}
         </Text>
         <Text font="body-l" muted>
           {head.subtitle[lang]}
         </Text>
-        <Text font="caption" role="status">
+        <Text font="caption" muted role="status">
           {copy.items(total)}
         </Text>
       </Flow>
@@ -102,11 +104,7 @@ export default function Section() {
         <AnimationGroup id={motionIds.rows}>
           {shown.map((g, i) => (
             <section key={g.title ?? i} className="site-group">
-              {g.title && (
-                <Text font="title-l" as="h2">
-                  {g.title}
-                </Text>
-              )}
+              <h2 className="site-group-title">{g.title ?? head.title[lang]}</h2>
               <List>
                 {g.entries.map((e) => (
                   <RowLink
@@ -120,8 +118,6 @@ export default function Section() {
                     }}
                     title={e.title}
                     meta={e.description}
-                    mark={hasPreview(e.slug) ? <Preview slug={e.slug} /> : undefined}
-                    classNames={hasPreview(e.slug) ? { mark: 'site-row-preview' } : undefined}
                   />
                 ))}
               </List>

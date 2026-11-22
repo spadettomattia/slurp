@@ -21,7 +21,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 import { LANGS, REPO, type Lang } from '../../site.config';
 import { SiteFooter } from '~/components/SiteFooter';
 import { DESCRIPTIONS } from '~/lib/descriptions';
-import { Brand } from '~/components/Brand';
+import { Brand, Repository } from '~/components/Brand';
 import { EditIcon, MenuIcon } from '@slurp-ui/react/icons';
 import { mdxComponents } from '~/components/Mdx';
 import { PageNav } from '~/components/PageNav';
@@ -35,6 +35,8 @@ import { API_SECTION, NAV, pageTitle, sectionOf } from '~/lib/nav';
 
 /** Below this width the two indexes leave the sides and open from the Dock. */
 const NARROW = '(max-width: 1100px)';
+/** From this width the Dock sits in the header, at the right; below it stays at the bottom, within thumb's reach. */
+const HEADER_DOCK = '(min-width: 861px)';
 
 /** What the section pages read from the Dock: the search filters their list. */
 export interface SectionContext {
@@ -64,6 +66,8 @@ export default function DocLayout() {
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
   const narrow = useMediaQuery(NARROW);
+  // The prerendered page is the wide one (as for NARROW): the Dock starts in the header and a phone moves it down.
+  const top = useMediaQuery(HEADER_DOCK, { defaultMatches: true });
   const [query, setQuery] = useState('');
   const [panel, setPanel] = useState<Panel>(null);
   const first = useRef(true);
@@ -157,6 +161,98 @@ export default function DocLayout() {
 
   const outlet = <Outlet context={{ query, reset: () => setQuery('') } satisfies SectionContext} />;
 
+  const dock = (
+    <Dock
+      inline={top}
+      side={top ? 'top' : 'bottom'}
+      panelLabel={searching ? copy.searchResults : panel === 'toc' ? copy.pageMenu : copy.docsIndex}
+      focusPanel={!searching}
+      onDismiss={() => {
+        setPanel(null);
+        setQuery('');
+      }}
+      panel={
+        searching ? (
+          hits.length ? (
+            <Flow gap={1}>
+              {hits.slice(0, 6).map((h) => (
+                <ResultRow
+                  key={h.to}
+                  title={h.title}
+                  meta={h.meta}
+                  onClick={() => void navigate(h.to)}
+                />
+              ))}
+              {hits.length > 6 && (
+                <Text font="caption" className="site-more">
+                  {copy.items(hits.length)}
+                </Text>
+              )}
+            </Flow>
+          ) : (
+            <Text muted className="site-empty">
+              {copy.noResults}
+            </Text>
+          )
+        ) : panel === 'index' ? (
+          <SideNav onNavigate={() => setPanel(null)} />
+        ) : panel === 'toc' ? (
+          <Flow gap={1} as="nav" aria-label={copy.pageMenu}>
+            {headings.map((h) => (
+              <ResultRow
+                key={h.id}
+                title={h.text}
+                className="site-toc-row"
+                data-level={h.level}
+                onClick={() => {
+                  setPanel(null);
+                  document.getElementById(h.id)?.scrollIntoView({ block: 'start' });
+                  history.replaceState(null, '', `#${h.id}`);
+                }}
+              />
+            ))}
+          </Flow>
+        ) : null
+      }
+    >
+      {level !== 'home' && (
+        <Dock.Crumbs>
+          <Dock.Back onClick={up} />
+          {level === 'page' && section && (
+            <Dock.Crumb animationId={motionIds.sectionCrumb(section.id)} onClick={up}>
+              {sectionTitle}
+            </Dock.Crumb>
+          )}
+          <Dock.Crumb
+            current
+            animationId={
+              level === 'page'
+                ? motionIds.pageCrumb(slug)
+                : section && motionIds.sectionCrumb(section.id)
+            }
+            // Narrow screens: the page's index opens from its crumb (on wide ones it sits on the right).
+            expanded={narrow && showToc ? panel === 'toc' : undefined}
+            onClick={narrow && showToc ? () => toggle('toc') : undefined}
+          >
+            {title}
+          </Dock.Crumb>
+        </Dock.Crumbs>
+      )}
+      <Dock.Search value={query} onValueChange={setQuery} placeholder={copy.searchAll} />
+      {narrow && level !== 'home' && (
+        <Dock.Actions>
+          <Dock.Action
+            label={copy.docsIndex}
+            expanded={panel === 'index'}
+            onClick={() => toggle('index')}
+          >
+            <MenuIcon />
+          </Dock.Action>
+        </Dock.Actions>
+      )}
+    </Dock>
+  );
+
   return (
     <>
       {title && level !== 'home' && <title>{`${title} · Slurp UI`}</title>}
@@ -176,155 +272,86 @@ export default function DocLayout() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={SHARE_IMAGE} />
       <SkipLink />
-      <Settings
-        languages={LANGS.map((l: Lang) => ({ value: l, label: COPY[l].languageName, lang: l }))}
-        language={lang}
-        onLanguageChange={(to) => {
-          const keep = level !== 'page' || api || AVAILABLE.has(`${to}/${slug}`);
-          void navigate(href(to as Lang, keep ? slug : ''));
-        }}
-      />
-      <Brand />
+      <header className="site-header">
+        <div className="site-header-inner">
+          <Brand />
+          {top && <div className="site-header-dock">{dock}</div>}
+          <div className="site-header-end">
+            <Repository />
+            <Settings
+              inline
+              languages={LANGS.map((l: Lang) => ({
+                value: l,
+                label: COPY[l].languageName,
+                lang: l,
+              }))}
+              language={lang}
+              onLanguageChange={(to) => {
+                const keep = level !== 'page' || api || AVAILABLE.has(`${to}/${slug}`);
+                void navigate(href(to as Lang, keep ? slug : ''));
+              }}
+            />
+          </div>
+        </div>
+      </header>
 
       {level === 'home' ? (
         <main id="content" className="site-home" tabIndex={-1}>
           {outlet}
         </main>
       ) : (
-        <div className="site-shell" data-toc={showToc || undefined}>
+        <div className="site-shell">
           {!narrow && (
-            <div className="site-side site-side-left">
-              <Surface className="site-float">
+            <aside className="site-side site-side-left">
+              <Surface className="site-float" data-site-scroll>
                 <SideNav />
               </Surface>
-            </div>
+            </aside>
           )}
-          <main id="content" className="site-content" tabIndex={-1}>
-            {level === 'page' ? (
-              <Prose as="article" className="site-article" ref={article}>
-                {eyebrow && <p className="site-eyebrow">{eyebrow}</p>}
-                <MDXProvider components={mdxComponents}>{outlet}</MDXProvider>
-                <a
-                  className="site-edit slurp-link"
-                  href={
-                    api
-                      ? `${REPO}/blob/main/packages/ui/src/${moduleName(parts[1])}/${moduleName(parts[1])}.tsx`
-                      : `${REPO}/edit/main/apps/site/src/content/${lang}/${slug}.mdx`
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <EditIcon size={18} />
-                  {api ? copy.source : copy.editOnGithub}
-                </a>
-                <PageNav available={AVAILABLE} />
-              </Prose>
-            ) : (
-              outlet
-            )}
-          </main>
-          {!narrow && showToc && (
-            <div className="site-side site-side-right">
-              <Surface className="site-float">
-                <Contents
-                  items={headings.map((h) => ({ id: h.id, label: h.text, level: h.level }))}
-                />
-              </Surface>
+          {/* The index runs the whole height of the page: the questions and the foot sit in this column, beside it. */}
+          <div className="site-body">
+            <div className="site-main-row" data-toc={showToc || undefined}>
+              <main id="content" className="site-content" tabIndex={-1}>
+                {level === 'page' ? (
+                  <Prose as="article" className="site-article" ref={article}>
+                    {eyebrow && <p className="site-eyebrow">{eyebrow}</p>}
+                    <MDXProvider components={mdxComponents}>{outlet}</MDXProvider>
+                    <a
+                      className="site-edit slurp-link"
+                      href={
+                        api
+                          ? `${REPO}/blob/main/packages/ui/src/${moduleName(parts[1])}/${moduleName(parts[1])}.tsx`
+                          : `${REPO}/edit/main/apps/site/src/content/${lang}/${slug}.mdx`
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <EditIcon size={18} />
+                      {api ? copy.source : copy.editOnGithub}
+                    </a>
+                    <PageNav available={AVAILABLE} />
+                  </Prose>
+                ) : (
+                  outlet
+                )}
+              </main>
+              {!narrow && showToc && (
+                <aside className="site-side site-side-right">
+                  <Surface className="site-float" data-site-scroll>
+                    <Contents
+                      items={headings.map((h) => ({ id: h.id, label: h.text, level: h.level }))}
+                    />
+                  </Surface>
+                </aside>
+              )}
             </div>
-          )}
+            <SiteFooter />
+          </div>
         </div>
       )}
-      <SiteFooter />
+      {level === 'home' && <SiteFooter />}
 
-      <Dock
-        panelLabel={
-          searching ? copy.searchResults : panel === 'toc' ? copy.pageMenu : copy.docsIndex
-        }
-        focusPanel={!searching}
-        onDismiss={() => {
-          setPanel(null);
-          setQuery('');
-        }}
-        panel={
-          searching ? (
-            hits.length ? (
-              <Flow gap={1}>
-                {hits.slice(0, 6).map((h) => (
-                  <ResultRow
-                    key={h.to}
-                    title={h.title}
-                    meta={h.meta}
-                    onClick={() => void navigate(h.to)}
-                  />
-                ))}
-                {hits.length > 6 && (
-                  <Text font="caption" className="site-more">
-                    {copy.items(hits.length)}
-                  </Text>
-                )}
-              </Flow>
-            ) : (
-              <Text muted className="site-empty">
-                {copy.noResults}
-              </Text>
-            )
-          ) : panel === 'index' ? (
-            <SideNav onNavigate={() => setPanel(null)} />
-          ) : panel === 'toc' ? (
-            <Flow gap={1} as="nav" aria-label={copy.pageMenu}>
-              {headings.map((h) => (
-                <ResultRow
-                  key={h.id}
-                  title={h.text}
-                  className="site-toc-row"
-                  data-level={h.level}
-                  onClick={() => {
-                    setPanel(null);
-                    document.getElementById(h.id)?.scrollIntoView({ block: 'start' });
-                    history.replaceState(null, '', `#${h.id}`);
-                  }}
-                />
-              ))}
-            </Flow>
-          ) : null
-        }
-      >
-        {level !== 'home' && (
-          <Dock.Crumbs>
-            <Dock.Back onClick={up} />
-            {level === 'page' && section && (
-              <Dock.Crumb animationId={motionIds.sectionCrumb(section.id)} onClick={up}>
-                {sectionTitle}
-              </Dock.Crumb>
-            )}
-            <Dock.Crumb
-              current
-              animationId={
-                level === 'page'
-                  ? motionIds.pageCrumb(slug)
-                  : section && motionIds.sectionCrumb(section.id)
-              }
-              // Narrow screens: the page's index opens from its crumb (on wide ones it sits on the right).
-              expanded={narrow && showToc ? panel === 'toc' : undefined}
-              onClick={narrow && showToc ? () => toggle('toc') : undefined}
-            >
-              {title}
-            </Dock.Crumb>
-          </Dock.Crumbs>
-        )}
-        <Dock.Search value={query} onValueChange={setQuery} placeholder={copy.searchAll} />
-        {narrow && level !== 'home' && (
-          <Dock.Actions>
-            <Dock.Action
-              label={copy.docsIndex}
-              expanded={panel === 'index'}
-              onClick={() => toggle('index')}
-            >
-              <MenuIcon />
-            </Dock.Action>
-          </Dock.Actions>
-        )}
-      </Dock>
+      {!top && dock}
     </>
   );
 }

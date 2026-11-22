@@ -97,8 +97,13 @@ export interface DockOwnProps {
   focusPanel?: boolean;
   /** A press outside, Escape or Tab out: close your panel here. */
   onDismiss?: () => void;
-  /** In the flow (previews, docs) instead of fixed at the bottom. */
+  /** In the flow (previews, docs) instead of fixed at the bottom (or the top, with `side="top"`). */
   inline?: boolean;
+  /**
+   * Which edge the bar belongs to. `bottom` (default): fixed at the bottom, the panel grows upward above the bar. `top`:
+   * for a header; the panel opens below the bar and follows it in the reading and Tab order.
+   */
+  side?: 'bottom' | 'top';
   labels?: Partial<DockLabels>;
 }
 
@@ -120,6 +125,7 @@ function DockRoot<E extends ElementType = 'nav'>(props: DockProps<E>) {
     focusPanel = true,
     onDismiss,
     inline = false,
+    side = 'bottom',
     labels: labelsProp,
     ...rest
   } = useThemeProps('Dock', props as DockProps);
@@ -164,12 +170,32 @@ function DockRoot<E extends ElementType = 'nav'>(props: DockProps<E>) {
 
   const focusResults = () => !!moveFocusFirst(panelRef.current);
 
+  const panelEl = (
+    <div
+      ref={panelRef}
+      id={panelId}
+      className="slurp-dock-panel"
+      data-open={open || undefined}
+      role={open ? 'region' : undefined}
+      aria-label={open ? (searching ? labels.search : panelLabel) : undefined}
+      inert={!open}
+      onKeyDown={(e) =>
+        moveFocus(e, panelRef.current, '[data-result]', () => searchInput.current?.focus())
+      }
+    >
+      <div ref={setPanelInner} className="slurp-dock-panel-inner">
+        {shown}
+      </div>
+    </div>
+  );
+
   return (
     <>
       {styled.style}
       <Root
         className={cx('slurp-dock-wrap', styled.className, className)}
         data-inline={inline || undefined}
+        data-side={side === 'top' ? 'top' : undefined}
         aria-label={labels.navigation}
         {...root}
       >
@@ -179,22 +205,7 @@ function DockRoot<E extends ElementType = 'nav'>(props: DockProps<E>) {
           onKeyDown={dismiss.containerProps.onKeyDown}
           onBlur={dismiss.containerProps.onBlur}
         >
-          <div
-            ref={panelRef}
-            id={panelId}
-            className="slurp-dock-panel"
-            data-open={open || undefined}
-            role={open ? 'region' : undefined}
-            aria-label={open ? (searching ? labels.search : panelLabel) : undefined}
-            inert={!open}
-            onKeyDown={(e) =>
-              moveFocus(e, panelRef.current, '[data-result]', () => searchInput.current?.focus())
-            }
-          >
-            <div ref={setPanelInner} className="slurp-dock-panel-inner">
-              {shown}
-            </div>
-          </div>
+          {side !== 'top' && panelEl}
           <DockContext
             value={{
               compact,
@@ -210,6 +221,7 @@ function DockRoot<E extends ElementType = 'nav'>(props: DockProps<E>) {
           >
             <div className="slurp-dock-row">{children}</div>
           </DockContext>
+          {side === 'top' && panelEl}
         </div>
       </Root>
     </>
